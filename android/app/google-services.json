@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "588737506675",
+    "project_id": "surfversion3",
+    "storage_bucket": "surfversion3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588737506675:android:1289b86461ab4ccc97e906",
+        "android_client_info": {
+          "package_name": "com.surfsocial.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbYf1fIu5DO_FOBK4elQKYQgXjT-EaXSU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
