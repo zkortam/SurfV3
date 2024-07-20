@@ -56,6 +56,7 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
     return controller
       ..addPageRequestListener(
         (nextPageMarker) => queryPostsRecordPage(
+          queryBuilder: (_) => listViewPagingQuery ??= query,
           nextPageMarker: nextPageMarker,
           streamSubscriptions: listViewStreamSubscriptions,
           controller: controller,

@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -143,24 +144,58 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                                 },
                               ),
                             ),
-                            Align(
-                              alignment: const AlignmentDirectional(0.0, 0.0),
-                              child: FlutterFlowIconButton(
-                                borderColor: Colors.transparent,
-                                borderRadius: 20.0,
-                                borderWidth: 1.0,
-                                buttonSize: 50.0,
-                                icon: Icon(
-                                  Icons.face,
-                                  color: widget.page == 4
-                                      ? FlutterFlowTheme.of(context).primaryText
-                                      : FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                  size: 30.0,
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                context.pushNamed('Profile');
+                              },
+                              child: Container(
+                                width: 50.0,
+                                height: 50.0,
+                                decoration: const BoxDecoration(),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 35.0,
+                                      height: 35.0,
+                                      decoration: BoxDecoration(
+                                        color: widget.page == 4
+                                            ? FlutterFlowTheme.of(context)
+                                                .primary
+                                            : FlutterFlowTheme.of(context)
+                                                .primaryBackground,
+                                        borderRadius:
+                                            BorderRadius.circular(100.0),
+                                      ),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          AuthUserStreamWidget(
+                                            builder: (context) => Container(
+                                              width: 32.0,
+                                              height: 32.0,
+                                              clipBehavior: Clip.antiAlias,
+                                              decoration: const BoxDecoration(
+                                                shape: BoxShape.circle,
+                                              ),
+                                              child: Image.network(
+                                                currentUserPhoto,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                onPressed: () async {
-                                  context.pushNamed('Profile');
-                                },
                               ),
                             ),
                           ].divide(const SizedBox(width: 10.0)),

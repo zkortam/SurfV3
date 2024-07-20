@@ -91,6 +91,11 @@ class ThreadsRecord extends FirestoreRecord {
   String get summary => _summary ?? '';
   bool hasSummary() => _summary != null;
 
+  // "Link" field.
+  String? _link;
+  String get link => _link ?? '';
+  bool hasLink() => _link != null;
+
   void _initializeFields() {
     _timeStamp = snapshotData['TimeStamp'] as DateTime?;
     _author = snapshotData['Author'] as DocumentReference?;
@@ -111,6 +116,7 @@ class ThreadsRecord extends FirestoreRecord {
     _isPrivate = snapshotData['isPrivate'] as bool?;
     _isCommentsAllowed = snapshotData['isCommentsAllowed'] as bool?;
     _summary = snapshotData['summary'] as String?;
+    _link = snapshotData['Link'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -160,6 +166,7 @@ Map<String, dynamic> createThreadsRecordData({
   bool? isPrivate,
   bool? isCommentsAllowed,
   String? summary,
+  String? link,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -175,6 +182,7 @@ Map<String, dynamic> createThreadsRecordData({
       'isPrivate': isPrivate,
       'isCommentsAllowed': isCommentsAllowed,
       'summary': summary,
+      'Link': link,
     }.withoutNulls,
   );
 
@@ -207,7 +215,8 @@ class ThreadsRecordDocumentEquality implements Equality<ThreadsRecord> {
         e1?.isStealth == e2?.isStealth &&
         e1?.isPrivate == e2?.isPrivate &&
         e1?.isCommentsAllowed == e2?.isCommentsAllowed &&
-        e1?.summary == e2?.summary;
+        e1?.summary == e2?.summary &&
+        e1?.link == e2?.link;
   }
 
   @override
@@ -226,7 +235,8 @@ class ThreadsRecordDocumentEquality implements Equality<ThreadsRecord> {
         e?.isStealth,
         e?.isPrivate,
         e?.isCommentsAllowed,
-        e?.summary
+        e?.summary,
+        e?.link
       ]);
 
   @override

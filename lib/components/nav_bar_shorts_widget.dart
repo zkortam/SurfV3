@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -45,7 +46,7 @@ class _NavBarShortsWidgetState extends State<NavBarShortsWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 400.0,
+      width: double.infinity,
       height: 70.0,
       decoration: const BoxDecoration(),
       child: Align(
@@ -65,56 +66,44 @@ class _NavBarShortsWidgetState extends State<NavBarShortsWidget> {
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            20.0, 5.0, 20.0, 5.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Align(
-                              alignment: const AlignmentDirectional(0.0, 0.0),
-                              child: FlutterFlowIconButton(
-                                borderColor: Colors.transparent,
-                                borderRadius: 20.0,
-                                borderWidth: 1.0,
-                                buttonSize: 50.0,
-                                icon: Icon(
-                                  Icons.home_outlined,
-                                  color: widget.page == 1
-                                      ? FlutterFlowTheme.of(context).primaryText
-                                      : FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                  size: 30.0,
-                                ),
-                                onPressed: () async {
-                                  context.pushNamed('HomePage');
-                                },
-                              ),
-                            ),
-                            Align(
-                              alignment: const AlignmentDirectional(0.0, 0.0),
-                              child: FlutterFlowIconButton(
-                                borderColor: Colors.transparent,
-                                borderRadius: 20.0,
-                                borderWidth: 1.0,
-                                buttonSize: 50.0,
-                                icon: FaIcon(
-                                  FontAwesomeIcons.sort,
-                                  color: widget.page == 2
-                                      ? FlutterFlowTheme.of(context).primaryText
-                                      : FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                  size: 25.0,
-                                ),
-                                onPressed: () async {
-                                  context.pushNamed('Shorts');
-                                },
-                              ),
-                            ),
-                          ].divide(const SizedBox(width: 10.0)),
+                      Align(
+                        alignment: const AlignmentDirectional(0.0, 0.0),
+                        child: FlutterFlowIconButton(
+                          borderColor: Colors.transparent,
+                          borderRadius: 20.0,
+                          borderWidth: 1.0,
+                          buttonSize: 50.0,
+                          icon: Icon(
+                            Icons.home_outlined,
+                            color: widget.page == 1
+                                ? FlutterFlowTheme.of(context).primaryText
+                                : FlutterFlowTheme.of(context).secondaryText,
+                            size: 30.0,
+                          ),
+                          onPressed: () async {
+                            context.pushNamed('HomePage');
+                          },
+                        ),
+                      ),
+                      Align(
+                        alignment: const AlignmentDirectional(0.0, 0.0),
+                        child: FlutterFlowIconButton(
+                          borderColor: Colors.transparent,
+                          borderRadius: 20.0,
+                          borderWidth: 1.0,
+                          buttonSize: 50.0,
+                          icon: FaIcon(
+                            FontAwesomeIcons.sort,
+                            color: widget.page == 2
+                                ? FlutterFlowTheme.of(context).primaryText
+                                : FlutterFlowTheme.of(context).secondaryText,
+                            size: 25.0,
+                          ),
+                          onPressed: () async {
+                            context.pushNamed('Shorts');
+                          },
                         ),
                       ),
                       InkWell(
@@ -185,53 +174,74 @@ class _NavBarShortsWidgetState extends State<NavBarShortsWidget> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            20.0, 5.0, 20.0, 5.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Align(
-                              alignment: const AlignmentDirectional(0.0, 0.0),
-                              child: FlutterFlowIconButton(
-                                borderColor: Colors.transparent,
-                                borderRadius: 20.0,
-                                borderWidth: 1.0,
-                                buttonSize: 50.0,
-                                icon: Icon(
-                                  Icons.gesture_rounded,
-                                  color: widget.page == 3
-                                      ? FlutterFlowTheme.of(context).primaryText
-                                      : FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                  size: 30.0,
-                                ),
-                                onPressed: () async {
-                                  context.pushNamed('Threads');
-                                },
-                              ),
-                            ),
-                            Align(
-                              alignment: const AlignmentDirectional(0.0, 0.0),
-                              child: FlutterFlowIconButton(
-                                borderColor: Colors.transparent,
-                                borderRadius: 20.0,
-                                borderWidth: 1.0,
-                                buttonSize: 50.0,
-                                icon: Icon(
-                                  Icons.face,
+                      Align(
+                        alignment: const AlignmentDirectional(0.0, 0.0),
+                        child: FlutterFlowIconButton(
+                          borderColor: Colors.transparent,
+                          borderRadius: 20.0,
+                          borderWidth: 1.0,
+                          buttonSize: 50.0,
+                          icon: Icon(
+                            Icons.gesture_rounded,
+                            color: widget.page == 3
+                                ? FlutterFlowTheme.of(context).primaryText
+                                : FlutterFlowTheme.of(context).secondaryText,
+                            size: 30.0,
+                          ),
+                          onPressed: () async {
+                            context.pushNamed('Threads');
+                          },
+                        ),
+                      ),
+                      InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          context.pushNamed('Profile');
+                        },
+                        child: Container(
+                          width: 50.0,
+                          height: 50.0,
+                          decoration: const BoxDecoration(),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 35.0,
+                                height: 35.0,
+                                decoration: BoxDecoration(
                                   color: widget.page == 4
-                                      ? FlutterFlowTheme.of(context).primaryText
+                                      ? FlutterFlowTheme.of(context).primary
                                       : FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                  size: 30.0,
+                                          .primaryBackground,
+                                  borderRadius: BorderRadius.circular(100.0),
                                 ),
-                                onPressed: () async {
-                                  context.pushNamed('Profile');
-                                },
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    AuthUserStreamWidget(
+                                      builder: (context) => Container(
+                                        width: 32.0,
+                                        height: 32.0,
+                                        clipBehavior: Clip.antiAlias,
+                                        decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Image.network(
+                                          currentUserPhoto,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ].divide(const SizedBox(width: 10.0)),
+                            ],
+                          ),
                         ),
                       ),
                     ],

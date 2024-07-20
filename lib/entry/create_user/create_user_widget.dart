@@ -193,6 +193,8 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                   final selectedMedia =
                                                       await selectMediaWithSourceBottomSheet(
                                                     context: context,
+                                                    maxWidth: 600.00,
+                                                    maxHeight: 400.00,
                                                     imageQuality: 76,
                                                     allowPhoto: true,
                                                     includeBlurHash: true,
@@ -273,6 +275,10 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                 child: Container(
                                                   width: double.infinity,
                                                   height: 120.0,
+                                                  constraints: const BoxConstraints(
+                                                    maxWidth: 600.0,
+                                                    maxHeight: 120.0,
+                                                  ),
                                                   decoration: BoxDecoration(
                                                     color: (_model
                                                                     .uploadedLocalFile1
@@ -321,6 +327,10 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                               onTap: () async {
                                                                 final selectedMedia =
                                                                     await selectMedia(
+                                                                  maxWidth:
+                                                                      300.00,
+                                                                  maxHeight:
+                                                                      300.00,
                                                                   imageQuality:
                                                                       76,
                                                                   includeBlurHash:

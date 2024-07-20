@@ -63,7 +63,7 @@ class _ThreadsWidgetState extends State<ThreadsWidget> {
                     child: Material(
                       color: Colors.transparent,
                       child: NavigationBarWidget(
-                        page: 2,
+                        page: 3,
                       ),
                     ),
                   ),

@@ -30,11 +30,6 @@ class PostsRecord extends FirestoreRecord {
   DocumentReference? get author => _author;
   bool hasAuthor() => _author != null;
 
-  // "images" field.
-  List<String>? _images;
-  List<String> get images => _images ?? const [];
-  bool hasImages() => _images != null;
-
   // "Voters" field.
   List<VotersStruct>? _voters;
   List<VotersStruct> get voters => _voters ?? const [];
@@ -49,11 +44,6 @@ class PostsRecord extends FirestoreRecord {
   List<DocumentReference>? _comments;
   List<DocumentReference> get comments => _comments ?? const [];
   bool hasComments() => _comments != null;
-
-  // "Videos" field.
-  List<String>? _videos;
-  List<String> get videos => _videos ?? const [];
-  bool hasVideos() => _videos != null;
 
   // "isShort" field.
   bool? _isShort;
@@ -85,24 +75,34 @@ class PostsRecord extends FirestoreRecord {
   bool get isCommentsAllowed => _isCommentsAllowed ?? false;
   bool hasIsCommentsAllowed() => _isCommentsAllowed != null;
 
+  // "Videos" field.
+  List<String>? _videos;
+  List<String> get videos => _videos ?? const [];
+  bool hasVideos() => _videos != null;
+
+  // "images" field.
+  List<String>? _images;
+  List<String> get images => _images ?? const [];
+  bool hasImages() => _images != null;
+
   void _initializeFields() {
     _timePosted = snapshotData['TimePosted'] as DateTime?;
     _caption = snapshotData['Caption'] as String?;
     _author = snapshotData['Author'] as DocumentReference?;
-    _images = getDataList(snapshotData['images']);
     _voters = getStructList(
       snapshotData['Voters'],
       VotersStruct.fromMap,
     );
     _spoilerClickers = getDataList(snapshotData['SpoilerClickers']);
     _comments = getDataList(snapshotData['Comments']);
-    _videos = getDataList(snapshotData['Videos']);
     _isShort = snapshotData['isShort'] as bool?;
     _isExpanded = snapshotData['isExpanded'] as bool?;
     _isSpoiler = snapshotData['isSpoiler'] as bool?;
     _isStealth = snapshotData['isStealth'] as bool?;
     _isPrivate = snapshotData['isPrivate'] as bool?;
     _isCommentsAllowed = snapshotData['isCommentsAllowed'] as bool?;
+    _videos = getDataList(snapshotData['Videos']);
+    _images = getDataList(snapshotData['images']);
   }
 
   static CollectionReference get collection =>
@@ -175,17 +175,17 @@ class PostsRecordDocumentEquality implements Equality<PostsRecord> {
     return e1?.timePosted == e2?.timePosted &&
         e1?.caption == e2?.caption &&
         e1?.author == e2?.author &&
-        listEquality.equals(e1?.images, e2?.images) &&
         listEquality.equals(e1?.voters, e2?.voters) &&
         listEquality.equals(e1?.spoilerClickers, e2?.spoilerClickers) &&
         listEquality.equals(e1?.comments, e2?.comments) &&
-        listEquality.equals(e1?.videos, e2?.videos) &&
         e1?.isShort == e2?.isShort &&
         e1?.isExpanded == e2?.isExpanded &&
         e1?.isSpoiler == e2?.isSpoiler &&
         e1?.isStealth == e2?.isStealth &&
         e1?.isPrivate == e2?.isPrivate &&
-        e1?.isCommentsAllowed == e2?.isCommentsAllowed;
+        e1?.isCommentsAllowed == e2?.isCommentsAllowed &&
+        listEquality.equals(e1?.videos, e2?.videos) &&
+        listEquality.equals(e1?.images, e2?.images);
   }
 
   @override
@@ -193,17 +193,17 @@ class PostsRecordDocumentEquality implements Equality<PostsRecord> {
         e?.timePosted,
         e?.caption,
         e?.author,
-        e?.images,
         e?.voters,
         e?.spoilerClickers,
         e?.comments,
-        e?.videos,
         e?.isShort,
         e?.isExpanded,
         e?.isSpoiler,
         e?.isStealth,
         e?.isPrivate,
-        e?.isCommentsAllowed
+        e?.isCommentsAllowed,
+        e?.videos,
+        e?.images
       ]);
 
   @override
