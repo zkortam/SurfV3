@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/components/navigation_bar_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -8,7 +9,8 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
+  // Stores action output result for [Backend Call - API (getrecommendations)] action in HomePage widget.
+  ApiCallResponse? postIds;
   // State field(s) for ListView widget.
 
   PagingController<DocumentSnapshot?, PostsRecord>? listViewPagingController;
@@ -25,7 +27,6 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     for (var s in listViewStreamSubscriptions) {
       s?.cancel();
     }

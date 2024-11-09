@@ -6,7 +6,12 @@ import 'profile_model.dart';
 export 'profile_model.dart';
 
 class ProfileWidget extends StatefulWidget {
-  const ProfileWidget({super.key});
+  const ProfileWidget({
+    super.key,
+    required this.userReference,
+  });
+
+  final DocumentReference? userReference;
 
   @override
   State<ProfileWidget> createState() => _ProfileWidgetState();
@@ -22,7 +27,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     super.initState();
     _model = createModel(context, () => ProfileModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -35,9 +40,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -54,18 +57,29 @@ class _ProfileWidgetState extends State<ProfileWidget> {
               ),
               Align(
                 alignment: const AlignmentDirectional(0.0, 1.0),
-                child: wrapWithModel(
-                  model: _model.navigationBarModel,
-                  updateCallback: () => setState(() {}),
-                  child: const Hero(
-                    tag: 'navBar',
-                    transitionOnUserGestures: true,
-                    child: Material(
-                      color: Colors.transparent,
-                      child: NavigationBarWidget(
-                        page: 4,
+                child: SizedBox(
+                  height: 120.0,
+                  child: Stack(
+                    children: [
+                      Align(
+                        alignment: const AlignmentDirectional(0.0, 1.0),
+                        child: wrapWithModel(
+                          model: _model.navigationBarModel,
+                          updateCallback: () => safeSetState(() {}),
+                          child: const Hero(
+                            tag: 'navBar',
+                            transitionOnUserGestures: true,
+                            child: Material(
+                              color: Colors.transparent,
+                              child: NavigationBarWidget(
+                                page: 4,
+                                tabIndex: 2,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
               ),

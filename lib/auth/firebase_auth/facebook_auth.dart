@@ -22,7 +22,7 @@ Future<UserCredential> facebookSignIn() async {
 
   // Create a credential from the access token
   final OAuthCredential facebookAuthCredential =
-      FacebookAuthProvider.credential(result!.token);
+      FacebookAuthProvider.credential(result!.tokenString);
 
   // Once signed in, return the UserCredential
   return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);

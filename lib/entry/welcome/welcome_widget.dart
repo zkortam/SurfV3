@@ -67,7 +67,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
       ),
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -80,9 +80,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -113,7 +111,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
               Text(
                 'Welcome!',
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Readex Pro',
+                      fontFamily: 'Montserrat',
                       color: Colors.white,
                       fontSize: 40.0,
                       letterSpacing: 0.0,
@@ -134,7 +132,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                         const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     color: Colors.white,
                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily: 'Readex Pro',
+                          fontFamily: 'Montserrat',
                           color: Colors.black,
                           letterSpacing: 0.0,
                         ),

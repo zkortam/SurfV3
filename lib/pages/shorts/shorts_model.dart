@@ -6,7 +6,14 @@ import 'package:flutter/material.dart';
 class ShortsModel extends FlutterFlowModel<ShortsWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
+  // State field(s) for PageView widget.
+  PageController? pageViewController;
+
+  int get pageViewCurrentIndex => pageViewController != null &&
+          pageViewController!.hasClients &&
+          pageViewController!.page != null
+      ? pageViewController!.page!.round()
+      : 0;
   // Model for NavBarShorts component.
   late NavBarShortsModel navBarShortsModel;
 
@@ -17,7 +24,6 @@ class ShortsModel extends FlutterFlowModel<ShortsWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     navBarShortsModel.dispose();
   }
 }

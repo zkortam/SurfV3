@@ -137,7 +137,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
       this,
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -150,9 +150,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -198,7 +196,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                                 ),
                               )
                             ],
-                            borderRadius: BorderRadius.circular(12.0),
+                            borderRadius: BorderRadius.circular(30.0),
                           ),
                           child: Align(
                             alignment: const AlignmentDirectional(0.0, -0.3),
@@ -211,7 +209,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                                   style: FlutterFlowTheme.of(context)
                                       .headlineSmall
                                       .override(
-                                        fontFamily: 'Outfit',
+                                        fontFamily: 'Montserrat',
                                         color: Colors.white,
                                         fontSize: 30.0,
                                         letterSpacing: 0.0,
@@ -226,7 +224,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                                     style: FlutterFlowTheme.of(context)
                                         .bodySmall
                                         .override(
-                                          fontFamily: 'Readex Pro',
+                                          fontFamily: 'Montserrat',
                                           color: Colors.white,
                                           fontSize: 15.0,
                                           letterSpacing: 0.0,
@@ -243,7 +241,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                                     textStyle: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .override(
-                                          fontFamily: 'Readex Pro',
+                                          fontFamily: 'Montserrat',
                                           color: FlutterFlowTheme.of(context)
                                               .primary,
                                           letterSpacing: 0.0,
@@ -277,12 +275,6 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                                       selectedColor:
                                           FlutterFlowTheme.of(context)
                                               .secondaryText,
-                                      activeFillColor:
-                                          FlutterFlowTheme.of(context).primary,
-                                      inactiveFillColor: const Color(0xFF1C2427),
-                                      selectedFillColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryText,
                                     ),
                                     controller: _model.pinCodeController,
                                     onChanged: (_) {},
@@ -310,7 +302,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                                     style: FlutterFlowTheme.of(context)
                                         .bodySmall
                                         .override(
-                                          fontFamily: 'Readex Pro',
+                                          fontFamily: 'Montserrat',
                                           color: const Color(0xFFCA3527),
                                           fontSize: 16.0,
                                           letterSpacing: 0.0,
@@ -334,11 +326,11 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                                         FFButtonWidget(
                                           onPressed: () async {
                                             _model.biometric = true;
-                                            setState(() {});
+                                            safeSetState(() {});
                                             if (animationsMap[
                                                     'containerOnActionTriggerAnimation2'] !=
                                                 null) {
-                                              setState(() =>
+                                              safeSetState(() =>
                                                   hasContainerTriggered2 =
                                                       true);
                                               SchedulerBinding.instance
@@ -359,8 +351,10 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
 
                                             await currentUserReference!
                                                 .update(createUsersRecordData(
-                                              pin: _model
-                                                  .pinCodeController!.text,
+                                              pin: valueOrDefault<String>(
+                                                _model.pinCodeController!.text,
+                                                '0000',
+                                              ),
                                             ));
                                           },
                                           text: 'Confirm',
@@ -376,7 +370,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
                                                     .override(
-                                                      fontFamily: 'Readex Pro',
+                                                      fontFamily: 'Montserrat',
                                                       color: const Color(0xFFC6CDD4),
                                                       letterSpacing: 0.0,
                                                     ),
@@ -425,7 +419,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                                 ),
                               )
                             ],
-                            borderRadius: BorderRadius.circular(12.0),
+                            borderRadius: BorderRadius.circular(30.0),
                           ),
                           child: Align(
                             alignment: const AlignmentDirectional(0.0, -0.3),
@@ -438,7 +432,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                                   style: FlutterFlowTheme.of(context)
                                       .headlineSmall
                                       .override(
-                                        fontFamily: 'Outfit',
+                                        fontFamily: 'Montserrat',
                                         color: Colors.white,
                                         fontSize: 30.0,
                                         letterSpacing: 0.0,
@@ -453,7 +447,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                                     style: FlutterFlowTheme.of(context)
                                         .bodySmall
                                         .override(
-                                          fontFamily: 'Readex Pro',
+                                          fontFamily: 'Montserrat',
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryText,
                                           fontSize: 16.0,
@@ -490,7 +484,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                                               FlutterFlowTheme.of(context)
                                                   .titleSmall
                                                   .override(
-                                                    fontFamily: 'Readex Pro',
+                                                    fontFamily: 'Montserrat',
                                                     color: Colors.black,
                                                     letterSpacing: 0.0,
                                                   ),
@@ -529,7 +523,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
                                                     .override(
-                                                      fontFamily: 'Readex Pro',
+                                                      fontFamily: 'Montserrat',
                                                       color: Colors.white,
                                                       letterSpacing: 0.0,
                                                     ),

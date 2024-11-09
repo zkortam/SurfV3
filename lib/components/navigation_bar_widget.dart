@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'navigation_bar_model.dart';
 export 'navigation_bar_model.dart';
 
@@ -11,9 +10,11 @@ class NavigationBarWidget extends StatefulWidget {
   const NavigationBarWidget({
     super.key,
     required this.page,
+    required this.tabIndex,
   });
 
   final int? page;
+  final int? tabIndex;
 
   @override
   State<NavigationBarWidget> createState() => _NavigationBarWidgetState();
@@ -33,7 +34,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
     super.initState();
     _model = createModel(context, () => NavigationBarModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -62,7 +63,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                   height: 60.0,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).accent4,
-                    borderRadius: BorderRadius.circular(20.0),
+                    borderRadius: BorderRadius.circular(30.0),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
@@ -83,7 +84,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                                 borderWidth: 1.0,
                                 buttonSize: 50.0,
                                 icon: Icon(
-                                  Icons.home_outlined,
+                                  Icons.home_rounded,
                                   color: widget.page == 1
                                       ? FlutterFlowTheme.of(context).primaryText
                                       : FlutterFlowTheme.of(context)
@@ -102,8 +103,8 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                                 borderRadius: 20.0,
                                 borderWidth: 1.0,
                                 buttonSize: 50.0,
-                                icon: FaIcon(
-                                  FontAwesomeIcons.sort,
+                                icon: Icon(
+                                  Icons.movie,
                                   color: widget.page == 2
                                       ? FlutterFlowTheme.of(context).primaryText
                                       : FlutterFlowTheme.of(context)
@@ -150,7 +151,15 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                context.pushNamed('Profile');
+                                context.pushNamed(
+                                  'Profile',
+                                  queryParameters: {
+                                    'userReference': serializeParam(
+                                      currentUserReference,
+                                      ParamType.DocumentReference,
+                                    ),
+                                  }.withoutNulls,
+                                );
                               },
                               child: Container(
                                 width: 50.0,
@@ -214,7 +223,15 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () async {
-                  context.pushNamed('CreatePost');
+                  context.pushNamed(
+                    'CreatePost',
+                    queryParameters: {
+                      'tabIndex': serializeParam(
+                        widget.tabIndex,
+                        ParamType.int,
+                      ),
+                    }.withoutNulls,
+                  );
                 },
                 child: SizedBox(
                   width: 70.0,
@@ -237,7 +254,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                                 begin: AlignmentDirectional(1.0, -1.0),
                                 end: AlignmentDirectional(-1.0, 1.0),
                               ),
-                              borderRadius: BorderRadius.circular(20.0),
+                              borderRadius: BorderRadius.circular(25.0),
                             ),
                             child: const Icon(
                               Icons.add,
@@ -258,7 +275,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                               height: 70.0,
                               decoration: BoxDecoration(
                                 color: const Color(0x59000000),
-                                borderRadius: BorderRadius.circular(20.0),
+                                borderRadius: BorderRadius.circular(25.0),
                               ),
                               child: const Icon(
                                 Icons.add,

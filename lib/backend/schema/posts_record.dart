@@ -40,11 +40,6 @@ class PostsRecord extends FirestoreRecord {
   List<DocumentReference> get spoilerClickers => _spoilerClickers ?? const [];
   bool hasSpoilerClickers() => _spoilerClickers != null;
 
-  // "Comments" field.
-  List<DocumentReference>? _comments;
-  List<DocumentReference> get comments => _comments ?? const [];
-  bool hasComments() => _comments != null;
-
   // "isShort" field.
   bool? _isShort;
   bool get isShort => _isShort ?? false;
@@ -75,15 +70,30 @@ class PostsRecord extends FirestoreRecord {
   bool get isCommentsAllowed => _isCommentsAllowed ?? false;
   bool hasIsCommentsAllowed() => _isCommentsAllowed != null;
 
-  // "Videos" field.
-  List<String>? _videos;
-  List<String> get videos => _videos ?? const [];
-  bool hasVideos() => _videos != null;
+  // "hashtags" field.
+  List<String>? _hashtags;
+  List<String> get hashtags => _hashtags ?? const [];
+  bool hasHashtags() => _hashtags != null;
 
-  // "images" field.
-  List<String>? _images;
-  List<String> get images => _images ?? const [];
-  bool hasImages() => _images != null;
+  // "post_id" field.
+  String? _postId;
+  String get postId => _postId ?? '';
+  bool hasPostId() => _postId != null;
+
+  // "comments" field.
+  List<DocumentReference>? _comments;
+  List<DocumentReference> get comments => _comments ?? const [];
+  bool hasComments() => _comments != null;
+
+  // "media" field.
+  List<String>? _media;
+  List<String> get media => _media ?? const [];
+  bool hasMedia() => _media != null;
+
+  // "ShortVideo" field.
+  String? _shortVideo;
+  String get shortVideo => _shortVideo ?? '';
+  bool hasShortVideo() => _shortVideo != null;
 
   void _initializeFields() {
     _timePosted = snapshotData['TimePosted'] as DateTime?;
@@ -94,15 +104,17 @@ class PostsRecord extends FirestoreRecord {
       VotersStruct.fromMap,
     );
     _spoilerClickers = getDataList(snapshotData['SpoilerClickers']);
-    _comments = getDataList(snapshotData['Comments']);
     _isShort = snapshotData['isShort'] as bool?;
     _isExpanded = snapshotData['isExpanded'] as bool?;
     _isSpoiler = snapshotData['isSpoiler'] as bool?;
     _isStealth = snapshotData['isStealth'] as bool?;
     _isPrivate = snapshotData['isPrivate'] as bool?;
     _isCommentsAllowed = snapshotData['isCommentsAllowed'] as bool?;
-    _videos = getDataList(snapshotData['Videos']);
-    _images = getDataList(snapshotData['images']);
+    _hashtags = getDataList(snapshotData['hashtags']);
+    _postId = snapshotData['post_id'] as String?;
+    _comments = getDataList(snapshotData['comments']);
+    _media = getDataList(snapshotData['media']);
+    _shortVideo = snapshotData['ShortVideo'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -148,6 +160,8 @@ Map<String, dynamic> createPostsRecordData({
   bool? isStealth,
   bool? isPrivate,
   bool? isCommentsAllowed,
+  String? postId,
+  String? shortVideo,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -160,6 +174,8 @@ Map<String, dynamic> createPostsRecordData({
       'isStealth': isStealth,
       'isPrivate': isPrivate,
       'isCommentsAllowed': isCommentsAllowed,
+      'post_id': postId,
+      'ShortVideo': shortVideo,
     }.withoutNulls,
   );
 
@@ -177,15 +193,17 @@ class PostsRecordDocumentEquality implements Equality<PostsRecord> {
         e1?.author == e2?.author &&
         listEquality.equals(e1?.voters, e2?.voters) &&
         listEquality.equals(e1?.spoilerClickers, e2?.spoilerClickers) &&
-        listEquality.equals(e1?.comments, e2?.comments) &&
         e1?.isShort == e2?.isShort &&
         e1?.isExpanded == e2?.isExpanded &&
         e1?.isSpoiler == e2?.isSpoiler &&
         e1?.isStealth == e2?.isStealth &&
         e1?.isPrivate == e2?.isPrivate &&
         e1?.isCommentsAllowed == e2?.isCommentsAllowed &&
-        listEquality.equals(e1?.videos, e2?.videos) &&
-        listEquality.equals(e1?.images, e2?.images);
+        listEquality.equals(e1?.hashtags, e2?.hashtags) &&
+        e1?.postId == e2?.postId &&
+        listEquality.equals(e1?.comments, e2?.comments) &&
+        listEquality.equals(e1?.media, e2?.media) &&
+        e1?.shortVideo == e2?.shortVideo;
   }
 
   @override
@@ -195,15 +213,17 @@ class PostsRecordDocumentEquality implements Equality<PostsRecord> {
         e?.author,
         e?.voters,
         e?.spoilerClickers,
-        e?.comments,
         e?.isShort,
         e?.isExpanded,
         e?.isSpoiler,
         e?.isStealth,
         e?.isPrivate,
         e?.isCommentsAllowed,
-        e?.videos,
-        e?.images
+        e?.hashtags,
+        e?.postId,
+        e?.comments,
+        e?.media,
+        e?.shortVideo
       ]);
 
   @override

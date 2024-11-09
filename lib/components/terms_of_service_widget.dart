@@ -33,7 +33,7 @@ class _TermsOfServiceWidgetState extends State<TermsOfServiceWidget> {
     super.initState();
     _model = createModel(context, () => TermsOfServiceModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -138,7 +138,7 @@ class _TermsOfServiceWidgetState extends State<TermsOfServiceWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .titleMedium
                                       .override(
-                                        fontFamily: 'Readex Pro',
+                                        fontFamily: 'Montserrat',
                                         color: Colors.white,
                                         letterSpacing: 0.0,
                                       ),
@@ -172,7 +172,7 @@ class _TermsOfServiceWidgetState extends State<TermsOfServiceWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            fontFamily: 'Readex Pro',
+                                            fontFamily: 'Montserrat',
                                             color: FlutterFlowTheme.of(context)
                                                 .primaryText,
                                             fontSize: 17.0,
@@ -244,7 +244,7 @@ class _TermsOfServiceWidgetState extends State<TermsOfServiceWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'Readex Pro',
+                                        fontFamily: 'Montserrat',
                                         letterSpacing: 0.0,
                                       ),
                                 ),
@@ -282,7 +282,7 @@ class _TermsOfServiceWidgetState extends State<TermsOfServiceWidget> {
                                 textStyle: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
-                                      fontFamily: 'Readex Pro',
+                                      fontFamily: 'Montserrat',
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
                                       letterSpacing: 0.0,

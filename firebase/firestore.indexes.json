@@ -1,3 +1,60 @@
 {
-  "indexes": []
+  "indexes": [
+    {
+      "collectionGroup": "posts",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isShort",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "TimePosted",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "posts",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isShort",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "TimePosted",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Comments",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "ThreadReference",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "TimeStamp",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Threads",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "Space",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "TimeStamp",
+          "order": "DESCENDING"
+        }
+      ]
+    }
+  ]
 }

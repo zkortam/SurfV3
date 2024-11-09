@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 class ProfileModel extends FlutterFlowModel<ProfileWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Model for NavigationBar component.
   late NavigationBarModel navigationBarModel;
 
@@ -17,7 +16,6 @@ class ProfileModel extends FlutterFlowModel<ProfileWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     navigationBarModel.dispose();
   }
 }

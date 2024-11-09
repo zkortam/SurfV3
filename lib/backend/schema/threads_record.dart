@@ -45,21 +45,10 @@ class ThreadsRecord extends FirestoreRecord {
   List<String> get hashtags => _hashtags ?? const [];
   bool hasHashtags() => _hashtags != null;
 
-  // "Comments" field.
-  List<DocumentReference>? _comments;
-  List<DocumentReference> get comments => _comments ?? const [];
-  bool hasComments() => _comments != null;
-
   // "Poll" field.
   PollStruct? _poll;
   PollStruct get poll => _poll ?? PollStruct();
   bool hasPoll() => _poll != null;
-
-  // "Categories" field.
-  ContentCategoriesStruct? _categories;
-  ContentCategoriesStruct get categories =>
-      _categories ?? ContentCategoriesStruct();
-  bool hasCategories() => _categories != null;
 
   // "Audio" field.
   String? _audio;
@@ -96,6 +85,11 @@ class ThreadsRecord extends FirestoreRecord {
   String get link => _link ?? '';
   bool hasLink() => _link != null;
 
+  // "comments" field.
+  List<DocumentReference>? _comments;
+  List<DocumentReference> get comments => _comments ?? const [];
+  bool hasComments() => _comments != null;
+
   void _initializeFields() {
     _timeStamp = snapshotData['TimeStamp'] as DateTime?;
     _author = snapshotData['Author'] as DocumentReference?;
@@ -106,10 +100,7 @@ class ThreadsRecord extends FirestoreRecord {
       VotersStruct.fromMap,
     );
     _hashtags = getDataList(snapshotData['Hashtags']);
-    _comments = getDataList(snapshotData['Comments']);
     _poll = PollStruct.maybeFromMap(snapshotData['Poll']);
-    _categories =
-        ContentCategoriesStruct.maybeFromMap(snapshotData['Categories']);
     _audio = snapshotData['Audio'] as String?;
     _space = snapshotData['Space'] as String?;
     _isStealth = snapshotData['isStealth'] as bool?;
@@ -117,6 +108,7 @@ class ThreadsRecord extends FirestoreRecord {
     _isCommentsAllowed = snapshotData['isCommentsAllowed'] as bool?;
     _summary = snapshotData['summary'] as String?;
     _link = snapshotData['Link'] as String?;
+    _comments = getDataList(snapshotData['comments']);
   }
 
   static CollectionReference get collection =>
@@ -159,7 +151,6 @@ Map<String, dynamic> createThreadsRecordData({
   String? title,
   String? text,
   PollStruct? poll,
-  ContentCategoriesStruct? categories,
   String? audio,
   String? space,
   bool? isStealth,
@@ -175,7 +166,6 @@ Map<String, dynamic> createThreadsRecordData({
       'Title': title,
       'Text': text,
       'Poll': PollStruct().toMap(),
-      'Categories': ContentCategoriesStruct().toMap(),
       'Audio': audio,
       'Space': space,
       'isStealth': isStealth,
@@ -188,9 +178,6 @@ Map<String, dynamic> createThreadsRecordData({
 
   // Handle nested data for "Poll" field.
   addPollStructData(firestoreData, poll, 'Poll');
-
-  // Handle nested data for "Categories" field.
-  addContentCategoriesStructData(firestoreData, categories, 'Categories');
 
   return firestoreData;
 }
@@ -207,16 +194,15 @@ class ThreadsRecordDocumentEquality implements Equality<ThreadsRecord> {
         e1?.text == e2?.text &&
         listEquality.equals(e1?.votes, e2?.votes) &&
         listEquality.equals(e1?.hashtags, e2?.hashtags) &&
-        listEquality.equals(e1?.comments, e2?.comments) &&
         e1?.poll == e2?.poll &&
-        e1?.categories == e2?.categories &&
         e1?.audio == e2?.audio &&
         e1?.space == e2?.space &&
         e1?.isStealth == e2?.isStealth &&
         e1?.isPrivate == e2?.isPrivate &&
         e1?.isCommentsAllowed == e2?.isCommentsAllowed &&
         e1?.summary == e2?.summary &&
-        e1?.link == e2?.link;
+        e1?.link == e2?.link &&
+        listEquality.equals(e1?.comments, e2?.comments);
   }
 
   @override
@@ -227,16 +213,15 @@ class ThreadsRecordDocumentEquality implements Equality<ThreadsRecord> {
         e?.text,
         e?.votes,
         e?.hashtags,
-        e?.comments,
         e?.poll,
-        e?.categories,
         e?.audio,
         e?.space,
         e?.isStealth,
         e?.isPrivate,
         e?.isCommentsAllowed,
         e?.summary,
-        e?.link
+        e?.link,
+        e?.comments
       ]);
 
   @override

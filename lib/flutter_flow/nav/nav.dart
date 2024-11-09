@@ -1,17 +1,20 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
 import '/index.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
+export '/backend/firebase_dynamic_links/firebase_dynamic_links.dart'
+    show generateCurrentPageLink;
 
 const kTransitionInfoKey = '__transition_info__';
 
@@ -72,18 +75,25 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, state) =>
+      errorBuilder: (context, state) => _RouteErrorBuilder(
+        state: state,
+        child: RootPageContext.wrap(
           appStateNotifier.loggedIn ? const HomePageWidget() : const LandingWidget(),
+          errorRoute: state.uri.toString(),
+        ),
+      ),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) =>
-              appStateNotifier.loggedIn ? const HomePageWidget() : const LandingWidget(),
+          builder: (context, _) => RootPageContext.wrap(
+            appStateNotifier.loggedIn ? const HomePageWidget() : const LandingWidget(),
+          ),
           routes: [
             FFRoute(
               name: 'HomePage',
               path: 'homePage',
+              requireAuth: true,
               builder: (context, params) => const HomePageWidget(),
             ),
             FFRoute(
@@ -99,52 +109,114 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'Email',
               path: 'email',
+              requireAuth: true,
               builder: (context, params) => const EmailWidget(),
             ),
             FFRoute(
               name: 'DateOfBirth',
               path: 'DateOfBirth',
+              requireAuth: true,
               builder: (context, params) => const DateOfBirthWidget(),
             ),
             FFRoute(
               name: 'forgotpassword',
               path: 'forgotpassword',
+              requireAuth: true,
               builder: (context, params) => const ForgotpasswordWidget(),
             ),
             FFRoute(
               name: 'CreateUser',
               path: 'createUser',
+              requireAuth: true,
               builder: (context, params) => const CreateUserWidget(),
             ),
             FFRoute(
               name: 'CreatePin',
               path: 'createPin',
+              requireAuth: true,
               builder: (context, params) => const CreatePinWidget(),
             ),
             FFRoute(
               name: 'Welcome',
               path: 'welcome',
+              requireAuth: true,
               builder: (context, params) => const WelcomeWidget(),
             ),
             FFRoute(
               name: 'Shorts',
               path: 'shorts',
+              requireAuth: true,
               builder: (context, params) => const ShortsWidget(),
             ),
             FFRoute(
               name: 'Threads',
               path: 'threads',
+              requireAuth: true,
               builder: (context, params) => const ThreadsWidget(),
             ),
             FFRoute(
               name: 'CreatePost',
               path: 'createPost',
-              builder: (context, params) => const CreatePostWidget(),
+              requireAuth: true,
+              builder: (context, params) => CreatePostWidget(
+                tabIndex: params.getParam(
+                  'tabIndex',
+                  ParamType.int,
+                ),
+              ),
             ),
             FFRoute(
               name: 'Profile',
               path: 'profile',
-              builder: (context, params) => const ProfileWidget(),
+              requireAuth: true,
+              builder: (context, params) => ProfileWidget(
+                userReference: params.getParam(
+                  'userReference',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['users'],
+                ),
+              ),
+            ),
+            FFRoute(
+              name: 'GeminiExperiment',
+              path: 'geminiExperiment',
+              requireAuth: true,
+              builder: (context, params) => const GeminiExperimentWidget(),
+            ),
+            FFRoute(
+              name: 'SinglePost',
+              path: 'singlePost',
+              requireAuth: true,
+              asyncParams: {
+                'post': getDoc(['posts'], PostsRecord.fromSnapshot),
+              },
+              builder: (context, params) => SinglePostWidget(
+                post: params.getParam(
+                  'post',
+                  ParamType.Document,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: 'SingleThread',
+              path: 'singleThread',
+              requireAuth: true,
+              builder: (context, params) => const SingleThreadWidget(),
+            ),
+            FFRoute(
+              name: 'Spaces',
+              path: 'spaces',
+              requireAuth: true,
+              asyncParams: {
+                'space': getDoc(['spaces'], SpacesRecord.fromSnapshot),
+              },
+              builder: (context, params) => SpacesWidget(
+                space: params.getParam(
+                  'space',
+                  ParamType.Document,
+                ),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
@@ -335,13 +407,13 @@ class FFRoute {
               : builder(context, ffParams);
           final child = appStateNotifier.loading
               ? Container(
-                  color: Colors.transparent,
+                  color: FlutterFlowTheme.of(context).secondaryBackground,
                   child: Center(
                     child: Image.asset(
-                      'assets/images/M78_(7)-Photoroom.png',
-                      width: 200.0,
-                      height: 200.0,
-                      fit: BoxFit.contain,
+                      'assets/images/M78_(26)-Photoroom.png',
+                      width: 150.0,
+                      height: 150.0,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 )
@@ -392,6 +464,57 @@ class TransitionInfo {
         transitionType: PageTransitionType.fade,
         duration: Duration(milliseconds: 200),
       );
+}
+
+class _RouteErrorBuilder extends StatefulWidget {
+  const _RouteErrorBuilder({
+    required this.state,
+    required this.child,
+  });
+
+  final GoRouterState state;
+  final Widget child;
+
+  @override
+  State<_RouteErrorBuilder> createState() => _RouteErrorBuilderState();
+}
+
+class _RouteErrorBuilderState extends State<_RouteErrorBuilder> {
+  @override
+  void initState() {
+    super.initState();
+
+    // Handle erroneous links from Firebase Dynamic Links.
+
+    String? location;
+
+    /*
+    Handle `links` routes that have dynamic-link entangled with deep-link 
+    */
+    if (widget.state.uri.toString().startsWith('/link') &&
+        widget.state.uri.queryParameters.containsKey('deep_link_id')) {
+      final deepLinkId = widget.state.uri.queryParameters['deep_link_id'];
+      if (deepLinkId != null) {
+        final deepLinkUri = Uri.parse(deepLinkId);
+        final link = deepLinkUri.toString();
+        final host = deepLinkUri.host;
+        location = link.split(host).last;
+      }
+    }
+
+    if (widget.state.uri.toString().startsWith('/link') &&
+        widget.state.uri.toString().contains('request_ip_version')) {
+      location = '/';
+    }
+
+    if (location != null) {
+      SchedulerBinding.instance
+          .addPostFrameCallback((_) => context.go(location!));
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.child;
 }
 
 class RootPageContext {

@@ -10,7 +10,6 @@ class CreateUserModel extends FlutterFlowModel<CreateUserWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for TabBar widget.
   TabController? tabBarController;
   int get tabBarCurrentIndex =>
@@ -32,6 +31,8 @@ class CreateUserModel extends FlutterFlowModel<CreateUserWidget> {
   String? Function(BuildContext, String?)? usernameTextControllerValidator;
   // Stores action output result for [Firestore Query - Query a collection] action in Username widget.
   UsersRecord? usernameCheck;
+  // Stores action output result for [Firestore Query - Query a collection] action in Username widget.
+  UsersRecord? usernameCheckCopy;
   // State field(s) for Email widget.
   FocusNode? emailFocusNode1;
   TextEditingController? emailTextController1;
@@ -46,7 +47,6 @@ class CreateUserModel extends FlutterFlowModel<CreateUserWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     tabBarController?.dispose();
     usernameFocusNode?.dispose();
     usernameTextController?.dispose();

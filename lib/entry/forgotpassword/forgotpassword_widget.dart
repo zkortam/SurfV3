@@ -68,7 +68,7 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget>
       ),
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -81,9 +81,7 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -122,7 +120,7 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget>
                         ),
                       )
                     ],
-                    borderRadius: BorderRadius.circular(12.0),
+                    borderRadius: BorderRadius.circular(30.0),
                   ),
                   child: Align(
                     alignment: const AlignmentDirectional(0.0, 0.0),
@@ -138,21 +136,21 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget>
                             style: FlutterFlowTheme.of(context)
                                 .displaySmall
                                 .override(
-                                  fontFamily: 'Outfit',
+                                  fontFamily: 'Montserrat',
                                   fontSize: 35.0,
                                   letterSpacing: 0.0,
                                 ),
                           ),
                           Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 12.0, 0.0, 24.0),
+                                0.0, 5.0, 0.0, 24.0),
                             child: Text(
                               'Please enter your email below.',
                               textAlign: TextAlign.center,
                               style: FlutterFlowTheme.of(context)
                                   .labelLarge
                                   .override(
-                                    fontFamily: 'Readex Pro',
+                                    fontFamily: 'Montserrat',
                                     letterSpacing: 0.0,
                                   ),
                             ),
@@ -173,7 +171,7 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget>
                                   labelStyle: FlutterFlowTheme.of(context)
                                       .labelLarge
                                       .override(
-                                        fontFamily: 'Readex Pro',
+                                        fontFamily: 'Montserrat',
                                         letterSpacing: 0.0,
                                       ),
                                   enabledBorder: OutlineInputBorder(
@@ -215,7 +213,7 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .override(
-                                      fontFamily: 'Readex Pro',
+                                      fontFamily: 'Montserrat',
                                       letterSpacing: 0.0,
                                     ),
                                 keyboardType: TextInputType.emailAddress,
@@ -258,7 +256,7 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget>
                                 textStyle: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
-                                      fontFamily: 'Readex Pro',
+                                      fontFamily: 'Montserrat',
                                       color: Colors.white,
                                       letterSpacing: 0.0,
                                     ),
@@ -267,7 +265,7 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget>
                                   color: Colors.transparent,
                                   width: 1.0,
                                 ),
-                                borderRadius: BorderRadius.circular(12.0),
+                                borderRadius: BorderRadius.circular(30.0),
                               ),
                             ),
                           ),
@@ -297,7 +295,7 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            fontFamily: 'Readex Pro',
+                                            fontFamily: 'Montserrat',
                                             color: FlutterFlowTheme.of(context)
                                                 .primary,
                                             letterSpacing: 0.0,
@@ -308,7 +306,7 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget>
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'Readex Pro',
+                                        fontFamily: 'Montserrat',
                                         letterSpacing: 0.0,
                                       ),
                                 ),

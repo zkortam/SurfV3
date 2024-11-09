@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'package:collection/collection.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -38,7 +39,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
       vsync: this,
       length: 2,
       initialIndex: 0,
-    )..addListener(() => setState(() {}));
+    )..addListener(() => safeSetState(() {}));
     _model.usernameTextController ??= TextEditingController();
     _model.usernameFocusNode ??= FocusNode();
 
@@ -75,7 +76,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
       ),
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -88,9 +89,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -129,7 +128,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                               labelStyle: FlutterFlowTheme.of(context)
                                   .titleMedium
                                   .override(
-                                    fontFamily: 'Readex Pro',
+                                    fontFamily: 'Montserrat',
                                     letterSpacing: 0.0,
                                   ),
                               unselectedLabelStyle: const TextStyle(),
@@ -159,7 +158,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                       padding: const EdgeInsets.all(16.0),
                                       child: Container(
                                         width: double.infinity,
-                                        height: 260.0,
+                                        height: 265.0,
                                         decoration: BoxDecoration(
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryBackground,
@@ -174,7 +173,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                             )
                                           ],
                                           borderRadius:
-                                              BorderRadius.circular(12.0),
+                                              BorderRadius.circular(30.0),
                                         ),
                                         child: Padding(
                                           padding: const EdgeInsets.all(10.0),
@@ -204,7 +203,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                           validateFileFormat(
                                                               m.storagePath,
                                                               context))) {
-                                                    setState(() => _model
+                                                    safeSetState(() => _model
                                                             .isDataUploading1 =
                                                         true);
                                                     var selectedUploadedFiles =
@@ -259,7 +258,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                         downloadUrls.length ==
                                                             selectedMedia
                                                                 .length) {
-                                                      setState(() {
+                                                      safeSetState(() {
                                                         _model.uploadedLocalFile1 =
                                                             selectedUploadedFiles
                                                                 .first;
@@ -267,7 +266,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                             downloadUrls.first;
                                                       });
                                                     } else {
-                                                      setState(() {});
+                                                      safeSetState(() {});
                                                       return;
                                                     }
                                                   }
@@ -299,7 +298,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            12.0),
+                                                            23.0),
                                                   ),
                                                   child: Stack(
                                                     children: [
@@ -347,7 +346,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                                         validateFileFormat(
                                                                             m.storagePath,
                                                                             context))) {
-                                                                  setState(() =>
+                                                                  safeSetState(() =>
                                                                       _model.isDataUploading2 =
                                                                           true);
                                                                   var selectedUploadedFiles =
@@ -393,7 +392,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                                               .length ==
                                                                           selectedMedia
                                                                               .length) {
-                                                                    setState(
+                                                                    safeSetState(
                                                                         () {
                                                                       _model.uploadedLocalFile2 =
                                                                           selectedUploadedFiles
@@ -403,7 +402,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                                               .first;
                                                                     });
                                                                   } else {
-                                                                    setState(
+                                                                    safeSetState(
                                                                         () {});
                                                                     return;
                                                                   }
@@ -542,7 +541,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                                 .bodyMedium
                                                                 .override(
                                                                   fontFamily:
-                                                                      'Readex Pro',
+                                                                      'Montserrat',
                                                                   letterSpacing:
                                                                       0.0,
                                                                 ),
@@ -586,7 +585,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                                 .bodyMedium
                                                                 .override(
                                                                   fontFamily:
-                                                                      'Readex Pro',
+                                                                      'Montserrat',
                                                                   letterSpacing:
                                                                       0.0,
                                                                 ),
@@ -599,7 +598,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                 child: Padding(
                                                   padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
-                                                          0.0, 10.0, 0.0, 10.0),
+                                                          0.0, 10.0, 0.0, 0.0),
                                                   child: SizedBox(
                                                     width: double.infinity,
                                                     child: TextFormField(
@@ -607,6 +606,41 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                           .usernameTextController,
                                                       focusNode: _model
                                                           .usernameFocusNode,
+                                                      onChanged: (_) =>
+                                                          EasyDebounce.debounce(
+                                                        '_model.usernameTextController',
+                                                        const Duration(
+                                                            milliseconds: 2000),
+                                                        () async {
+                                                          _model.usernameCheckCopy =
+                                                              await queryUsersRecordOnce(
+                                                            queryBuilder:
+                                                                (usersRecord) =>
+                                                                    usersRecord
+                                                                        .where(
+                                                              'display_name',
+                                                              isEqualTo: _model
+                                                                  .usernameTextController
+                                                                  .text,
+                                                            ),
+                                                            singleRecord: true,
+                                                          ).then((s) => s
+                                                                  .firstOrNull);
+                                                          if (_model
+                                                                  .usernameCheckCopy !=
+                                                              null) {
+                                                            _model.isUsernameValid =
+                                                                false;
+                                                            safeSetState(() {});
+                                                          } else {
+                                                            _model.isUsernameValid =
+                                                                true;
+                                                            safeSetState(() {});
+                                                          }
+
+                                                          safeSetState(() {});
+                                                        },
+                                                      ),
                                                       onFieldSubmitted:
                                                           (_) async {
                                                         _model.usernameCheck =
@@ -616,8 +650,9 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                                   usersRecord
                                                                       .where(
                                                             'display_name',
-                                                            isEqualTo:
-                                                                currentUserDisplayName,
+                                                            isEqualTo: _model
+                                                                .usernameTextController
+                                                                .text,
                                                           ),
                                                           singleRecord: true,
                                                         ).then((s) =>
@@ -625,6 +660,9 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                         if (_model
                                                                 .usernameCheck !=
                                                             null) {
+                                                          _model.isUsernameValid =
+                                                              false;
+                                                          safeSetState(() {});
                                                           await showModalBottomSheet(
                                                             isScrollControlled:
                                                                 true,
@@ -635,14 +673,8 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                             context: context,
                                                             builder: (context) {
                                                               return GestureDetector(
-                                                                onTap: () => _model
-                                                                        .unfocusNode
-                                                                        .canRequestFocus
-                                                                    ? FocusScope.of(
-                                                                            context)
-                                                                        .requestFocus(_model
-                                                                            .unfocusNode)
-                                                                    : FocusScope.of(
+                                                                onTap: () =>
+                                                                    FocusScope.of(
                                                                             context)
                                                                         .unfocus(),
                                                                 child: Padding(
@@ -663,10 +695,10 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                         } else {
                                                           _model.isUsernameValid =
                                                               true;
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                         }
 
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       },
                                                       autofocus: false,
                                                       textCapitalization:
@@ -683,7 +715,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                                 .labelLarge
                                                                 .override(
                                                                   fontFamily:
-                                                                      'Readex Pro',
+                                                                      'Montserrat',
                                                                   letterSpacing:
                                                                       0.0,
                                                                 ),
@@ -694,7 +726,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                                 .bodyLarge
                                                                 .override(
                                                                   fontFamily:
-                                                                      'Readex Pro',
+                                                                      'Montserrat',
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
                                                                       .secondaryText,
@@ -709,7 +741,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                                 .bodyLarge
                                                                 .override(
                                                                   fontFamily:
-                                                                      'Readex Pro',
+                                                                      'Montserrat',
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
                                                                       .secondaryText,
@@ -805,7 +837,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                           .bodyLarge
                                                           .override(
                                                             fontFamily:
-                                                                'Readex Pro',
+                                                                'Montserrat',
                                                             fontSize: 14.0,
                                                             letterSpacing: 0.0,
                                                           ),
@@ -842,7 +874,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                           if (_model.isUsernameValid)
                                             FFButtonWidget(
                                               onPressed: () async {
-                                                setState(() {
+                                                safeSetState(() {
                                                   _model.tabBarController!
                                                       .animateTo(
                                                     min(
@@ -886,7 +918,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                         context)
                                                     .titleSmall
                                                     .override(
-                                                      fontFamily: 'Readex Pro',
+                                                      fontFamily: 'Montserrat',
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -930,7 +962,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                             )
                                           ],
                                           borderRadius:
-                                              BorderRadius.circular(12.0),
+                                              BorderRadius.circular(30.0),
                                         ),
                                         child: Padding(
                                           padding: const EdgeInsets.all(12.0),
@@ -962,7 +994,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                               .labelLarge
                                                               .override(
                                                                 fontFamily:
-                                                                    'Readex Pro',
+                                                                    'Montserrat',
                                                                 letterSpacing:
                                                                     0.0,
                                                               ),
@@ -973,7 +1005,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                               .bodyLarge
                                                               .override(
                                                                 fontFamily:
-                                                                    'Readex Pro',
+                                                                    'Montserrat',
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .secondaryText,
@@ -1042,7 +1074,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                         .bodyLarge
                                                         .override(
                                                           fontFamily:
-                                                              'Readex Pro',
+                                                              'Montserrat',
                                                           fontSize: 14.0,
                                                           letterSpacing: 0.0,
                                                         ),
@@ -1077,7 +1109,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                               .labelLarge
                                                               .override(
                                                                 fontFamily:
-                                                                    'Readex Pro',
+                                                                    'Montserrat',
                                                                 letterSpacing:
                                                                     0.0,
                                                               ),
@@ -1088,7 +1120,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                               .bodyLarge
                                                               .override(
                                                                 fontFamily:
-                                                                    'Readex Pro',
+                                                                    'Montserrat',
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .secondaryText,
@@ -1102,7 +1134,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                               .bodyLarge
                                                               .override(
                                                                 fontFamily:
-                                                                    'Readex Pro',
+                                                                    'Montserrat',
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .secondaryText,
@@ -1171,7 +1203,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                         .bodyLarge
                                                         .override(
                                                           fontFamily:
-                                                              'Readex Pro',
+                                                              'Montserrat',
                                                           fontSize: 14.0,
                                                           letterSpacing: 0.0,
                                                         ),
@@ -1209,7 +1241,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                     0.0, 0.0, 10.0, 0.0),
                                             child: FFButtonWidget(
                                               onPressed: () async {
-                                                setState(() {
+                                                safeSetState(() {
                                                   _model.tabBarController!
                                                       .animateTo(
                                                     max(
@@ -1225,6 +1257,10 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                               },
                                               text: 'Back',
                                               options: FFButtonOptions(
+                                                width:
+                                                    MediaQuery.sizeOf(context)
+                                                            .width *
+                                                        0.3,
                                                 height: 47.0,
                                                 padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
@@ -1240,7 +1276,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                         context)
                                                     .titleSmall
                                                     .override(
-                                                      fontFamily: 'Readex Pro',
+                                                      fontFamily: 'Montserrat',
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -1272,22 +1308,24 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                             },
                                             text: 'Finish',
                                             options: FFButtonOptions(
-                                              width: 200.0,
+                                              width: MediaQuery.sizeOf(context)
+                                                      .width *
+                                                  0.55,
                                               height: 47.0,
                                               padding: const EdgeInsets.all(0.0),
                                               iconPadding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .secondaryBackground,
+                                                      .primaryText,
                                               textStyle: FlutterFlowTheme.of(
                                                       context)
                                                   .titleSmall
                                                   .override(
-                                                    fontFamily: 'Readex Pro',
+                                                    fontFamily: 'Montserrat',
                                                     color: FlutterFlowTheme.of(
                                                             context)
-                                                        .secondaryText,
+                                                        .secondaryBackground,
                                                     letterSpacing: 0.0,
                                                   ),
                                               elevation: 3.0,
