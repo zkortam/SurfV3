@@ -13,3 +13,8 @@ export '/pages/shorts/shorts_widget.dart' show ShortsWidget;
 export '/pages/threads/threads_widget.dart' show ThreadsWidget;
 export '/pages/create_post/create_post_widget.dart' show CreatePostWidget;
 export '/pages/profile/profile_widget.dart' show ProfileWidget;
+export '/gemini_experiment/gemini_experiment_widget.dart'
+    show GeminiExperimentWidget;
+export '/single_post/single_post_widget.dart' show SinglePostWidget;
+export '/single_thread/single_thread_widget.dart' show SingleThreadWidget;
+export '/pages/spaces/spaces_widget.dart' show SpacesWidget;

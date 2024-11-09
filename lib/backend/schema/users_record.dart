@@ -80,6 +80,54 @@ class UsersRecord extends FirestoreRecord {
   DateTime? get dob => _dob;
   bool hasDob() => _dob != null;
 
+  // "isStealth" field.
+  bool? _isStealth;
+  bool get isStealth => _isStealth ?? false;
+  bool hasIsStealth() => _isStealth != null;
+
+  // "ip_address" field.
+  String? _ipAddress;
+  String get ipAddress => _ipAddress ?? '';
+  bool hasIpAddress() => _ipAddress != null;
+
+  // "dir_feedback" field.
+  List<String>? _dirFeedback;
+  List<String> get dirFeedback => _dirFeedback ?? const [];
+  bool hasDirFeedback() => _dirFeedback != null;
+
+  // "device_type" field.
+  bool? _deviceType;
+  bool get deviceType => _deviceType ?? false;
+  bool hasDeviceType() => _deviceType != null;
+
+  // "postinteractions" field.
+  List<PostinteractionStruct>? _postinteractions;
+  List<PostinteractionStruct> get postinteractions =>
+      _postinteractions ?? const [];
+  bool hasPostinteractions() => _postinteractions != null;
+
+  // "threadSettings" field.
+  ThreadSettingsStruct? _threadSettings;
+  ThreadSettingsStruct get threadSettings =>
+      _threadSettings ?? ThreadSettingsStruct();
+  bool hasThreadSettings() => _threadSettings != null;
+
+  // "followers" field.
+  List<DocumentReference>? _followers;
+  List<DocumentReference> get followers => _followers ?? const [];
+  bool hasFollowers() => _followers != null;
+
+  // "following" field.
+  List<DocumentReference>? _following;
+  List<DocumentReference> get following => _following ?? const [];
+  bool hasFollowing() => _following != null;
+
+  // "algorithmPreferences" field.
+  UserAlgorithmPreferencesStruct? _algorithmPreferences;
+  UserAlgorithmPreferencesStruct get algorithmPreferences =>
+      _algorithmPreferences ?? UserAlgorithmPreferencesStruct();
+  bool hasAlgorithmPreferences() => _algorithmPreferences != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -94,6 +142,20 @@ class UsersRecord extends FirestoreRecord {
     _isBiometric = snapshotData['isBiometric'] as bool?;
     _isAnon = snapshotData['isAnon'] as bool?;
     _dob = snapshotData['dob'] as DateTime?;
+    _isStealth = snapshotData['isStealth'] as bool?;
+    _ipAddress = snapshotData['ip_address'] as String?;
+    _dirFeedback = getDataList(snapshotData['dir_feedback']);
+    _deviceType = snapshotData['device_type'] as bool?;
+    _postinteractions = getStructList(
+      snapshotData['postinteractions'],
+      PostinteractionStruct.fromMap,
+    );
+    _threadSettings =
+        ThreadSettingsStruct.maybeFromMap(snapshotData['threadSettings']);
+    _followers = getDataList(snapshotData['followers']);
+    _following = getDataList(snapshotData['following']);
+    _algorithmPreferences = UserAlgorithmPreferencesStruct.maybeFromMap(
+        snapshotData['algorithmPreferences']);
   }
 
   static CollectionReference get collection =>
@@ -143,6 +205,11 @@ Map<String, dynamic> createUsersRecordData({
   bool? isBiometric,
   bool? isAnon,
   DateTime? dob,
+  bool? isStealth,
+  String? ipAddress,
+  bool? deviceType,
+  ThreadSettingsStruct? threadSettings,
+  UserAlgorithmPreferencesStruct? algorithmPreferences,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -159,8 +226,20 @@ Map<String, dynamic> createUsersRecordData({
       'isBiometric': isBiometric,
       'isAnon': isAnon,
       'dob': dob,
+      'isStealth': isStealth,
+      'ip_address': ipAddress,
+      'device_type': deviceType,
+      'threadSettings': ThreadSettingsStruct().toMap(),
+      'algorithmPreferences': UserAlgorithmPreferencesStruct().toMap(),
     }.withoutNulls,
   );
+
+  // Handle nested data for "threadSettings" field.
+  addThreadSettingsStructData(firestoreData, threadSettings, 'threadSettings');
+
+  // Handle nested data for "algorithmPreferences" field.
+  addUserAlgorithmPreferencesStructData(
+      firestoreData, algorithmPreferences, 'algorithmPreferences');
 
   return firestoreData;
 }
@@ -170,6 +249,7 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
 
   @override
   bool equals(UsersRecord? e1, UsersRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.email == e2?.email &&
         e1?.displayName == e2?.displayName &&
         e1?.uid == e2?.uid &&
@@ -182,7 +262,16 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.pin == e2?.pin &&
         e1?.isBiometric == e2?.isBiometric &&
         e1?.isAnon == e2?.isAnon &&
-        e1?.dob == e2?.dob;
+        e1?.dob == e2?.dob &&
+        e1?.isStealth == e2?.isStealth &&
+        e1?.ipAddress == e2?.ipAddress &&
+        listEquality.equals(e1?.dirFeedback, e2?.dirFeedback) &&
+        e1?.deviceType == e2?.deviceType &&
+        listEquality.equals(e1?.postinteractions, e2?.postinteractions) &&
+        e1?.threadSettings == e2?.threadSettings &&
+        listEquality.equals(e1?.followers, e2?.followers) &&
+        listEquality.equals(e1?.following, e2?.following) &&
+        e1?.algorithmPreferences == e2?.algorithmPreferences;
   }
 
   @override
@@ -199,7 +288,16 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.pin,
         e?.isBiometric,
         e?.isAnon,
-        e?.dob
+        e?.dob,
+        e?.isStealth,
+        e?.ipAddress,
+        e?.dirFeedback,
+        e?.deviceType,
+        e?.postinteractions,
+        e?.threadSettings,
+        e?.followers,
+        e?.following,
+        e?.algorithmPreferences
       ]);
 
   @override

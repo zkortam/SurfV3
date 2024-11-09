@@ -37,7 +37,7 @@ class _ErrorBarWidgetState extends State<ErrorBarWidget> {
       Navigator.pop(context);
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -63,7 +63,7 @@ class _ErrorBarWidgetState extends State<ErrorBarWidget> {
               begin: AlignmentDirectional(1.0, 0.0),
               end: AlignmentDirectional(-1.0, 0),
             ),
-            borderRadius: BorderRadius.circular(12.0),
+            borderRadius: BorderRadius.circular(30.0),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.max,
@@ -72,7 +72,7 @@ class _ErrorBarWidgetState extends State<ErrorBarWidget> {
               Text(
                 widget.text!,
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Readex Pro',
+                      fontFamily: 'Montserrat',
                       color: Colors.white,
                       fontSize: 15.0,
                       letterSpacing: 0.0,

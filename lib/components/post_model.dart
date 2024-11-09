@@ -3,47 +3,23 @@ import 'post_widget.dart' show PostWidget;
 import 'package:flutter/material.dart';
 
 class PostModel extends FlutterFlowModel<PostWidget> {
+  ///  Local state fields for this component.
+
+  bool isinfoshowing = true;
+
+  int voteValue = 0;
+
+  bool animation = false;
+
   ///  State fields for stateful widgets in this component.
 
-  // State field(s) for OnePost widget.
-  PageController? onePostController;
+  // State field(s) for MultipleMedia widget.
+  PageController? multipleMediaController;
 
-  int get onePostCurrentIndex => onePostController != null &&
-          onePostController!.hasClients &&
-          onePostController!.page != null
-      ? onePostController!.page!.round()
-      : 0;
-  // State field(s) for TwoPosts widget.
-  PageController? twoPostsController;
-
-  int get twoPostsCurrentIndex => twoPostsController != null &&
-          twoPostsController!.hasClients &&
-          twoPostsController!.page != null
-      ? twoPostsController!.page!.round()
-      : 0;
-  // State field(s) for ThreePosts widget.
-  PageController? threePostsController;
-
-  int get threePostsCurrentIndex => threePostsController != null &&
-          threePostsController!.hasClients &&
-          threePostsController!.page != null
-      ? threePostsController!.page!.round()
-      : 0;
-  // State field(s) for FourPosts widget.
-  PageController? fourPostsController;
-
-  int get fourPostsCurrentIndex => fourPostsController != null &&
-          fourPostsController!.hasClients &&
-          fourPostsController!.page != null
-      ? fourPostsController!.page!.round()
-      : 0;
-  // State field(s) for FivePosts widget.
-  PageController? fivePostsController;
-
-  int get fivePostsCurrentIndex => fivePostsController != null &&
-          fivePostsController!.hasClients &&
-          fivePostsController!.page != null
-      ? fivePostsController!.page!.round()
+  int get multipleMediaCurrentIndex => multipleMediaController != null &&
+          multipleMediaController!.hasClients &&
+          multipleMediaController!.page != null
+      ? multipleMediaController!.page!.round()
       : 0;
 
   @override

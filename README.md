@@ -1,6 +1,6 @@
 # Surf V3
 
-The next generation of Social Media
+A new Flutter project.
 
 ## Getting Started
 

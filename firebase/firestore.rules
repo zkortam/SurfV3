@@ -9,20 +9,34 @@ service cloud.firestore {
     }
 
     match /posts/{document} {
+      allow create: if request.auth != null;
+      allow read: if true;
+      allow write: if request.auth != null;
+      allow delete: if request.auth != null;
+    }
+
+    match /Comments/{document} {
+      allow create: if request.auth != null;
+      allow read: if true;
+      allow write: if request.auth != null;
+      allow delete: if request.auth != null;
+    }
+
+    match /Threads/{document} {
+      allow create: if request.auth != null;
+      allow read: if true;
+      allow write: if request.auth != null;
+      allow delete: if request.auth != null;
+    }
+
+    match /spaces/{document} {
       allow create: if true;
       allow read: if true;
       allow write: if true;
       allow delete: if true;
     }
 
-    match /Comments/{document} {
-      allow create: if true;
-      allow read: if true;
-      allow write: if false;
-      allow delete: if false;
-    }
-
-    match /Threads/{document} {
+    match /feedback/{document} {
       allow create: if true;
       allow read: if true;
       allow write: if false;

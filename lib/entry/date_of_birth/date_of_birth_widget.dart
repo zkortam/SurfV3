@@ -48,7 +48,7 @@ class _DateOfBirthWidgetState extends State<DateOfBirthWidget>
       ),
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -61,9 +61,7 @@ class _DateOfBirthWidgetState extends State<DateOfBirthWidget>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -108,12 +106,12 @@ class _DateOfBirthWidgetState extends State<DateOfBirthWidget>
                               ),
                             )
                           ],
-                          borderRadius: BorderRadius.circular(12.0),
+                          borderRadius: BorderRadius.circular(35.0),
                         ),
                         child: Align(
                           alignment: const AlignmentDirectional(0.0, 0.0),
                           child: Padding(
-                            padding: const EdgeInsets.all(15.0),
+                            padding: const EdgeInsets.all(20.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -127,163 +125,149 @@ class _DateOfBirthWidgetState extends State<DateOfBirthWidget>
                                     style: FlutterFlowTheme.of(context)
                                         .labelLarge
                                         .override(
-                                          fontFamily: 'Readex Pro',
+                                          fontFamily: 'Montserrat',
                                           letterSpacing: 0.0,
                                         ),
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      20.0, 0.0, 20.0, 0.0),
-                                  child: FFButtonWidget(
-                                    onPressed: () async {
-                                      await showModalBottomSheet<bool>(
-                                          context: context,
-                                          builder: (context) {
-                                            final datePickedCupertinoTheme =
-                                                CupertinoTheme.of(context);
-                                            return ScrollConfiguration(
-                                              behavior:
-                                                  const MaterialScrollBehavior()
-                                                      .copyWith(
-                                                dragDevices: {
-                                                  PointerDeviceKind.mouse,
-                                                  PointerDeviceKind.touch,
-                                                  PointerDeviceKind.stylus,
-                                                  PointerDeviceKind.unknown
-                                                },
-                                              ),
-                                              child: Container(
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height /
-                                                    3,
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
-                                                child: CupertinoTheme(
-                                                  data:
+                                FFButtonWidget(
+                                  onPressed: () async {
+                                    await showModalBottomSheet<bool>(
+                                        context: context,
+                                        builder: (context) {
+                                          final datePickedCupertinoTheme =
+                                              CupertinoTheme.of(context);
+                                          return ScrollConfiguration(
+                                            behavior:
+                                                const MaterialScrollBehavior()
+                                                    .copyWith(
+                                              dragDevices: {
+                                                PointerDeviceKind.mouse,
+                                                PointerDeviceKind.touch,
+                                                PointerDeviceKind.stylus,
+                                                PointerDeviceKind.unknown
+                                              },
+                                            ),
+                                            child: Container(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height /
+                                                  3,
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                              child: CupertinoTheme(
+                                                data: datePickedCupertinoTheme
+                                                    .copyWith(
+                                                  textTheme:
                                                       datePickedCupertinoTheme
+                                                          .textTheme
                                                           .copyWith(
-                                                    textTheme:
-                                                        datePickedCupertinoTheme
-                                                            .textTheme
-                                                            .copyWith(
-                                                      dateTimePickerTextStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .headlineMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Outfit',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryText,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                              ),
-                                                    ),
-                                                  ),
-                                                  child: CupertinoDatePicker(
-                                                    mode:
-                                                        CupertinoDatePickerMode
-                                                            .date,
-                                                    minimumDate: DateTime(1900),
-                                                    initialDateTime:
-                                                        getCurrentTimestamp,
-                                                    maximumDate:
-                                                        getCurrentTimestamp,
-                                                    backgroundColor:
+                                                    dateTimePickerTextStyle:
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .secondaryBackground,
-                                                    use24hFormat: false,
-                                                    onDateTimeChanged:
-                                                        (newDateTime) =>
-                                                            safeSetState(() {
-                                                      _model.datePicked =
-                                                          newDateTime;
-                                                    }),
+                                                            .headlineMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Montserrat',
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primaryText,
+                                                              letterSpacing:
+                                                                  0.0,
+                                                            ),
                                                   ),
                                                 ),
-                                              ),
-                                            );
-                                          });
-                                      if (functions.dateThirteenYearsAgo(
-                                          getCurrentTimestamp,
-                                          _model.datePicked!)) {
-                                        context.goNamed('CreateUser');
-
-                                        await currentUserReference!
-                                            .update(createUsersRecordData(
-                                          dob: _model.datePicked,
-                                        ));
-                                      } else {
-                                        await authManager.deleteUser(context);
-                                        await showModalBottomSheet(
-                                          isScrollControlled: true,
-                                          backgroundColor: Colors.transparent,
-                                          enableDrag: false,
-                                          context: context,
-                                          builder: (context) {
-                                            return GestureDetector(
-                                              onTap: () => _model.unfocusNode
-                                                      .canRequestFocus
-                                                  ? FocusScope.of(context)
-                                                      .requestFocus(
-                                                          _model.unfocusNode)
-                                                  : FocusScope.of(context)
-                                                      .unfocus(),
-                                              child: Padding(
-                                                padding:
-                                                    MediaQuery.viewInsetsOf(
-                                                        context),
-                                                child: const ErrorBarWidget(
-                                                  text:
-                                                      'You must be 13+ to use Surf',
+                                                child: CupertinoDatePicker(
+                                                  mode: CupertinoDatePickerMode
+                                                      .date,
+                                                  minimumDate: DateTime(1900),
+                                                  initialDateTime:
+                                                      getCurrentTimestamp,
+                                                  maximumDate:
+                                                      getCurrentTimestamp,
+                                                  backgroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .secondaryBackground,
+                                                  use24hFormat: false,
+                                                  onDateTimeChanged:
+                                                      (newDateTime) =>
+                                                          safeSetState(() {
+                                                    _model.datePicked =
+                                                        newDateTime;
+                                                  }),
                                                 ),
                                               ),
-                                            );
-                                          },
-                                        ).then((value) => safeSetState(() {}));
-                                      }
-                                    },
-                                    text: valueOrDefault<String>(
-                                      dateTimeFormat(
-                                        'yMd',
-                                        _model.datePicked,
-                                        locale: FFLocalizations.of(context)
-                                            .languageCode,
-                                      ),
-                                      'Select Date',
+                                            ),
+                                          );
+                                        });
+                                    if (functions.dateThirteenYearsAgo(
+                                        getCurrentTimestamp,
+                                        _model.datePicked!)) {
+                                      context.goNamed('CreateUser');
+
+                                      await currentUserReference!
+                                          .update(createUsersRecordData(
+                                        dob: _model.datePicked,
+                                      ));
+                                    } else {
+                                      await authManager.deleteUser(context);
+                                      await showModalBottomSheet(
+                                        isScrollControlled: true,
+                                        backgroundColor: Colors.transparent,
+                                        enableDrag: false,
+                                        context: context,
+                                        builder: (context) {
+                                          return GestureDetector(
+                                            onTap: () => FocusScope.of(context)
+                                                .unfocus(),
+                                            child: Padding(
+                                              padding: MediaQuery.viewInsetsOf(
+                                                  context),
+                                              child: const ErrorBarWidget(
+                                                text:
+                                                    'You must be 13+ to use Surf',
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ).then((value) => safeSetState(() {}));
+                                    }
+                                  },
+                                  text: valueOrDefault<String>(
+                                    dateTimeFormat(
+                                      "yMd",
+                                      _model.datePicked,
+                                      locale: FFLocalizations.of(context)
+                                          .languageCode,
                                     ),
-                                    options: FFButtonOptions(
-                                      width: double.infinity,
-                                      height: 60.0,
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 0.0),
-                                      iconPadding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              0.0, 0.0, 0.0, 0.0),
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            color: Colors.white,
-                                            letterSpacing: 0.0,
-                                          ),
-                                      elevation: 3.0,
-                                      borderSide: const BorderSide(
-                                        color: Colors.transparent,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(50.0),
+                                    'Press here',
+                                  ),
+                                  options: FFButtonOptions(
+                                    width: double.infinity,
+                                    height: 60.0,
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          fontFamily: 'Montserrat',
+                                          color: Colors.white,
+                                          letterSpacing: 0.0,
+                                        ),
+                                    elevation: 3.0,
+                                    borderSide: const BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1.0,
                                     ),
+                                    borderRadius: BorderRadius.circular(50.0),
                                   ),
                                 ),
                               ],

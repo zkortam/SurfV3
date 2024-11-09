@@ -76,7 +76,7 @@ class _EmailWidgetState extends State<EmailWidget>
       ),
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -89,9 +89,7 @@ class _EmailWidgetState extends State<EmailWidget>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -131,12 +129,12 @@ class _EmailWidgetState extends State<EmailWidget>
                         onChanged: (value, displayTime, shouldUpdate) {
                           _model.timerMilliseconds = value;
                           _model.timerValue = displayTime;
-                          if (shouldUpdate) setState(() {});
+                          if (shouldUpdate) safeSetState(() {});
                         },
                         textAlign: TextAlign.start,
                         style:
                             FlutterFlowTheme.of(context).headlineSmall.override(
-                                  fontFamily: 'Outfit',
+                                  fontFamily: 'Montserrat',
                                   fontSize: 1.0,
                                   letterSpacing: 0.0,
                                 ),
@@ -163,7 +161,7 @@ class _EmailWidgetState extends State<EmailWidget>
                               ),
                             )
                           ],
-                          borderRadius: BorderRadius.circular(12.0),
+                          borderRadius: BorderRadius.circular(30.0),
                         ),
                         child: Align(
                           alignment: const AlignmentDirectional(0.0, 0.0),
@@ -179,7 +177,7 @@ class _EmailWidgetState extends State<EmailWidget>
                                   style: FlutterFlowTheme.of(context)
                                       .displaySmall
                                       .override(
-                                        fontFamily: 'Outfit',
+                                        fontFamily: 'Montserrat',
                                         fontSize: 30.0,
                                         letterSpacing: 0.0,
                                       ),
@@ -193,7 +191,7 @@ class _EmailWidgetState extends State<EmailWidget>
                                     style: FlutterFlowTheme.of(context)
                                         .labelLarge
                                         .override(
-                                          fontFamily: 'Readex Pro',
+                                          fontFamily: 'Montserrat',
                                           fontSize: 14.0,
                                           letterSpacing: 0.0,
                                         ),
@@ -207,13 +205,13 @@ class _EmailWidgetState extends State<EmailWidget>
                                       await authManager.refreshUser();
                                       if (!_model.isClicked) {
                                         _model.isClicked = true;
-                                        setState(() {});
+                                        safeSetState(() {});
                                         await Future.wait([
                                           Future(() async {
                                             await Future.delayed(const Duration(
                                                 milliseconds: 60000));
                                             _model.isClicked = false;
-                                            setState(() {});
+                                            safeSetState(() {});
                                           }),
                                           Future(() async {
                                             await authManager
@@ -241,7 +239,7 @@ class _EmailWidgetState extends State<EmailWidget>
                                       textStyle: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            fontFamily: 'Readex Pro',
+                                            fontFamily: 'Montserrat',
                                             color: Colors.white,
                                             letterSpacing: 0.0,
                                           ),
@@ -284,7 +282,7 @@ class _EmailWidgetState extends State<EmailWidget>
                                 ),
                               )
                             ],
-                            borderRadius: BorderRadius.circular(12.0),
+                            borderRadius: BorderRadius.circular(30.0),
                           ),
                           child: Align(
                             alignment: const AlignmentDirectional(0.0, 0.0),
@@ -304,7 +302,7 @@ class _EmailWidgetState extends State<EmailWidget>
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge
                                             .override(
-                                              fontFamily: 'Readex Pro',
+                                              fontFamily: 'Montserrat',
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primary,

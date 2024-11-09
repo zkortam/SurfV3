@@ -1,6 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/entry/terms_of_service/terms_of_service_widget.dart';
+import '/components/terms_of_service_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -79,7 +79,7 @@ class _SignUpWidgetState extends State<SignUpWidget>
       ),
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -92,9 +92,7 @@ class _SignUpWidgetState extends State<SignUpWidget>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -139,7 +137,7 @@ class _SignUpWidgetState extends State<SignUpWidget>
                               ),
                             )
                           ],
-                          borderRadius: BorderRadius.circular(12.0),
+                          borderRadius: BorderRadius.circular(30.0),
                         ),
                         child: Align(
                           alignment: const AlignmentDirectional(0.0, 0.0),
@@ -156,7 +154,7 @@ class _SignUpWidgetState extends State<SignUpWidget>
                                   style: FlutterFlowTheme.of(context)
                                       .displaySmall
                                       .override(
-                                        fontFamily: 'Outfit',
+                                        fontFamily: 'Montserrat',
                                         fontSize: 40.0,
                                         letterSpacing: 0.0,
                                       ),
@@ -170,7 +168,7 @@ class _SignUpWidgetState extends State<SignUpWidget>
                                     style: FlutterFlowTheme.of(context)
                                         .labelLarge
                                         .override(
-                                          fontFamily: 'Readex Pro',
+                                          fontFamily: 'Montserrat',
                                           letterSpacing: 0.0,
                                         ),
                                   ),
@@ -190,14 +188,14 @@ class _SignUpWidgetState extends State<SignUpWidget>
                                         labelStyle: FlutterFlowTheme.of(context)
                                             .labelLarge
                                             .override(
-                                              fontFamily: 'Readex Pro',
+                                              fontFamily: 'Montserrat',
                                               letterSpacing: 0.0,
                                             ),
                                         hintText: 'Email',
                                         hintStyle: FlutterFlowTheme.of(context)
                                             .bodyLarge
                                             .override(
-                                              fontFamily: 'Readex Pro',
+                                              fontFamily: 'Montserrat',
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryText,
@@ -248,7 +246,7 @@ class _SignUpWidgetState extends State<SignUpWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .bodyLarge
                                           .override(
-                                            fontFamily: 'Readex Pro',
+                                            fontFamily: 'Montserrat',
                                             fontSize: 14.0,
                                             letterSpacing: 0.0,
                                           ),
@@ -274,14 +272,14 @@ class _SignUpWidgetState extends State<SignUpWidget>
                                         labelStyle: FlutterFlowTheme.of(context)
                                             .labelLarge
                                             .override(
-                                              fontFamily: 'Readex Pro',
+                                              fontFamily: 'Montserrat',
                                               letterSpacing: 0.0,
                                             ),
                                         hintText: 'Password',
                                         hintStyle: FlutterFlowTheme.of(context)
                                             .bodyLarge
                                             .override(
-                                              fontFamily: 'Readex Pro',
+                                              fontFamily: 'Montserrat',
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryText,
@@ -329,7 +327,7 @@ class _SignUpWidgetState extends State<SignUpWidget>
                                             .primaryBackground,
                                         contentPadding: const EdgeInsets.all(20.0),
                                         suffixIcon: InkWell(
-                                          onTap: () => setState(
+                                          onTap: () => safeSetState(
                                             () => _model.passwordVisibility =
                                                 !_model.passwordVisibility,
                                           ),
@@ -348,7 +346,7 @@ class _SignUpWidgetState extends State<SignUpWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .bodyLarge
                                           .override(
-                                            fontFamily: 'Readex Pro',
+                                            fontFamily: 'Montserrat',
                                             fontSize: 14.0,
                                             letterSpacing: 0.0,
                                           ),
@@ -384,14 +382,14 @@ class _SignUpWidgetState extends State<SignUpWidget>
                                         labelStyle: FlutterFlowTheme.of(context)
                                             .labelLarge
                                             .override(
-                                              fontFamily: 'Readex Pro',
+                                              fontFamily: 'Montserrat',
                                               letterSpacing: 0.0,
                                             ),
                                         hintText: 'Confirm Password',
                                         hintStyle: FlutterFlowTheme.of(context)
                                             .bodyLarge
                                             .override(
-                                              fontFamily: 'Readex Pro',
+                                              fontFamily: 'Montserrat',
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryText,
@@ -439,7 +437,7 @@ class _SignUpWidgetState extends State<SignUpWidget>
                                             .primaryBackground,
                                         contentPadding: const EdgeInsets.all(20.0),
                                         suffixIcon: InkWell(
-                                          onTap: () => setState(
+                                          onTap: () => safeSetState(
                                             () => _model
                                                     .confirmPasswordVisibility =
                                                 !_model
@@ -460,7 +458,7 @@ class _SignUpWidgetState extends State<SignUpWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .bodyLarge
                                           .override(
-                                            fontFamily: 'Readex Pro',
+                                            fontFamily: 'Montserrat',
                                             fontSize: 14.0,
                                             letterSpacing: 0.0,
                                           ),
@@ -483,7 +481,8 @@ class _SignUpWidgetState extends State<SignUpWidget>
                                       0.0, 1.0, 0.0, 10.0),
                                   child: FFButtonWidget(
                                     onPressed: () async {
-                                      GoRouter.of(context).prepareAuthEvent();
+                                      GoRouter.of(context)
+                                          .prepareAuthEvent(true);
                                       if (_model.passwordTextController.text !=
                                           _model.confirmPasswordTextController
                                               .text) {
@@ -515,30 +514,11 @@ class _SignUpWidgetState extends State<SignUpWidget>
                                                 _model.emailTextController.text,
                                           ));
 
-                                      await showModalBottomSheet(
-                                        isScrollControlled: true,
-                                        backgroundColor: Colors.transparent,
-                                        enableDrag: false,
-                                        context: context,
-                                        builder: (context) {
-                                          return GestureDetector(
-                                            onTap: () => _model
-                                                    .unfocusNode.canRequestFocus
-                                                ? FocusScope.of(context)
-                                                    .requestFocus(
-                                                        _model.unfocusNode)
-                                                : FocusScope.of(context)
-                                                    .unfocus(),
-                                            child: Padding(
-                                              padding: MediaQuery.viewInsetsOf(
-                                                  context),
-                                              child: const TermsOfServiceWidget(
-                                                isEmail: true,
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      ).then((value) => safeSetState(() {}));
+                                      context.goNamedAuth(
+                                        'Email',
+                                        context.mounted,
+                                        ignoreRedirect: true,
+                                      );
                                     },
                                     text: 'Sign Up',
                                     options: FFButtonOptions(
@@ -554,7 +534,7 @@ class _SignUpWidgetState extends State<SignUpWidget>
                                       textStyle: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            fontFamily: 'Readex Pro',
+                                            fontFamily: 'Montserrat',
                                             color: Colors.white,
                                             letterSpacing: 0.0,
                                           ),
@@ -600,12 +580,8 @@ class _SignUpWidgetState extends State<SignUpWidget>
                                             context: context,
                                             builder: (context) {
                                               return GestureDetector(
-                                                onTap: () => _model.unfocusNode
-                                                        .canRequestFocus
-                                                    ? FocusScope.of(context)
-                                                        .requestFocus(
-                                                            _model.unfocusNode)
-                                                    : FocusScope.of(context)
+                                                onTap: () =>
+                                                    FocusScope.of(context)
                                                         .unfocus(),
                                                 child: Padding(
                                                   padding:
@@ -653,12 +629,8 @@ class _SignUpWidgetState extends State<SignUpWidget>
                                             context: context,
                                             builder: (context) {
                                               return GestureDetector(
-                                                onTap: () => _model.unfocusNode
-                                                        .canRequestFocus
-                                                    ? FocusScope.of(context)
-                                                        .requestFocus(
-                                                            _model.unfocusNode)
-                                                    : FocusScope.of(context)
+                                                onTap: () =>
+                                                    FocusScope.of(context)
                                                         .unfocus(),
                                                 child: Padding(
                                                   padding:
@@ -706,12 +678,8 @@ class _SignUpWidgetState extends State<SignUpWidget>
                                             context: context,
                                             builder: (context) {
                                               return GestureDetector(
-                                                onTap: () => _model.unfocusNode
-                                                        .canRequestFocus
-                                                    ? FocusScope.of(context)
-                                                        .requestFocus(
-                                                            _model.unfocusNode)
-                                                    : FocusScope.of(context)
+                                                onTap: () =>
+                                                    FocusScope.of(context)
                                                         .unfocus(),
                                                 child: Padding(
                                                   padding:
@@ -736,64 +704,6 @@ class _SignUpWidgetState extends State<SignUpWidget>
 
                                           context.goNamedAuth(
                                               'DateOfBirth', context.mounted);
-                                        },
-                                      ),
-                                      FlutterFlowIconButton(
-                                        borderColor:
-                                            FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                        borderRadius: 200.0,
-                                        borderWidth: 3.0,
-                                        buttonSize: 50.0,
-                                        icon: FaIcon(
-                                          FontAwesomeIcons.userSecret,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          size: 24.0,
-                                        ),
-                                        onPressed: () async {
-                                          await showModalBottomSheet(
-                                            isScrollControlled: true,
-                                            backgroundColor: Colors.transparent,
-                                            enableDrag: false,
-                                            context: context,
-                                            builder: (context) {
-                                              return GestureDetector(
-                                                onTap: () => _model.unfocusNode
-                                                        .canRequestFocus
-                                                    ? FocusScope.of(context)
-                                                        .requestFocus(
-                                                            _model.unfocusNode)
-                                                    : FocusScope.of(context)
-                                                        .unfocus(),
-                                                child: Padding(
-                                                  padding:
-                                                      MediaQuery.viewInsetsOf(
-                                                          context),
-                                                  child: const TermsOfServiceWidget(
-                                                    isEmail: false,
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                          ).then(
-                                              (value) => safeSetState(() {}));
-
-                                          GoRouter.of(context)
-                                              .prepareAuthEvent();
-                                          final user = await authManager
-                                              .signInAnonymously(context);
-                                          if (user == null) {
-                                            return;
-                                          }
-
-                                          await currentUserReference!
-                                              .update(createUsersRecordData(
-                                            isAnon: true,
-                                          ));
-
-                                          context.goNamedAuth(
-                                              'HomePage', context.mounted);
                                         },
                                       ),
                                     ].divide(const SizedBox(width: 10.0)),
@@ -823,7 +733,7 @@ class _SignUpWidgetState extends State<SignUpWidget>
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                fontFamily: 'Readex Pro',
+                                                fontFamily: 'Montserrat',
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primary,
@@ -836,7 +746,7 @@ class _SignUpWidgetState extends State<SignUpWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            fontFamily: 'Readex Pro',
+                                            fontFamily: 'Montserrat',
                                             fontSize: 14.0,
                                             letterSpacing: 0.0,
                                           ),

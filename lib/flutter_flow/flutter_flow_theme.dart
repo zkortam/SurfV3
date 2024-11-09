@@ -127,7 +127,7 @@ class LightModeTheme extends FlutterFlowTheme {
 
   late Color primary = const Color(0xFF4B39EF);
   late Color secondary = const Color(0xFF5A78C6);
-  late Color tertiary = const Color(0xFFE5E5E5);
+  late Color tertiary = const Color(0xFF9D9D9D);
   late Color alternate = const Color(0xFFE0E3E7);
   late Color primaryText = const Color(0xFF14181B);
   late Color secondaryText = const Color(0xFF57636C);
@@ -181,109 +181,109 @@ class ThemeTypography extends Typography {
 
   final FlutterFlowTheme theme;
 
-  String get displayLargeFamily => 'Outfit';
+  String get displayLargeFamily => 'Montserrat';
   TextStyle get displayLarge => GoogleFonts.getFont(
-        'Outfit',
+        'Montserrat',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 64.0,
       );
-  String get displayMediumFamily => 'Outfit';
+  String get displayMediumFamily => 'Montserrat';
   TextStyle get displayMedium => GoogleFonts.getFont(
-        'Outfit',
+        'Montserrat',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 44.0,
       );
-  String get displaySmallFamily => 'Outfit';
+  String get displaySmallFamily => 'Montserrat';
   TextStyle get displaySmall => GoogleFonts.getFont(
-        'Outfit',
+        'Montserrat',
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 36.0,
       );
-  String get headlineLargeFamily => 'Outfit';
+  String get headlineLargeFamily => 'Montserrat';
   TextStyle get headlineLarge => GoogleFonts.getFont(
-        'Outfit',
+        'Montserrat',
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 32.0,
       );
-  String get headlineMediumFamily => 'Outfit';
+  String get headlineMediumFamily => 'Montserrat';
   TextStyle get headlineMedium => GoogleFonts.getFont(
-        'Outfit',
+        'Montserrat',
         color: theme.primaryText,
-        fontWeight: FontWeight.normal,
+        fontWeight: FontWeight.w600,
         fontSize: 24.0,
       );
-  String get headlineSmallFamily => 'Outfit';
+  String get headlineSmallFamily => 'Montserrat';
   TextStyle get headlineSmall => GoogleFonts.getFont(
-        'Outfit',
+        'Montserrat',
         color: theme.primaryText,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w600,
         fontSize: 24.0,
       );
-  String get titleLargeFamily => 'Outfit';
+  String get titleLargeFamily => 'Montserrat';
   TextStyle get titleLarge => GoogleFonts.getFont(
-        'Outfit',
+        'Montserrat',
         color: theme.primaryText,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w600,
         fontSize: 22.0,
       );
-  String get titleMediumFamily => 'Readex Pro';
+  String get titleMediumFamily => 'Montserrat';
   TextStyle get titleMedium => GoogleFonts.getFont(
-        'Readex Pro',
+        'Montserrat',
         color: theme.info,
-        fontWeight: FontWeight.normal,
+        fontWeight: FontWeight.w600,
         fontSize: 18.0,
       );
-  String get titleSmallFamily => 'Readex Pro';
+  String get titleSmallFamily => 'Montserrat';
   TextStyle get titleSmall => GoogleFonts.getFont(
-        'Readex Pro',
+        'Montserrat',
         color: theme.info,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w600,
         fontSize: 16.0,
       );
-  String get labelLargeFamily => 'Readex Pro';
+  String get labelLargeFamily => 'Montserrat';
   TextStyle get labelLarge => GoogleFonts.getFont(
-        'Readex Pro',
+        'Montserrat',
         color: theme.secondaryText,
-        fontWeight: FontWeight.normal,
+        fontWeight: FontWeight.w600,
         fontSize: 16.0,
       );
-  String get labelMediumFamily => 'Readex Pro';
+  String get labelMediumFamily => 'Montserrat';
   TextStyle get labelMedium => GoogleFonts.getFont(
-        'Readex Pro',
+        'Montserrat',
         color: theme.secondaryText,
-        fontWeight: FontWeight.normal,
+        fontWeight: FontWeight.w600,
         fontSize: 14.0,
       );
-  String get labelSmallFamily => 'Readex Pro';
+  String get labelSmallFamily => 'Montserrat';
   TextStyle get labelSmall => GoogleFonts.getFont(
-        'Readex Pro',
+        'Montserrat',
         color: theme.secondaryText,
-        fontWeight: FontWeight.normal,
+        fontWeight: FontWeight.w600,
         fontSize: 12.0,
       );
-  String get bodyLargeFamily => 'Readex Pro';
+  String get bodyLargeFamily => 'Montserrat';
   TextStyle get bodyLarge => GoogleFonts.getFont(
-        'Readex Pro',
+        'Montserrat',
         color: theme.primaryText,
-        fontWeight: FontWeight.normal,
+        fontWeight: FontWeight.w600,
         fontSize: 16.0,
       );
-  String get bodyMediumFamily => 'Readex Pro';
+  String get bodyMediumFamily => 'Montserrat';
   TextStyle get bodyMedium => GoogleFonts.getFont(
-        'Readex Pro',
+        'Montserrat',
         color: theme.primaryText,
-        fontWeight: FontWeight.normal,
+        fontWeight: FontWeight.w600,
         fontSize: 14.0,
       );
-  String get bodySmallFamily => 'Readex Pro';
+  String get bodySmallFamily => 'Montserrat';
   TextStyle get bodySmall => GoogleFonts.getFont(
-        'Readex Pro',
+        'Montserrat',
         color: theme.primaryText,
-        fontWeight: FontWeight.normal,
+        fontWeight: FontWeight.w600,
         fontSize: 12.0,
       );
 }
@@ -298,7 +298,7 @@ class DarkModeTheme extends FlutterFlowTheme {
 
   late Color primary = const Color(0xFF4B39EF);
   late Color secondary = const Color(0xFF5A78C6);
-  late Color tertiary = const Color(0xFF3A3A3A);
+  late Color tertiary = const Color(0xFF9D9D9D);
   late Color alternate = const Color(0xFF262D34);
   late Color primaryText = const Color(0xFFFFFFFF);
   late Color secondaryText = const Color(0xFF95A1AC);

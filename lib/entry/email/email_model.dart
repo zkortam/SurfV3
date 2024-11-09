@@ -12,7 +12,6 @@ class EmailModel extends FlutterFlowModel<EmailWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   InstantTimer? instantTimer;
   // State field(s) for Timer widget.
   final timerInitialTimeMs = 60000;
@@ -30,7 +29,6 @@ class EmailModel extends FlutterFlowModel<EmailWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     instantTimer?.cancel();
     timerController.dispose();
   }

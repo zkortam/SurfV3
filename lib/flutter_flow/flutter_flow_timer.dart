@@ -92,7 +92,9 @@ class _FlutterFlowTimerState extends State<FlutterFlowTimer> {
     widget.controller.timer.rawTime.listen((_) {
       _displayTime = widget.getDisplayTime(timerValue);
       widget.onChanged(timerValue, _displayTime, _shouldUpdate());
-      if (mounted) setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
     });
     // Add listener for actions executed on timer.
     widget.controller.addListener(() => _initTimer(shouldUpdate: true));
