@@ -4,7 +4,19 @@ import 'profile_widget.dart' show ProfileWidget;
 import 'package:flutter/material.dart';
 
 class ProfileModel extends FlutterFlowModel<ProfileWidget> {
+  ///  Local state fields for this page.
+
+  DocumentReference? userRefState;
+
+  int refresh = 0;
+
   ///  State fields for stateful widgets in this page.
+
+  String currentPageLink = '';
+  // State field(s) for TabBar widget.
+  TabController? tabBarController;
+  int get tabBarCurrentIndex =>
+      tabBarController != null ? tabBarController!.index : 0;
 
   // Model for NavigationBar component.
   late NavigationBarModel navigationBarModel;
@@ -16,6 +28,7 @@ class ProfileModel extends FlutterFlowModel<ProfileWidget> {
 
   @override
   void dispose() {
+    tabBarController?.dispose();
     navigationBarModel.dispose();
   }
 }

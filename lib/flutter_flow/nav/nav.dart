@@ -217,6 +217,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   ParamType.Document,
                 ),
               ),
+            ),
+            FFRoute(
+              name: 'EnterPin',
+              path: 'enterPin',
+              requireAuth: true,
+              builder: (context, params) => const EnterPinWidget(),
+            ),
+            FFRoute(
+              name: 'Settings',
+              path: 'settings',
+              requireAuth: true,
+              builder: (context, params) => const SettingsWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),

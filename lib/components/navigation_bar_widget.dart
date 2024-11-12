@@ -264,7 +264,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                           ),
                         ),
                       ),
-                      if (widget.page == 0)
+                      if (widget.page != 0)
                         Align(
                           alignment: const AlignmentDirectional(0.0, 0.0),
                           child: Padding(

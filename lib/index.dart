@@ -18,3 +18,5 @@ export '/gemini_experiment/gemini_experiment_widget.dart'
 export '/single_post/single_post_widget.dart' show SinglePostWidget;
 export '/single_thread/single_thread_widget.dart' show SingleThreadWidget;
 export '/pages/spaces/spaces_widget.dart' show SpacesWidget;
+export '/enter_pin/enter_pin_widget.dart' show EnterPinWidget;
+export '/settings/settings_widget.dart' show SettingsWidget;

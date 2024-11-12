@@ -177,7 +177,7 @@ flutter_launcher_icons:
   web:
     generate: true
   image_path: 'assets/images/app_launcher_icon.png'
-  adaptive_icon_background: 'assets/images/adaptive_background_icon.png'
+  adaptive_icon_background: '#000000'
   adaptive_icon_foreground: 'assets/images/adaptive_foreground_icon.png'
 
 
