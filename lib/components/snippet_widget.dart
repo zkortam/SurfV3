@@ -48,14 +48,14 @@ class _SnippetWidgetState extends State<SnippetWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
+      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 1.0),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10.0),
         child: Container(
           width: MediaQuery.sizeOf(context).width * 1.0,
           height: MediaQuery.sizeOf(context).height * 1.0,
           decoration: BoxDecoration(
-            color: FlutterFlowTheme.of(context).alternate,
+            color: FlutterFlowTheme.of(context).primaryBackground,
             borderRadius: BorderRadius.circular(10.0),
           ),
           child: SizedBox(

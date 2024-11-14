@@ -46,61 +46,64 @@ class _SnippetsWidgetState extends State<SnippetsWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        body: StreamBuilder<List<SnippetsRecord>>(
-          stream: querySnippetsRecord(
-            queryBuilder: (snippetsRecord) => snippetsRecord
-                .where(
-                  'author',
-                  isEqualTo: widget.author,
-                )
-                .where(
-                  'timeCloses',
-                  isGreaterThan: getCurrentTimestamp,
-                ),
-          ),
-          builder: (context, snapshot) {
-            // Customize what your widget looks like when it's loading.
-            if (!snapshot.hasData) {
-              return Center(
-                child: SizedBox(
-                  width: 40.0,
-                  height: 40.0,
-                  child: SpinKitFadingFour(
-                    color: FlutterFlowTheme.of(context).primary,
-                    size: 40.0,
+        body: SafeArea(
+          top: true,
+          child: StreamBuilder<List<SnippetsRecord>>(
+            stream: querySnippetsRecord(
+              queryBuilder: (snippetsRecord) => snippetsRecord
+                  .where(
+                    'author',
+                    isEqualTo: widget.author,
+                  )
+                  .where(
+                    'timeCloses',
+                    isGreaterThan: getCurrentTimestamp,
                   ),
+            ),
+            builder: (context, snapshot) {
+              // Customize what your widget looks like when it's loading.
+              if (!snapshot.hasData) {
+                return Center(
+                  child: SizedBox(
+                    width: 40.0,
+                    height: 40.0,
+                    child: SpinKitFadingFour(
+                      color: FlutterFlowTheme.of(context).primary,
+                      size: 40.0,
+                    ),
+                  ),
+                );
+              }
+              List<SnippetsRecord> pageViewSnippetsRecordList = snapshot.data!;
+
+              return SizedBox(
+                width: double.infinity,
+                height: MediaQuery.sizeOf(context).height * 1.0,
+                child: PageView.builder(
+                  controller: _model.pageViewController ??= PageController(
+                      initialPage: max(
+                          0, min(0, pageViewSnippetsRecordList.length - 1))),
+                  onPageChanged: (_) => safeSetState(() {}),
+                  scrollDirection: Axis.horizontal,
+                  itemCount: pageViewSnippetsRecordList.length,
+                  itemBuilder: (context, pageViewIndex) {
+                    final pageViewSnippetsRecord =
+                        pageViewSnippetsRecordList[pageViewIndex];
+                    return Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        SnippetWidget(
+                          key: Key(
+                              'Keyk6b_${pageViewIndex}_of_${pageViewSnippetsRecordList.length}'),
+                          snippet: pageViewSnippetsRecord,
+                        ),
+                      ],
+                    );
+                  },
                 ),
               );
-            }
-            List<SnippetsRecord> pageViewSnippetsRecordList = snapshot.data!;
-
-            return SizedBox(
-              width: double.infinity,
-              height: MediaQuery.sizeOf(context).height * 1.0,
-              child: PageView.builder(
-                controller: _model.pageViewController ??= PageController(
-                    initialPage:
-                        max(0, min(0, pageViewSnippetsRecordList.length - 1))),
-                onPageChanged: (_) => safeSetState(() {}),
-                scrollDirection: Axis.horizontal,
-                itemCount: pageViewSnippetsRecordList.length,
-                itemBuilder: (context, pageViewIndex) {
-                  final pageViewSnippetsRecord =
-                      pageViewSnippetsRecordList[pageViewIndex];
-                  return Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      SnippetWidget(
-                        key: Key(
-                            'Keyk6b_${pageViewIndex}_of_${pageViewSnippetsRecordList.length}'),
-                        snippet: pageViewSnippetsRecord,
-                      ),
-                    ],
-                  );
-                },
-              ),
-            );
-          },
+            },
+          ),
         ),
       ),
     );
