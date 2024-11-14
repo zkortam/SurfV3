@@ -254,3 +254,7 @@ int roundAndMultiply(double value) {
 DocumentReference idToReference(String postID) {
   return FirebaseFirestore.instance.collection('posts').doc(postID);
 }
+
+DateTime nextDay(DateTime currentTime) {
+  return currentTime.add(Duration(days: 1));
+}

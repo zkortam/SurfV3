@@ -611,243 +611,58 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Flexible(
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Flexible(
-                                            child: Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 2.0),
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  color: const Color(0x3D000000),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          24.0),
-                                                ),
-                                                child: Stack(
-                                                  children: [
-                                                    if (!widget
-                                                        .post!.isStealth)
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    5.0,
-                                                                    0.0,
-                                                                    5.0,
-                                                                    2.0),
-                                                        child: InkWell(
-                                                          splashColor: Colors
-                                                              .transparent,
-                                                          focusColor: Colors
-                                                              .transparent,
-                                                          hoverColor: Colors
-                                                              .transparent,
-                                                          highlightColor: Colors
-                                                              .transparent,
-                                                          onTap: () async {
-                                                            context.pushNamed(
-                                                              'Profile',
-                                                              queryParameters: {
-                                                                'userReference':
-                                                                    serializeParam(
-                                                                  widget.post
-                                                                      ?.author,
-                                                                  ParamType
-                                                                      .DocumentReference,
-                                                                ),
-                                                              }.withoutNulls,
-                                                            );
-                                                          },
-                                                          child: Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
-                                                            children: [
-                                                              Container(
-                                                                width: 25.0,
-                                                                height: 25.0,
-                                                                clipBehavior: Clip
-                                                                    .antiAlias,
-                                                                decoration:
-                                                                    const BoxDecoration(
-                                                                  shape: BoxShape
-                                                                      .circle,
-                                                                ),
-                                                                child:
-                                                                    CachedNetworkImage(
-                                                                  fadeInDuration:
-                                                                      const Duration(
-                                                                          milliseconds:
-                                                                              500),
-                                                                  fadeOutDuration:
-                                                                      const Duration(
-                                                                          milliseconds:
-                                                                              500),
-                                                                  imageUrl:
-                                                                      containerUsersRecord
-                                                                          .photoUrl,
-                                                                  fit: BoxFit
-                                                                      .cover,
-                                                                ),
+                                    Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 2.0),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(24.0),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: const Color(0x3D000000),
+                                                borderRadius:
+                                                    BorderRadius.circular(24.0),
+                                              ),
+                                              child: Stack(
+                                                children: [
+                                                  if (!widget.post!.isStealth)
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  5.0,
+                                                                  0.0,
+                                                                  5.0,
+                                                                  2.0),
+                                                      child: InkWell(
+                                                        splashColor:
+                                                            Colors.transparent,
+                                                        focusColor:
+                                                            Colors.transparent,
+                                                        hoverColor:
+                                                            Colors.transparent,
+                                                        highlightColor:
+                                                            Colors.transparent,
+                                                        onTap: () async {
+                                                          context.pushNamed(
+                                                            'Profile',
+                                                            queryParameters: {
+                                                              'userReference':
+                                                                  serializeParam(
+                                                                widget.post
+                                                                    ?.author,
+                                                                ParamType
+                                                                    .DocumentReference,
                                                               ),
-                                                              Padding(
-                                                                padding:
-                                                                    const EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            5.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                child: Text(
-                                                                  containerUsersRecord
-                                                                      .displayName,
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Montserrat',
-                                                                        color: Colors
-                                                                            .white,
-                                                                        fontSize:
-                                                                            14.0,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                      ),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    const EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            5.0,
-                                                                            0.0,
-                                                                            5.0,
-                                                                            0.0),
-                                                                child: Icon(
-                                                                  Icons.circle,
-                                                                  color: () {
-                                                                    if (functions.calculateNetVotes(widget
-                                                                            .post!
-                                                                            .voters
-                                                                            .toList()) >
-                                                                        0) {
-                                                                      return FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .success;
-                                                                    } else if (functions.calculateNetVotes(widget
-                                                                            .post!
-                                                                            .voters
-                                                                            .toList()) <
-                                                                        0) {
-                                                                      return FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .error;
-                                                                    } else {
-                                                                      return FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondaryText;
-                                                                    }
-                                                                  }(),
-                                                                  size: 10.0,
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    const EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            5.0,
-                                                                            0.0),
-                                                                child: Text(
-                                                                  functions
-                                                                      .calculateNetVotes(widget
-                                                                          .post!
-                                                                          .voters
-                                                                          .toList())
-                                                                      .toString(),
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Montserrat',
-                                                                        color: Colors
-                                                                            .white,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                      ),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    const EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            5.0,
-                                                                            0.0,
-                                                                            5.0,
-                                                                            0.0),
-                                                                child: Icon(
-                                                                  Icons.circle,
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryText,
-                                                                  size: 10.0,
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    const EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            5.0,
-                                                                            0.0),
-                                                                child: Text(
-                                                                  dateTimeFormat(
-                                                                    "relative",
-                                                                    widget
-                                                                        .post!
-                                                                        .timePosted!,
-                                                                    locale: FFLocalizations.of(context)
-                                                                            .languageShortCode ??
-                                                                        FFLocalizations.of(context)
-                                                                            .languageCode,
-                                                                  ),
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Montserrat',
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .secondaryText,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                      ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    if (widget
-                                                            .post?.isStealth ??
-                                                        true)
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    5.0,
-                                                                    0.0,
-                                                                    5.0,
-                                                                    2.0),
+                                                            }.withoutNulls,
+                                                          );
+                                                        },
                                                         child: Row(
                                                           mainAxisSize:
                                                               MainAxisSize.min,
@@ -863,12 +678,18 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                     .circle,
                                                               ),
                                                               child:
-                                                                  Image.network(
-                                                                random_data
-                                                                    .randomImageUrl(
-                                                                  25,
-                                                                  25,
-                                                                ),
+                                                                  CachedNetworkImage(
+                                                                fadeInDuration:
+                                                                    const Duration(
+                                                                        milliseconds:
+                                                                            500),
+                                                                fadeOutDuration:
+                                                                    const Duration(
+                                                                        milliseconds:
+                                                                            500),
+                                                                imageUrl:
+                                                                    containerUsersRecord
+                                                                        .photoUrl,
                                                                 fit: BoxFit
                                                                     .cover,
                                                               ),
@@ -882,7 +703,8 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                           0.0,
                                                                           0.0),
                                                               child: Text(
-                                                                'Anonymous',
+                                                                containerUsersRecord
+                                                                    .displayName,
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMedium
@@ -891,6 +713,8 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                           'Montserrat',
                                                                       color: Colors
                                                                           .white,
+                                                                      fontSize:
+                                                                          14.0,
                                                                       letterSpacing:
                                                                           0.0,
                                                                     ),
@@ -985,12 +809,17 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                           5.0,
                                                                           0.0),
                                                               child: Text(
-                                                                functions
-                                                                    .calculateNetVotes(widget
-                                                                        .post!
-                                                                        .voters
-                                                                        .toList())
-                                                                    .toString(),
+                                                                dateTimeFormat(
+                                                                  "relative",
+                                                                  widget.post!
+                                                                      .timePosted!,
+                                                                  locale: FFLocalizations.of(
+                                                                              context)
+                                                                          .languageShortCode ??
+                                                                      FFLocalizations.of(
+                                                                              context)
+                                                                          .languageCode,
+                                                                ),
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMedium
@@ -1008,95 +837,273 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                           ],
                                                         ),
                                                       ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Flexible(
-                                            child: Container(
-                                              width: 260.0,
-                                              decoration: const BoxDecoration(),
-                                              child: Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        5.0, 0.0, 0.0, 2.0),
-                                                child: Text(
-                                                  valueOrDefault<String>(
-                                                    widget.post?.caption,
-                                                    'None',
-                                                  ),
-                                                  maxLines: 3,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Montserrat',
-                                                        color: Colors.white,
-                                                        fontSize: 13.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w600,
+                                                    ),
+                                                  if (widget.post?.isStealth ??
+                                                      true)
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  5.0,
+                                                                  0.0,
+                                                                  5.0,
+                                                                  2.0),
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Container(
+                                                            width: 25.0,
+                                                            height: 25.0,
+                                                            clipBehavior:
+                                                                Clip.antiAlias,
+                                                            decoration:
+                                                                const BoxDecoration(
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                            ),
+                                                            child:
+                                                                Image.network(
+                                                              random_data
+                                                                  .randomImageUrl(
+                                                                25,
+                                                                25,
+                                                              ),
+                                                              fit: BoxFit.cover,
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        5.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
+                                                            child: Text(
+                                                              'Anonymous',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Montserrat',
+                                                                    color: Colors
+                                                                        .white,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        5.0,
+                                                                        0.0,
+                                                                        5.0,
+                                                                        0.0),
+                                                            child: Icon(
+                                                              Icons.circle,
+                                                              color: () {
+                                                                if (functions.calculateNetVotes(widget
+                                                                        .post!
+                                                                        .voters
+                                                                        .toList()) >
+                                                                    0) {
+                                                                  return FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .success;
+                                                                } else if (functions.calculateNetVotes(widget
+                                                                        .post!
+                                                                        .voters
+                                                                        .toList()) <
+                                                                    0) {
+                                                                  return FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .error;
+                                                                } else {
+                                                                  return FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryText;
+                                                                }
+                                                              }(),
+                                                              size: 10.0,
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        0.0,
+                                                                        5.0,
+                                                                        0.0),
+                                                            child: Text(
+                                                              functions
+                                                                  .calculateNetVotes(
+                                                                      widget
+                                                                          .post!
+                                                                          .voters
+                                                                          .toList())
+                                                                  .toString(),
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Montserrat',
+                                                                    color: Colors
+                                                                        .white,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        5.0,
+                                                                        0.0,
+                                                                        5.0,
+                                                                        0.0),
+                                                            child: Icon(
+                                                              Icons.circle,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .secondaryText,
+                                                              size: 10.0,
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        0.0,
+                                                                        5.0,
+                                                                        0.0),
+                                                            child: Text(
+                                                              functions
+                                                                  .calculateNetVotes(
+                                                                      widget
+                                                                          .post!
+                                                                          .voters
+                                                                          .toList())
+                                                                  .toString(),
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Montserrat',
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondaryText,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                ),
+                                                    ),
+                                                ],
                                               ),
                                             ),
                                           ),
-                                          Flexible(
-                                            child: Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(5.0, 0.0, 0.0, 0.0),
-                                              child: InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                onTap: () async {
-                                                  await showModalBottomSheet(
-                                                    isScrollControlled: true,
-                                                    backgroundColor:
-                                                        Colors.transparent,
-                                                    context: context,
-                                                    builder: (context) {
-                                                      return Padding(
-                                                        padding: MediaQuery
-                                                            .viewInsetsOf(
-                                                                context),
-                                                        child: CommentsWidget(
-                                                          post: widget
-                                                              .post?.reference,
+                                        ),
+                                        Container(
+                                          width: 250.0,
+                                          decoration: const BoxDecoration(),
+                                          child: SingleChildScrollView(
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          5.0, 0.0, 0.0, 2.0),
+                                                  child: Text(
+                                                    valueOrDefault<String>(
+                                                      widget.post?.caption,
+                                                      'None',
+                                                    ),
+                                                    maxLines: 3,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Montserrat',
+                                                          color: Colors.white,
+                                                          fontSize: 13.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
                                                         ),
-                                                      );
-                                                    },
-                                                  ).then((value) =>
-                                                      safeSetState(() {}));
-                                                },
-                                                child: Text(
-                                                  'View Comments',
-                                                  maxLines: 3,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Montserrat',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .tertiary,
-                                                        fontSize: 14.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                      ),
+                                                  ),
                                                 ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Flexible(
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    5.0, 0.0, 0.0, 0.0),
+                                            child: InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                await showModalBottomSheet(
+                                                  isScrollControlled: true,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return Padding(
+                                                      padding: MediaQuery
+                                                          .viewInsetsOf(
+                                                              context),
+                                                      child: CommentsWidget(
+                                                        post: widget
+                                                            .post?.reference,
+                                                      ),
+                                                    );
+                                                  },
+                                                ).then((value) =>
+                                                    safeSetState(() {}));
+                                              },
+                                              child: Text(
+                                                'View Comments',
+                                                maxLines: 3,
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Montserrat',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .tertiary,
+                                                      fontSize: 14.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
                                               ),
                                             ),
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
                                     Flexible(
                                       child: Row(
@@ -1311,6 +1318,10 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                       currentUserReference!)
                                                                   .toString() ==
                                                               '1') {
+                                                            _model.voteValue =
+                                                                0;
+                                                            safeSetState(() {});
+
                                                             firestoreBatch.update(
                                                                 widget.post!
                                                                     .reference,
@@ -1335,9 +1346,19 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                     },
                                                                   ),
                                                                 });
-                                                            _model.voteValue =
-                                                                0;
-                                                            safeSetState(() {});
+
+                                                            firestoreBatch.update(
+                                                                containerUsersRecord
+                                                                    .reference,
+                                                                {
+                                                                  ...mapToFirestore(
+                                                                    {
+                                                                      'vibe': FieldValue
+                                                                          .increment(
+                                                                              -(1)),
+                                                                    },
+                                                                  ),
+                                                                });
                                                           } else {
                                                             _model.voteValue =
                                                                 1;
@@ -1392,6 +1413,18 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                       },
                                                                     ),
                                                                   });
+
+                                                              firestoreBatch.update(
+                                                                  containerUsersRecord
+                                                                      .reference,
+                                                                  {
+                                                                    ...mapToFirestore(
+                                                                      {
+                                                                        'vibe':
+                                                                            FieldValue.increment(2),
+                                                                      },
+                                                                    ),
+                                                                  });
                                                             } else {
                                                               firestoreBatch.update(
                                                                   widget.post!
@@ -1410,6 +1443,18 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                             true,
                                                                           )
                                                                         ]),
+                                                                      },
+                                                                    ),
+                                                                  });
+
+                                                              firestoreBatch.update(
+                                                                  containerUsersRecord
+                                                                      .reference,
+                                                                  {
+                                                                    ...mapToFirestore(
+                                                                      {
+                                                                        'vibe':
+                                                                            FieldValue.increment(1),
                                                                       },
                                                                     ),
                                                                   });
@@ -1663,6 +1708,9 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                     currentUserReference!)
                                                                 .toString() ==
                                                             '-1') {
+                                                          _model.voteValue = 0;
+                                                          safeSetState(() {});
+
                                                           firestoreBatch.update(
                                                               widget.post!
                                                                   .reference,
@@ -1687,8 +1735,19 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                   },
                                                                 ),
                                                               });
-                                                          _model.voteValue = 0;
-                                                          safeSetState(() {});
+
+                                                          firestoreBatch.update(
+                                                              containerUsersRecord
+                                                                  .reference,
+                                                              {
+                                                                ...mapToFirestore(
+                                                                  {
+                                                                    'vibe': FieldValue
+                                                                        .increment(
+                                                                            -(1)),
+                                                                  },
+                                                                ),
+                                                              });
                                                         } else {
                                                           _model.voteValue = -1;
                                                           safeSetState(() {});
@@ -1750,6 +1809,19 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                     },
                                                                   ),
                                                                 });
+
+                                                            firestoreBatch.update(
+                                                                containerUsersRecord
+                                                                    .reference,
+                                                                {
+                                                                  ...mapToFirestore(
+                                                                    {
+                                                                      'vibe': FieldValue
+                                                                          .increment(
+                                                                              2),
+                                                                    },
+                                                                  ),
+                                                                });
                                                           } else {
                                                             firestoreBatch.update(
                                                                 widget.post!
@@ -1772,6 +1844,19 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                           true,
                                                                         )
                                                                       ]),
+                                                                    },
+                                                                  ),
+                                                                });
+
+                                                            firestoreBatch.update(
+                                                                containerUsersRecord
+                                                                    .reference,
+                                                                {
+                                                                  ...mapToFirestore(
+                                                                    {
+                                                                      'vibe': FieldValue
+                                                                          .increment(
+                                                                              1),
                                                                     },
                                                                   ),
                                                                 });

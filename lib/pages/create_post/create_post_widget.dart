@@ -2130,13 +2130,19 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                               _model.textThreadTextController
                                                       ?.text =
                                                   _model.beautifiedText!;
-                                              _model.textThreadTextController
-                                                      ?.selection =
-                                                  TextSelection.collapsed(
-                                                      offset: _model
-                                                          .textThreadTextController!
-                                                          .text
-                                                          .length);
+                                              _model.textThreadFocusNode
+                                                  ?.requestFocus();
+                                              WidgetsBinding.instance
+                                                  .addPostFrameCallback((_) {
+                                                _model.textThreadTextController
+                                                        ?.selection =
+                                                    TextSelection.collapsed(
+                                                  offset: _model
+                                                      .textThreadTextController!
+                                                      .text
+                                                      .length,
+                                                );
+                                              });
                                             });
                                           } else {
                                             if (shouldSetState) {
@@ -2371,13 +2377,19 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                 _model.textThreadTextController
                                                         ?.text =
                                                     _model.autoBeautifiedText!;
-                                                _model.textThreadTextController
-                                                        ?.selection =
-                                                    TextSelection.collapsed(
-                                                        offset: _model
-                                                            .textThreadTextController!
-                                                            .text
-                                                            .length);
+                                                _model.textThreadFocusNode
+                                                    ?.requestFocus();
+                                                WidgetsBinding.instance
+                                                    .addPostFrameCallback((_) {
+                                                  _model.textThreadTextController
+                                                          ?.selection =
+                                                      TextSelection.collapsed(
+                                                    offset: _model
+                                                        .textThreadTextController!
+                                                        .text
+                                                        .length,
+                                                  );
+                                                });
                                               });
                                             }
                                             if (functions.stringLength(_model
@@ -3719,7 +3731,8 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                               ),
                       unselectedLabelStyle: const TextStyle(),
                       labelColor: Colors.white,
-                      unselectedLabelColor: Colors.white,
+                      unselectedLabelColor:
+                          FlutterFlowTheme.of(context).secondaryText,
                       backgroundColor: FlutterFlowTheme.of(context).primary,
                       unselectedBackgroundColor:
                           FlutterFlowTheme.of(context).alternate,

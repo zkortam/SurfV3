@@ -366,7 +366,7 @@ class _ShortWidgetState extends State<ShortWidget>
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
                                     .secondaryBackground,
-                                borderRadius: BorderRadius.circular(15.0),
+                                borderRadius: BorderRadius.circular(25.0),
                               ),
                             ),
                           ),
@@ -377,7 +377,7 @@ class _ShortWidgetState extends State<ShortWidget>
                             width: double.infinity,
                             height: 80.0,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.0),
+                              borderRadius: BorderRadius.circular(25.0),
                             ),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -872,255 +872,328 @@ class _ShortWidgetState extends State<ShortWidget>
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      FlutterFlowIconButton(
-                                        borderRadius: 8.0,
-                                        buttonSize: 45.0,
-                                        icon: Icon(
-                                          Icons.mode_comment_outlined,
-                                          color:
-                                              FlutterFlowTheme.of(context).info,
-                                          size: 30.0,
-                                        ),
-                                        onPressed: () async {
-                                          await showModalBottomSheet(
-                                            isScrollControlled: true,
-                                            backgroundColor: Colors.transparent,
-                                            enableDrag: false,
-                                            context: context,
-                                            builder: (context) {
-                                              return Padding(
-                                                padding:
-                                                    MediaQuery.viewInsetsOf(
-                                                        context),
-                                                child: CommentsWidget(
-                                                  post: widget.post?.reference,
-                                                ),
-                                              );
-                                            },
-                                          ).then(
-                                              (value) => safeSetState(() {}));
-                                        },
-                                      ),
-                                      Stack(
+                                      Column(
+                                        mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          if (functions
-                                                  .voterInList(
-                                                      widget.post!.voters
-                                                          .toList(),
-                                                      currentUserReference!)
-                                                  .toString() ==
-                                              '1')
-                                            Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(5.0, 0.0, 0.0, 0.0),
-                                              child: FlutterFlowIconButton(
-                                                borderColor: Colors.transparent,
-                                                borderRadius: 8.0,
-                                                buttonSize: 45.0,
-                                                icon: Icon(
-                                                  Icons.favorite_rounded,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .error,
-                                                  size: 30.0,
-                                                ),
-                                                onPressed: () async {
-                                                  if (functions
-                                                          .voterInList(
-                                                              widget
-                                                                  .post!.voters
-                                                                  .toList(),
-                                                              currentUserReference!)
-                                                          .toString() ==
-                                                      '1') {
-                                                    await widget
-                                                        .post!.reference
-                                                        .update({
-                                                      ...mapToFirestore(
-                                                        {
-                                                          'Voters': FieldValue
-                                                              .arrayRemove([
-                                                            getVotersFirestoreData(
-                                                              createVotersStruct(
-                                                                userReference:
-                                                                    currentUserReference,
-                                                                voteValue: 1,
-                                                                clearUnsetFields:
-                                                                    false,
-                                                              ),
-                                                              true,
-                                                            )
-                                                          ]),
-                                                        },
-                                                      ),
-                                                    });
-                                                    if (animationsMap[
-                                                            'containerOnActionTriggerAnimation2'] !=
-                                                        null) {
-                                                      await animationsMap[
-                                                              'containerOnActionTriggerAnimation2']!
-                                                          .controller
-                                                          .forward(from: 0.0);
-                                                    }
-                                                    if (animationsMap[
-                                                            'iconOnActionTriggerAnimation2'] !=
-                                                        null) {
-                                                      await animationsMap[
-                                                              'iconOnActionTriggerAnimation2']!
-                                                          .controller
-                                                          .forward(from: 0.0);
-                                                    }
-                                                  } else {
-                                                    await widget
-                                                        .post!.reference
-                                                        .update({
-                                                      ...mapToFirestore(
-                                                        {
-                                                          'Voters': FieldValue
-                                                              .arrayUnion([
-                                                            getVotersFirestoreData(
-                                                              createVotersStruct(
-                                                                userReference:
-                                                                    currentUserReference,
-                                                                voteValue: 1,
-                                                                clearUnsetFields:
-                                                                    false,
-                                                              ),
-                                                              true,
-                                                            )
-                                                          ]),
-                                                        },
-                                                      ),
-                                                    });
-                                                    if (animationsMap[
-                                                            'containerOnActionTriggerAnimation1'] !=
-                                                        null) {
-                                                      await animationsMap[
-                                                              'containerOnActionTriggerAnimation1']!
-                                                          .controller
-                                                          .forward(from: 0.0);
-                                                    }
-                                                    if (animationsMap[
-                                                            'iconOnActionTriggerAnimation1'] !=
-                                                        null) {
-                                                      await animationsMap[
-                                                              'iconOnActionTriggerAnimation1']!
-                                                          .controller
-                                                          .forward(from: 0.0);
-                                                    }
-                                                  }
-                                                },
-                                              ),
-                                            ),
-                                          if (functions
-                                                  .voterInList(
-                                                      widget.post!.voters
-                                                          .toList(),
-                                                      currentUserReference!)
-                                                  .toString() !=
-                                              '1')
-                                            Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(5.0, 0.0, 0.0, 0.0),
-                                              child: FlutterFlowIconButton(
-                                                borderColor: Colors.transparent,
-                                                borderRadius: 8.0,
-                                                buttonSize: 45.0,
-                                                icon: Icon(
-                                                  Icons.favorite_border,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
+                                          FlutterFlowIconButton(
+                                            borderRadius: 8.0,
+                                            buttonSize: 45.0,
+                                            icon: Icon(
+                                              Icons.mode_comment_outlined,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
                                                       .info,
-                                                  size: 30.0,
-                                                ),
-                                                onPressed: () async {
-                                                  if (functions
-                                                          .voterInList(
-                                                              widget
-                                                                  .post!.voters
-                                                                  .toList(),
-                                                              currentUserReference!)
-                                                          .toString() ==
-                                                      '1') {
-                                                    await widget
-                                                        .post!.reference
-                                                        .update({
-                                                      ...mapToFirestore(
-                                                        {
-                                                          'Voters': FieldValue
-                                                              .arrayRemove([
-                                                            getVotersFirestoreData(
-                                                              createVotersStruct(
-                                                                userReference:
-                                                                    currentUserReference,
-                                                                voteValue: 1,
-                                                                clearUnsetFields:
-                                                                    false,
-                                                              ),
-                                                              true,
-                                                            )
-                                                          ]),
-                                                        },
-                                                      ),
-                                                    });
-                                                    if (animationsMap[
-                                                            'containerOnActionTriggerAnimation2'] !=
-                                                        null) {
-                                                      await animationsMap[
-                                                              'containerOnActionTriggerAnimation2']!
-                                                          .controller
-                                                          .forward(from: 0.0);
-                                                    }
-                                                    if (animationsMap[
-                                                            'iconOnActionTriggerAnimation2'] !=
-                                                        null) {
-                                                      await animationsMap[
-                                                              'iconOnActionTriggerAnimation2']!
-                                                          .controller
-                                                          .forward(from: 0.0);
-                                                    }
-                                                  } else {
-                                                    await widget
-                                                        .post!.reference
-                                                        .update({
-                                                      ...mapToFirestore(
-                                                        {
-                                                          'Voters': FieldValue
-                                                              .arrayUnion([
-                                                            getVotersFirestoreData(
-                                                              createVotersStruct(
-                                                                userReference:
-                                                                    currentUserReference,
-                                                                voteValue: 1,
-                                                                clearUnsetFields:
-                                                                    false,
-                                                              ),
-                                                              true,
-                                                            )
-                                                          ]),
-                                                        },
-                                                      ),
-                                                    });
-                                                    if (animationsMap[
-                                                            'containerOnActionTriggerAnimation1'] !=
-                                                        null) {
-                                                      await animationsMap[
-                                                              'containerOnActionTriggerAnimation1']!
-                                                          .controller
-                                                          .forward(from: 0.0);
-                                                    }
-                                                    if (animationsMap[
-                                                            'iconOnActionTriggerAnimation1'] !=
-                                                        null) {
-                                                      await animationsMap[
-                                                              'iconOnActionTriggerAnimation1']!
-                                                          .controller
-                                                          .forward(from: 0.0);
-                                                    }
-                                                  }
-                                                },
-                                              ),
+                                              size: 30.0,
                                             ),
+                                            onPressed: () async {
+                                              await showModalBottomSheet(
+                                                isScrollControlled: true,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                enableDrag: false,
+                                                context: context,
+                                                builder: (context) {
+                                                  return Padding(
+                                                    padding:
+                                                        MediaQuery.viewInsetsOf(
+                                                            context),
+                                                    child: CommentsWidget(
+                                                      post: widget
+                                                          .post?.reference,
+                                                    ),
+                                                  );
+                                                },
+                                              ).then((value) =>
+                                                  safeSetState(() {}));
+                                            },
+                                          ),
+                                          Text(
+                                            valueOrDefault<String>(
+                                              widget.post?.comments.length
+                                                  .toString(),
+                                              '0',
+                                            ),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Montserrat',
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                      Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Stack(
+                                            children: [
+                                              if (functions
+                                                      .voterInList(
+                                                          widget.post!.voters
+                                                              .toList(),
+                                                          currentUserReference!)
+                                                      .toString() ==
+                                                  '1')
+                                                FlutterFlowIconButton(
+                                                  borderColor:
+                                                      Colors.transparent,
+                                                  borderRadius: 8.0,
+                                                  buttonSize: 45.0,
+                                                  icon: Icon(
+                                                    Icons.favorite_rounded,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .error,
+                                                    size: 30.0,
+                                                  ),
+                                                  onPressed: () async {
+                                                    if (functions
+                                                            .voterInList(
+                                                                widget.post!
+                                                                    .voters
+                                                                    .toList(),
+                                                                currentUserReference!)
+                                                            .toString() ==
+                                                        '1') {
+                                                      await widget
+                                                          .post!.reference
+                                                          .update({
+                                                        ...mapToFirestore(
+                                                          {
+                                                            'Voters': FieldValue
+                                                                .arrayRemove([
+                                                              getVotersFirestoreData(
+                                                                createVotersStruct(
+                                                                  userReference:
+                                                                      currentUserReference,
+                                                                  voteValue: 1,
+                                                                  clearUnsetFields:
+                                                                      false,
+                                                                ),
+                                                                true,
+                                                              )
+                                                            ]),
+                                                          },
+                                                        ),
+                                                      });
+                                                      if (animationsMap[
+                                                              'containerOnActionTriggerAnimation2'] !=
+                                                          null) {
+                                                        await animationsMap[
+                                                                'containerOnActionTriggerAnimation2']!
+                                                            .controller
+                                                            .forward(from: 0.0)
+                                                            .whenComplete(
+                                                                animationsMap[
+                                                                        'containerOnActionTriggerAnimation2']!
+                                                                    .controller
+                                                                    .reverse);
+                                                      }
+                                                      if (animationsMap[
+                                                              'iconOnActionTriggerAnimation2'] !=
+                                                          null) {
+                                                        await animationsMap[
+                                                                'iconOnActionTriggerAnimation2']!
+                                                            .controller
+                                                            .forward(from: 0.0)
+                                                            .whenComplete(
+                                                                animationsMap[
+                                                                        'iconOnActionTriggerAnimation2']!
+                                                                    .controller
+                                                                    .reverse);
+                                                      }
+                                                    } else {
+                                                      await widget
+                                                          .post!.reference
+                                                          .update({
+                                                        ...mapToFirestore(
+                                                          {
+                                                            'Voters': FieldValue
+                                                                .arrayUnion([
+                                                              getVotersFirestoreData(
+                                                                createVotersStruct(
+                                                                  userReference:
+                                                                      currentUserReference,
+                                                                  voteValue: 1,
+                                                                  clearUnsetFields:
+                                                                      false,
+                                                                ),
+                                                                true,
+                                                              )
+                                                            ]),
+                                                          },
+                                                        ),
+                                                      });
+                                                      if (animationsMap[
+                                                              'containerOnActionTriggerAnimation1'] !=
+                                                          null) {
+                                                        await animationsMap[
+                                                                'containerOnActionTriggerAnimation1']!
+                                                            .controller
+                                                            .forward(from: 0.0)
+                                                            .whenComplete(
+                                                                animationsMap[
+                                                                        'containerOnActionTriggerAnimation1']!
+                                                                    .controller
+                                                                    .reverse);
+                                                      }
+                                                      if (animationsMap[
+                                                              'iconOnActionTriggerAnimation1'] !=
+                                                          null) {
+                                                        await animationsMap[
+                                                                'iconOnActionTriggerAnimation1']!
+                                                            .controller
+                                                            .forward(from: 0.0)
+                                                            .whenComplete(
+                                                                animationsMap[
+                                                                        'iconOnActionTriggerAnimation1']!
+                                                                    .controller
+                                                                    .reverse);
+                                                      }
+                                                    }
+                                                  },
+                                                ),
+                                              if (functions
+                                                      .voterInList(
+                                                          widget.post!.voters
+                                                              .toList(),
+                                                          currentUserReference!)
+                                                      .toString() !=
+                                                  '1')
+                                                FlutterFlowIconButton(
+                                                  borderColor:
+                                                      Colors.transparent,
+                                                  borderRadius: 8.0,
+                                                  buttonSize: 45.0,
+                                                  icon: Icon(
+                                                    Icons.favorite_border,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .info,
+                                                    size: 30.0,
+                                                  ),
+                                                  onPressed: () async {
+                                                    if (functions
+                                                            .voterInList(
+                                                                widget.post!
+                                                                    .voters
+                                                                    .toList(),
+                                                                currentUserReference!)
+                                                            .toString() ==
+                                                        '1') {
+                                                      await widget
+                                                          .post!.reference
+                                                          .update({
+                                                        ...mapToFirestore(
+                                                          {
+                                                            'Voters': FieldValue
+                                                                .arrayRemove([
+                                                              getVotersFirestoreData(
+                                                                createVotersStruct(
+                                                                  userReference:
+                                                                      currentUserReference,
+                                                                  voteValue: 1,
+                                                                  clearUnsetFields:
+                                                                      false,
+                                                                ),
+                                                                true,
+                                                              )
+                                                            ]),
+                                                          },
+                                                        ),
+                                                      });
+                                                      if (animationsMap[
+                                                              'containerOnActionTriggerAnimation2'] !=
+                                                          null) {
+                                                        await animationsMap[
+                                                                'containerOnActionTriggerAnimation2']!
+                                                            .controller
+                                                            .forward(from: 0.0)
+                                                            .whenComplete(
+                                                                animationsMap[
+                                                                        'containerOnActionTriggerAnimation2']!
+                                                                    .controller
+                                                                    .reverse);
+                                                      }
+                                                      if (animationsMap[
+                                                              'iconOnActionTriggerAnimation2'] !=
+                                                          null) {
+                                                        await animationsMap[
+                                                                'iconOnActionTriggerAnimation2']!
+                                                            .controller
+                                                            .forward(from: 0.0)
+                                                            .whenComplete(
+                                                                animationsMap[
+                                                                        'iconOnActionTriggerAnimation2']!
+                                                                    .controller
+                                                                    .reverse);
+                                                      }
+                                                    } else {
+                                                      await widget
+                                                          .post!.reference
+                                                          .update({
+                                                        ...mapToFirestore(
+                                                          {
+                                                            'Voters': FieldValue
+                                                                .arrayUnion([
+                                                              getVotersFirestoreData(
+                                                                createVotersStruct(
+                                                                  userReference:
+                                                                      currentUserReference,
+                                                                  voteValue: 1,
+                                                                  clearUnsetFields:
+                                                                      false,
+                                                                ),
+                                                                true,
+                                                              )
+                                                            ]),
+                                                          },
+                                                        ),
+                                                      });
+                                                      if (animationsMap[
+                                                              'containerOnActionTriggerAnimation1'] !=
+                                                          null) {
+                                                        await animationsMap[
+                                                                'containerOnActionTriggerAnimation1']!
+                                                            .controller
+                                                            .forward(from: 0.0)
+                                                            .whenComplete(
+                                                                animationsMap[
+                                                                        'containerOnActionTriggerAnimation1']!
+                                                                    .controller
+                                                                    .reverse);
+                                                      }
+                                                      if (animationsMap[
+                                                              'iconOnActionTriggerAnimation1'] !=
+                                                          null) {
+                                                        await animationsMap[
+                                                                'iconOnActionTriggerAnimation1']!
+                                                            .controller
+                                                            .forward(from: 0.0)
+                                                            .whenComplete(
+                                                                animationsMap[
+                                                                        'iconOnActionTriggerAnimation1']!
+                                                                    .controller
+                                                                    .reverse);
+                                                      }
+                                                    }
+                                                  },
+                                                ),
+                                            ],
+                                          ),
+                                          Text(
+                                            valueOrDefault<String>(
+                                              widget.post?.voters.length
+                                                  .toString(),
+                                              '0',
+                                            ),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Montserrat',
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
                                         ],
                                       ),
                                     ],

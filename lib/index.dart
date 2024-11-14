@@ -20,3 +20,5 @@ export '/single_thread/single_thread_widget.dart' show SingleThreadWidget;
 export '/pages/spaces/spaces_widget.dart' show SpacesWidget;
 export '/enter_pin/enter_pin_widget.dart' show EnterPinWidget;
 export '/settings/settings_widget.dart' show SettingsWidget;
+export '/profile_posts/profile_posts_widget.dart' show ProfilePostsWidget;
+export '/pages/snippets/snippets_widget.dart' show SnippetsWidget;
