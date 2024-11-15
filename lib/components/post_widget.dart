@@ -636,10 +636,10 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                       padding:
                                                           const EdgeInsetsDirectional
                                                               .fromSTEB(
+                                                                  3.0,
+                                                                  3.0,
                                                                   5.0,
-                                                                  0.0,
-                                                                  5.0,
-                                                                  2.0),
+                                                                  3.0),
                                                       child: InkWell(
                                                         splashColor:
                                                             Colors.transparent,
@@ -668,8 +668,8 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                               MainAxisSize.min,
                                                           children: [
                                                             Container(
-                                                              width: 25.0,
-                                                              height: 25.0,
+                                                              width: 20.0,
+                                                              height: 20.0,
                                                               clipBehavior: Clip
                                                                   .antiAlias,
                                                               decoration:

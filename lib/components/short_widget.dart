@@ -242,7 +242,7 @@ class _ShortWidgetState extends State<ShortWidget>
                       path: widget.post!.shortVideo,
                       videoType: VideoType.network,
                       width: MediaQuery.sizeOf(context).width * 1.0,
-                      height: MediaQuery.sizeOf(context).height * 0.9,
+                      height: MediaQuery.sizeOf(context).height * 0.94,
                       autoPlay: true,
                       looping: true,
                       showControls: false,
