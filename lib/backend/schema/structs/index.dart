@@ -2,6 +2,7 @@ export '/backend/schema/util/schema_util.dart';
 
 export 'comment_struct.dart';
 export 'comment_user_records_struct.dart';
+export 'follower_group_struct.dart';
 export 'interest_struct.dart';
 export 'poll_struct.dart';
 export 'postinteraction_struct.dart';

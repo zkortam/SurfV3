@@ -294,6 +294,86 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             ),
                           ),
                         ),
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: FutureBuilder<List<UsersRecord>>(
+                            future: queryUsersRecordOnce(
+                              queryBuilder: (usersRecord) => usersRecord.where(
+                                'latestSnippetTime',
+                                isGreaterThan: getCurrentTimestamp,
+                              ),
+                            ),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 40.0,
+                                    height: 40.0,
+                                    child: SpinKitFadingFour(
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      size: 40.0,
+                                    ),
+                                  ),
+                                );
+                              }
+                              List<UsersRecord> rowUsersRecordList =
+                                  snapshot.data!;
+
+                              return Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: List.generate(
+                                    rowUsersRecordList.length, (rowIndex) {
+                                  final rowUsersRecord =
+                                      rowUsersRecordList[rowIndex];
+                                  return InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      context.pushNamed(
+                                        'Snippets',
+                                        queryParameters: {
+                                          'author': serializeParam(
+                                            rowUsersRecord.reference,
+                                            ParamType.DocumentReference,
+                                          ),
+                                        }.withoutNulls,
+                                      );
+                                    },
+                                    child: Container(
+                                      width: 70.0,
+                                      height: 70.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        borderRadius:
+                                            BorderRadius.circular(40.0),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(3.0),
+                                        child: Container(
+                                          width: 70.0,
+                                          height: 70.0,
+                                          clipBehavior: Clip.antiAlias,
+                                          decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Image.network(
+                                            rowUsersRecord.photoUrl,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }).divide(const SizedBox(width: 5.0)),
+                              );
+                            },
+                          ),
+                        ),
                         Flexible(
                           child: Align(
                             alignment: const AlignmentDirectional(0.0, 0.0),

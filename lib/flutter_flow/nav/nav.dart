@@ -256,6 +256,33 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   collectionNamePath: ['users'],
                 ),
               ),
+            ),
+            FFRoute(
+              name: 'Privacy',
+              path: 'privacy',
+              requireAuth: true,
+              builder: (context, params) => const PrivacyWidget(),
+            ),
+            FFRoute(
+              name: 'ViewGroup',
+              path: 'viewGroup',
+              requireAuth: true,
+              builder: (context, params) => ViewGroupWidget(
+                groupName: params.getParam(
+                  'groupName',
+                  ParamType.String,
+                ),
+                listOfUsers: params.getParam<DocumentReference>(
+                  'listOfUsers',
+                  ParamType.DocumentReference,
+                  isList: true,
+                  collectionNamePath: ['users'],
+                ),
+                groupColor: params.getParam(
+                  'groupColor',
+                  ParamType.Color,
+                ),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),

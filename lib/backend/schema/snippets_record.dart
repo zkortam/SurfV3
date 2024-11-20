@@ -55,6 +55,16 @@ class SnippetsRecord extends FirestoreRecord {
   DocumentReference? get threadsReference => _threadsReference;
   bool hasThreadsReference() => _threadsReference != null;
 
+  // "validPeople" field.
+  List<DocumentReference>? _validPeople;
+  List<DocumentReference> get validPeople => _validPeople ?? const [];
+  bool hasValidPeople() => _validPeople != null;
+
+  // "isOnlyForGroup" field.
+  bool? _isOnlyForGroup;
+  bool get isOnlyForGroup => _isOnlyForGroup ?? false;
+  bool hasIsOnlyForGroup() => _isOnlyForGroup != null;
+
   void _initializeFields() {
     _timePosted = snapshotData['timePosted'] as DateTime?;
     _author = snapshotData['author'] as DocumentReference?;
@@ -65,6 +75,8 @@ class SnippetsRecord extends FirestoreRecord {
     _postShortReference =
         snapshotData['postShortReference'] as DocumentReference?;
     _threadsReference = snapshotData['threadsReference'] as DocumentReference?;
+    _validPeople = getDataList(snapshotData['validPeople']);
+    _isOnlyForGroup = snapshotData['isOnlyForGroup'] as bool?;
   }
 
   static CollectionReference get collection =>
@@ -110,6 +122,7 @@ Map<String, dynamic> createSnippetsRecordData({
   DateTime? timeCloses,
   DocumentReference? postShortReference,
   DocumentReference? threadsReference,
+  bool? isOnlyForGroup,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -121,6 +134,7 @@ Map<String, dynamic> createSnippetsRecordData({
       'timeCloses': timeCloses,
       'postShortReference': postShortReference,
       'threadsReference': threadsReference,
+      'isOnlyForGroup': isOnlyForGroup,
     }.withoutNulls,
   );
 
@@ -132,6 +146,7 @@ class SnippetsRecordDocumentEquality implements Equality<SnippetsRecord> {
 
   @override
   bool equals(SnippetsRecord? e1, SnippetsRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.timePosted == e2?.timePosted &&
         e1?.author == e2?.author &&
         e1?.caption == e2?.caption &&
@@ -139,7 +154,9 @@ class SnippetsRecordDocumentEquality implements Equality<SnippetsRecord> {
         e1?.video == e2?.video &&
         e1?.timeCloses == e2?.timeCloses &&
         e1?.postShortReference == e2?.postShortReference &&
-        e1?.threadsReference == e2?.threadsReference;
+        e1?.threadsReference == e2?.threadsReference &&
+        listEquality.equals(e1?.validPeople, e2?.validPeople) &&
+        e1?.isOnlyForGroup == e2?.isOnlyForGroup;
   }
 
   @override
@@ -151,7 +168,9 @@ class SnippetsRecordDocumentEquality implements Equality<SnippetsRecord> {
         e?.video,
         e?.timeCloses,
         e?.postShortReference,
-        e?.threadsReference
+        e?.threadsReference,
+        e?.validPeople,
+        e?.isOnlyForGroup
       ]);
 
   @override

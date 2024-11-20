@@ -22,3 +22,5 @@ export '/enter_pin/enter_pin_widget.dart' show EnterPinWidget;
 export '/settings/settings_widget.dart' show SettingsWidget;
 export '/profile_posts/profile_posts_widget.dart' show ProfilePostsWidget;
 export '/pages/snippets/snippets_widget.dart' show SnippetsWidget;
+export '/privacy/privacy_widget.dart' show PrivacyWidget;
+export '/view_group/view_group_widget.dart' show ViewGroupWidget;

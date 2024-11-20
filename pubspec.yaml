@@ -67,6 +67,10 @@ dependencies:
   flutter_native_splash: 2.4.1
   flutter_plugin_android_lifecycle: 2.0.20
   flutter_spinkit: 5.2.0
+  flutterflow_colorpicker: 
+    git:
+      url: https://github.com/FlutterFlow/flutterflow_colorpicker.git
+      ref: v0.0.1+1
   font_awesome_flutter: 10.7.0
   from_css_color: 2.0.0
   functions_client: 2.3.2

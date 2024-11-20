@@ -4,24 +4,26 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'post_users_liked_click_model.dart';
-export 'post_users_liked_click_model.dart';
+import 'followers_following_model.dart';
+export 'followers_following_model.dart';
 
-class PostUsersLikedClickWidget extends StatefulWidget {
-  const PostUsersLikedClickWidget({
+class FollowersFollowingWidget extends StatefulWidget {
+  const FollowersFollowingWidget({
     super.key,
-    required this.voters,
+    required this.users,
+    required this.followersOrFollowing,
   });
 
-  final List<VotersStruct>? voters;
+  final List<DocumentReference>? users;
+  final int? followersOrFollowing;
 
   @override
-  State<PostUsersLikedClickWidget> createState() =>
-      _PostUsersLikedClickWidgetState();
+  State<FollowersFollowingWidget> createState() =>
+      _FollowersFollowingWidgetState();
 }
 
-class _PostUsersLikedClickWidgetState extends State<PostUsersLikedClickWidget> {
-  late PostUsersLikedClickModel _model;
+class _FollowersFollowingWidgetState extends State<FollowersFollowingWidget> {
+  late FollowersFollowingModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -32,7 +34,7 @@ class _PostUsersLikedClickWidgetState extends State<PostUsersLikedClickWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => PostUsersLikedClickModel());
+    _model = createModel(context, () => FollowersFollowingModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -59,12 +61,12 @@ class _PostUsersLikedClickWidgetState extends State<PostUsersLikedClickWidget> {
         ),
       ),
       child: Padding(
-        padding: const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
+        padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
               child: Container(
                 width: double.infinity,
                 height: 55.0,
@@ -108,7 +110,9 @@ class _PostUsersLikedClickWidgetState extends State<PostUsersLikedClickWidget> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Likes',
+                              widget.followersOrFollowing == 0
+                                  ? 'Followers'
+                                  : 'Following',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -132,7 +136,7 @@ class _PostUsersLikedClickWidgetState extends State<PostUsersLikedClickWidget> {
               padding: const EdgeInsetsDirectional.fromSTEB(5.0, 10.0, 5.0, 0.0),
               child: Builder(
                 builder: (context) {
-                  final voters = widget.voters!.toList();
+                  final users = widget.users!.toList();
 
                   return ListView.separated(
                     padding: const EdgeInsets.fromLTRB(
@@ -143,10 +147,10 @@ class _PostUsersLikedClickWidgetState extends State<PostUsersLikedClickWidget> {
                     ),
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
-                    itemCount: voters.length,
+                    itemCount: users.length,
                     separatorBuilder: (_, __) => const SizedBox(height: 10.0),
-                    itemBuilder: (context, votersIndex) {
-                      final votersItem = voters[votersIndex];
+                    itemBuilder: (context, usersIndex) {
+                      final usersItem = users[usersIndex];
                       return Container(
                         width: double.infinity,
                         height: 60.0,
@@ -160,8 +164,7 @@ class _PostUsersLikedClickWidgetState extends State<PostUsersLikedClickWidget> {
                           ),
                         ),
                         child: StreamBuilder<UsersRecord>(
-                          stream: UsersRecord.getDocument(
-                              votersItem.userReference!),
+                          stream: UsersRecord.getDocument(usersItem),
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.
                             if (!snapshot.hasData) {

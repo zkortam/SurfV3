@@ -258,3 +258,41 @@ DocumentReference idToReference(String postID) {
 DateTime nextDay(DateTime currentTime) {
   return currentTime.add(Duration(days: 1));
 }
+
+List<FollowerGroupStruct> updateGroupPeople(
+  String groupName,
+  List<FollowerGroupStruct> groups,
+  List<DocumentReference> users,
+) {
+  for (var group in groups) {
+    if (group.name == groupName) {
+      group.people = users; // Update the people field
+      break; // Exit the loop as we found the matching group
+    }
+  }
+  return groups; // Return the updated list
+}
+
+List<FollowerGroupStruct> removeUserFromGroup(
+  String groupName,
+  List<FollowerGroupStruct> groups,
+  DocumentReference user,
+) {
+  for (var group in groups) {
+    if (group.name == groupName) {
+      group.people?.removeWhere(
+          (reference) => reference == user); // Remove the matching user
+      break; // Stop after finding the matching group
+    }
+  }
+  return groups; // Return the updated list of groups
+}
+
+List<String> fourOptionsToList(
+  String option1,
+  String option2,
+  String option3,
+  String option4,
+) {
+  return [option1, option2, option3, option4];
+}
