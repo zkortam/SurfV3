@@ -8,15 +8,15 @@ class SinglePostModel extends FlutterFlowModel<SinglePostWidget> {
 
   String currentPageLink = '';
   // Model for Post component.
-  late PostModel postModel;
+  late PostModel postModel1;
 
   @override
   void initState(BuildContext context) {
-    postModel = createModel(context, () => PostModel());
+    postModel1 = createModel(context, () => PostModel());
   }
 
   @override
   void dispose() {
-    postModel.dispose();
+    postModel1.dispose();
   }
 }

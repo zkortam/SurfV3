@@ -217,6 +217,45 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   ParamType.Document,
                 ),
               ),
+            ),
+            FFRoute(
+              name: 'EnterPin',
+              path: 'enterPin',
+              requireAuth: true,
+              builder: (context, params) => const EnterPinWidget(),
+            ),
+            FFRoute(
+              name: 'Settings',
+              path: 'settings',
+              requireAuth: true,
+              builder: (context, params) => const SettingsWidget(),
+            ),
+            FFRoute(
+              name: 'ProfilePosts',
+              path: 'profilePosts',
+              requireAuth: true,
+              asyncParams: {
+                'post': getDoc(['posts'], PostsRecord.fromSnapshot),
+              },
+              builder: (context, params) => ProfilePostsWidget(
+                post: params.getParam(
+                  'post',
+                  ParamType.Document,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: 'Snippets',
+              path: 'Snippets',
+              requireAuth: true,
+              builder: (context, params) => SnippetsWidget(
+                author: params.getParam(
+                  'author',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['users'],
+                ),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),

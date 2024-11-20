@@ -43,6 +43,20 @@
       ]
     },
     {
+      "collectionGroup": "posts",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isShort",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "post_id",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "Threads",
       "queryScope": "COLLECTION",
       "fields": [
@@ -53,6 +67,34 @@
         {
           "fieldPath": "TimeStamp",
           "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "posts",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "Author",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "TimePosted",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Snippets",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "author",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "timeCloses",
+          "order": "ASCENDING"
         }
       ]
     }

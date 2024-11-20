@@ -124,7 +124,7 @@ class _ShortsWidgetState extends State<ShortsWidget> {
               Align(
                 alignment: const AlignmentDirectional(0.0, 1.0),
                 child: SizedBox(
-                  height: 55.0,
+                  height: 60.0,
                   child: Stack(
                     children: [
                       Align(

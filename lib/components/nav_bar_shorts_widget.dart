@@ -112,57 +112,48 @@ class _NavBarShortsWidgetState extends State<NavBarShortsWidget> {
                 );
               },
               child: SizedBox(
-                width: 70.0,
-                height: 50.0,
+                width: 47.0,
+                height: 47.0,
                 child: Stack(
                   alignment: const AlignmentDirectional(0.0, 0.0),
                   children: [
                     Align(
                       alignment: const AlignmentDirectional(0.0, 0.0),
-                      child: Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
-                        child: Container(
-                          width: 70.0,
-                          height: 70.0,
-                          decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                              colors: [Color(0xFF2120BC), Color(0xFF7D16C1)],
-                              stops: [0.0, 1.0],
-                              begin: AlignmentDirectional(1.0, -1.0),
-                              end: AlignmentDirectional(-1.0, 1.0),
-                            ),
-                            borderRadius: BorderRadius.circular(20.0),
+                      child: Container(
+                        width: 70.0,
+                        height: double.infinity,
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [Color(0xFF2120BC), Color(0xFF7D16C1)],
+                            stops: [0.0, 1.0],
+                            begin: AlignmentDirectional(1.0, -1.0),
+                            end: AlignmentDirectional(-1.0, 1.0),
                           ),
-                          child: const Icon(
-                            Icons.add,
-                            color: Colors.white,
-                            size: 33.0,
-                          ),
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        child: const Icon(
+                          Icons.add,
+                          color: Colors.white,
+                          size: 33.0,
                         ),
                       ),
                     ),
-                    if (widget.page == 0)
-                      Align(
-                        alignment: const AlignmentDirectional(0.0, 0.0),
-                        child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 5.0),
-                          child: Container(
-                            width: 70.0,
-                            height: 70.0,
-                            decoration: BoxDecoration(
-                              color: const Color(0x59000000),
-                              borderRadius: BorderRadius.circular(20.0),
-                            ),
-                            child: const Icon(
-                              Icons.add,
-                              color: Colors.white,
-                              size: 33.0,
-                            ),
-                          ),
+                    Align(
+                      alignment: const AlignmentDirectional(0.0, 0.0),
+                      child: Container(
+                        width: 70.0,
+                        height: double.infinity,
+                        decoration: BoxDecoration(
+                          color: const Color(0x59000000),
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        child: const Icon(
+                          Icons.add,
+                          color: Colors.white,
+                          size: 33.0,
                         ),
                       ),
+                    ),
                   ],
                 ),
               ),

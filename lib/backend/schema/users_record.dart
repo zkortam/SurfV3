@@ -128,6 +128,16 @@ class UsersRecord extends FirestoreRecord {
       _algorithmPreferences ?? UserAlgorithmPreferencesStruct();
   bool hasAlgorithmPreferences() => _algorithmPreferences != null;
 
+  // "vibe" field.
+  int? _vibe;
+  int get vibe => _vibe ?? 0;
+  bool hasVibe() => _vibe != null;
+
+  // "latestSnippetTime" field.
+  DateTime? _latestSnippetTime;
+  DateTime? get latestSnippetTime => _latestSnippetTime;
+  bool hasLatestSnippetTime() => _latestSnippetTime != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -156,6 +166,8 @@ class UsersRecord extends FirestoreRecord {
     _following = getDataList(snapshotData['following']);
     _algorithmPreferences = UserAlgorithmPreferencesStruct.maybeFromMap(
         snapshotData['algorithmPreferences']);
+    _vibe = castToType<int>(snapshotData['vibe']);
+    _latestSnippetTime = snapshotData['latestSnippetTime'] as DateTime?;
   }
 
   static CollectionReference get collection =>
@@ -210,6 +222,8 @@ Map<String, dynamic> createUsersRecordData({
   bool? deviceType,
   ThreadSettingsStruct? threadSettings,
   UserAlgorithmPreferencesStruct? algorithmPreferences,
+  int? vibe,
+  DateTime? latestSnippetTime,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -231,6 +245,8 @@ Map<String, dynamic> createUsersRecordData({
       'device_type': deviceType,
       'threadSettings': ThreadSettingsStruct().toMap(),
       'algorithmPreferences': UserAlgorithmPreferencesStruct().toMap(),
+      'vibe': vibe,
+      'latestSnippetTime': latestSnippetTime,
     }.withoutNulls,
   );
 
@@ -271,7 +287,9 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.threadSettings == e2?.threadSettings &&
         listEquality.equals(e1?.followers, e2?.followers) &&
         listEquality.equals(e1?.following, e2?.following) &&
-        e1?.algorithmPreferences == e2?.algorithmPreferences;
+        e1?.algorithmPreferences == e2?.algorithmPreferences &&
+        e1?.vibe == e2?.vibe &&
+        e1?.latestSnippetTime == e2?.latestSnippetTime;
   }
 
   @override
@@ -297,7 +315,9 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.threadSettings,
         e?.followers,
         e?.following,
-        e?.algorithmPreferences
+        e?.algorithmPreferences,
+        e?.vibe,
+        e?.latestSnippetTime
       ]);
 
   @override
