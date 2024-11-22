@@ -1,9 +1,14 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
+import '/components/blocked_widget.dart';
+import '/components/info_widget.dart';
 import '/components/select_group_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'privacy_model.dart';
 export 'privacy_model.dart';
 
@@ -96,7 +101,7 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                                         size: 25.0,
                                       ),
                                       onPressed: () async {
-                                        context.pushNamed('Profile');
+                                        context.pushNamed('Settings');
                                       },
                                     ),
                                   ),
@@ -114,7 +119,10 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                                                 const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 40.0, 0.0),
                                             child: Text(
-                                              'Privacy',
+                                              FFLocalizations.of(context)
+                                                  .getText(
+                                                'q7j2rku7' /* Privacy */,
+                                              ),
                                               textAlign: TextAlign.start,
                                               style: FlutterFlowTheme.of(
                                                       context)
@@ -143,39 +151,250 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                   ),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsetsDirectional.fromSTEB(10.0, 30.0, 10.0, 0.0),
-                  child: Container(
-                    width: double.infinity,
-                    height: 50.0,
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        colors: [Color(0xAD2120BC), Color(0xAF536EEF)],
-                        stops: [0.0, 1.0],
-                        begin: AlignmentDirectional(1.0, -1.0),
-                        end: AlignmentDirectional(-1.0, 1.0),
-                      ),
-                      borderRadius: BorderRadius.circular(50.0),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Stealth Mode',
-                          textAlign: TextAlign.center,
+                  padding: const EdgeInsetsDirectional.fromSTEB(10.0, 5.0, 10.0, 2.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 5.0),
+                        child: Text(
+                          FFLocalizations.of(context).getText(
+                            '681yty02' /* Stealth Mode */,
+                          ),
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Outfit',
-                                    color: Colors.white,
-                                    fontSize: 18.0,
+                                    fontFamily: 'Montserrat',
+                                    fontSize: 16.0,
                                     letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w600,
                                   ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
+                ),
+                Stack(
+                  children: [
+                    if (!valueOrDefault<bool>(
+                        currentUserDocument?.isStealth, false))
+                      Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            10.0, 0.0, 10.0, 0.0),
+                        child: AuthUserStreamWidget(
+                          builder: (context) => InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              await currentUserReference!
+                                  .update(createUsersRecordData(
+                                isStealth: true,
+                              ));
+                              _model.refresh = '0';
+                              safeSetState(() {});
+                              await showModalBottomSheet(
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                enableDrag: false,
+                                context: context,
+                                builder: (context) {
+                                  return GestureDetector(
+                                    onTap: () =>
+                                        FocusScope.of(context).unfocus(),
+                                    child: Padding(
+                                      padding: MediaQuery.viewInsetsOf(context),
+                                      child: const InfoWidget(
+                                        text: 'Stealth Mode On',
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ).then((value) => safeSetState(() {}));
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              height: 55.0,
+                              decoration: BoxDecoration(
+                                gradient: const LinearGradient(
+                                  colors: [
+                                    Color(0xE14E20BC),
+                                    Color(0xA40D1B62)
+                                  ],
+                                  stops: [0.0, 1.0],
+                                  begin: AlignmentDirectional(1.0, -1.0),
+                                  end: AlignmentDirectional(-1.0, 1.0),
+                                ),
+                                borderRadius: BorderRadius.circular(50.0),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 5.0, 0.0),
+                                    child: FlutterFlowIconButton(
+                                      borderColor: Colors.transparent,
+                                      borderRadius: 30.0,
+                                      buttonSize: 42.0,
+                                      icon: const Icon(
+                                        Icons.visibility,
+                                        color: Colors.white,
+                                        size: 25.0,
+                                      ),
+                                      onPressed: () {
+                                        print('IconButton pressed ...');
+                                      },
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
+                                    child: Text(
+                                      FFLocalizations.of(context).getText(
+                                        'cs0ficz6' /* Stealth Mode Off */,
+                                      ),
+                                      textAlign: TextAlign.start,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Montserrat',
+                                            color: Colors.white,
+                                            fontSize: 16.0,
+                                            letterSpacing: 0.0,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    if (valueOrDefault<bool>(
+                        currentUserDocument?.isStealth, false))
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
+                        child: AuthUserStreamWidget(
+                          builder: (context) => InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              await currentUserReference!
+                                  .update(createUsersRecordData(
+                                isStealth: false,
+                              ));
+                              _model.refresh = '0';
+                              safeSetState(() {});
+                              await showModalBottomSheet(
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                enableDrag: false,
+                                context: context,
+                                builder: (context) {
+                                  return GestureDetector(
+                                    onTap: () =>
+                                        FocusScope.of(context).unfocus(),
+                                    child: Padding(
+                                      padding: MediaQuery.viewInsetsOf(context),
+                                      child: const InfoWidget(
+                                        text: 'Stealth Mode Off',
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ).then((value) => safeSetState(() {}));
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              height: 55.0,
+                              decoration: BoxDecoration(
+                                gradient: const LinearGradient(
+                                  colors: [
+                                    Color(0xE14E20BC),
+                                    Color(0xA40D1B62)
+                                  ],
+                                  stops: [0.0, 1.0],
+                                  begin: AlignmentDirectional(1.0, -1.0),
+                                  end: AlignmentDirectional(-1.0, 1.0),
+                                ),
+                                borderRadius: BorderRadius.circular(40.0),
+                              ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Flexible(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(3.0),
+                                      child: Container(
+                                        width: double.infinity,
+                                        height: 90.0,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                          borderRadius:
+                                              BorderRadius.circular(24.0),
+                                        ),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 5.0, 0.0),
+                                              child: FlutterFlowIconButton(
+                                                borderColor: Colors.transparent,
+                                                borderRadius: 30.0,
+                                                buttonSize: 42.0,
+                                                icon: const FaIcon(
+                                                  FontAwesomeIcons.userSecret,
+                                                  color: Colors.white,
+                                                  size: 25.0,
+                                                ),
+                                                onPressed: () {
+                                                  print(
+                                                      'IconButton pressed ...');
+                                                },
+                                              ),
+                                            ),
+                                            Align(
+                                              alignment: const AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              child: Text(
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                                  'm8vyttfy' /* Stealth Mode On */,
+                                                ),
+                                                textAlign: TextAlign.start,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Montserrat',
+                                                          color: Colors.white,
+                                                          fontSize: 16.0,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],
                 ),
                 Flexible(
                   child: Padding(
@@ -192,7 +411,9 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Text(
-                                'Privacy Settings',
+                                FFLocalizations.of(context).getText(
+                                  '3geut85d' /* Privacy Settings */,
+                                ),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -210,10 +431,27 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 10.0, 10.0, 10.0, 0.0),
                             child: FFButtonWidget(
-                              onPressed: () {
-                                print('Button pressed ...');
+                              onPressed: () async {
+                                await showModalBottomSheet(
+                                  isScrollControlled: true,
+                                  backgroundColor: Colors.transparent,
+                                  context: context,
+                                  builder: (context) {
+                                    return GestureDetector(
+                                      onTap: () =>
+                                          FocusScope.of(context).unfocus(),
+                                      child: Padding(
+                                        padding:
+                                            MediaQuery.viewInsetsOf(context),
+                                        child: const BlockedWidget(),
+                                      ),
+                                    );
+                                  },
+                                ).then((value) => safeSetState(() {}));
                               },
-                              text: 'Blocked',
+                              text: FFLocalizations.of(context).getText(
+                                'aot3gboa' /* Blocked */,
+                              ),
                               icon: Icon(
                                 Icons.block,
                                 color: FlutterFlowTheme.of(context).primaryText,
@@ -249,10 +487,29 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 10.0, 10.0, 0.0),
                           child: FFButtonWidget(
-                            onPressed: () {
-                              print('Button pressed ...');
+                            onPressed: () async {
+                              await showModalBottomSheet(
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                enableDrag: false,
+                                context: context,
+                                builder: (context) {
+                                  return GestureDetector(
+                                    onTap: () =>
+                                        FocusScope.of(context).unfocus(),
+                                    child: Padding(
+                                      padding: MediaQuery.viewInsetsOf(context),
+                                      child: const InfoWidget(
+                                        text: 'Coming Soon',
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ).then((value) => safeSetState(() {}));
                             },
-                            text: 'Data',
+                            text: FFLocalizations.of(context).getText(
+                              'swcrax5o' /* Data */,
+                            ),
                             icon: Icon(
                               Icons.data_usage,
                               color: FlutterFlowTheme.of(context).primaryText,
@@ -304,7 +561,9 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                                 },
                               ).then((value) => safeSetState(() {}));
                             },
-                            text: 'Groups',
+                            text: FFLocalizations.of(context).getText(
+                              'ad0k5sbt' /* Groups */,
+                            ),
                             icon: Icon(
                               Icons.groups_sharp,
                               color: FlutterFlowTheme.of(context).primaryText,
@@ -342,7 +601,9 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                             onPressed: () {
                               print('Button pressed ...');
                             },
-                            text: 'Guidelines',
+                            text: FFLocalizations.of(context).getText(
+                              '9rkx8ghn' /* Guidelines */,
+                            ),
                             icon: Icon(
                               Icons.shield_outlined,
                               color: FlutterFlowTheme.of(context).secondaryText,
@@ -380,7 +641,9 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                             onPressed: () {
                               print('Button pressed ...');
                             },
-                            text: 'Terms of Service',
+                            text: FFLocalizations.of(context).getText(
+                              'kkhzf6nx' /* Terms of Service */,
+                            ),
                             icon: Icon(
                               Icons.notes,
                               color: FlutterFlowTheme.of(context).secondaryText,

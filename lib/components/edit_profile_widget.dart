@@ -110,7 +110,9 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Edit Profile',
+                          FFLocalizations.of(context).getText(
+                            'aoptse5y' /* Edit Profile */,
+                          ),
                           style: FlutterFlowTheme.of(context)
                               .bodyMedium
                               .override(
@@ -385,7 +387,9 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                         fontFamily: 'Montserrat',
                         letterSpacing: 0.0,
                       ),
-                  hintText: 'Name',
+                  hintText: FFLocalizations.of(context).getText(
+                    'cy5exuvv' /* Name */,
+                  ),
                   hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
                         fontFamily: 'Montserrat',
                         letterSpacing: 0.0,
@@ -452,7 +456,9 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                         fontFamily: 'Montserrat',
                         letterSpacing: 0.0,
                       ),
-                  hintText: 'Username',
+                  hintText: FFLocalizations.of(context).getText(
+                    'n2d2x127' /* Username */,
+                  ),
                   hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
                         fontFamily: 'Montserrat',
                         letterSpacing: 0.0,
@@ -519,7 +525,9 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                         fontFamily: 'Montserrat',
                         letterSpacing: 0.0,
                       ),
-                  hintText: 'Username',
+                  hintText: FFLocalizations.of(context).getText(
+                    'n2d2x127' /* Username */,
+                  ),
                   hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
                         fontFamily: 'Montserrat',
                         letterSpacing: 0.0,

@@ -100,7 +100,9 @@ class _LinkMenuWidgetState extends State<LinkMenuWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Link',
+                          FFLocalizations.of(context).getText(
+                            'httad5ut' /* Link */,
+                          ),
                           style: FlutterFlowTheme.of(context)
                               .bodyMedium
                               .override(
@@ -202,7 +204,9 @@ class _LinkMenuWidgetState extends State<LinkMenuWidget> {
                       padding: const EdgeInsetsDirectional.fromSTEB(
                           10.0, 10.0, 10.0, 10.0),
                       child: Text(
-                        'You are about to follow a link to the following address:',
+                        FFLocalizations.of(context).getText(
+                          'pkzmu59c' /* You are about to follow a link... */,
+                        ),
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Montserrat',
@@ -240,7 +244,9 @@ class _LinkMenuWidgetState extends State<LinkMenuWidget> {
                     onPressed: () async {
                       Navigator.pop(context);
                     },
-                    text: 'Dismiss',
+                    text: FFLocalizations.of(context).getText(
+                      '8nvwxgfk' /* Dismiss */,
+                    ),
                     options: FFButtonOptions(
                       width: MediaQuery.sizeOf(context).width * 0.3,
                       height: 40.0,
@@ -270,7 +276,9 @@ class _LinkMenuWidgetState extends State<LinkMenuWidget> {
                       onPressed: () async {
                         await launchURL(widget.link!);
                       },
-                      text: 'Confirm',
+                      text: FFLocalizations.of(context).getText(
+                        'e4q2q1x4' /* Confirm */,
+                      ),
                       options: FFButtonOptions(
                         width: MediaQuery.sizeOf(context).width * 0.6,
                         height: 40.0,

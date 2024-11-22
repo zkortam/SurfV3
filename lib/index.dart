@@ -18,9 +18,16 @@ export '/gemini_experiment/gemini_experiment_widget.dart'
 export '/single_post/single_post_widget.dart' show SinglePostWidget;
 export '/single_thread/single_thread_widget.dart' show SingleThreadWidget;
 export '/pages/spaces/spaces_widget.dart' show SpacesWidget;
-export '/enter_pin/enter_pin_widget.dart' show EnterPinWidget;
-export '/settings/settings_widget.dart' show SettingsWidget;
+export '/settings/enter_pin/enter_pin_widget.dart' show EnterPinWidget;
+export '/settings/settings/settings_widget.dart' show SettingsWidget;
 export '/profile_posts/profile_posts_widget.dart' show ProfilePostsWidget;
 export '/pages/snippets/snippets_widget.dart' show SnippetsWidget;
-export '/privacy/privacy_widget.dart' show PrivacyWidget;
-export '/view_group/view_group_widget.dart' show ViewGroupWidget;
+export '/settings/privacy/privacy_widget.dart' show PrivacyWidget;
+export '/settings/view_group/view_group_widget.dart' show ViewGroupWidget;
+export '/settings/user_interface/user_interface_widget.dart'
+    show UserInterfaceWidget;
+export '/settings/notifications/notifications_widget.dart'
+    show NotificationsWidget;
+export '/settings/security/security_widget.dart' show SecurityWidget;
+export '/pages/articles/articles_widget.dart' show ArticlesWidget;
+export '/single_article/single_article_widget.dart' show SingleArticleWidget;

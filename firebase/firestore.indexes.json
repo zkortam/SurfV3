@@ -29,6 +29,20 @@
       ]
     },
     {
+      "collectionGroup": "Threads",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isArticle",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "TimeStamp",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "Comments",
       "queryScope": "COLLECTION",
       "fields": [

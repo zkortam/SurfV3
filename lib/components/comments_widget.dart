@@ -109,7 +109,9 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Comments',
+                            FFLocalizations.of(context).getText(
+                              'vy3miz2z' /* Comments */,
+                            ),
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -852,7 +854,10 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                           fontFamily: 'Montserrat',
                                           letterSpacing: 0.0,
                                         ),
-                                    hintText: 'Comment',
+                                    hintText:
+                                        FFLocalizations.of(context).getText(
+                                      'w4lw53yt' /* Comment */,
+                                    ),
                                     hintStyle: FlutterFlowTheme.of(context)
                                         .bodyLarge
                                         .override(

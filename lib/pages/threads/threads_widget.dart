@@ -222,6 +222,30 @@ class _ThreadsWidgetState extends State<ThreadsWidget>
                                                     borderWidth: 1.0,
                                                     buttonSize: 40.0,
                                                     icon: Icon(
+                                                      Icons.article_outlined,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                      size: 24.0,
+                                                    ),
+                                                    onPressed: () {
+                                                      print(
+                                                          'IconButton pressed ...');
+                                                    },
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 5.0, 0.0),
+                                                  child: FlutterFlowIconButton(
+                                                    borderColor:
+                                                        Colors.transparent,
+                                                    borderRadius: 20.0,
+                                                    borderWidth: 1.0,
+                                                    buttonSize: 40.0,
+                                                    icon: Icon(
                                                       Icons.workspaces_outline,
                                                       color:
                                                           FlutterFlowTheme.of(
@@ -306,6 +330,10 @@ class _ThreadsWidgetState extends State<ThreadsWidget>
                                 ThreadsRecord>.separated(
                               pagingController: _model.setListViewController(
                                 ThreadsRecord.collection
+                                    .where(
+                                      'isArticle',
+                                      isEqualTo: false,
+                                    )
                                     .orderBy('TimeStamp', descending: true),
                               ),
                               padding: const EdgeInsets.fromLTRB(

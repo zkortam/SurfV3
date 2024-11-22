@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class EnterPinModel extends FlutterFlowModel<EnterPinWidget> {
   ///  State fields for stateful widgets in this page.
 
+  bool isBio = false;
   // State field(s) for PinCode widget.
   TextEditingController? pinCodeController;
   String? Function(BuildContext, String?)? pinCodeControllerValidator;

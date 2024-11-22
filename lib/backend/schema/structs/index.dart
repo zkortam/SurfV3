@@ -8,5 +8,6 @@ export 'poll_struct.dart';
 export 'postinteraction_struct.dart';
 export 'thread_settings_struct.dart';
 export 'user_algorithm_preferences_struct.dart';
+export 'user_settings_struct.dart';
 export 'userdata_struct.dart';
 export 'voters_struct.dart';

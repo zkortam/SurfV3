@@ -98,7 +98,9 @@ class _PickGroupForSnippetWidgetState extends State<PickGroupForSnippetWidget> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Groups',
+                            FFLocalizations.of(context).getText(
+                              '2s3loctw' /* Groups */,
+                            ),
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(

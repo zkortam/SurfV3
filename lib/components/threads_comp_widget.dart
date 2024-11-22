@@ -151,7 +151,10 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
                                                 const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 42.0, 0.0),
                                             child: Text(
-                                              'Thread',
+                                              FFLocalizations.of(context)
+                                                  .getText(
+                                                '3tjl6j2y' /* Thread */,
+                                              ),
                                               textAlign: TextAlign.start,
                                               style: FlutterFlowTheme.of(
                                                       context)
@@ -233,7 +236,9 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     10.0, 0.0, 0.0, 0.0),
                                 child: Text(
-                                  'Add to Snippets',
+                                  FFLocalizations.of(context).getText(
+                                    'vleeb1r1' /* Add to Snippets */,
+                                  ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -307,7 +312,9 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       10.0, 0.0, 0.0, 0.0),
                                   child: Text(
-                                    'Edit',
+                                    FFLocalizations.of(context).getText(
+                                      'cfciqq39' /* Edit */,
+                                    ),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -358,7 +365,9 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   10.0, 0.0, 0.0, 0.0),
                               child: Text(
-                                'Share',
+                                FFLocalizations.of(context).getText(
+                                  'x4yrhk3t' /* Share */,
+                                ),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -408,7 +417,9 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   10.0, 0.0, 0.0, 0.0),
                               child: Text(
-                                'Copy Link',
+                                FFLocalizations.of(context).getText(
+                                  '7mi9brgs' /* Copy Link */,
+                                ),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -460,7 +471,9 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     10.0, 0.0, 0.0, 0.0),
                                 child: Text(
-                                  'Report',
+                                  FFLocalizations.of(context).getText(
+                                    'b3yjz7bm' /* Report */,
+                                  ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -521,7 +534,9 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       10.0, 0.0, 0.0, 0.0),
                                   child: Text(
-                                    'Delete',
+                                    FFLocalizations.of(context).getText(
+                                      'd8ojipjw' /* Delete */,
+                                    ),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(

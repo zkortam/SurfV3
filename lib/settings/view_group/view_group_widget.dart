@@ -289,8 +289,6 @@ class _ViewGroupWidgetState extends State<ViewGroupWidget> {
                                                 },
                                               ),
                                             });
-                                            _model.refresh = '0';
-                                            safeSetState(() {});
                                           },
                                         ),
                                       ),

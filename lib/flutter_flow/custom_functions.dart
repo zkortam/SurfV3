@@ -229,9 +229,9 @@ double votePercent(
   List<VotersStruct> voters,
   int targetVoteValue,
 ) {
-  // Check if the voters list is null
-  if (voters == null) {
-    return 0; // Return 0 if voters list is null
+  // Handle null or empty voters list
+  if (voters == null || voters.isEmpty) {
+    return 0.0; // Return 0.0 for safety
   }
 
   // Count instances of targetVoteValue in the voters list
@@ -242,8 +242,8 @@ double votePercent(
     }
   }
 
-  return count /
-      (voters.length); // Return the count of targetVoteValue instances
+  // Calculate the percentage and return
+  return count / voters.length;
 }
 
 int roundAndMultiply(double value) {
@@ -294,5 +294,10 @@ List<String> fourOptionsToList(
   String option3,
   String option4,
 ) {
-  return [option1, option2, option3, option4];
+  return [
+    option1.trim().isNotEmpty ? option1 : " ",
+    option2.trim().isNotEmpty ? option2 : " ",
+    option3.trim().isNotEmpty ? option3 : " ",
+    option4.trim().isNotEmpty ? option4 : " ",
+  ];
 }

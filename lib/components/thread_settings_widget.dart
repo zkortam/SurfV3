@@ -100,7 +100,9 @@ class _ThreadSettingsWidgetState extends State<ThreadSettingsWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Thread Settings',
+                          FFLocalizations.of(context).getText(
+                            'cy2mjy6b' /* Thread Settings */,
+                          ),
                           style: FlutterFlowTheme.of(context)
                               .bodyMedium
                               .override(
@@ -198,7 +200,9 @@ class _ThreadSettingsWidgetState extends State<ThreadSettingsWidget> {
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       5.0, 0.0, 0.0, 0.0),
                                   child: Text(
-                                    'Stealth',
+                                    FFLocalizations.of(context).getText(
+                                      'dzgiygk9' /* Stealth */,
+                                    ),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -277,7 +281,9 @@ class _ThreadSettingsWidgetState extends State<ThreadSettingsWidget> {
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       5.0, 0.0, 0.0, 0.0),
                                   child: Text(
-                                    'Auto Beautification',
+                                    FFLocalizations.of(context).getText(
+                                      'xjvlzkaw' /* Auto Beautification */,
+                                    ),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -356,7 +362,9 @@ class _ThreadSettingsWidgetState extends State<ThreadSettingsWidget> {
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       5.0, 0.0, 0.0, 0.0),
                                   child: Text(
-                                    'Comments',
+                                    FFLocalizations.of(context).getText(
+                                      'u5zfuwnd' /* Comments */,
+                                    ),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -435,7 +443,9 @@ class _ThreadSettingsWidgetState extends State<ThreadSettingsWidget> {
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       5.0, 0.0, 0.0, 0.0),
                                   child: Text(
-                                    'Private',
+                                    FFLocalizations.of(context).getText(
+                                      '8msjb5n6' /* Private */,
+                                    ),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(

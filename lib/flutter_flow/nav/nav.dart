@@ -283,6 +283,50 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   ParamType.Color,
                 ),
               ),
+            ),
+            FFRoute(
+              name: 'UserInterface',
+              path: 'userInterface',
+              requireAuth: true,
+              builder: (context, params) => const UserInterfaceWidget(),
+            ),
+            FFRoute(
+              name: 'Notifications',
+              path: 'notifications',
+              requireAuth: true,
+              builder: (context, params) => const NotificationsWidget(),
+            ),
+            FFRoute(
+              name: 'Security',
+              path: 'security',
+              requireAuth: true,
+              builder: (context, params) => const SecurityWidget(),
+            ),
+            FFRoute(
+              name: 'Articles',
+              path: 'articles',
+              requireAuth: true,
+              builder: (context, params) => const ArticlesWidget(),
+            ),
+            FFRoute(
+              name: 'SingleArticle',
+              path: 'singleArticle',
+              requireAuth: true,
+              asyncParams: {
+                'article': getDoc(['Threads'], ThreadsRecord.fromSnapshot),
+              },
+              builder: (context, params) => SingleArticleWidget(
+                article: params.getParam(
+                  'article',
+                  ParamType.Document,
+                ),
+                authorReference: params.getParam(
+                  'authorReference',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['users'],
+                ),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),

@@ -39,6 +39,29 @@ T valueOrDefault<T>(T? value, T defaultValue) =>
 void _setTimeagoLocales() {
   timeago.setLocaleMessages('en', timeago.EnMessages());
   timeago.setLocaleMessages('en_short', timeago.EnShortMessages());
+  timeago.setLocaleMessages('ar', timeago.ArMessages());
+  timeago.setLocaleMessages('ar_short', timeago.ArShortMessages());
+  timeago.setLocaleMessages('fr', timeago.FrMessages());
+  timeago.setLocaleMessages('fr_short', timeago.FrShortMessages());
+  timeago.setLocaleMessages('es', timeago.EsMessages());
+  timeago.setLocaleMessages('es_short', timeago.EsShortMessages());
+  timeago.setLocaleMessages('tr', timeago.TrMessages());
+  timeago.setLocaleMessages('de', timeago.DeMessages());
+  timeago.setLocaleMessages('de_short', timeago.DeShortMessages());
+  timeago.setLocaleMessages('ru', timeago.RuMessages());
+  timeago.setLocaleMessages('ru_short', timeago.RuShortMessages());
+  timeago.setLocaleMessages('hi', timeago.HiMessages());
+  timeago.setLocaleMessages('hi_short', timeago.HiShortMessages());
+  timeago.setLocaleMessages('zh_Hans', timeago.ZhCnMessages());
+  timeago.setLocaleMessages('he', timeago.HeMessages());
+  timeago.setLocaleMessages('he_short', timeago.HeShortMessages());
+  timeago.setLocaleMessages('it', timeago.ItMessages());
+  timeago.setLocaleMessages('it_short', timeago.ItShortMessages());
+  timeago.setLocaleMessages('pt', timeago.PtBrMessages());
+  timeago.setLocaleMessages('pt_short', timeago.PtBrShortMessages());
+  timeago.setLocaleMessages('id', timeago.IdMessages());
+  timeago.setLocaleMessages('ms', timeago.MsMyMessages());
+  timeago.setLocaleMessages('ms_short', timeago.MsMyShortMessages());
 }
 
 String dateTimeFormat(String format, DateTime? dateTime, {String? locale}) {

@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'privacy_widget.dart' show PrivacyWidget;
+import 'blocked_widget.dart' show BlockedWidget;
 import 'package:flutter/material.dart';
 
-class PrivacyModel extends FlutterFlowModel<PrivacyWidget> {
+class BlockedModel extends FlutterFlowModel<BlockedWidget> {
   @override
   void initState(BuildContext context) {}
 

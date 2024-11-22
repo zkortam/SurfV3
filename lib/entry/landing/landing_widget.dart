@@ -144,7 +144,9 @@ class _LandingWidgetState extends State<LandingWidget>
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
-                                  'Surf',
+                                  FFLocalizations.of(context).getText(
+                                    'ahp9j0im' /* Surf */,
+                                  ),
                                   textAlign: TextAlign.center,
                                   style: FlutterFlowTheme.of(context)
                                       .displaySmall
@@ -158,7 +160,9 @@ class _LandingWidgetState extends State<LandingWidget>
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 10.0, 0.0, 24.0),
                                   child: Text(
-                                    'Please fill the information below',
+                                    FFLocalizations.of(context).getText(
+                                      'zwri17jl' /* Please fill the information be... */,
+                                    ),
                                     textAlign: TextAlign.center,
                                     style: FlutterFlowTheme.of(context)
                                         .labelLarge
@@ -180,7 +184,10 @@ class _LandingWidgetState extends State<LandingWidget>
                                       autofillHints: const [AutofillHints.email],
                                       obscureText: false,
                                       decoration: InputDecoration(
-                                        labelText: 'Email',
+                                        labelText:
+                                            FFLocalizations.of(context).getText(
+                                          'f48p1nif' /* Email */,
+                                        ),
                                         labelStyle: FlutterFlowTheme.of(context)
                                             .labelLarge
                                             .override(
@@ -254,7 +261,10 @@ class _LandingWidgetState extends State<LandingWidget>
                                       autofillHints: const [AutofillHints.email],
                                       obscureText: !_model.passwordVisibility,
                                       decoration: InputDecoration(
-                                        labelText: 'Password',
+                                        labelText:
+                                            FFLocalizations.of(context).getText(
+                                          'nl63s7fz' /* Password */,
+                                        ),
                                         labelStyle: FlutterFlowTheme.of(context)
                                             .labelLarge
                                             .override(
@@ -360,7 +370,10 @@ class _LandingWidgetState extends State<LandingWidget>
                                         text: TextSpan(
                                           children: [
                                             TextSpan(
-                                              text: 'Forgot Password?',
+                                              text: FFLocalizations.of(context)
+                                                  .getText(
+                                                '4kf9xw9f' /* Forgot Password? */,
+                                              ),
                                               style: FlutterFlowTheme.of(
                                                       context)
                                                   .bodyMedium
@@ -407,7 +420,9 @@ class _LandingWidgetState extends State<LandingWidget>
                                       context.goNamedAuth(
                                           'HomePage', context.mounted);
                                     },
-                                    text: 'Log in ',
+                                    text: FFLocalizations.of(context).getText(
+                                      'ofbpbdp7' /* Log in  */,
+                                    ),
                                     options: FFButtonOptions(
                                       width: double.infinity,
                                       height: 44.0,
@@ -542,12 +557,18 @@ class _LandingWidgetState extends State<LandingWidget>
                                         MediaQuery.of(context).textScaler,
                                     text: TextSpan(
                                       children: [
-                                        const TextSpan(
-                                          text: 'Don\'t have an account?  ',
-                                          style: TextStyle(),
+                                        TextSpan(
+                                          text: FFLocalizations.of(context)
+                                              .getText(
+                                            'ukkpvyd4' /* Don't have an account?   */,
+                                          ),
+                                          style: const TextStyle(),
                                         ),
                                         TextSpan(
-                                          text: 'Sign Up Here',
+                                          text: FFLocalizations.of(context)
+                                              .getText(
+                                            'y1bx8e9t' /* Sign Up Here */,
+                                          ),
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(

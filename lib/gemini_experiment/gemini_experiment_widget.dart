@@ -49,7 +49,9 @@ class _GeminiExperimentWidgetState extends State<GeminiExperimentWidget> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Text(
-                'Gemini Experiment DONT TOUCH ZAK!',
+                FFLocalizations.of(context).getText(
+                  'zic0b4by' /* Gemini Experiment DONT TOUCH Z... */,
+                ),
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Montserrat',
                       letterSpacing: 0.0,
@@ -63,7 +65,9 @@ class _GeminiExperimentWidgetState extends State<GeminiExperimentWidget> {
                   autofocus: true,
                   obscureText: false,
                   decoration: InputDecoration(
-                    labelText: 'Enter in Mock Post',
+                    labelText: FFLocalizations.of(context).getText(
+                      'g81v9ksq' /* Enter in Mock Post */,
+                    ),
                     labelStyle:
                         FlutterFlowTheme.of(context).labelMedium.override(
                               fontFamily: 'Montserrat',
@@ -122,7 +126,11 @@ class _GeminiExperimentWidgetState extends State<GeminiExperimentWidget> {
 
                   safeSetState(() {});
                 },
-                text: 'Gemini\n',
+                text: FFLocalizations.of(context).getText(
+                  'cjbtuxn0' /* Gemini
+ */
+                  ,
+                ),
                 options: FFButtonOptions(
                   height: 40.0,
                   padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),

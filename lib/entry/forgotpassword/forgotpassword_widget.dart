@@ -131,7 +131,9 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget>
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            'Forgot Password',
+                            FFLocalizations.of(context).getText(
+                              'ylp8s7k7' /* Forgot Password */,
+                            ),
                             textAlign: TextAlign.center,
                             style: FlutterFlowTheme.of(context)
                                 .displaySmall
@@ -145,7 +147,9 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget>
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 5.0, 0.0, 24.0),
                             child: Text(
-                              'Please enter your email below.',
+                              FFLocalizations.of(context).getText(
+                                'qotpdrem' /* Please enter your email below. */,
+                              ),
                               textAlign: TextAlign.center,
                               style: FlutterFlowTheme.of(context)
                                   .labelLarge
@@ -167,7 +171,10 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget>
                                 autofillHints: const [AutofillHints.email],
                                 obscureText: false,
                                 decoration: InputDecoration(
-                                  labelText: 'Email',
+                                  labelText:
+                                      FFLocalizations.of(context).getText(
+                                    'p25yr93r' /* Email */,
+                                  ),
                                   labelStyle: FlutterFlowTheme.of(context)
                                       .labelLarge
                                       .override(
@@ -244,7 +251,9 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget>
                                   context: context,
                                 );
                               },
-                              text: 'Submit',
+                              text: FFLocalizations.of(context).getText(
+                                'kwmw6o6a' /* Submit */,
+                              ),
                               options: FFButtonOptions(
                                 width: double.infinity,
                                 height: 44.0,
@@ -286,12 +295,16 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget>
                                 textScaler: MediaQuery.of(context).textScaler,
                                 text: TextSpan(
                                   children: [
-                                    const TextSpan(
-                                      text: 'Remember your password? ',
-                                      style: TextStyle(),
+                                    TextSpan(
+                                      text: FFLocalizations.of(context).getText(
+                                        'dayxfu64' /* Remember your password?  */,
+                                      ),
+                                      style: const TextStyle(),
                                     ),
                                     TextSpan(
-                                      text: 'Log in',
+                                      text: FFLocalizations.of(context).getText(
+                                        'kgphiwgf' /* Log in */,
+                                      ),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(

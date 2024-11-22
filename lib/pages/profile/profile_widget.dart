@@ -10,6 +10,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_video_player.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -199,6 +200,116 @@ class _ProfileWidgetState extends State<ProfileWidget>
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
+                                  if ((_model.userRefState !=
+                                          currentUserReference) &&
+                                      functions.userInList(
+                                          (currentUserDocument?.blocked
+                                                      .toList() ??
+                                                  [])
+                                              .toList(),
+                                          columnUsersRecord.reference))
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          5.0, 0.0, 0.0, 0.0),
+                                      child: AuthUserStreamWidget(
+                                        builder: (context) => InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            await currentUserReference!.update({
+                                              ...mapToFirestore(
+                                                {
+                                                  'blocked':
+                                                      FieldValue.arrayRemove([
+                                                    widget.userReference
+                                                  ]),
+                                                },
+                                              ),
+                                            });
+                                          },
+                                          child: Container(
+                                            width: 45.0,
+                                            height: 45.0,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .error,
+                                              borderRadius:
+                                                  BorderRadius.circular(30.0),
+                                            ),
+                                            child: const Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.block_sharp,
+                                                  color: Colors.white,
+                                                  size: 24.0,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  if ((_model.userRefState !=
+                                          currentUserReference) &&
+                                      !functions.userInList(
+                                          (currentUserDocument?.blocked
+                                                      .toList() ??
+                                                  [])
+                                              .toList(),
+                                          columnUsersRecord.reference))
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          5.0, 0.0, 0.0, 0.0),
+                                      child: AuthUserStreamWidget(
+                                        builder: (context) => InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            await currentUserReference!.update({
+                                              ...mapToFirestore(
+                                                {
+                                                  'blocked':
+                                                      FieldValue.arrayUnion([
+                                                    widget.userReference
+                                                  ]),
+                                                },
+                                              ),
+                                            });
+                                          },
+                                          child: Container(
+                                            width: 45.0,
+                                            height: 45.0,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                              borderRadius:
+                                                  BorderRadius.circular(30.0),
+                                            ),
+                                            child: const Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.block_sharp,
+                                                  color: Colors.white,
+                                                  size: 24.0,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   if (_model.userRefState ==
                                       currentUserReference)
                                     Padding(
@@ -255,7 +366,9 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            'Profile',
+                                            FFLocalizations.of(context).getText(
+                                              '8279ubd6' /* Profile */,
+                                            ),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -577,7 +690,11 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                             ),
                                                           ),
                                                           Text(
-                                                            'FWers',
+                                                            FFLocalizations.of(
+                                                                    context)
+                                                                .getText(
+                                                              'f2g59ihh' /* FWers */,
+                                                            ),
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodyMedium
@@ -698,7 +815,11 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                             ),
                                                           ),
                                                           Text(
-                                                            'FWing',
+                                                            FFLocalizations.of(
+                                                                    context)
+                                                                .getText(
+                                                              'cbnus4d0' /* FWing */,
+                                                            ),
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodyMedium
@@ -776,7 +897,11 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                           ),
                                                         ),
                                                         Text(
-                                                          'Vibe',
+                                                          FFLocalizations.of(
+                                                                  context)
+                                                              .getText(
+                                                            'al4651yr' /* Vibe */,
+                                                          ),
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium
@@ -851,7 +976,9 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                       },
                                     ).then((value) => safeSetState(() {}));
                                   },
-                                  text: 'Edit Profile',
+                                  text: FFLocalizations.of(context).getText(
+                                    'b88bqf6m' /* Edit Profile */,
+                                  ),
                                   options: FFButtonOptions(
                                     width: double.infinity,
                                     height: 50.0,
@@ -1033,7 +1160,10 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                           context),
                                                 );
                                               },
-                                              text: 'Share',
+                                              text: FFLocalizations.of(context)
+                                                  .getText(
+                                                'lmi92kcq' /* Share */,
+                                              ),
                                               options: FFButtonOptions(
                                                 width: double.infinity,
                                                 height: 50.0,
@@ -1134,15 +1264,27 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                             buttonMargin:
                                                 const EdgeInsetsDirectional.fromSTEB(
                                                     8.0, 0.0, 8.0, 0.0),
-                                            tabs: const [
+                                            tabs: [
                                               Tab(
-                                                text: 'Posts',
+                                                text:
+                                                    FFLocalizations.of(context)
+                                                        .getText(
+                                                  'uv2jy1hh' /* Posts */,
+                                                ),
                                               ),
                                               Tab(
-                                                text: 'Threads',
+                                                text:
+                                                    FFLocalizations.of(context)
+                                                        .getText(
+                                                  '9mfdqr5i' /* Threads */,
+                                                ),
                                               ),
                                               Tab(
-                                                text: 'Shorts',
+                                                text:
+                                                    FFLocalizations.of(context)
+                                                        .getText(
+                                                  '9e90ieme' /* Shorts */,
+                                                ),
                                               ),
                                             ],
                                             controller: _model.tabBarController,

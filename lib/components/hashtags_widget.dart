@@ -101,7 +101,9 @@ class _HashtagsWidgetState extends State<HashtagsWidget> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Hashtags',
+                            FFLocalizations.of(context).getText(
+                              'xlaloouw' /* Hashtags */,
+                            ),
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(

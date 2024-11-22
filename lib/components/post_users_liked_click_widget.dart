@@ -108,7 +108,9 @@ class _PostUsersLikedClickWidgetState extends State<PostUsersLikedClickWidget> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Likes',
+                              FFLocalizations.of(context).getText(
+                                'zr9lpj4b' /* Likes */,
+                              ),
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(

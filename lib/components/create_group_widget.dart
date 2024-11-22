@@ -101,7 +101,9 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Create Group',
+                          FFLocalizations.of(context).getText(
+                            '1rgfux1h' /* Create Group */,
+                          ),
                           style: FlutterFlowTheme.of(context)
                               .bodyMedium
                               .override(
@@ -179,7 +181,9 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
                 textInputAction: TextInputAction.next,
                 obscureText: false,
                 decoration: InputDecoration(
-                  labelText: 'Group Name',
+                  labelText: FFLocalizations.of(context).getText(
+                    '3b7h20pt' /* Group Name */,
+                  ),
                   labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
                         fontFamily: 'Montserrat',
                         letterSpacing: 0.0,
@@ -247,7 +251,9 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Text(
-                  'Group Colour',
+                  FFLocalizations.of(context).getText(
+                    'chpjx9fj' /* Group Colour */,
+                  ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Montserrat',
                         color: FlutterFlowTheme.of(context).secondaryText,
@@ -288,6 +294,14 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
                           color: const Color(0xFFFF0000),
                           borderRadius: BorderRadius.circular(100.0),
                         ),
+                        child: Visibility(
+                          visible: _model.color == const Color(0xFFFF0000),
+                          child: const Icon(
+                            Icons.check_circle_sharp,
+                            color: Colors.white,
+                            size: 24.0,
+                          ),
+                        ),
                       ),
                     ),
                     InkWell(
@@ -305,6 +319,14 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
                         decoration: BoxDecoration(
                           color: const Color(0xFFFF7F00),
                           borderRadius: BorderRadius.circular(100.0),
+                        ),
+                        child: Visibility(
+                          visible: _model.color == const Color(0xFFFF7F00),
+                          child: const Icon(
+                            Icons.check_circle_sharp,
+                            color: Colors.white,
+                            size: 24.0,
+                          ),
                         ),
                       ),
                     ),
@@ -324,6 +346,14 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
                           color: const Color(0xFFFFFF00),
                           borderRadius: BorderRadius.circular(100.0),
                         ),
+                        child: Visibility(
+                          visible: _model.color == const Color(0xFFFFFF00),
+                          child: const Icon(
+                            Icons.check_circle_sharp,
+                            color: Colors.white,
+                            size: 24.0,
+                          ),
+                        ),
                       ),
                     ),
                     InkWell(
@@ -341,6 +371,14 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
                         decoration: BoxDecoration(
                           color: const Color(0xFF7FFF00),
                           borderRadius: BorderRadius.circular(100.0),
+                        ),
+                        child: Visibility(
+                          visible: _model.color == const Color(0xFF7FFF00),
+                          child: const Icon(
+                            Icons.check_circle_sharp,
+                            color: Colors.white,
+                            size: 24.0,
+                          ),
                         ),
                       ),
                     ),
@@ -360,6 +398,14 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
                           color: const Color(0xFF00FF00),
                           borderRadius: BorderRadius.circular(100.0),
                         ),
+                        child: Visibility(
+                          visible: _model.color == const Color(0xFF00FF00),
+                          child: const Icon(
+                            Icons.check_circle_sharp,
+                            color: Colors.white,
+                            size: 24.0,
+                          ),
+                        ),
                       ),
                     ),
                     InkWell(
@@ -377,6 +423,14 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
                         decoration: BoxDecoration(
                           color: const Color(0xFF00FF7F),
                           borderRadius: BorderRadius.circular(100.0),
+                        ),
+                        child: Visibility(
+                          visible: _model.color == const Color(0xFF00FF7F),
+                          child: const Icon(
+                            Icons.check_circle_sharp,
+                            color: Colors.white,
+                            size: 24.0,
+                          ),
                         ),
                       ),
                     ),
@@ -396,6 +450,14 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
                           color: const Color(0xFF007FFF),
                           borderRadius: BorderRadius.circular(100.0),
                         ),
+                        child: Visibility(
+                          visible: _model.color == const Color(0xFF007FFF),
+                          child: const Icon(
+                            Icons.check_circle_sharp,
+                            color: Colors.white,
+                            size: 24.0,
+                          ),
+                        ),
                       ),
                     ),
                     InkWell(
@@ -413,6 +475,14 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
                         decoration: BoxDecoration(
                           color: const Color(0xFF0000FF),
                           borderRadius: BorderRadius.circular(100.0),
+                        ),
+                        child: Visibility(
+                          visible: _model.color == const Color(0xFF0000FF),
+                          child: const Icon(
+                            Icons.check_circle_sharp,
+                            color: Colors.white,
+                            size: 24.0,
+                          ),
                         ),
                       ),
                     ),
@@ -432,6 +502,14 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
                           color: const Color(0xFF4B0082),
                           borderRadius: BorderRadius.circular(100.0),
                         ),
+                        child: Visibility(
+                          visible: _model.color == const Color(0xFF4B0082),
+                          child: const Icon(
+                            Icons.check_circle_sharp,
+                            color: Colors.white,
+                            size: 24.0,
+                          ),
+                        ),
                       ),
                     ),
                     InkWell(
@@ -450,6 +528,14 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
                           color: const Color(0xFF9400D3),
                           borderRadius: BorderRadius.circular(100.0),
                         ),
+                        child: Visibility(
+                          visible: _model.color == const Color(0xFF9400D3),
+                          child: const Icon(
+                            Icons.check_circle_sharp,
+                            color: Colors.white,
+                            size: 24.0,
+                          ),
+                        ),
                       ),
                     ),
                     InkWell(
@@ -467,6 +553,14 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
                         decoration: BoxDecoration(
                           color: const Color(0xFFFF00FF),
                           borderRadius: BorderRadius.circular(100.0),
+                        ),
+                        child: Visibility(
+                          visible: _model.color == const Color(0xFFFF00FF),
+                          child: const Icon(
+                            Icons.check_circle_sharp,
+                            color: Colors.white,
+                            size: 24.0,
+                          ),
                         ),
                       ),
                     ),
@@ -506,7 +600,10 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
                         width: 100.0,
                         height: 50.0,
                         decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).alternate,
+                          color: valueOrDefault<Color>(
+                            _model.colorPicked,
+                            FlutterFlowTheme.of(context).alternate,
+                          ),
                           borderRadius: BorderRadius.circular(100.0),
                         ),
                         child: Row(

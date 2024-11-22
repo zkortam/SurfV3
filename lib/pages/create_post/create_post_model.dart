@@ -40,6 +40,8 @@ class CreatePostModel extends FlutterFlowModel<CreatePostWidget> {
 
   String group = '';
 
+  bool isArticle = false;
+
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for TabBar widget.
@@ -94,10 +96,15 @@ class CreatePostModel extends FlutterFlowModel<CreatePostWidget> {
   String? autoBeautifiedText;
   // Stores action output result for [Gemini - Generate Text] action in CaptionSet widget.
   String? summarizedText;
+  bool isDataUploading5 = false;
+  FFUploadedFile uploadedLocalFile5 =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl5 = '';
+
   // State field(s) for TitleThreads widget.
-  FocusNode? titleThreadsFocusNode1;
-  TextEditingController? titleThreadsTextController1;
-  String? Function(BuildContext, String?)? titleThreadsTextController1Validator;
+  FocusNode? titleThreadsFocusNode;
+  TextEditingController? titleThreadsTextController;
+  String? Function(BuildContext, String?)? titleThreadsTextControllerValidator;
   // State field(s) for PageView widget.
   PageController? pageViewController;
 
@@ -128,14 +135,10 @@ class CreatePostModel extends FlutterFlowModel<CreatePostWidget> {
   String? Function(BuildContext, String?)? option4TextControllerValidator;
   // Stores action output result for [Bottom Sheet - pickGroupForSnippet] action in IconButton widget.
   FollowerGroupStruct? validPeople;
-  // State field(s) for TitleThreads widget.
-  FocusNode? titleThreadsFocusNode2;
-  TextEditingController? titleThreadsTextController2;
-  String? Function(BuildContext, String?)? titleThreadsTextController2Validator;
-  bool isDataUploading5 = false;
-  FFUploadedFile uploadedLocalFile5 =
-      FFUploadedFile(bytes: Uint8List.fromList([]));
-  String uploadedFileUrl5 = '';
+  // State field(s) for Caption widget.
+  FocusNode? captionFocusNode;
+  TextEditingController? captionTextController;
+  String? Function(BuildContext, String?)? captionTextControllerValidator;
 
   @override
   void initState(BuildContext context) {}
@@ -149,8 +152,8 @@ class CreatePostModel extends FlutterFlowModel<CreatePostWidget> {
     textFieldFocusNode2?.dispose();
     textController2?.dispose();
 
-    titleThreadsFocusNode1?.dispose();
-    titleThreadsTextController1?.dispose();
+    titleThreadsFocusNode?.dispose();
+    titleThreadsTextController?.dispose();
 
     textThreadFocusNode?.dispose();
     textThreadTextController?.dispose();
@@ -167,7 +170,7 @@ class CreatePostModel extends FlutterFlowModel<CreatePostWidget> {
     option4FocusNode?.dispose();
     option4TextController?.dispose();
 
-    titleThreadsFocusNode2?.dispose();
-    titleThreadsTextController2?.dispose();
+    captionFocusNode?.dispose();
+    captionTextController?.dispose();
   }
 }

@@ -134,7 +134,9 @@ class _TermsOfServiceWidgetState extends State<TermsOfServiceWidget> {
                                   ),
                                 ),
                                 Text(
-                                  'Notice',
+                                  FFLocalizations.of(context).getText(
+                                    'ueywmcub' /* Notice */,
+                                  ),
                                   style: FlutterFlowTheme.of(context)
                                       .titleMedium
                                       .override(
@@ -168,7 +170,9 @@ class _TermsOfServiceWidgetState extends State<TermsOfServiceWidget> {
                                 text: TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: 'Do you agree to our ',
+                                      text: FFLocalizations.of(context).getText(
+                                        'b7x5bl0t' /* Do you agree to our  */,
+                                      ),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -181,7 +185,9 @@ class _TermsOfServiceWidgetState extends State<TermsOfServiceWidget> {
                                           ),
                                     ),
                                     TextSpan(
-                                      text: 'Terms of Service',
+                                      text: FFLocalizations.of(context).getText(
+                                        '4mvsblvv' /* Terms of Service */,
+                                      ),
                                       style: TextStyle(
                                         color: FlutterFlowTheme.of(context)
                                             .primary,
@@ -194,14 +200,18 @@ class _TermsOfServiceWidgetState extends State<TermsOfServiceWidget> {
                                               'https://www.surfsocial.org/tos');
                                         },
                                     ),
-                                    const TextSpan(
-                                      text: ', ',
-                                      style: TextStyle(
+                                    TextSpan(
+                                      text: FFLocalizations.of(context).getText(
+                                        'fpw2anq1' /* ,  */,
+                                      ),
+                                      style: const TextStyle(
                                         fontSize: 17.0,
                                       ),
                                     ),
                                     TextSpan(
-                                      text: 'Community Guidelines',
+                                      text: FFLocalizations.of(context).getText(
+                                        'u4jicrwh' /* Community Guidelines */,
+                                      ),
                                       style: TextStyle(
                                         color: FlutterFlowTheme.of(context)
                                             .primary,
@@ -214,14 +224,18 @@ class _TermsOfServiceWidgetState extends State<TermsOfServiceWidget> {
                                               'https://www.surfsocial.org/cg');
                                         },
                                     ),
-                                    const TextSpan(
-                                      text: ', and ',
-                                      style: TextStyle(
+                                    TextSpan(
+                                      text: FFLocalizations.of(context).getText(
+                                        'qblu3qy0' /* , and  */,
+                                      ),
+                                      style: const TextStyle(
                                         fontSize: 17.0,
                                       ),
                                     ),
                                     TextSpan(
-                                      text: 'End User License Agreement.',
+                                      text: FFLocalizations.of(context).getText(
+                                        'pcx1n568' /* End User License Agreement. */,
+                                      ),
                                       style: TextStyle(
                                         color: FlutterFlowTheme.of(context)
                                             .primary,
@@ -234,9 +248,11 @@ class _TermsOfServiceWidgetState extends State<TermsOfServiceWidget> {
                                               'https://www.surfsocial.org/eula');
                                         },
                                     ),
-                                    const TextSpan(
-                                      text: '',
-                                      style: TextStyle(
+                                    TextSpan(
+                                      text: FFLocalizations.of(context).getText(
+                                        'op3428od' /*  */,
+                                      ),
+                                      style: const TextStyle(
                                         fontSize: 17.0,
                                       ),
                                     )
@@ -270,7 +286,9 @@ class _TermsOfServiceWidgetState extends State<TermsOfServiceWidget> {
                                   return;
                                 }
                               },
-                              text: 'I Agree',
+                              text: FFLocalizations.of(context).getText(
+                                '28u4r96w' /* I Agree */,
+                              ),
                               options: FFButtonOptions(
                                 width: 150.0,
                                 height: 45.0,

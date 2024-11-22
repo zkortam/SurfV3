@@ -165,15 +165,13 @@ class _ShortWidgetState extends State<ShortWidget>
               },
             ),
           });
-          if (animationsMap['containerOnActionTriggerAnimation2'] != null) {
-            await animationsMap['containerOnActionTriggerAnimation2']!
-                .controller
-                .forward(from: 0.0);
-          }
           if (animationsMap['iconOnActionTriggerAnimation2'] != null) {
             await animationsMap['iconOnActionTriggerAnimation2']!
                 .controller
-                .forward(from: 0.0);
+                .forward(from: 0.0)
+                .whenComplete(animationsMap['iconOnActionTriggerAnimation2']!
+                    .controller
+                    .reverse);
           }
         } else {
           await widget.post!.reference.update({
@@ -192,15 +190,13 @@ class _ShortWidgetState extends State<ShortWidget>
               },
             ),
           });
-          if (animationsMap['containerOnActionTriggerAnimation1'] != null) {
-            await animationsMap['containerOnActionTriggerAnimation1']!
-                .controller
-                .forward(from: 0.0);
-          }
           if (animationsMap['iconOnActionTriggerAnimation1'] != null) {
             await animationsMap['iconOnActionTriggerAnimation1']!
                 .controller
-                .forward(from: 0.0);
+                .forward(from: 0.0)
+                .whenComplete(animationsMap['iconOnActionTriggerAnimation1']!
+                    .controller
+                    .reverse);
           }
         }
       },
@@ -353,7 +349,7 @@ class _ShortWidgetState extends State<ShortWidget>
                   alignment: const AlignmentDirectional(-1.0, 0.0),
                   child: Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 30.0),
+                        const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 40.0),
                     child: Stack(
                       children: [
                         Opacity(
@@ -648,7 +644,11 @@ class _ShortWidgetState extends State<ShortWidget>
                                                                         0.0,
                                                                         0.0),
                                                             child: Text(
-                                                              'Anonymous',
+                                                              FFLocalizations.of(
+                                                                      context)
+                                                                  .getText(
+                                                                '0gcq0hto' /* Anonymous */,
+                                                              ),
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyMedium
@@ -842,7 +842,10 @@ class _ShortWidgetState extends State<ShortWidget>
                                                     safeSetState(() {}));
                                               },
                                               child: Text(
-                                                'View Comments',
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                                  'm2qx33nc' /* View Comments */,
+                                                ),
                                                 maxLines: 3,
                                                 style: FlutterFlowTheme.of(
                                                         context)
@@ -1103,19 +1106,6 @@ class _ShortWidgetState extends State<ShortWidget>
                                                         ),
                                                       });
                                                       if (animationsMap[
-                                                              'containerOnActionTriggerAnimation2'] !=
-                                                          null) {
-                                                        await animationsMap[
-                                                                'containerOnActionTriggerAnimation2']!
-                                                            .controller
-                                                            .forward(from: 0.0)
-                                                            .whenComplete(
-                                                                animationsMap[
-                                                                        'containerOnActionTriggerAnimation2']!
-                                                                    .controller
-                                                                    .reverse);
-                                                      }
-                                                      if (animationsMap[
                                                               'iconOnActionTriggerAnimation2'] !=
                                                           null) {
                                                         await animationsMap[
@@ -1150,19 +1140,6 @@ class _ShortWidgetState extends State<ShortWidget>
                                                           },
                                                         ),
                                                       });
-                                                      if (animationsMap[
-                                                              'containerOnActionTriggerAnimation1'] !=
-                                                          null) {
-                                                        await animationsMap[
-                                                                'containerOnActionTriggerAnimation1']!
-                                                            .controller
-                                                            .forward(from: 0.0)
-                                                            .whenComplete(
-                                                                animationsMap[
-                                                                        'containerOnActionTriggerAnimation1']!
-                                                                    .controller
-                                                                    .reverse);
-                                                      }
                                                       if (animationsMap[
                                                               'iconOnActionTriggerAnimation1'] !=
                                                           null) {

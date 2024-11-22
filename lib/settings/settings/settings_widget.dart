@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/components/info_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -114,7 +115,10 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                                 const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 40.0, 0.0),
                                             child: Text(
-                                              'Settings',
+                                              FFLocalizations.of(context)
+                                                  .getText(
+                                                'acuhdszi' /* Settings */,
+                                              ),
                                               textAlign: TextAlign.start,
                                               style: FlutterFlowTheme.of(
                                                       context)
@@ -232,7 +236,9 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Surf Sapphire',
+                          FFLocalizations.of(context).getText(
+                            '6bhtdnmu' /* Surf Sapphire */,
+                          ),
                           textAlign: TextAlign.center,
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
@@ -251,10 +257,28 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                   padding:
                       const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
                   child: FFButtonWidget(
-                    onPressed: () {
-                      print('Button pressed ...');
+                    onPressed: () async {
+                      await showModalBottomSheet(
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        enableDrag: false,
+                        context: context,
+                        builder: (context) {
+                          return GestureDetector(
+                            onTap: () => FocusScope.of(context).unfocus(),
+                            child: Padding(
+                              padding: MediaQuery.viewInsetsOf(context),
+                              child: const InfoWidget(
+                                text: 'Coming Soon',
+                              ),
+                            ),
+                          );
+                        },
+                      ).then((value) => safeSetState(() {}));
                     },
-                    text: 'Surf Vision',
+                    text: FFLocalizations.of(context).getText(
+                      'n6do6p8n' /* Surf Vision */,
+                    ),
                     icon: Icon(
                       Icons.auto_awesome_rounded,
                       color: FlutterFlowTheme.of(context).primaryText,
@@ -298,7 +322,9 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Text(
-                                'Account Settings',
+                                FFLocalizations.of(context).getText(
+                                  '1b6v08oa' /* Account Settings */,
+                                ),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -314,10 +340,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 10.0, 10.0, 0.0),
                           child: FFButtonWidget(
-                            onPressed: () {
-                              print('Button pressed ...');
+                            onPressed: () async {
+                              await launchURL('surfsocial.org');
                             },
-                            text: 'Help Centre',
+                            text: FFLocalizations.of(context).getText(
+                              'dtbc5xs0' /* Help Centre */,
+                            ),
                             icon: const Icon(
                               Icons.help_outline_rounded,
                               size: 25.0,
@@ -356,9 +384,11 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                               onPressed: () async {
                                 context.pushNamed('Privacy');
                               },
-                              text: 'Privacy',
+                              text: FFLocalizations.of(context).getText(
+                                '3hk0fpjg' /* Privacy */,
+                              ),
                               icon: Icon(
-                                Icons.lock_rounded,
+                                Icons.shield_rounded,
                                 color: FlutterFlowTheme.of(context).primaryText,
                                 size: 25.0,
                               ),
@@ -392,10 +422,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 10.0, 10.0, 0.0),
                           child: FFButtonWidget(
-                            onPressed: () {
-                              print('Button pressed ...');
+                            onPressed: () async {
+                              context.pushNamed('Notifications');
                             },
-                            text: 'Notifications',
+                            text: FFLocalizations.of(context).getText(
+                              'zqy6fqbf' /* Notifications */,
+                            ),
                             icon: Icon(
                               Icons.notifications_rounded,
                               color: FlutterFlowTheme.of(context).primaryText,
@@ -430,10 +462,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 10.0, 10.0, 0.0),
                           child: FFButtonWidget(
-                            onPressed: () {
-                              print('Button pressed ...');
+                            onPressed: () async {
+                              context.pushNamed('UserInterface');
                             },
-                            text: 'User Interface',
+                            text: FFLocalizations.of(context).getText(
+                              'necr5qs1' /* User Interface */,
+                            ),
                             icon: Icon(
                               Icons.brush_rounded,
                               color: FlutterFlowTheme.of(context).primaryText,
@@ -468,12 +502,14 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 10.0, 10.0, 0.0),
                           child: FFButtonWidget(
-                            onPressed: () {
-                              print('Button pressed ...');
+                            onPressed: () async {
+                              context.pushNamed('Security');
                             },
-                            text: 'Security',
+                            text: FFLocalizations.of(context).getText(
+                              'jgosbvpy' /* Security */,
+                            ),
                             icon: Icon(
-                              Icons.security,
+                              Icons.lock_rounded,
                               color: FlutterFlowTheme.of(context).primaryText,
                               size: 25.0,
                             ),
@@ -513,7 +549,9 @@ class _SettingsWidgetState extends State<SettingsWidget> {
 
                               context.goNamedAuth('Landing', context.mounted);
                             },
-                            text: 'Log out',
+                            text: FFLocalizations.of(context).getText(
+                              '5t62qvhw' /* Log out */,
+                            ),
                             options: FFButtonOptions(
                               width: 200.0,
                               height: 50.0,

@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/components/create_group_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -94,7 +95,9 @@ class _SelectGroupWidgetState extends State<SelectGroupWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Groups',
+                          FFLocalizations.of(context).getText(
+                            'mrsqcehm' /* Groups */,
+                          ),
                           style: FlutterFlowTheme.of(context)
                               .bodyMedium
                               .override(
@@ -121,8 +124,18 @@ class _SelectGroupWidgetState extends State<SelectGroupWidget> {
                         color: FlutterFlowTheme.of(context).primaryText,
                         size: 24.0,
                       ),
-                      onPressed: () {
-                        print('IconButton pressed ...');
+                      onPressed: () async {
+                        await showModalBottomSheet(
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          context: context,
+                          builder: (context) {
+                            return Padding(
+                              padding: MediaQuery.viewInsetsOf(context),
+                              child: const CreateGroupWidget(),
+                            );
+                          },
+                        ).then((value) => safeSetState(() {}));
                       },
                     ),
                   ),

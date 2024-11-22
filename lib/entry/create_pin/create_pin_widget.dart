@@ -210,7 +210,9 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                                     padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 3.0),
                                     child: Text(
-                                      'Set up your pin',
+                                      FFLocalizations.of(context).getText(
+                                        'fdnxtp6i' /* Set up your pin */,
+                                      ),
                                       style: FlutterFlowTheme.of(context)
                                           .headlineSmall
                                           .override(
@@ -223,7 +225,9 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                                     ),
                                   ),
                                   Text(
-                                    'This code protects your data. ',
+                                    FFLocalizations.of(context).getText(
+                                      'txi1p68j' /* This code protects your data.  */,
+                                    ),
                                     textAlign: TextAlign.center,
                                     style: FlutterFlowTheme.of(context)
                                         .bodySmall
@@ -293,7 +297,9 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                                     padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 10.0, 0.0, 20.0),
                                     child: Text(
-                                      'Save your code in someplace safe. \nIf you forget it, contact support. ',
+                                      FFLocalizations.of(context).getText(
+                                        'kc7wc46y' /* Save your code in someplace sa... */,
+                                      ),
                                       textAlign: TextAlign.center,
                                       style: FlutterFlowTheme.of(context)
                                           .bodySmall
@@ -341,7 +347,9 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                                           ),
                                         ));
                                       },
-                                      text: 'Confirm',
+                                      text: FFLocalizations.of(context).getText(
+                                        'cs9bm4fq' /* Confirm */,
+                                      ),
                                       options: FFButtonOptions(
                                         width: 260.0,
                                         height: 48.0,
@@ -409,7 +417,9 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  'Biometric Pass',
+                                  FFLocalizations.of(context).getText(
+                                    'sqrx7mdg' /* Biometric Pass */,
+                                  ),
                                   style: FlutterFlowTheme.of(context)
                                       .headlineSmall
                                       .override(
@@ -423,7 +433,9 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       30.0, 8.0, 30.0, 0.0),
                                   child: Text(
-                                    'Would you like to use biometric authentication along with your pin?',
+                                    FFLocalizations.of(context).getText(
+                                      'lo4s4jah' /* Would you like to use biometri... */,
+                                    ),
                                     textAlign: TextAlign.center,
                                     style: FlutterFlowTheme.of(context)
                                         .bodySmall
@@ -452,7 +464,10 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
 
                                           context.goNamed('Welcome');
                                         },
-                                        text: 'Yes',
+                                        text:
+                                            FFLocalizations.of(context).getText(
+                                          '5rfyvyj7' /* Yes */,
+                                        ),
                                         options: FFButtonOptions(
                                           width: 120.0,
                                           height: 45.0,
@@ -490,7 +505,10 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
 
                                             context.goNamed('Welcome');
                                           },
-                                          text: 'No',
+                                          text: FFLocalizations.of(context)
+                                              .getText(
+                                            'plj3ulvm' /* No */,
+                                          ),
                                           options: FFButtonOptions(
                                             width: 120.0,
                                             height: 45.0,

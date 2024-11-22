@@ -121,7 +121,9 @@ class _UserSelectionForGroupWidgetState
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Select Users',
+                            FFLocalizations.of(context).getText(
+                              'xs92yqd5' /* Select Users */,
+                            ),
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(

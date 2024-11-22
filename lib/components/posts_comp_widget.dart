@@ -153,7 +153,10 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                                                 const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 42.0, 0.0),
                                             child: Text(
-                                              'Post',
+                                              FFLocalizations.of(context)
+                                                  .getText(
+                                                'ybvrfjkr' /* Post */,
+                                              ),
                                               textAlign: TextAlign.start,
                                               style: FlutterFlowTheme.of(
                                                       context)
@@ -235,7 +238,9 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     10.0, 0.0, 0.0, 0.0),
                                 child: Text(
-                                  'Add to Snippets',
+                                  FFLocalizations.of(context).getText(
+                                    'mdfxhvoc' /* Add to Snippets */,
+                                  ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -309,7 +314,9 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       10.0, 0.0, 0.0, 0.0),
                                   child: Text(
-                                    'Edit',
+                                    FFLocalizations.of(context).getText(
+                                      '3rezyahi' /* Edit */,
+                                    ),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -399,7 +406,9 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       10.0, 0.0, 0.0, 0.0),
                                   child: Text(
-                                    'Share',
+                                    FFLocalizations.of(context).getText(
+                                      'os0ou9ky' /* Share */,
+                                    ),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -481,7 +490,9 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     10.0, 0.0, 0.0, 0.0),
                                 child: Text(
-                                  'Copy Link',
+                                  FFLocalizations.of(context).getText(
+                                    'nralkj24' /* Copy Link */,
+                                  ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -534,7 +545,9 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     10.0, 0.0, 0.0, 0.0),
                                 child: Text(
-                                  'Report',
+                                  FFLocalizations.of(context).getText(
+                                    'p50k6z1y' /* Report */,
+                                  ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -595,7 +608,9 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       10.0, 0.0, 0.0, 0.0),
                                   child: Text(
-                                    'Delete',
+                                    FFLocalizations.of(context).getText(
+                                      'zm3j1915' /* Delete */,
+                                    ),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(

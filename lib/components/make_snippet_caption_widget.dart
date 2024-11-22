@@ -110,7 +110,9 @@ class _MakeSnippetCaptionWidgetState extends State<MakeSnippetCaptionWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Create Snippet',
+                          FFLocalizations.of(context).getText(
+                            '0d5nrjlg' /* Create Snippet */,
+                          ),
                           style: FlutterFlowTheme.of(context)
                               .bodyMedium
                               .override(
@@ -240,7 +242,10 @@ class _MakeSnippetCaptionWidgetState extends State<MakeSnippetCaptionWidget> {
                     Text(
                       valueOrDefault<String>(
                         _model.name != ''
-                            ? _model.name
+                            ? valueOrDefault<String>(
+                                _model.name,
+                                'Everyone',
+                              )
                             : 'Everyone',
                         'Everyone',
                       ),
@@ -268,7 +273,9 @@ class _MakeSnippetCaptionWidgetState extends State<MakeSnippetCaptionWidget> {
                       fontFamily: 'Montserrat',
                       letterSpacing: 0.0,
                     ),
-                hintText: 'Enter Caption',
+                hintText: FFLocalizations.of(context).getText(
+                  'ymhm2onz' /* Enter Caption */,
+                ),
                 hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
                       fontFamily: 'Montserrat',
                       letterSpacing: 0.0,

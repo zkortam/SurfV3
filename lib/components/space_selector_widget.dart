@@ -116,7 +116,9 @@ class _SpaceSelectorWidgetState extends State<SpaceSelectorWidget> {
                                   Align(
                                     alignment: const AlignmentDirectional(0.0, 0.0),
                                     child: Text(
-                                      'Select Space',
+                                      FFLocalizations.of(context).getText(
+                                        'riarmza3' /* Select Space */,
+                                      ),
                                       textAlign: TextAlign.start,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium

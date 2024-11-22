@@ -16,6 +16,24 @@
 	<string>Surf V3</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>ar</string>
+		<string>fr</string>
+		<string>es</string>
+		<string>tr</string>
+		<string>de</string>
+		<string>ru</string>
+		<string>hi</string>
+		<string>zh_Hans</string>
+		<string>he</string>
+		<string>it</string>
+		<string>pt</string>
+		<string>nl</string>
+		<string>id</string>
+		<string>ms</string>
+	</array>
 
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
@@ -63,6 +81,8 @@
     <string>In order to record audio for video, this app requires permission to access the microphone.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
     <string>In order to upload data, this app requires permission to access the photo library.</string>
+	<key>NSFaceIDUsageDescription</key>
+    <string>This app requires permissions to perform a biometric verification.</string>
 
 
     <key>LSApplicationQueriesSchemes</key>

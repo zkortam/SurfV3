@@ -104,7 +104,9 @@ class _ThreadsCompEditWidgetState extends State<ThreadsCompEditWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Thread Edit',
+                          FFLocalizations.of(context).getText(
+                            'xedq3a8n' /* Thread Edit */,
+                          ),
                           style: FlutterFlowTheme.of(context)
                               .bodyMedium
                               .override(

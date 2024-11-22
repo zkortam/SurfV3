@@ -881,7 +881,11 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                         0.0,
                                                                         0.0),
                                                             child: Text(
-                                                              'Anonymous',
+                                                              FFLocalizations.of(
+                                                                      context)
+                                                                  .getText(
+                                                                'obzcygcv' /* Anonymous */,
+                                                              ),
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyMedium
@@ -1083,7 +1087,10 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                     safeSetState(() {}));
                                               },
                                               child: Text(
-                                                'View Comments',
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                                  'qa4t89i6' /* View Comments */,
+                                                ),
                                                 maxLines: 3,
                                                 style: FlutterFlowTheme.of(
                                                         context)
