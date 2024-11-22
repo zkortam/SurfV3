@@ -300,12 +300,12 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                                         child: Padding(
                                           padding: const EdgeInsets.all(20.0),
                                           child: Row(
-                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisSize: MainAxisSize.min,
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Column(
-                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisSize: MainAxisSize.min,
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 crossAxisAlignment:
@@ -319,7 +319,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                                                         .override(
                                                           fontFamily:
                                                               'Montserrat',
-                                                          fontSize: 18.0,
+                                                          fontSize: 19.0,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.bold,
@@ -460,31 +460,38 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                                                       },
                                                     ),
                                                   ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 10.0,
-                                                                0.0, 0.0),
-                                                    child: Text(
-                                                      listViewThreadsRecord.text
-                                                          .maybeHandleOverflow(
-                                                        maxChars: 50,
-                                                        replacement: '…',
+                                                  Flexible(
+                                                    child: Container(
+                                                      width: 250.0,
+                                                      decoration:
+                                                          const BoxDecoration(),
+                                                      child: Text(
+                                                        listViewThreadsRecord
+                                                            .text
+                                                            .maybeHandleOverflow(
+                                                          maxChars: 50,
+                                                          replacement: '…',
+                                                        ),
+                                                        maxLines: 2,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryText,
+                                                                  fontSize:
+                                                                      14.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
                                                       ),
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                'Montserrat',
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .secondaryText,
-                                                            fontSize: 14.0,
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
                                                     ),
                                                   ),
                                                 ],

@@ -384,10 +384,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             child: AuthUserStreamWidget(
                               builder: (context) => Container(
                                 width: 500.0,
-                                height: 500.0,
+                                height: 550.0,
                                 decoration: const BoxDecoration(),
-                                child: StreamBuilder<List<PostsRecord>>(
-                                  stream: queryPostsRecord(
+                                child: FutureBuilder<List<PostsRecord>>(
+                                  future: queryPostsRecordOnce(
                                     queryBuilder: (postsRecord) => postsRecord
                                         .where(
                                           'isShort',

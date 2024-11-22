@@ -264,6 +264,7 @@ class _CreateAudioWidgetState extends State<CreateAudioWidget>
                               authorRealName:
                                   _model.textThreadTextController2.text,
                             ));
+                        Navigator.pop(context);
                       },
                     ),
                   ),
@@ -336,7 +337,7 @@ class _CreateAudioWidgetState extends State<CreateAudioWidget>
                       width: double.infinity,
                       height: 150.0,
                       decoration: BoxDecoration(
-                        color: const Color(0x6A4B39EF),
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
                         borderRadius: BorderRadius.circular(30.0),
                         border: Border.all(
                           color: FlutterFlowTheme.of(context).primary,
@@ -450,7 +451,7 @@ class _CreateAudioWidgetState extends State<CreateAudioWidget>
                 width: double.infinity,
                 height: 50.0,
                 decoration: BoxDecoration(
-                  color: const Color(0x6A4B39EF),
+                  color: FlutterFlowTheme.of(context).secondaryBackground,
                   borderRadius: BorderRadius.circular(30.0),
                   border: Border.all(
                     color: FlutterFlowTheme.of(context).primary,

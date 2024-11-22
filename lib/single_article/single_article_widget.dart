@@ -214,14 +214,15 @@ class _SingleArticleWidgetState extends State<SingleArticleWidget> {
                       Stack(
                         children: [
                           Opacity(
-                            opacity: 0.5,
+                            opacity: 0.3,
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: Container(
                                 width: double.infinity,
-                                height: 150.0,
+                                height: 200.0,
                                 decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context).primary,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
                                   image: DecorationImage(
                                     fit: BoxFit.cover,
                                     image: Image.network(
@@ -233,220 +234,125 @@ class _SingleArticleWidgetState extends State<SingleArticleWidget> {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Container(
-                              width: double.infinity,
-                              height: 150.0,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30.0),
-                                border: Border.all(
-                                  color: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
-                                  width: 4.0,
+                          Align(
+                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Container(
+                                width: double.infinity,
+                                height: 200.0,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  border: Border.all(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
+                                    width: 4.0,
+                                  ),
                                 ),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    10.0, 20.0, 10.0, 20.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Text(
-                                          valueOrDefault<String>(
-                                            widget.article?.title,
-                                            'Title',
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Montserrat',
-                                                fontSize: 20.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                        ),
-                                        InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            context.pushNamed(
-                                              'Profile',
-                                              queryParameters: {
-                                                'userReference': serializeParam(
-                                                  widget.authorReference,
-                                                  ParamType.DocumentReference,
-                                                ),
-                                              }.withoutNulls,
-                                            );
-                                          },
-                                          child: Text(
-                                            'by ${singleArticleUsersRecord.name}',
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      10.0, 40.0, 10.0, 40.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Text(
+                                            valueOrDefault<String>(
+                                              widget.article?.title,
+                                              'Title',
+                                            ),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Montserrat',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
-                                                  fontSize: 16.0,
+                                                  fontSize: 22.0,
                                                   letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.w500,
+                                                  fontWeight: FontWeight.bold,
                                                 ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 5.0, 0.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    10.0, 0.0, 0.0, 0.0),
-                                            child: InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                await showModalBottomSheet(
-                                                  isScrollControlled: true,
-                                                  backgroundColor:
-                                                      Colors.transparent,
-                                                  context: context,
-                                                  builder: (context) {
-                                                    return GestureDetector(
-                                                      onTap: () =>
-                                                          FocusScope.of(context)
-                                                              .unfocus(),
-                                                      child: Padding(
-                                                        padding: MediaQuery
-                                                            .viewInsetsOf(
-                                                                context),
-                                                        child: CommentsWidget(
-                                                          thread: widget
-                                                              .article
-                                                              ?.reference,
-                                                        ),
-                                                      ),
-                                                    );
-                                                  },
-                                                ).then((value) =>
-                                                    safeSetState(() {}));
-                                              },
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Text(
-                                                    valueOrDefault<String>(
-                                                      widget.article?.comments
-                                                          .length
-                                                          .toString(),
-                                                      '0',
-                                                    ),
-                                                    style: FlutterFlowTheme.of(
+                                          InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              context.pushNamed(
+                                                'Profile',
+                                                queryParameters: {
+                                                  'userReference':
+                                                      serializeParam(
+                                                    widget.authorReference,
+                                                    ParamType.DocumentReference,
+                                                  ),
+                                                }.withoutNulls,
+                                              );
+                                            },
+                                            child: Text(
+                                              'by ${singleArticleUsersRecord.name}',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Montserrat',
+                                                    color: FlutterFlowTheme.of(
                                                             context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Montserrat',
-                                                          letterSpacing: 0.0,
-                                                        ),
+                                                        .secondaryText,
+                                                    fontSize: 16.0,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight: FontWeight.w500,
                                                   ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(5.0, 0.0,
-                                                                5.0, 0.0),
-                                                    child: Icon(
-                                                      Icons
-                                                          .mode_comment_outlined,
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
-                                                      size: 24.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
                                             ),
                                           ),
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              InkWell(
+                                        ],
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 5.0, 0.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      10.0, 0.0, 0.0, 0.0),
+                                              child: InkWell(
                                                 splashColor: Colors.transparent,
                                                 focusColor: Colors.transparent,
                                                 hoverColor: Colors.transparent,
                                                 highlightColor:
                                                     Colors.transparent,
                                                 onTap: () async {
-                                                  if (functions.voterInList(
-                                                          widget.article!.votes
-                                                              .toList(),
-                                                          currentUserReference!) ==
-                                                      1) {
-                                                    await widget
-                                                        .article!.reference
-                                                        .update({
-                                                      ...mapToFirestore(
-                                                        {
-                                                          'Votes': FieldValue
-                                                              .arrayRemove([
-                                                            getVotersFirestoreData(
-                                                              createVotersStruct(
-                                                                userReference:
-                                                                    currentUserReference,
-                                                                voteValue: 1,
-                                                                clearUnsetFields:
-                                                                    false,
-                                                              ),
-                                                              true,
-                                                            )
-                                                          ]),
-                                                        },
-                                                      ),
-                                                    });
-                                                  } else {
-                                                    await widget
-                                                        .article!.reference
-                                                        .update({
-                                                      ...mapToFirestore(
-                                                        {
-                                                          'Votes': FieldValue
-                                                              .arrayUnion([
-                                                            getVotersFirestoreData(
-                                                              createVotersStruct(
-                                                                userReference:
-                                                                    currentUserReference,
-                                                                voteValue: 1,
-                                                                clearUnsetFields:
-                                                                    false,
-                                                              ),
-                                                              true,
-                                                            )
-                                                          ]),
-                                                        },
-                                                      ),
-                                                    });
-                                                  }
-
-                                                  safeSetState(() {});
+                                                  await showModalBottomSheet(
+                                                    isScrollControlled: true,
+                                                    backgroundColor:
+                                                        Colors.transparent,
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return GestureDetector(
+                                                        onTap: () =>
+                                                            FocusScope.of(
+                                                                    context)
+                                                                .unfocus(),
+                                                        child: Padding(
+                                                          padding: MediaQuery
+                                                              .viewInsetsOf(
+                                                                  context),
+                                                          child: CommentsWidget(
+                                                            thread: widget
+                                                                .article
+                                                                ?.reference,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  ).then((value) =>
+                                                      safeSetState(() {}));
                                                 },
                                                 child: Row(
                                                   mainAxisSize:
@@ -454,8 +360,8 @@ class _SingleArticleWidgetState extends State<SingleArticleWidget> {
                                                   children: [
                                                     Text(
                                                       valueOrDefault<String>(
-                                                        widget.article?.votes
-                                                            .length
+                                                        widget.article
+                                                            ?.comments.length
                                                             .toString(),
                                                         '0',
                                                       ),
@@ -468,65 +374,178 @@ class _SingleArticleWidgetState extends State<SingleArticleWidget> {
                                                             letterSpacing: 0.0,
                                                           ),
                                                     ),
-                                                    Stack(
-                                                      children: [
-                                                        if (functions.voterInList(
-                                                                widget.article!
-                                                                    .votes
-                                                                    .toList(),
-                                                                currentUserReference!) !=
-                                                            1)
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        5.0,
-                                                                        0.0,
-                                                                        5.0,
-                                                                        0.0),
-                                                            child: Icon(
-                                                              Icons
-                                                                  .favorite_border_outlined,
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryText,
-                                                              size: 24.0,
-                                                            ),
-                                                          ),
-                                                        if (functions.voterInList(
-                                                                widget.article!
-                                                                    .votes
-                                                                    .toList(),
-                                                                currentUserReference!) ==
-                                                            1)
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        5.0,
-                                                                        0.0,
-                                                                        5.0,
-                                                                        0.0),
-                                                            child: Icon(
-                                                              Icons
-                                                                  .favorite_sharp,
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .error,
-                                                              size: 24.0,
-                                                            ),
-                                                          ),
-                                                      ],
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  5.0,
+                                                                  0.0,
+                                                                  5.0,
+                                                                  0.0),
+                                                      child: Icon(
+                                                        Icons
+                                                            .mode_comment_outlined,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                        size: 24.0,
+                                                      ),
                                                     ),
                                                   ],
                                                 ),
                                               ),
-                                            ],
-                                          ),
-                                        ].divide(const SizedBox(width: 10.0)),
+                                            ),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    if (functions.voterInList(
+                                                            widget
+                                                                .article!.votes
+                                                                .toList(),
+                                                            currentUserReference!) ==
+                                                        1) {
+                                                      await widget
+                                                          .article!.reference
+                                                          .update({
+                                                        ...mapToFirestore(
+                                                          {
+                                                            'Votes': FieldValue
+                                                                .arrayRemove([
+                                                              getVotersFirestoreData(
+                                                                createVotersStruct(
+                                                                  userReference:
+                                                                      currentUserReference,
+                                                                  voteValue: 1,
+                                                                  clearUnsetFields:
+                                                                      false,
+                                                                ),
+                                                                true,
+                                                              )
+                                                            ]),
+                                                          },
+                                                        ),
+                                                      });
+                                                    } else {
+                                                      await widget
+                                                          .article!.reference
+                                                          .update({
+                                                        ...mapToFirestore(
+                                                          {
+                                                            'Votes': FieldValue
+                                                                .arrayUnion([
+                                                              getVotersFirestoreData(
+                                                                createVotersStruct(
+                                                                  userReference:
+                                                                      currentUserReference,
+                                                                  voteValue: 1,
+                                                                  clearUnsetFields:
+                                                                      false,
+                                                                ),
+                                                                true,
+                                                              )
+                                                            ]),
+                                                          },
+                                                        ),
+                                                      });
+                                                    }
+
+                                                    safeSetState(() {});
+                                                  },
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Text(
+                                                        valueOrDefault<String>(
+                                                          widget.article?.votes
+                                                              .length
+                                                              .toString(),
+                                                          '0',
+                                                        ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                      ),
+                                                      Stack(
+                                                        children: [
+                                                          if (functions.voterInList(
+                                                                  widget
+                                                                      .article!
+                                                                      .votes
+                                                                      .toList(),
+                                                                  currentUserReference!) !=
+                                                              1)
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          5.0,
+                                                                          0.0,
+                                                                          5.0,
+                                                                          0.0),
+                                                              child: Icon(
+                                                                Icons
+                                                                    .favorite_border_outlined,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
+                                                                size: 24.0,
+                                                              ),
+                                                            ),
+                                                          if (functions.voterInList(
+                                                                  widget
+                                                                      .article!
+                                                                      .votes
+                                                                      .toList(),
+                                                                  currentUserReference!) ==
+                                                              1)
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          5.0,
+                                                                          0.0,
+                                                                          5.0,
+                                                                          0.0),
+                                                              child: Icon(
+                                                                Icons
+                                                                    .favorite_sharp,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .error,
+                                                                size: 24.0,
+                                                              ),
+                                                            ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ].divide(const SizedBox(width: 10.0)),
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
@@ -537,8 +556,7 @@ class _SingleArticleWidgetState extends State<SingleArticleWidget> {
                         child: Align(
                           alignment: const AlignmentDirectional(-1.0, 0.0),
                           child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                10.0, 10.0, 10.0, 10.0),
+                            padding: const EdgeInsets.all(10.0),
                             child: SelectionArea(
                                 child: Text(
                               valueOrDefault<String>(

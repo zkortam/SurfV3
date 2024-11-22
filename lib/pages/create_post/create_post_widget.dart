@@ -2974,7 +2974,9 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                             width: double.infinity,
                                             height: 150.0,
                                             decoration: BoxDecoration(
-                                              color: const Color(0x6A4B39EF),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryBackground,
                                               borderRadius:
                                                   BorderRadius.circular(30.0),
                                               border: Border.all(

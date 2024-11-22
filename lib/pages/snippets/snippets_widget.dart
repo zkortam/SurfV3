@@ -59,7 +59,16 @@ class _SnippetsWidgetState extends State<SnippetsWidget> {
                     'timeCloses',
                     isGreaterThan: getCurrentTimestamp,
                   ),
-            ),
+            )..listen((snapshot) {
+                List<SnippetsRecord> pageViewSnippetsRecordList = snapshot;
+                if (_model.pageViewPreviousSnapshot != null &&
+                    !const ListEquality(SnippetsRecordDocumentEquality())
+                        .equals(pageViewSnippetsRecordList,
+                            _model.pageViewPreviousSnapshot)) {
+                  () async {}();
+                }
+                _model.pageViewPreviousSnapshot = snapshot;
+              }),
             builder: (context, snapshot) {
               // Customize what your widget looks like when it's loading.
               if (!snapshot.hasData) {
