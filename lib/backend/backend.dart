@@ -12,6 +12,7 @@ import 'schema/threads_record.dart';
 import 'schema/spaces_record.dart';
 import 'schema/feedback_record.dart';
 import 'schema/snippets_record.dart';
+import 'schema/music_record.dart';
 import 'dart:async';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
@@ -29,6 +30,7 @@ export 'schema/threads_record.dart';
 export 'schema/spaces_record.dart';
 export 'schema/feedback_record.dart';
 export 'schema/snippets_record.dart';
+export 'schema/music_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({
@@ -557,6 +559,84 @@ Future<FFFirestorePage<SnippetsRecord>> querySnippetsRecordPage({
       if (isStream) {
         final streamSubscription =
             (page.dataStream)?.listen((List<SnippetsRecord> data) {
+          for (var item in data) {
+            final itemIndexes = controller.itemList!
+                .asMap()
+                .map((k, v) => MapEntry(v.reference.id, k));
+            final index = itemIndexes[item.reference.id];
+            final items = controller.itemList!;
+            if (index != null) {
+              items.replaceRange(index, index + 1, [item]);
+              controller.itemList = {
+                for (var item in items) item.reference: item
+              }.values.toList();
+            }
+          }
+        });
+        streamSubscriptions?.add(streamSubscription);
+      }
+      return page;
+    });
+
+/// Functions to query MusicRecords (as a Stream and as a Future).
+Future<int> queryMusicRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      MusicRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<MusicRecord>> queryMusicRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      MusicRecord.collection,
+      MusicRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<MusicRecord>> queryMusicRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      MusicRecord.collection,
+      MusicRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+Future<FFFirestorePage<MusicRecord>> queryMusicRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+  required PagingController<DocumentSnapshot?, MusicRecord> controller,
+  List<StreamSubscription?>? streamSubscriptions,
+}) =>
+    queryCollectionPage(
+      MusicRecord.collection,
+      MusicRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    ).then((page) {
+      controller.appendPage(
+        page.data,
+        page.nextPageMarker,
+      );
+      if (isStream) {
+        final streamSubscription =
+            (page.dataStream)?.listen((List<MusicRecord> data) {
           for (var item in data) {
             final itemIndexes = controller.itemList!
                 .asMap()

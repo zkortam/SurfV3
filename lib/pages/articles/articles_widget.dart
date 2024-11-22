@@ -225,7 +225,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                               reverse: false,
                               scrollDirection: Axis.vertical,
                               separatorBuilder: (_, __) =>
-                                  const SizedBox(height: 10.0),
+                                  const SizedBox(height: 5.0),
                               builderDelegate:
                                   PagedChildBuilderDelegate<ThreadsRecord>(
                                 // Customize what your widget looks like when it's loading the first page.

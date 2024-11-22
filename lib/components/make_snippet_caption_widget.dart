@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/info_widget.dart';
+import '/components/music_selector_widget.dart';
 import '/components/pick_group_for_snippet_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -105,26 +106,50 @@ class _MakeSnippetCaptionWidgetState extends State<MakeSnippetCaptionWidget> {
                     ),
                   ),
                   Flexible(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          FFLocalizations.of(context).getText(
-                            '0d5nrjlg' /* Create Snippet */,
-                          ),
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                fontFamily: 'Montserrat',
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
-                                fontSize: 16.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.w600,
+                    child: Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              await showModalBottomSheet(
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                enableDrag: false,
+                                context: context,
+                                builder: (context) {
+                                  return Padding(
+                                    padding: MediaQuery.viewInsetsOf(context),
+                                    child: const MusicSelectorWidget(),
+                                  );
+                                },
+                              ).then((value) =>
+                                  safeSetState(() => _model.music = value));
+
+                              safeSetState(() {});
+                            },
+                            child: Icon(
+                              Icons.music_note_rounded,
+                              color: valueOrDefault<Color>(
+                                _model.music != null
+                                    ? FlutterFlowTheme.of(context).primary
+                                    : FlutterFlowTheme.of(context).primaryText,
+                                FlutterFlowTheme.of(context).primaryText,
                               ),
-                        ),
-                      ],
+                              size: 24.0,
+                            ),
+                          ),
+                        ]
+                            .divide(const SizedBox(width: 10.0))
+                            .addToEnd(const SizedBox(width: 10.0)),
+                      ),
                     ),
                   ),
                   Padding(
@@ -155,6 +180,9 @@ class _MakeSnippetCaptionWidgetState extends State<MakeSnippetCaptionWidget> {
                               isOnlyForGroup:
                                   _model.groupOutput?.people != null &&
                                       (_model.groupOutput?.people)!.isNotEmpty,
+                              audio: _model.music?.reference,
+                              audioName: _model.music?.name,
+                              audioTrack: _model.music?.audio,
                             ),
                             ...mapToFirestore(
                               {

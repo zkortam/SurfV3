@@ -5,7 +5,9 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_video_player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:just_audio/just_audio.dart';
 import 'snippet_model.dart';
 export 'snippet_model.dart';
 
@@ -34,6 +36,18 @@ class _SnippetWidgetState extends State<SnippetWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => SnippetModel());
+
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.soundPlayer ??= AudioPlayer();
+      if (_model.soundPlayer!.playing) {
+        await _model.soundPlayer!.stop();
+      }
+      _model.soundPlayer!.setVolume(1.0);
+      _model.soundPlayer!
+          .setUrl(widget.snippet!.audioTrack)
+          .then((_) => _model.soundPlayer!.play());
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }

@@ -65,6 +65,21 @@ class SnippetsRecord extends FirestoreRecord {
   bool get isOnlyForGroup => _isOnlyForGroup ?? false;
   bool hasIsOnlyForGroup() => _isOnlyForGroup != null;
 
+  // "audio" field.
+  DocumentReference? _audio;
+  DocumentReference? get audio => _audio;
+  bool hasAudio() => _audio != null;
+
+  // "audioName" field.
+  String? _audioName;
+  String get audioName => _audioName ?? '';
+  bool hasAudioName() => _audioName != null;
+
+  // "audioTrack" field.
+  String? _audioTrack;
+  String get audioTrack => _audioTrack ?? '';
+  bool hasAudioTrack() => _audioTrack != null;
+
   void _initializeFields() {
     _timePosted = snapshotData['timePosted'] as DateTime?;
     _author = snapshotData['author'] as DocumentReference?;
@@ -77,6 +92,9 @@ class SnippetsRecord extends FirestoreRecord {
     _threadsReference = snapshotData['threadsReference'] as DocumentReference?;
     _validPeople = getDataList(snapshotData['validPeople']);
     _isOnlyForGroup = snapshotData['isOnlyForGroup'] as bool?;
+    _audio = snapshotData['audio'] as DocumentReference?;
+    _audioName = snapshotData['audioName'] as String?;
+    _audioTrack = snapshotData['audioTrack'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -123,6 +141,9 @@ Map<String, dynamic> createSnippetsRecordData({
   DocumentReference? postShortReference,
   DocumentReference? threadsReference,
   bool? isOnlyForGroup,
+  DocumentReference? audio,
+  String? audioName,
+  String? audioTrack,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -135,6 +156,9 @@ Map<String, dynamic> createSnippetsRecordData({
       'postShortReference': postShortReference,
       'threadsReference': threadsReference,
       'isOnlyForGroup': isOnlyForGroup,
+      'audio': audio,
+      'audioName': audioName,
+      'audioTrack': audioTrack,
     }.withoutNulls,
   );
 
@@ -156,7 +180,10 @@ class SnippetsRecordDocumentEquality implements Equality<SnippetsRecord> {
         e1?.postShortReference == e2?.postShortReference &&
         e1?.threadsReference == e2?.threadsReference &&
         listEquality.equals(e1?.validPeople, e2?.validPeople) &&
-        e1?.isOnlyForGroup == e2?.isOnlyForGroup;
+        e1?.isOnlyForGroup == e2?.isOnlyForGroup &&
+        e1?.audio == e2?.audio &&
+        e1?.audioName == e2?.audioName &&
+        e1?.audioTrack == e2?.audioTrack;
   }
 
   @override
@@ -170,7 +197,10 @@ class SnippetsRecordDocumentEquality implements Equality<SnippetsRecord> {
         e?.postShortReference,
         e?.threadsReference,
         e?.validPeople,
-        e?.isOnlyForGroup
+        e?.isOnlyForGroup,
+        e?.audio,
+        e?.audioName,
+        e?.audioTrack
       ]);
 
   @override
