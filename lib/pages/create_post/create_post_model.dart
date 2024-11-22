@@ -38,6 +38,10 @@ class CreatePostModel extends FlutterFlowModel<CreatePostWidget> {
 
   bool isBeautifiedState = false;
 
+  String group = '';
+
+  bool isArticle = false;
+
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for TabBar widget.
@@ -92,6 +96,11 @@ class CreatePostModel extends FlutterFlowModel<CreatePostWidget> {
   String? autoBeautifiedText;
   // Stores action output result for [Gemini - Generate Text] action in CaptionSet widget.
   String? summarizedText;
+  bool isDataUploading5 = false;
+  FFUploadedFile uploadedLocalFile5 =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl5 = '';
+
   // State field(s) for TitleThreads widget.
   FocusNode? titleThreadsFocusNode;
   TextEditingController? titleThreadsTextController;
@@ -116,14 +125,20 @@ class CreatePostModel extends FlutterFlowModel<CreatePostWidget> {
   FocusNode? titleFocusNode2;
   TextEditingController? titleTextController2;
   String? Function(BuildContext, String?)? titleTextController2Validator;
-  // State field(s) for Title widget.
-  FocusNode? titleFocusNode3;
-  TextEditingController? titleTextController3;
-  String? Function(BuildContext, String?)? titleTextController3Validator;
-  // State field(s) for Title widget.
-  FocusNode? titleFocusNode4;
-  TextEditingController? titleTextController4;
-  String? Function(BuildContext, String?)? titleTextController4Validator;
+  // State field(s) for option3 widget.
+  FocusNode? option3FocusNode;
+  TextEditingController? option3TextController;
+  String? Function(BuildContext, String?)? option3TextControllerValidator;
+  // State field(s) for option4 widget.
+  FocusNode? option4FocusNode;
+  TextEditingController? option4TextController;
+  String? Function(BuildContext, String?)? option4TextControllerValidator;
+  // Stores action output result for [Bottom Sheet - pickGroupForSnippet] action in IconButton widget.
+  FollowerGroupStruct? validPeople;
+  // State field(s) for Caption widget.
+  FocusNode? captionFocusNode;
+  TextEditingController? captionTextController;
+  String? Function(BuildContext, String?)? captionTextControllerValidator;
 
   @override
   void initState(BuildContext context) {}
@@ -149,10 +164,13 @@ class CreatePostModel extends FlutterFlowModel<CreatePostWidget> {
     titleFocusNode2?.dispose();
     titleTextController2?.dispose();
 
-    titleFocusNode3?.dispose();
-    titleTextController3?.dispose();
+    option3FocusNode?.dispose();
+    option3TextController?.dispose();
 
-    titleFocusNode4?.dispose();
-    titleTextController4?.dispose();
+    option4FocusNode?.dispose();
+    option4TextController?.dispose();
+
+    captionFocusNode?.dispose();
+    captionTextController?.dispose();
   }
 }

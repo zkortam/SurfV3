@@ -149,7 +149,9 @@ class _SignUpWidgetState extends State<SignUpWidget>
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
-                                  'Sign up',
+                                  FFLocalizations.of(context).getText(
+                                    'pdlynknb' /* Sign up */,
+                                  ),
                                   textAlign: TextAlign.center,
                                   style: FlutterFlowTheme.of(context)
                                       .displaySmall
@@ -163,7 +165,9 @@ class _SignUpWidgetState extends State<SignUpWidget>
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 10.0, 0.0, 24.0),
                                   child: Text(
-                                    'Please fill the information below',
+                                    FFLocalizations.of(context).getText(
+                                      'qpb64vvf' /* Please fill the information be... */,
+                                    ),
                                     textAlign: TextAlign.center,
                                     style: FlutterFlowTheme.of(context)
                                         .labelLarge
@@ -191,7 +195,10 @@ class _SignUpWidgetState extends State<SignUpWidget>
                                               fontFamily: 'Montserrat',
                                               letterSpacing: 0.0,
                                             ),
-                                        hintText: 'Email',
+                                        hintText:
+                                            FFLocalizations.of(context).getText(
+                                          'rjv99vnr' /* Email */,
+                                        ),
                                         hintStyle: FlutterFlowTheme.of(context)
                                             .bodyLarge
                                             .override(
@@ -275,7 +282,10 @@ class _SignUpWidgetState extends State<SignUpWidget>
                                               fontFamily: 'Montserrat',
                                               letterSpacing: 0.0,
                                             ),
-                                        hintText: 'Password',
+                                        hintText:
+                                            FFLocalizations.of(context).getText(
+                                          'fzzocpfe' /* Password */,
+                                        ),
                                         hintStyle: FlutterFlowTheme.of(context)
                                             .bodyLarge
                                             .override(
@@ -385,7 +395,10 @@ class _SignUpWidgetState extends State<SignUpWidget>
                                               fontFamily: 'Montserrat',
                                               letterSpacing: 0.0,
                                             ),
-                                        hintText: 'Confirm Password',
+                                        hintText:
+                                            FFLocalizations.of(context).getText(
+                                          'q5xob6gq' /* Confirm Password */,
+                                        ),
                                         hintStyle: FlutterFlowTheme.of(context)
                                             .bodyLarge
                                             .override(
@@ -520,7 +533,9 @@ class _SignUpWidgetState extends State<SignUpWidget>
                                         ignoreRedirect: true,
                                       );
                                     },
-                                    text: 'Sign Up',
+                                    text: FFLocalizations.of(context).getText(
+                                      'twdqbwzl' /* Sign Up */,
+                                    ),
                                     options: FFButtonOptions(
                                       width: double.infinity,
                                       height: 44.0,
@@ -597,7 +612,7 @@ class _SignUpWidgetState extends State<SignUpWidget>
                                               (value) => safeSetState(() {}));
 
                                           GoRouter.of(context)
-                                              .prepareAuthEvent();
+                                              .prepareAuthEvent(true);
                                           final user = await authManager
                                               .signInWithGoogle(context);
                                           if (user == null) {
@@ -605,7 +620,10 @@ class _SignUpWidgetState extends State<SignUpWidget>
                                           }
 
                                           context.goNamedAuth(
-                                              'DateOfBirth', context.mounted);
+                                            'DateOfBirth',
+                                            context.mounted,
+                                            ignoreRedirect: true,
+                                          );
                                         },
                                       ),
                                       FlutterFlowIconButton(
@@ -646,7 +664,7 @@ class _SignUpWidgetState extends State<SignUpWidget>
                                               (value) => safeSetState(() {}));
 
                                           GoRouter.of(context)
-                                              .prepareAuthEvent();
+                                              .prepareAuthEvent(true);
                                           final user = await authManager
                                               .signInWithApple(context);
                                           if (user == null) {
@@ -654,7 +672,10 @@ class _SignUpWidgetState extends State<SignUpWidget>
                                           }
 
                                           context.goNamedAuth(
-                                              'DateOfBirth', context.mounted);
+                                            'DateOfBirth',
+                                            context.mounted,
+                                            ignoreRedirect: true,
+                                          );
                                         },
                                       ),
                                       FlutterFlowIconButton(
@@ -695,7 +716,7 @@ class _SignUpWidgetState extends State<SignUpWidget>
                                               (value) => safeSetState(() {}));
 
                                           GoRouter.of(context)
-                                              .prepareAuthEvent();
+                                              .prepareAuthEvent(true);
                                           final user = await authManager
                                               .signInWithFacebook(context);
                                           if (user == null) {
@@ -703,7 +724,10 @@ class _SignUpWidgetState extends State<SignUpWidget>
                                           }
 
                                           context.goNamedAuth(
-                                              'DateOfBirth', context.mounted);
+                                            'DateOfBirth',
+                                            context.mounted,
+                                            ignoreRedirect: true,
+                                          );
                                         },
                                       ),
                                     ].divide(const SizedBox(width: 10.0)),
@@ -724,12 +748,18 @@ class _SignUpWidgetState extends State<SignUpWidget>
                                         MediaQuery.of(context).textScaler,
                                     text: TextSpan(
                                       children: [
-                                        const TextSpan(
-                                          text: 'Already have an account? ',
-                                          style: TextStyle(),
+                                        TextSpan(
+                                          text: FFLocalizations.of(context)
+                                              .getText(
+                                            '58n5gtms' /* Already have an account?  */,
+                                          ),
+                                          style: const TextStyle(),
                                         ),
                                         TextSpan(
-                                          text: 'Log in',
+                                          text: FFLocalizations.of(context)
+                                              .getText(
+                                            'ormbdf0x' /* Log in */,
+                                          ),
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(

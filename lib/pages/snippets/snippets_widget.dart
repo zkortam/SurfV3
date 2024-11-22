@@ -59,7 +59,16 @@ class _SnippetsWidgetState extends State<SnippetsWidget> {
                     'timeCloses',
                     isGreaterThan: getCurrentTimestamp,
                   ),
-            ),
+            )..listen((snapshot) {
+                List<SnippetsRecord> pageViewSnippetsRecordList = snapshot;
+                if (_model.pageViewPreviousSnapshot != null &&
+                    !const ListEquality(SnippetsRecordDocumentEquality())
+                        .equals(pageViewSnippetsRecordList,
+                            _model.pageViewPreviousSnapshot)) {
+                  () async {}();
+                }
+                _model.pageViewPreviousSnapshot = snapshot;
+              }),
             builder: (context, snapshot) {
               // Customize what your widget looks like when it's loading.
               if (!snapshot.hasData) {
@@ -89,13 +98,69 @@ class _SnippetsWidgetState extends State<SnippetsWidget> {
                   itemBuilder: (context, pageViewIndex) {
                     final pageViewSnippetsRecord =
                         pageViewSnippetsRecordList[pageViewIndex];
-                    return Column(
-                      mainAxisSize: MainAxisSize.max,
+                    return Stack(
                       children: [
-                        SnippetWidget(
-                          key: Key(
-                              'Keyk6b_${pageViewIndex}_of_${pageViewSnippetsRecordList.length}'),
-                          snippet: pageViewSnippetsRecord,
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SnippetWidget(
+                              key: Key(
+                                  'Keyk6b_${pageViewIndex}_of_${pageViewSnippetsRecordList.length}'),
+                              snippet: pageViewSnippetsRecord,
+                            ),
+                            Align(
+                              alignment: const AlignmentDirectional(0.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Flexible(
+                                    child: InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        await _model.pageViewController
+                                            ?.previousPage(
+                                          duration: const Duration(milliseconds: 300),
+                                          curve: Curves.ease,
+                                        );
+                                      },
+                                      child: Container(
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                0.5,
+                                        height: 1000.0,
+                                        decoration: const BoxDecoration(),
+                                      ),
+                                    ),
+                                  ),
+                                  Flexible(
+                                    child: InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        await _model.pageViewController
+                                            ?.nextPage(
+                                          duration: const Duration(milliseconds: 300),
+                                          curve: Curves.ease,
+                                        );
+                                      },
+                                      child: Container(
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                0.5,
+                                        height: 1000.0,
+                                        decoration: const BoxDecoration(),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     );

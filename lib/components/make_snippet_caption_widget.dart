@@ -1,6 +1,8 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/info_widget.dart';
+import '/components/music_selector_widget.dart';
+import '/components/pick_group_for_snippet_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -104,24 +106,50 @@ class _MakeSnippetCaptionWidgetState extends State<MakeSnippetCaptionWidget> {
                     ),
                   ),
                   Flexible(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Create Snippet',
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                fontFamily: 'Montserrat',
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
-                                fontSize: 16.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.w600,
+                    child: Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              await showModalBottomSheet(
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                enableDrag: false,
+                                context: context,
+                                builder: (context) {
+                                  return Padding(
+                                    padding: MediaQuery.viewInsetsOf(context),
+                                    child: const MusicSelectorWidget(),
+                                  );
+                                },
+                              ).then((value) =>
+                                  safeSetState(() => _model.music = value));
+
+                              safeSetState(() {});
+                            },
+                            child: Icon(
+                              Icons.music_note_rounded,
+                              color: valueOrDefault<Color>(
+                                _model.music != null
+                                    ? FlutterFlowTheme.of(context).primary
+                                    : FlutterFlowTheme.of(context).primaryText,
+                                FlutterFlowTheme.of(context).primaryText,
                               ),
-                        ),
-                      ],
+                              size: 24.0,
+                            ),
+                          ),
+                        ]
+                            .divide(const SizedBox(width: 10.0))
+                            .addToEnd(const SizedBox(width: 10.0)),
+                      ),
                     ),
                   ),
                   Padding(
@@ -140,17 +168,28 @@ class _MakeSnippetCaptionWidgetState extends State<MakeSnippetCaptionWidget> {
                         final firestoreBatch =
                             FirebaseFirestore.instance.batch();
                         try {
-                          firestoreBatch.set(
-                              SnippetsRecord.collection.doc(),
-                              createSnippetsRecordData(
-                                timePosted: getCurrentTimestamp,
-                                author: currentUserReference,
-                                caption: _model.textThreadTextController.text,
-                                threadsReference: widget.thread,
-                                timeCloses:
-                                    functions.nextDay(getCurrentTimestamp),
-                                postShortReference: widget.post,
-                              ));
+                          firestoreBatch.set(SnippetsRecord.collection.doc(), {
+                            ...createSnippetsRecordData(
+                              timePosted: getCurrentTimestamp,
+                              author: currentUserReference,
+                              caption: _model.textThreadTextController.text,
+                              threadsReference: widget.thread,
+                              timeCloses:
+                                  functions.nextDay(getCurrentTimestamp),
+                              postShortReference: widget.post,
+                              isOnlyForGroup:
+                                  _model.groupOutput?.people != null &&
+                                      (_model.groupOutput?.people)!.isNotEmpty,
+                              audio: _model.music?.reference,
+                              audioName: _model.music?.name,
+                              audioTrack: _model.music?.audio,
+                            ),
+                            ...mapToFirestore(
+                              {
+                                'validPeople': _model.groupOutput?.people,
+                              },
+                            ),
+                          });
                           Navigator.pop(context);
                           await showModalBottomSheet(
                             isScrollControlled: true,
@@ -184,6 +223,72 @@ class _MakeSnippetCaptionWidgetState extends State<MakeSnippetCaptionWidget> {
             ),
           ),
           Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: InkWell(
+              splashColor: Colors.transparent,
+              focusColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onTap: () async {
+                await showModalBottomSheet(
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                  enableDrag: false,
+                  context: context,
+                  builder: (context) {
+                    return Padding(
+                      padding: MediaQuery.viewInsetsOf(context),
+                      child: const PickGroupForSnippetWidget(),
+                    );
+                  },
+                ).then(
+                    (value) => safeSetState(() => _model.groupOutput = value));
+
+                _model.name = _model.groupOutput!.name;
+                _model.color = _model.groupOutput!.color!;
+                safeSetState(() {});
+
+                safeSetState(() {});
+              },
+              child: Container(
+                width: double.infinity,
+                height: 60.0,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50.0),
+                  border: Border.all(
+                    color: valueOrDefault<Color>(
+                      _model.color ?? FlutterFlowTheme.of(context).primary,
+                      FlutterFlowTheme.of(context).primary,
+                    ),
+                    width: 4.0,
+                  ),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      valueOrDefault<String>(
+                        _model.name != ''
+                            ? valueOrDefault<String>(
+                                _model.name,
+                                'Everyone',
+                              )
+                            : 'Everyone',
+                        'Everyone',
+                      ),
+                      textAlign: TextAlign.start,
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Montserrat',
+                            letterSpacing: 0.0,
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(8.0, 10.0, 8.0, 0.0),
             child: TextFormField(
               controller: _model.textThreadTextController,
@@ -196,7 +301,9 @@ class _MakeSnippetCaptionWidgetState extends State<MakeSnippetCaptionWidget> {
                       fontFamily: 'Montserrat',
                       letterSpacing: 0.0,
                     ),
-                hintText: 'Enter Caption',
+                hintText: FFLocalizations.of(context).getText(
+                  'ymhm2onz' /* Enter Caption */,
+                ),
                 hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
                       fontFamily: 'Montserrat',
                       letterSpacing: 0.0,

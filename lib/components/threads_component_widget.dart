@@ -344,7 +344,9 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Summary',
+                                          FFLocalizations.of(context).getText(
+                                            'nsm3owiy' /* Summary */,
+                                          ),
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
@@ -519,10 +521,10 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                   ),
                                 ),
                                 if (valueOrDefault<String>(
-                                          widget.thread?.poll.options[2],
-                                          'Option',
-                                        ) !=
-                                        '')
+                                      widget.thread?.poll.options[2],
+                                      'Option',
+                                    ) !=
+                                    ' ')
                                   InkWell(
                                     splashColor: Colors.transparent,
                                     focusColor: Colors.transparent,
@@ -585,10 +587,10 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                     ),
                                   ),
                                 if (valueOrDefault<String>(
-                                          widget.thread?.poll.options[3],
-                                          'Option',
-                                        ) !=
-                                        '')
+                                      widget.thread?.poll.options[3],
+                                      'Option',
+                                    ) !=
+                                    ' ')
                                   InkWell(
                                     splashColor: Colors.transparent,
                                     focusColor: Colors.transparent,
@@ -680,9 +682,12 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                     child: Stack(
                                       children: [
                                         LinearPercentIndicator(
-                                          percent: functions.votePercent(
-                                              widget.thread!.votes.toList(),
-                                              1),
+                                          percent: valueOrDefault<double>(
+                                            functions.votePercent(
+                                                widget.thread!.votes.toList(),
+                                                1),
+                                            0.0,
+                                          ),
                                           lineHeight: 100.0,
                                           animation: true,
                                           animateFromLastPercent: true,
@@ -701,7 +706,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                           child: Padding(
                                             padding:
                                                 const EdgeInsetsDirectional.fromSTEB(
-                                                    10.0, 0.0, 10.0, 0.0),
+                                                    10.0, 0.0, 20.0, 0.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
@@ -753,20 +758,24 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                   ],
                                                 ),
                                                 Text(
-                                                  functions
-                                                      .roundAndMultiply(
-                                                          functions.votePercent(
-                                                              widget
-                                                                  .thread!.votes
-                                                                  .toList(),
-                                                              1))
-                                                      .toString(),
+                                                  '${valueOrDefault<String>(
+                                                    functions
+                                                        .roundAndMultiply(
+                                                            functions.votePercent(
+                                                                widget.thread!
+                                                                    .votes
+                                                                    .toList(),
+                                                                1))
+                                                        .toString(),
+                                                    '0',
+                                                  )}%',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
                                                       .override(
                                                         fontFamily:
                                                             'Montserrat',
+                                                        fontSize: 16.0,
                                                         letterSpacing: 0.0,
                                                       ),
                                                 ),
@@ -796,9 +805,12 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                     child: Stack(
                                       children: [
                                         LinearPercentIndicator(
-                                          percent: functions.votePercent(
-                                              widget.thread!.votes.toList(),
-                                              2),
+                                          percent: valueOrDefault<double>(
+                                            functions.votePercent(
+                                                widget.thread!.votes.toList(),
+                                                2),
+                                            0.0,
+                                          ),
                                           lineHeight: 100.0,
                                           animation: true,
                                           animateFromLastPercent: true,
@@ -817,7 +829,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                           child: Padding(
                                             padding:
                                                 const EdgeInsetsDirectional.fromSTEB(
-                                                    10.0, 0.0, 10.0, 0.0),
+                                                    10.0, 0.0, 20.0, 0.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
@@ -869,20 +881,24 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                   ],
                                                 ),
                                                 Text(
-                                                  functions
-                                                      .roundAndMultiply(
-                                                          functions.votePercent(
-                                                              widget
-                                                                  .thread!.votes
-                                                                  .toList(),
-                                                              2))
-                                                      .toString(),
+                                                  '${valueOrDefault<String>(
+                                                    functions
+                                                        .roundAndMultiply(
+                                                            functions.votePercent(
+                                                                widget.thread!
+                                                                    .votes
+                                                                    .toList(),
+                                                                2))
+                                                        .toString(),
+                                                    '0',
+                                                  )}%',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
                                                       .override(
                                                         fontFamily:
                                                             'Montserrat',
+                                                        fontSize: 16.0,
                                                         letterSpacing: 0.0,
                                                       ),
                                                 ),
@@ -895,10 +911,10 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                   ),
                                 ),
                                 if (valueOrDefault<String>(
-                                          widget.thread?.poll.options[2],
-                                          'Option',
-                                        ) !=
-                                        '')
+                                      widget.thread?.poll.options[2],
+                                      'Option',
+                                    ) !=
+                                    ' ')
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(30.0),
                                     child: Container(
@@ -918,9 +934,13 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                       child: Stack(
                                         children: [
                                           LinearPercentIndicator(
-                                            percent: functions.votePercent(
-                                                widget.thread!.votes.toList(),
-                                                3),
+                                            percent: valueOrDefault<double>(
+                                              functions.votePercent(
+                                                  widget.thread!.votes
+                                                      .toList(),
+                                                  3),
+                                              0.0,
+                                            ),
                                             lineHeight: 100.0,
                                             animation: true,
                                             animateFromLastPercent: true,
@@ -939,7 +959,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                             child: Padding(
                                               padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
-                                                      10.0, 0.0, 10.0, 0.0),
+                                                      10.0, 0.0, 20.0, 0.0),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
@@ -993,20 +1013,25 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                     ],
                                                   ),
                                                   Text(
-                                                    functions
-                                                        .roundAndMultiply(
-                                                            functions.votePercent(
-                                                                widget.thread!
-                                                                    .votes
-                                                                    .toList(),
-                                                                3))
-                                                        .toString(),
+                                                    '${valueOrDefault<String>(
+                                                      functions
+                                                          .roundAndMultiply(
+                                                              functions.votePercent(
+                                                                  widget
+                                                                      .thread!
+                                                                      .votes
+                                                                      .toList(),
+                                                                  3))
+                                                          .toString(),
+                                                      '0',
+                                                    )}%',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily:
                                                               'Montserrat',
+                                                          fontSize: 16.0,
                                                           letterSpacing: 0.0,
                                                         ),
                                                   ),
@@ -1019,10 +1044,10 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                     ),
                                   ),
                                 if (valueOrDefault<String>(
-                                          widget.thread?.poll.options[3],
-                                          'Option',
-                                        ) !=
-                                        '')
+                                      widget.thread?.poll.options[3],
+                                      'Option',
+                                    ) !=
+                                    ' ')
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(30.0),
                                     child: Container(
@@ -1042,9 +1067,13 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                       child: Stack(
                                         children: [
                                           LinearPercentIndicator(
-                                            percent: functions.votePercent(
-                                                widget.thread!.votes.toList(),
-                                                4),
+                                            percent: valueOrDefault<double>(
+                                              functions.votePercent(
+                                                  widget.thread!.votes
+                                                      .toList(),
+                                                  4),
+                                              0.0,
+                                            ),
                                             lineHeight: 100.0,
                                             animation: true,
                                             animateFromLastPercent: true,
@@ -1063,7 +1092,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                             child: Padding(
                                               padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
-                                                      10.0, 0.0, 10.0, 0.0),
+                                                      10.0, 0.0, 20.0, 0.0),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
@@ -1117,20 +1146,25 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                     ],
                                                   ),
                                                   Text(
-                                                    functions
-                                                        .roundAndMultiply(
-                                                            functions.votePercent(
-                                                                widget.thread!
-                                                                    .votes
-                                                                    .toList(),
-                                                                4))
-                                                        .toString(),
+                                                    '${valueOrDefault<String>(
+                                                      functions
+                                                          .roundAndMultiply(
+                                                              functions.votePercent(
+                                                                  widget
+                                                                      .thread!
+                                                                      .votes
+                                                                      .toList(),
+                                                                  4))
+                                                          .toString(),
+                                                      '0',
+                                                    )}%',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily:
                                                               'Montserrat',
+                                                          fontSize: 16.0,
                                                           letterSpacing: 0.0,
                                                         ),
                                                   ),

@@ -110,7 +110,9 @@ class _SinglePostWidgetState extends State<SinglePostWidget> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  'Post',
+                                  FFLocalizations.of(context).getText(
+                                    'gx8uhnyb' /* Post */,
+                                  ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(

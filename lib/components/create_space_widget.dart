@@ -105,7 +105,9 @@ class _CreateSpaceWidgetState extends State<CreateSpaceWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Create Space',
+                          FFLocalizations.of(context).getText(
+                            'rjaakl98' /* Create Space */,
+                          ),
                           style: FlutterFlowTheme.of(context)
                               .bodyMedium
                               .override(
@@ -284,7 +286,9 @@ class _CreateSpaceWidgetState extends State<CreateSpaceWidget> {
                       fontFamily: 'Montserrat',
                       letterSpacing: 0.0,
                     ),
-                hintText: 'Name',
+                hintText: FFLocalizations.of(context).getText(
+                  '26xcuep5' /* Name */,
+                ),
                 hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
                       fontFamily: 'Montserrat',
                       letterSpacing: 0.0,
@@ -348,7 +352,9 @@ class _CreateSpaceWidgetState extends State<CreateSpaceWidget> {
                       fontFamily: 'Montserrat',
                       letterSpacing: 0.0,
                     ),
-                hintText: 'Rules',
+                hintText: FFLocalizations.of(context).getText(
+                  'iisgkqkk' /* Rules */,
+                ),
                 hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
                       fontFamily: 'Montserrat',
                       letterSpacing: 0.0,

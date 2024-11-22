@@ -3,6 +3,7 @@ import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/components/error_bar_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
+import '/flutter_flow/flutter_flow_button_tabbar.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -108,33 +109,6 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                       decoration: const BoxDecoration(),
                       child: Column(
                         children: [
-                          Align(
-                            alignment: const Alignment(0.0, 0),
-                            child: TabBar(
-                              labelColor: Colors.transparent,
-                              unselectedLabelColor: Colors.transparent,
-                              labelStyle: FlutterFlowTheme.of(context)
-                                  .titleMedium
-                                  .override(
-                                    fontFamily: 'Montserrat',
-                                    letterSpacing: 0.0,
-                                  ),
-                              unselectedLabelStyle: const TextStyle(),
-                              indicatorColor: Colors.transparent,
-                              tabs: const [
-                                Tab(
-                                  text: 'Example 1',
-                                ),
-                                Tab(
-                                  text: 'Example 2',
-                                ),
-                              ],
-                              controller: _model.tabBarController,
-                              onTap: (i) async {
-                                [() async {}, () async {}][i]();
-                              },
-                            ),
-                          ),
                           Expanded(
                             child: TabBarView(
                               controller: _model.tabBarController,
@@ -522,7 +496,11 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                                   10.0,
                                                                   0.0),
                                                       child: Text(
-                                                        'Profile Picture',
+                                                        FFLocalizations.of(
+                                                                context)
+                                                            .getText(
+                                                          'k6pwr9lj' /* Profile Picture */,
+                                                        ),
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -566,7 +544,11 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                                   10.0,
                                                                   0.0),
                                                       child: Text(
-                                                        'Banner',
+                                                        FFLocalizations.of(
+                                                                context)
+                                                            .getText(
+                                                          '39z2eser' /* Banner */,
+                                                        ),
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -707,7 +689,12 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                                   letterSpacing:
                                                                       0.0,
                                                                 ),
-                                                        hintText: 'Username',
+                                                        hintText:
+                                                            FFLocalizations.of(
+                                                                    context)
+                                                                .getText(
+                                                          '36vpdyi9' /* Username */,
+                                                        ),
                                                         hintStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -890,7 +877,10 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                       _model.uploadedFileUrl1,
                                                 ));
                                               },
-                                              text: 'Next',
+                                              text: FFLocalizations.of(context)
+                                                  .getText(
+                                                'ahu7okm7' /* Next */,
+                                              ),
                                               options: FFButtonOptions(
                                                 width: 200.0,
                                                 height: 47.0,
@@ -957,7 +947,11 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                             'Montserrat',
                                                         letterSpacing: 0.0,
                                                       ),
-                                              hintText: 'Your Name',
+                                              hintText:
+                                                  FFLocalizations.of(context)
+                                                      .getText(
+                                                '7o4q0gta' /* Your Name */,
+                                              ),
                                               hintStyle: FlutterFlowTheme.of(
                                                       context)
                                                   .bodyLarge
@@ -1049,7 +1043,11 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                       fontFamily: 'Montserrat',
                                                       letterSpacing: 0.0,
                                                     ),
-                                            hintText: 'Bio',
+                                            hintText:
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                              'h9rax761' /* Bio */,
+                                            ),
                                             hintStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .bodyLarge
@@ -1169,7 +1167,11 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                     );
                                                   });
                                                 },
-                                                text: 'Back',
+                                                text:
+                                                    FFLocalizations.of(context)
+                                                        .getText(
+                                                  's43m3h3p' /* Back */,
+                                                ),
                                                 options: FFButtonOptions(
                                                   width:
                                                       MediaQuery.sizeOf(context)
@@ -1227,7 +1229,10 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                       getCurrentTimestamp,
                                                 ));
                                               },
-                                              text: 'Finish',
+                                              text: FFLocalizations.of(context)
+                                                  .getText(
+                                                '7uwlj5w1' /* Finish */,
+                                              ),
                                               options: FFButtonOptions(
                                                 width:
                                                     MediaQuery.sizeOf(context)
@@ -1270,6 +1275,46 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                   ),
                                 ),
                               ],
+                            ),
+                          ),
+                          Align(
+                            alignment: const Alignment(0.0, 0),
+                            child: FlutterFlowButtonTabBar(
+                              useToggleButtonStyle: false,
+                              labelStyle: FlutterFlowTheme.of(context)
+                                  .titleMedium
+                                  .override(
+                                    fontFamily: 'Montserrat',
+                                    letterSpacing: 0.0,
+                                  ),
+                              unselectedLabelStyle: const TextStyle(),
+                              labelColor: Colors.transparent,
+                              unselectedLabelColor: Colors.transparent,
+                              backgroundColor: Colors.transparent,
+                              unselectedBackgroundColor: const Color(0x00262D34),
+                              borderColor: Colors.transparent,
+                              unselectedBorderColor: const Color(0x00262D34),
+                              borderWidth: 0.0,
+                              borderRadius: 0.0,
+                              elevation: 0.0,
+                              buttonMargin: const EdgeInsetsDirectional.fromSTEB(
+                                  8.0, 0.0, 8.0, 0.0),
+                              tabs: [
+                                Tab(
+                                  text: FFLocalizations.of(context).getText(
+                                    '92jt1dwb' /* Example 1 */,
+                                  ),
+                                ),
+                                Tab(
+                                  text: FFLocalizations.of(context).getText(
+                                    '8gi6smc0' /* Example 2 */,
+                                  ),
+                                ),
+                              ],
+                              controller: _model.tabBarController,
+                              onTap: (i) async {
+                                [() async {}, () async {}][i]();
+                              },
                             ),
                           ),
                         ],

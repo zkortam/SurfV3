@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/edit_profile_widget.dart';
+import '/components/followers_following_widget.dart';
 import '/components/navigation_bar_widget.dart';
 import '/components/threads_component_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -9,6 +10,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_video_player.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -198,6 +200,116 @@ class _ProfileWidgetState extends State<ProfileWidget>
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
+                                  if ((_model.userRefState !=
+                                          currentUserReference) &&
+                                      functions.userInList(
+                                          (currentUserDocument?.blocked
+                                                      .toList() ??
+                                                  [])
+                                              .toList(),
+                                          columnUsersRecord.reference))
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          5.0, 0.0, 0.0, 0.0),
+                                      child: AuthUserStreamWidget(
+                                        builder: (context) => InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            await currentUserReference!.update({
+                                              ...mapToFirestore(
+                                                {
+                                                  'blocked':
+                                                      FieldValue.arrayRemove([
+                                                    widget.userReference
+                                                  ]),
+                                                },
+                                              ),
+                                            });
+                                          },
+                                          child: Container(
+                                            width: 45.0,
+                                            height: 45.0,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .error,
+                                              borderRadius:
+                                                  BorderRadius.circular(30.0),
+                                            ),
+                                            child: const Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.block_sharp,
+                                                  color: Colors.white,
+                                                  size: 24.0,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  if ((_model.userRefState !=
+                                          currentUserReference) &&
+                                      !functions.userInList(
+                                          (currentUserDocument?.blocked
+                                                      .toList() ??
+                                                  [])
+                                              .toList(),
+                                          columnUsersRecord.reference))
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          5.0, 0.0, 0.0, 0.0),
+                                      child: AuthUserStreamWidget(
+                                        builder: (context) => InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            await currentUserReference!.update({
+                                              ...mapToFirestore(
+                                                {
+                                                  'blocked':
+                                                      FieldValue.arrayUnion([
+                                                    widget.userReference
+                                                  ]),
+                                                },
+                                              ),
+                                            });
+                                          },
+                                          child: Container(
+                                            width: 45.0,
+                                            height: 45.0,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                              borderRadius:
+                                                  BorderRadius.circular(30.0),
+                                            ),
+                                            child: const Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.block_sharp,
+                                                  color: Colors.white,
+                                                  size: 24.0,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   if (_model.userRefState ==
                                       currentUserReference)
                                     Padding(
@@ -254,7 +366,9 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            'Profile',
+                                            FFLocalizations.of(context).getText(
+                                              '8279ubd6' /* Profile */,
+                                            ),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -310,15 +424,21 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                             hoverColor: Colors.transparent,
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
-                                              context.pushNamed(
-                                                'Snippets',
-                                                queryParameters: {
-                                                  'author': serializeParam(
-                                                    columnUsersRecord.reference,
-                                                    ParamType.DocumentReference,
-                                                  ),
-                                                }.withoutNulls,
-                                              );
+                                              if (columnUsersRecord
+                                                      .latestSnippetTime! >
+                                                  getCurrentTimestamp) {
+                                                context.pushNamed(
+                                                  'Snippets',
+                                                  queryParameters: {
+                                                    'author': serializeParam(
+                                                      columnUsersRecord
+                                                          .reference,
+                                                      ParamType
+                                                          .DocumentReference,
+                                                    ),
+                                                  }.withoutNulls,
+                                                );
+                                              }
                                             },
                                             child: Container(
                                               decoration: BoxDecoration(
@@ -468,159 +588,255 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                   mainAxisSize:
                                                       MainAxisSize.min,
                                                   children: [
-                                                    Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        ClipRRect(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      30.0),
-                                                          child: Container(
-                                                            width: 50.0,
-                                                            height: 50.0,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .secondaryBackground,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          30.0),
-                                                              border:
-                                                                  Border.all(
+                                                    InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        await showModalBottomSheet(
+                                                          isScrollControlled:
+                                                              true,
+                                                          backgroundColor:
+                                                              Colors
+                                                                  .transparent,
+                                                          context: context,
+                                                          builder: (context) {
+                                                            return GestureDetector(
+                                                              onTap: () =>
+                                                                  FocusScope.of(
+                                                                          context)
+                                                                      .unfocus(),
+                                                              child: Padding(
+                                                                padding: MediaQuery
+                                                                    .viewInsetsOf(
+                                                                        context),
+                                                                child:
+                                                                    FollowersFollowingWidget(
+                                                                  users: columnUsersRecord
+                                                                      .followers,
+                                                                  followersOrFollowing:
+                                                                      0,
+                                                                ),
+                                                              ),
+                                                            );
+                                                          },
+                                                        ).then((value) =>
+                                                            safeSetState(
+                                                                () {}));
+                                                      },
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        30.0),
+                                                            child: Container(
+                                                              width: 50.0,
+                                                              height: 50.0,
+                                                              decoration:
+                                                                  BoxDecoration(
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .alternate,
-                                                                width: 3.0,
-                                                              ),
-                                                            ),
-                                                            child: Align(
-                                                              alignment:
-                                                                  const AlignmentDirectional(
-                                                                      0.0, 0.0),
-                                                              child: Text(
-                                                                valueOrDefault<
-                                                                    String>(
-                                                                  formatNumber(
-                                                                    columnUsersRecord
-                                                                        .followers
-                                                                        .length,
-                                                                    formatType:
-                                                                        FormatType
-                                                                            .compact,
-                                                                  ),
-                                                                  '0',
+                                                                    .secondaryBackground,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            30.0),
+                                                                border:
+                                                                    Border.all(
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .alternate,
+                                                                  width: 3.0,
                                                                 ),
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Montserrat',
-                                                                      letterSpacing:
-                                                                          0.0,
+                                                              ),
+                                                              child: Align(
+                                                                alignment:
+                                                                    const AlignmentDirectional(
+                                                                        0.0,
+                                                                        0.0),
+                                                                child: Text(
+                                                                  valueOrDefault<
+                                                                      String>(
+                                                                    formatNumber(
+                                                                      columnUsersRecord
+                                                                          .followers
+                                                                          .length,
+                                                                      formatType:
+                                                                          FormatType
+                                                                              .compact,
                                                                     ),
+                                                                    '0',
+                                                                  ),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Montserrat',
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                      ),
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
-                                                        ),
-                                                        Text(
-                                                          'FWers',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Montserrat',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryText,
-                                                                fontSize: 12.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                              ),
-                                                        ),
-                                                      ],
+                                                          Text(
+                                                            FFLocalizations.of(
+                                                                    context)
+                                                                .getText(
+                                                              'f2g59ihh' /* FWers */,
+                                                            ),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryText,
+                                                                  fontSize:
+                                                                      12.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
-                                                    Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        ClipRRect(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      30.0),
-                                                          child: Container(
-                                                            width: 50.0,
-                                                            height: 50.0,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .secondaryBackground,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          30.0),
-                                                              border:
-                                                                  Border.all(
+                                                    InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        await showModalBottomSheet(
+                                                          isScrollControlled:
+                                                              true,
+                                                          backgroundColor:
+                                                              Colors
+                                                                  .transparent,
+                                                          context: context,
+                                                          builder: (context) {
+                                                            return GestureDetector(
+                                                              onTap: () =>
+                                                                  FocusScope.of(
+                                                                          context)
+                                                                      .unfocus(),
+                                                              child: Padding(
+                                                                padding: MediaQuery
+                                                                    .viewInsetsOf(
+                                                                        context),
+                                                                child:
+                                                                    FollowersFollowingWidget(
+                                                                  users: columnUsersRecord
+                                                                      .following,
+                                                                  followersOrFollowing:
+                                                                      1,
+                                                                ),
+                                                              ),
+                                                            );
+                                                          },
+                                                        ).then((value) =>
+                                                            safeSetState(
+                                                                () {}));
+                                                      },
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        30.0),
+                                                            child: Container(
+                                                              width: 50.0,
+                                                              height: 50.0,
+                                                              decoration:
+                                                                  BoxDecoration(
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .alternate,
-                                                                width: 3.0,
-                                                              ),
-                                                            ),
-                                                            child: Align(
-                                                              alignment:
-                                                                  const AlignmentDirectional(
-                                                                      0.0, 0.0),
-                                                              child: Text(
-                                                                valueOrDefault<
-                                                                    String>(
-                                                                  formatNumber(
-                                                                    columnUsersRecord
-                                                                        .following
-                                                                        .length,
-                                                                    formatType:
-                                                                        FormatType
-                                                                            .compact,
-                                                                  ),
-                                                                  '0',
+                                                                    .secondaryBackground,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            30.0),
+                                                                border:
+                                                                    Border.all(
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .alternate,
+                                                                  width: 3.0,
                                                                 ),
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Montserrat',
-                                                                      letterSpacing:
-                                                                          0.0,
+                                                              ),
+                                                              child: Align(
+                                                                alignment:
+                                                                    const AlignmentDirectional(
+                                                                        0.0,
+                                                                        0.0),
+                                                                child: Text(
+                                                                  valueOrDefault<
+                                                                      String>(
+                                                                    formatNumber(
+                                                                      columnUsersRecord
+                                                                          .following
+                                                                          .length,
+                                                                      formatType:
+                                                                          FormatType
+                                                                              .compact,
                                                                     ),
+                                                                    '0',
+                                                                  ),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Montserrat',
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                      ),
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
-                                                        ),
-                                                        Text(
-                                                          'FWing',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Montserrat',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryText,
-                                                                fontSize: 12.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                              ),
-                                                        ),
-                                                      ],
+                                                          Text(
+                                                            FFLocalizations.of(
+                                                                    context)
+                                                                .getText(
+                                                              'cbnus4d0' /* FWing */,
+                                                            ),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryText,
+                                                                  fontSize:
+                                                                      12.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
                                                     Column(
                                                       mainAxisSize:
@@ -681,7 +897,11 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                           ),
                                                         ),
                                                         Text(
-                                                          'Vibe',
+                                                          FFLocalizations.of(
+                                                                  context)
+                                                              .getText(
+                                                            'al4651yr' /* Vibe */,
+                                                          ),
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium
@@ -756,7 +976,9 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                       },
                                     ).then((value) => safeSetState(() {}));
                                   },
-                                  text: 'Edit Profile',
+                                  text: FFLocalizations.of(context).getText(
+                                    'b88bqf6m' /* Edit Profile */,
+                                  ),
                                   options: FFButtonOptions(
                                     width: double.infinity,
                                     height: 50.0,
@@ -938,7 +1160,10 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                           context),
                                                 );
                                               },
-                                              text: 'Share',
+                                              text: FFLocalizations.of(context)
+                                                  .getText(
+                                                'lmi92kcq' /* Share */,
+                                              ),
                                               options: FFButtonOptions(
                                                 width: double.infinity,
                                                 height: 50.0,
@@ -1039,15 +1264,27 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                             buttonMargin:
                                                 const EdgeInsetsDirectional.fromSTEB(
                                                     8.0, 0.0, 8.0, 0.0),
-                                            tabs: const [
+                                            tabs: [
                                               Tab(
-                                                text: 'Posts',
+                                                text:
+                                                    FFLocalizations.of(context)
+                                                        .getText(
+                                                  'uv2jy1hh' /* Posts */,
+                                                ),
                                               ),
                                               Tab(
-                                                text: 'Threads',
+                                                text:
+                                                    FFLocalizations.of(context)
+                                                        .getText(
+                                                  '9mfdqr5i' /* Threads */,
+                                                ),
                                               ),
                                               Tab(
-                                                text: 'Shorts',
+                                                text:
+                                                    FFLocalizations.of(context)
+                                                        .getText(
+                                                  '9e90ieme' /* Shorts */,
+                                                ),
                                               ),
                                             ],
                                             controller: _model.tabBarController,

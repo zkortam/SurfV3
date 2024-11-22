@@ -59,12 +59,12 @@ class _PostUsersLikedClickWidgetState extends State<PostUsersLikedClickWidget> {
         ),
       ),
       child: Padding(
-        padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+        padding: const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
               child: Container(
                 width: double.infinity,
                 height: 55.0,
@@ -108,7 +108,9 @@ class _PostUsersLikedClickWidgetState extends State<PostUsersLikedClickWidget> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Likes',
+                              FFLocalizations.of(context).getText(
+                                'zr9lpj4b' /* Likes */,
+                              ),
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(

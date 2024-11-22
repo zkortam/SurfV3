@@ -49,14 +49,18 @@ class _IncirtaciobvjWidgetState extends State<IncirtaciobvjWidget> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'Hello World',
+            FFLocalizations.of(context).getText(
+              'xlx45i8n' /* Hello World */,
+            ),
             style: FlutterFlowTheme.of(context).bodyMedium.override(
                   fontFamily: 'Montserrat',
                   letterSpacing: 0.0,
                 ),
           ),
           Text(
-            'Hello World',
+            FFLocalizations.of(context).getText(
+              'pmkcahow' /* Hello World */,
+            ),
             style: FlutterFlowTheme.of(context).bodyMedium.override(
                   fontFamily: 'Montserrat',
                   letterSpacing: 0.0,
@@ -66,7 +70,9 @@ class _IncirtaciobvjWidgetState extends State<IncirtaciobvjWidget> {
             onPressed: () {
               print('Button pressed ...');
             },
-            text: 'Button',
+            text: FFLocalizations.of(context).getText(
+              'vs21mqfk' /* Button */,
+            ),
             options: FFButtonOptions(
               height: 40.0,
               padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),

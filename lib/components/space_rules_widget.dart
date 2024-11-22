@@ -107,7 +107,9 @@ class _SpaceRulesWidgetState extends State<SpaceRulesWidget> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Rules',
+                            FFLocalizations.of(context).getText(
+                              '19qpk6bp' /* Rules */,
+                            ),
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(

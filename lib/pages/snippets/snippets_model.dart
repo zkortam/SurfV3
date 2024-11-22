@@ -1,3 +1,4 @@
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'snippets_widget.dart' show SnippetsWidget;
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class SnippetsModel extends FlutterFlowModel<SnippetsWidget> {
           pageViewController!.page != null
       ? pageViewController!.page!.round()
       : 0;
+  List<SnippetsRecord>? pageViewPreviousSnapshot;
 
   @override
   void initState(BuildContext context) {}

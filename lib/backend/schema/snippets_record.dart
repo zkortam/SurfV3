@@ -55,6 +55,31 @@ class SnippetsRecord extends FirestoreRecord {
   DocumentReference? get threadsReference => _threadsReference;
   bool hasThreadsReference() => _threadsReference != null;
 
+  // "validPeople" field.
+  List<DocumentReference>? _validPeople;
+  List<DocumentReference> get validPeople => _validPeople ?? const [];
+  bool hasValidPeople() => _validPeople != null;
+
+  // "isOnlyForGroup" field.
+  bool? _isOnlyForGroup;
+  bool get isOnlyForGroup => _isOnlyForGroup ?? false;
+  bool hasIsOnlyForGroup() => _isOnlyForGroup != null;
+
+  // "audio" field.
+  DocumentReference? _audio;
+  DocumentReference? get audio => _audio;
+  bool hasAudio() => _audio != null;
+
+  // "audioName" field.
+  String? _audioName;
+  String get audioName => _audioName ?? '';
+  bool hasAudioName() => _audioName != null;
+
+  // "audioTrack" field.
+  String? _audioTrack;
+  String get audioTrack => _audioTrack ?? '';
+  bool hasAudioTrack() => _audioTrack != null;
+
   void _initializeFields() {
     _timePosted = snapshotData['timePosted'] as DateTime?;
     _author = snapshotData['author'] as DocumentReference?;
@@ -65,6 +90,11 @@ class SnippetsRecord extends FirestoreRecord {
     _postShortReference =
         snapshotData['postShortReference'] as DocumentReference?;
     _threadsReference = snapshotData['threadsReference'] as DocumentReference?;
+    _validPeople = getDataList(snapshotData['validPeople']);
+    _isOnlyForGroup = snapshotData['isOnlyForGroup'] as bool?;
+    _audio = snapshotData['audio'] as DocumentReference?;
+    _audioName = snapshotData['audioName'] as String?;
+    _audioTrack = snapshotData['audioTrack'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -110,6 +140,10 @@ Map<String, dynamic> createSnippetsRecordData({
   DateTime? timeCloses,
   DocumentReference? postShortReference,
   DocumentReference? threadsReference,
+  bool? isOnlyForGroup,
+  DocumentReference? audio,
+  String? audioName,
+  String? audioTrack,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -121,6 +155,10 @@ Map<String, dynamic> createSnippetsRecordData({
       'timeCloses': timeCloses,
       'postShortReference': postShortReference,
       'threadsReference': threadsReference,
+      'isOnlyForGroup': isOnlyForGroup,
+      'audio': audio,
+      'audioName': audioName,
+      'audioTrack': audioTrack,
     }.withoutNulls,
   );
 
@@ -132,6 +170,7 @@ class SnippetsRecordDocumentEquality implements Equality<SnippetsRecord> {
 
   @override
   bool equals(SnippetsRecord? e1, SnippetsRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.timePosted == e2?.timePosted &&
         e1?.author == e2?.author &&
         e1?.caption == e2?.caption &&
@@ -139,7 +178,12 @@ class SnippetsRecordDocumentEquality implements Equality<SnippetsRecord> {
         e1?.video == e2?.video &&
         e1?.timeCloses == e2?.timeCloses &&
         e1?.postShortReference == e2?.postShortReference &&
-        e1?.threadsReference == e2?.threadsReference;
+        e1?.threadsReference == e2?.threadsReference &&
+        listEquality.equals(e1?.validPeople, e2?.validPeople) &&
+        e1?.isOnlyForGroup == e2?.isOnlyForGroup &&
+        e1?.audio == e2?.audio &&
+        e1?.audioName == e2?.audioName &&
+        e1?.audioTrack == e2?.audioTrack;
   }
 
   @override
@@ -151,7 +195,12 @@ class SnippetsRecordDocumentEquality implements Equality<SnippetsRecord> {
         e?.video,
         e?.timeCloses,
         e?.postShortReference,
-        e?.threadsReference
+        e?.threadsReference,
+        e?.validPeople,
+        e?.isOnlyForGroup,
+        e?.audio,
+        e?.audioName,
+        e?.audioTrack
       ]);
 
   @override

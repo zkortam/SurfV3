@@ -90,6 +90,16 @@ class ThreadsRecord extends FirestoreRecord {
   List<DocumentReference> get comments => _comments ?? const [];
   bool hasComments() => _comments != null;
 
+  // "isArticle" field.
+  bool? _isArticle;
+  bool get isArticle => _isArticle ?? false;
+  bool hasIsArticle() => _isArticle != null;
+
+  // "image" field.
+  String? _image;
+  String get image => _image ?? '';
+  bool hasImage() => _image != null;
+
   void _initializeFields() {
     _timeStamp = snapshotData['TimeStamp'] as DateTime?;
     _author = snapshotData['Author'] as DocumentReference?;
@@ -109,6 +119,8 @@ class ThreadsRecord extends FirestoreRecord {
     _summary = snapshotData['summary'] as String?;
     _link = snapshotData['Link'] as String?;
     _comments = getDataList(snapshotData['comments']);
+    _isArticle = snapshotData['isArticle'] as bool?;
+    _image = snapshotData['image'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -158,6 +170,8 @@ Map<String, dynamic> createThreadsRecordData({
   bool? isCommentsAllowed,
   String? summary,
   String? link,
+  bool? isArticle,
+  String? image,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -173,6 +187,8 @@ Map<String, dynamic> createThreadsRecordData({
       'isCommentsAllowed': isCommentsAllowed,
       'summary': summary,
       'Link': link,
+      'isArticle': isArticle,
+      'image': image,
     }.withoutNulls,
   );
 
@@ -202,7 +218,9 @@ class ThreadsRecordDocumentEquality implements Equality<ThreadsRecord> {
         e1?.isCommentsAllowed == e2?.isCommentsAllowed &&
         e1?.summary == e2?.summary &&
         e1?.link == e2?.link &&
-        listEquality.equals(e1?.comments, e2?.comments);
+        listEquality.equals(e1?.comments, e2?.comments) &&
+        e1?.isArticle == e2?.isArticle &&
+        e1?.image == e2?.image;
   }
 
   @override
@@ -221,7 +239,9 @@ class ThreadsRecordDocumentEquality implements Equality<ThreadsRecord> {
         e?.isCommentsAllowed,
         e?.summary,
         e?.link,
-        e?.comments
+        e?.comments,
+        e?.isArticle,
+        e?.image
       ]);
 
   @override

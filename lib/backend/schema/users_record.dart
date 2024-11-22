@@ -138,6 +138,21 @@ class UsersRecord extends FirestoreRecord {
   DateTime? get latestSnippetTime => _latestSnippetTime;
   bool hasLatestSnippetTime() => _latestSnippetTime != null;
 
+  // "groups" field.
+  List<FollowerGroupStruct>? _groups;
+  List<FollowerGroupStruct> get groups => _groups ?? const [];
+  bool hasGroups() => _groups != null;
+
+  // "userSettings" field.
+  UserSettingsStruct? _userSettings;
+  UserSettingsStruct get userSettings => _userSettings ?? UserSettingsStruct();
+  bool hasUserSettings() => _userSettings != null;
+
+  // "blocked" field.
+  List<DocumentReference>? _blocked;
+  List<DocumentReference> get blocked => _blocked ?? const [];
+  bool hasBlocked() => _blocked != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -168,6 +183,13 @@ class UsersRecord extends FirestoreRecord {
         snapshotData['algorithmPreferences']);
     _vibe = castToType<int>(snapshotData['vibe']);
     _latestSnippetTime = snapshotData['latestSnippetTime'] as DateTime?;
+    _groups = getStructList(
+      snapshotData['groups'],
+      FollowerGroupStruct.fromMap,
+    );
+    _userSettings =
+        UserSettingsStruct.maybeFromMap(snapshotData['userSettings']);
+    _blocked = getDataList(snapshotData['blocked']);
   }
 
   static CollectionReference get collection =>
@@ -224,6 +246,7 @@ Map<String, dynamic> createUsersRecordData({
   UserAlgorithmPreferencesStruct? algorithmPreferences,
   int? vibe,
   DateTime? latestSnippetTime,
+  UserSettingsStruct? userSettings,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -247,6 +270,7 @@ Map<String, dynamic> createUsersRecordData({
       'algorithmPreferences': UserAlgorithmPreferencesStruct().toMap(),
       'vibe': vibe,
       'latestSnippetTime': latestSnippetTime,
+      'userSettings': UserSettingsStruct().toMap(),
     }.withoutNulls,
   );
 
@@ -256,6 +280,9 @@ Map<String, dynamic> createUsersRecordData({
   // Handle nested data for "algorithmPreferences" field.
   addUserAlgorithmPreferencesStructData(
       firestoreData, algorithmPreferences, 'algorithmPreferences');
+
+  // Handle nested data for "userSettings" field.
+  addUserSettingsStructData(firestoreData, userSettings, 'userSettings');
 
   return firestoreData;
 }
@@ -289,7 +316,10 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         listEquality.equals(e1?.following, e2?.following) &&
         e1?.algorithmPreferences == e2?.algorithmPreferences &&
         e1?.vibe == e2?.vibe &&
-        e1?.latestSnippetTime == e2?.latestSnippetTime;
+        e1?.latestSnippetTime == e2?.latestSnippetTime &&
+        listEquality.equals(e1?.groups, e2?.groups) &&
+        e1?.userSettings == e2?.userSettings &&
+        listEquality.equals(e1?.blocked, e2?.blocked);
   }
 
   @override
@@ -317,7 +347,10 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.following,
         e?.algorithmPreferences,
         e?.vibe,
-        e?.latestSnippetTime
+        e?.latestSnippetTime,
+        e?.groups,
+        e?.userSettings,
+        e?.blocked
       ]);
 
   @override

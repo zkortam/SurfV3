@@ -172,7 +172,9 @@ class _EmailWidgetState extends State<EmailWidget>
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
-                                  'Email Verification',
+                                  FFLocalizations.of(context).getText(
+                                    'r59pobwt' /* Email Verification */,
+                                  ),
                                   textAlign: TextAlign.center,
                                   style: FlutterFlowTheme.of(context)
                                       .displaySmall
@@ -186,7 +188,9 @@ class _EmailWidgetState extends State<EmailWidget>
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 5.0, 0.0, 12.0),
                                   child: Text(
-                                    'Please check your email for a link. Check your spam folder as well.',
+                                    FFLocalizations.of(context).getText(
+                                      'pr0jlrlj' /* Please check your email for a ... */,
+                                    ),
                                     textAlign: TextAlign.center,
                                     style: FlutterFlowTheme.of(context)
                                         .labelLarge
@@ -223,7 +227,9 @@ class _EmailWidgetState extends State<EmailWidget>
                                         ]);
                                       }
                                     },
-                                    text: 'Send Link',
+                                    text: FFLocalizations.of(context).getText(
+                                      'pni2vuti' /* Send Link */,
+                                    ),
                                     options: FFButtonOptions(
                                       width: 200.0,
                                       height: 47.0,
@@ -297,7 +303,9 @@ class _EmailWidgetState extends State<EmailWidget>
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        'Email has been sent',
+                                        FFLocalizations.of(context).getText(
+                                          '0ne74srx' /* Email has been sent */,
+                                        ),
                                         textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge

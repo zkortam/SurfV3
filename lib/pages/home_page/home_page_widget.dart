@@ -6,6 +6,7 @@ import '/components/navigation_bar_widget.dart';
 import '/components/post_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_swipeable_stack.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -86,7 +87,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
             child: Stack(
               children: [
                 Align(
-                  alignment: const AlignmentDirectional(0.0, 0.0),
+                  alignment: const AlignmentDirectional(0.0, -1.0),
                   child: SingleChildScrollView(
                     primary: false,
                     child: Column(
@@ -111,6 +112,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 ),
                                 borderRadius: BorderRadius.circular(40.0),
                               ),
+                              alignment: const AlignmentDirectional(0.0, -1.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -294,79 +296,237 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             ),
                           ),
                         ),
-                        Flexible(
-                          child: Align(
-                            alignment: const AlignmentDirectional(0.0, 0.0),
-                            child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  5.0, 0.0, 5.0, 0.0),
-                              child: PagedListView<DocumentSnapshot<Object?>?,
-                                  PostsRecord>.separated(
-                                pagingController: _model.setListViewController(
-                                  PostsRecord.collection
-                                      .where(
-                                        'isShort',
-                                        isEqualTo: false,
-                                      )
-                                      .orderBy('TimePosted', descending: true),
-                                ),
-                                padding: const EdgeInsets.fromLTRB(
-                                  0,
-                                  10.0,
-                                  0,
-                                  110.0,
-                                ),
-                                primary: false,
-                                shrinkWrap: true,
-                                reverse: false,
-                                scrollDirection: Axis.vertical,
-                                separatorBuilder: (_, __) =>
-                                    const SizedBox(height: 10.0),
-                                builderDelegate:
-                                    PagedChildBuilderDelegate<PostsRecord>(
-                                  // Customize what your widget looks like when it's loading the first page.
-                                  firstPageProgressIndicatorBuilder: (_) =>
-                                      Center(
-                                    child: SizedBox(
-                                      width: 40.0,
-                                      height: 40.0,
-                                      child: SpinKitFadingFour(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        size: 40.0,
-                                      ),
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: FutureBuilder<List<UsersRecord>>(
+                            future: queryUsersRecordOnce(
+                              queryBuilder: (usersRecord) => usersRecord.where(
+                                'latestSnippetTime',
+                                isGreaterThan: getCurrentTimestamp,
+                              ),
+                            ),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 40.0,
+                                    height: 40.0,
+                                    child: SpinKitFadingFour(
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      size: 40.0,
                                     ),
                                   ),
-                                  // Customize what your widget looks like when it's loading another page.
-                                  newPageProgressIndicatorBuilder: (_) =>
-                                      Center(
-                                    child: SizedBox(
-                                      width: 40.0,
-                                      height: 40.0,
-                                      child: SpinKitFadingFour(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        size: 40.0,
-                                      ),
-                                    ),
-                                  ),
+                                );
+                              }
+                              List<UsersRecord> rowUsersRecordList =
+                                  snapshot.data!;
 
-                                  itemBuilder: (context, _, listViewIndex) {
-                                    final listViewPostsRecord = _model
-                                        .listViewPagingController!
-                                        .itemList![listViewIndex];
-                                    return PostWidget(
-                                      key: Key(
-                                          'Key81y_${listViewIndex}_of_${_model.listViewPagingController!.itemList!.length}'),
-                                      post: listViewPostsRecord,
+                              return Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: List.generate(
+                                    rowUsersRecordList.length, (rowIndex) {
+                                  final rowUsersRecord =
+                                      rowUsersRecordList[rowIndex];
+                                  return InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      context.pushNamed(
+                                        'Snippets',
+                                        queryParameters: {
+                                          'author': serializeParam(
+                                            rowUsersRecord.reference,
+                                            ParamType.DocumentReference,
+                                          ),
+                                        }.withoutNulls,
+                                      );
+                                    },
+                                    child: Container(
+                                      width: 70.0,
+                                      height: 70.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        borderRadius:
+                                            BorderRadius.circular(40.0),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(3.0),
+                                        child: Container(
+                                          width: 70.0,
+                                          height: 70.0,
+                                          clipBehavior: Clip.antiAlias,
+                                          decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Image.network(
+                                            rowUsersRecord.photoUrl,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }).divide(const SizedBox(width: 5.0)),
+                              );
+                            },
+                          ),
+                        ),
+                        if (currentUserDocument?.userSettings.isSwipeFeed ??
+                            true)
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 10.0, 0.0, 0.0),
+                            child: AuthUserStreamWidget(
+                              builder: (context) => Container(
+                                width: 500.0,
+                                height: 550.0,
+                                decoration: const BoxDecoration(),
+                                child: FutureBuilder<List<PostsRecord>>(
+                                  future: queryPostsRecordOnce(
+                                    queryBuilder: (postsRecord) => postsRecord
+                                        .where(
+                                          'isShort',
+                                          isEqualTo: false,
+                                        )
+                                        .orderBy('TimePosted',
+                                            descending: true),
+                                  ),
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 40.0,
+                                          height: 40.0,
+                                          child: SpinKitFadingFour(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
+                                            size: 40.0,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    List<PostsRecord>
+                                        swipeableStackPostsRecordList =
+                                        snapshot.data!;
+
+                                    return FlutterFlowSwipeableStack(
+                                      onSwipeFn: (index) {},
+                                      onLeftSwipe: (index) {},
+                                      onRightSwipe: (index) {},
+                                      onUpSwipe: (index) {},
+                                      onDownSwipe: (index) {},
+                                      itemBuilder:
+                                          (context, swipeableStackIndex) {
+                                        final swipeableStackPostsRecord =
+                                            swipeableStackPostsRecordList[
+                                                swipeableStackIndex];
+                                        return PostWidget(
+                                          key: Key(
+                                              'Keyg9y_${swipeableStackIndex}_of_${swipeableStackPostsRecordList.length}'),
+                                          post: swipeableStackPostsRecord,
+                                        );
+                                      },
+                                      itemCount:
+                                          swipeableStackPostsRecordList.length,
+                                      controller:
+                                          _model.swipeableStackController,
+                                      loop: false,
+                                      cardDisplayCount: 3,
+                                      scale: 0.9,
                                     );
                                   },
                                 ),
-                              ).animateOnPageLoad(animationsMap[
-                                  'listViewOnPageLoadAnimation']!),
+                              ),
                             ),
                           ),
-                        ),
+                        if (!valueOrDefault<bool>(
+                          currentUserDocument?.userSettings.isSwipeFeed,
+                          false,
+                        ))
+                          Flexible(
+                            child: Align(
+                              alignment: const AlignmentDirectional(0.0, 0.0),
+                              child: Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    5.0, 0.0, 5.0, 0.0),
+                                child: AuthUserStreamWidget(
+                                  builder: (context) => PagedListView<
+                                      DocumentSnapshot<Object?>?,
+                                      PostsRecord>.separated(
+                                    pagingController:
+                                        _model.setListViewController(
+                                      PostsRecord.collection
+                                          .where(
+                                            'isShort',
+                                            isEqualTo: false,
+                                          )
+                                          .orderBy('TimePosted',
+                                              descending: true),
+                                    ),
+                                    padding: const EdgeInsets.fromLTRB(
+                                      0,
+                                      10.0,
+                                      0,
+                                      110.0,
+                                    ),
+                                    primary: false,
+                                    shrinkWrap: true,
+                                    reverse: false,
+                                    scrollDirection: Axis.vertical,
+                                    separatorBuilder: (_, __) =>
+                                        const SizedBox(height: 10.0),
+                                    builderDelegate:
+                                        PagedChildBuilderDelegate<PostsRecord>(
+                                      // Customize what your widget looks like when it's loading the first page.
+                                      firstPageProgressIndicatorBuilder: (_) =>
+                                          Center(
+                                        child: SizedBox(
+                                          width: 40.0,
+                                          height: 40.0,
+                                          child: SpinKitFadingFour(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
+                                            size: 40.0,
+                                          ),
+                                        ),
+                                      ),
+                                      // Customize what your widget looks like when it's loading another page.
+                                      newPageProgressIndicatorBuilder: (_) =>
+                                          Center(
+                                        child: SizedBox(
+                                          width: 40.0,
+                                          height: 40.0,
+                                          child: SpinKitFadingFour(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
+                                            size: 40.0,
+                                          ),
+                                        ),
+                                      ),
+
+                                      itemBuilder: (context, _, listViewIndex) {
+                                        final listViewPostsRecord = _model
+                                            .listViewPagingController!
+                                            .itemList![listViewIndex];
+                                        return PostWidget(
+                                          key: Key(
+                                              'Key81y_${listViewIndex}_of_${_model.listViewPagingController!.itemList!.length}'),
+                                          post: listViewPostsRecord,
+                                        );
+                                      },
+                                    ),
+                                  ).animateOnPageLoad(animationsMap[
+                                      'listViewOnPageLoadAnimation']!),
+                                ),
+                              ),
+                            ),
+                          ),
                       ],
                     ),
                   ),

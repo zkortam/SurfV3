@@ -120,7 +120,9 @@ class _DateOfBirthWidgetState extends State<DateOfBirthWidget>
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 12.0),
                                   child: Text(
-                                    'Please select your date of birth.',
+                                    FFLocalizations.of(context).getText(
+                                      'yq5wxicb' /* Please select your date of bir... */,
+                                    ),
                                     textAlign: TextAlign.center,
                                     style: FlutterFlowTheme.of(context)
                                         .labelLarge

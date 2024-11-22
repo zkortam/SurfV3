@@ -4,6 +4,7 @@ import '/components/navigation_bar_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'home_page_widget.dart' show HomePageWidget;
 import 'package:flutter/material.dart';
+import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class HomePageModel extends FlutterFlowModel<HomePageWidget> {
@@ -11,6 +12,8 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
 
   // Stores action output result for [Backend Call - API (getrecommendations)] action in HomePage widget.
   ApiCallResponse? postIds;
+  // State field(s) for SwipeableStack widget.
+  late CardSwiperController swipeableStackController;
   // State field(s) for ListView widget.
 
   PagingController<DocumentSnapshot?, PostsRecord>? listViewPagingController;
@@ -22,6 +25,7 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
 
   @override
   void initState(BuildContext context) {
+    swipeableStackController = CardSwiperController();
     navigationBarModel = createModel(context, () => NavigationBarModel());
   }
 

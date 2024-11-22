@@ -103,7 +103,9 @@ class _PostsCompEditWidgetState extends State<PostsCompEditWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Post Edit',
+                          FFLocalizations.of(context).getText(
+                            'xt8e2jsy' /* Post Edit */,
+                          ),
                           style: FlutterFlowTheme.of(context)
                               .bodyMedium
                               .override(

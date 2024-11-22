@@ -120,7 +120,9 @@ class _BeautifyTextWidgetState extends State<BeautifyTextWidget> {
                                   Align(
                                     alignment: const AlignmentDirectional(0.0, 0.0),
                                     child: Text(
-                                      'Beautified Text',
+                                      FFLocalizations.of(context).getText(
+                                        'jzkyej4z' /* Beautified Text */,
+                                      ),
                                       textAlign: TextAlign.start,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium

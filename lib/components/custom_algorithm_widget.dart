@@ -127,7 +127,9 @@ class _CustomAlgorithmWidgetState extends State<CustomAlgorithmWidget> {
                                     Align(
                                       alignment: const AlignmentDirectional(0.0, 0.0),
                                       child: Text(
-                                        'Algorithm',
+                                        FFLocalizations.of(context).getText(
+                                          '8705s0t0' /* Algorithm */,
+                                        ),
                                         textAlign: TextAlign.start,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
@@ -227,7 +229,9 @@ class _CustomAlgorithmWidgetState extends State<CustomAlgorithmWidget> {
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 5.0, 0.0, 0.0, 0.0),
                             child: Text(
-                              'Vulgarity',
+                              FFLocalizations.of(context).getText(
+                                '35fl1j7y' /* Vulgarity */,
+                              ),
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -319,7 +323,9 @@ class _CustomAlgorithmWidgetState extends State<CustomAlgorithmWidget> {
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 5.0, 0.0, 0.0, 0.0),
                             child: Text(
-                              'Political View',
+                              FFLocalizations.of(context).getText(
+                                '8xmpqnjw' /* Political View */,
+                              ),
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -432,7 +438,9 @@ class _CustomAlgorithmWidgetState extends State<CustomAlgorithmWidget> {
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 5.0, 0.0, 0.0, 0.0),
                             child: Text(
-                              'Informative',
+                              FFLocalizations.of(context).getText(
+                                'exgg8l0y' /* Informative */,
+                              ),
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -525,7 +533,9 @@ class _CustomAlgorithmWidgetState extends State<CustomAlgorithmWidget> {
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 5.0, 0.0, 0.0, 0.0),
                             child: Text(
-                              'Toxicity',
+                              FFLocalizations.of(context).getText(
+                                'oiki3ruc' /* Toxicity */,
+                              ),
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -617,7 +627,9 @@ class _CustomAlgorithmWidgetState extends State<CustomAlgorithmWidget> {
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 5.0, 0.0, 0.0, 0.0),
                             child: Text(
-                              'Relevance',
+                              FFLocalizations.of(context).getText(
+                                '00pq01yu' /* Relevance */,
+                              ),
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(

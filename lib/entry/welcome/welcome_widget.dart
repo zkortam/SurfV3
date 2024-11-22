@@ -109,7 +109,9 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                 ).animateOnPageLoad(animationsMap['iconOnPageLoadAnimation']!),
               ),
               Text(
-                'Welcome!',
+                FFLocalizations.of(context).getText(
+                  'auqjevxd' /* Welcome! */,
+                ),
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Montserrat',
                       color: Colors.white,
@@ -123,7 +125,9 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                   onPressed: () async {
                     context.goNamed('HomePage');
                   },
-                  text: 'Continue',
+                  text: FFLocalizations.of(context).getText(
+                    '8o0avnuc' /* Continue */,
+                  ),
                   options: FFButtonOptions(
                     width: 150.0,
                     height: 47.0,
