@@ -5,8 +5,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'space_selector_model.dart';
 export 'space_selector_model.dart';
 
@@ -48,7 +46,7 @@ class _SpaceSelectorWidgetState extends State<SpaceSelectorWidget> {
       height: 450.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
           topLeft: Radius.circular(30.0),
@@ -59,12 +57,12 @@ class _SpaceSelectorWidgetState extends State<SpaceSelectorWidget> {
         mainAxisSize: MainAxisSize.max,
         children: [
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
             child: Container(
               width: double.infinity,
               height: 55.0,
               decoration: BoxDecoration(
-                gradient: LinearGradient(
+                gradient: const LinearGradient(
                   colors: [Color(0x7F2120BC), Color(0x7B7D16C1)],
                   stops: [0.0, 1.0],
                   begin: AlignmentDirectional(1.0, -1.0),
@@ -78,7 +76,7 @@ class _SpaceSelectorWidgetState extends State<SpaceSelectorWidget> {
                 children: [
                   Flexible(
                     child: Padding(
-                      padding: EdgeInsets.all(3.0),
+                      padding: const EdgeInsets.all(3.0),
                       child: Container(
                         width: double.infinity,
                         height: 90.0,
@@ -92,7 +90,7 @@ class _SpaceSelectorWidgetState extends State<SpaceSelectorWidget> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   3.0, 0.0, 0.0, 0.0),
                               child: FlutterFlowIconButton(
                                 borderColor: Colors.transparent,
@@ -116,7 +114,7 @@ class _SpaceSelectorWidgetState extends State<SpaceSelectorWidget> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Align(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
                                     child: Text(
                                       FFLocalizations.of(context).getText(
                                         'riarmza3' /* Select Space */,
@@ -137,7 +135,7 @@ class _SpaceSelectorWidgetState extends State<SpaceSelectorWidget> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 3.0, 0.0),
                               child: FlutterFlowIconButton(
                                 borderColor: Colors.transparent,
@@ -159,7 +157,7 @@ class _SpaceSelectorWidgetState extends State<SpaceSelectorWidget> {
                                       return Padding(
                                         padding:
                                             MediaQuery.viewInsetsOf(context),
-                                        child: CreateSpaceWidget(),
+                                        child: const CreateSpaceWidget(),
                                       );
                                     },
                                   ).then((value) => safeSetState(() {}));
@@ -177,7 +175,7 @@ class _SpaceSelectorWidgetState extends State<SpaceSelectorWidget> {
           ),
           Flexible(
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
               child: FutureBuilder<List<SpacesRecord>>(
                 future: querySpacesRecordOnce(),
                 builder: (context, snapshot) {
@@ -201,7 +199,7 @@ class _SpaceSelectorWidgetState extends State<SpaceSelectorWidget> {
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     itemCount: listViewSpacesRecordList.length,
-                    separatorBuilder: (_, __) => SizedBox(height: 10.0),
+                    separatorBuilder: (_, __) => const SizedBox(height: 10.0),
                     itemBuilder: (context, listViewIndex) {
                       final listViewSpacesRecord =
                           listViewSpacesRecordList[listViewIndex];
@@ -234,7 +232,7 @@ class _SpaceSelectorWidgetState extends State<SpaceSelectorWidget> {
                               width: double.infinity,
                               height: 100.0,
                               decoration: BoxDecoration(
-                                color: Color(0xC2000000),
+                                color: const Color(0xC2000000),
                                 borderRadius: BorderRadius.circular(15.0),
                               ),
                               child: Row(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 
 class FlutterFlowExpandedImageView extends StatelessWidget {
-  const FlutterFlowExpandedImageView({
+  const FlutterFlowExpandedImageView({super.key, 
     required this.image,
     this.allowRotation = false,
     this.useHeroAnimation = true,
@@ -22,7 +22,7 @@ class FlutterFlowExpandedImageView extends StatelessWidget {
       child: SafeArea(
         child: Stack(
           children: [
-            Container(
+            SizedBox(
               height: screenSize.height,
               width: screenSize.width,
               child: PhotoView.customChild(

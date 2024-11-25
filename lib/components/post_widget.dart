@@ -9,20 +9,15 @@ import '/flutter_flow/flutter_flow_media_display.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_video_player.dart';
-import 'dart:math';
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'post_model.dart';
 export 'post_model.dart';
 
@@ -107,7 +102,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
             delay: 250.0.ms,
             duration: 1000.0.ms,
             hz: 4,
-            offset: Offset(0.0, 0.0),
+            offset: const Offset(0.0, 0.0),
             rotation: 0.175,
           ),
         ],
@@ -164,7 +159,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
             delay: 250.0.ms,
             duration: 1000.0.ms,
             hz: 4,
-            offset: Offset(0.0, 0.0),
+            offset: const Offset(0.0, 0.0),
             rotation: 0.175,
           ),
         ],
@@ -192,7 +187,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
     return Visibility(
       visible: true /* Warning: Trying to access variable not yet defined. */,
       child: FutureBuilder<UsersRecord>(
-        future: UsersRecord.getDocumentOnce(widget!.post!.author!),
+        future: UsersRecord.getDocumentOnce(widget.post!.author!),
         builder: (context, snapshot) {
           // Customize what your widget looks like when it's loading.
           if (!snapshot.hasData) {
@@ -233,7 +228,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                   return Padding(
                     padding: MediaQuery.viewInsetsOf(context),
                     child: PostsCompWidget(
-                      post: widget!.post!.reference,
+                      post: widget.post!.reference,
                     ),
                   );
                 },
@@ -244,24 +239,24 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
               child: Container(
                 width: 450.0,
                 height: 500.0,
-                constraints: BoxConstraints(
+                constraints: const BoxConstraints(
                   maxWidth: 450.0,
                 ),
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).secondaryBackground,
                   borderRadius: BorderRadius.circular(10.0),
                 ),
-                child: Container(
+                child: SizedBox(
                   width: 450.0,
                   child: Stack(
                     children: [
-                      Container(
+                      SizedBox(
                         width: 450.0,
                         child: Stack(
                           children: [
-                            if (widget!.post?.media?.length == 1)
+                            if (widget.post?.media.length == 1)
                               FlutterFlowMediaDisplay(
-                                path: widget!.post!.media.first,
+                                path: widget.post!.media.first,
                                 imageBuilder: (path) => ClipRRect(
                                   borderRadius: BorderRadius.circular(10.0),
                                   child: Image.network(
@@ -282,17 +277,17 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                   allowPlaybackSpeedMenu: false,
                                 ),
                               ),
-                            if (widget!.post!.media.length > 1)
+                            if (widget.post!.media.length > 1)
                               Align(
-                                alignment: AlignmentDirectional(0.0, 0.0),
+                                alignment: const AlignmentDirectional(0.0, 0.0),
                                 child: Builder(
                                   builder: (context) {
                                     final media =
-                                        (widget!.post?.media?.toList() ?? [])
+                                        (widget.post?.media.toList() ?? [])
                                             .take(10)
                                             .toList();
 
-                                    return Container(
+                                    return SizedBox(
                                       width: double.infinity,
                                       height: double.infinity,
                                       child: Stack(
@@ -340,10 +335,10 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                             },
                                           ),
                                           Align(
-                                            alignment: AlignmentDirectional(
+                                            alignment: const AlignmentDirectional(
                                                 -1.0, -0.95),
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       16.0, 0.0, 0.0, 16.0),
                                               child: smooth_page_indicator
@@ -364,7 +359,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                       .multipleMediaController!
                                                       .animateToPage(
                                                     i,
-                                                    duration: Duration(
+                                                    duration: const Duration(
                                                         milliseconds: 500),
                                                     curve: Curves.ease,
                                                   );
@@ -399,9 +394,9 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                           ],
                         ),
                       ),
-                      if (widget!.post!.isSpoiler &&
-                          (widget!.post?.spoilerClickers
-                                  ?.contains(currentUserReference) ==
+                      if (widget.post!.isSpoiler &&
+                          (widget.post?.spoilerClickers
+                                  .contains(currentUserReference) ==
                               false))
                         InkWell(
                           splashColor: Colors.transparent,
@@ -409,7 +404,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            await widget!.post!.reference.update({
+                            await widget.post!.reference.update({
                               ...mapToFirestore(
                                 {
                                   'SpoilerClickers': FieldValue.arrayUnion(
@@ -422,10 +417,10 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                             width: 450.0,
                             height: 500.0,
                             decoration: BoxDecoration(
-                              color: Color(0xEF050505),
+                              color: const Color(0xEF050505),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
-                            child: Column(
+                            child: const Column(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -449,7 +444,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            await widget!.post!.reference.update({
+                            await widget.post!.reference.update({
                               ...mapToFirestore(
                                 {
                                   'SpoilerClickers': FieldValue.arrayUnion(
@@ -462,7 +457,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                             width: 450.0,
                             height: 500.0,
                             decoration: BoxDecoration(
-                              color: Color(0x8B060606),
+                              color: const Color(0x8B060606),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             child: Column(
@@ -471,7 +466,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                               children: [
                                 Container(
                                   decoration: BoxDecoration(
-                                    boxShadow: [
+                                    boxShadow: const [
                                       BoxShadow(
                                         blurRadius: 50.0,
                                         color: Color(0x48D7D7D7),
@@ -489,9 +484,9 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 10.0, 0.0, 0.0),
-                                        child: Icon(
+                                        child: const Icon(
                                           Icons.thumb_up_rounded,
                                           color: Colors.white,
                                           size: 80.0,
@@ -519,7 +514,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            await widget!.post!.reference.update({
+                            await widget.post!.reference.update({
                               ...mapToFirestore(
                                 {
                                   'SpoilerClickers': FieldValue.arrayUnion(
@@ -532,7 +527,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                             width: 450.0,
                             height: 500.0,
                             decoration: BoxDecoration(
-                              color: Color(0x8B060606),
+                              color: const Color(0x8B060606),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             child: Column(
@@ -541,7 +536,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                               children: [
                                 Container(
                                   decoration: BoxDecoration(
-                                    boxShadow: [
+                                    boxShadow: const [
                                       BoxShadow(
                                         blurRadius: 50.0,
                                         color: Color(0x48D21515),
@@ -559,9 +554,9 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 10.0, 0.0, 0.0),
-                                        child: Icon(
+                                        child: const Icon(
                                           Icons.thumb_down_rounded,
                                           color: Colors.white,
                                           size: 80.0,
@@ -584,9 +579,9 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                         ),
                       if (_model.isinfoshowing)
                         Align(
-                          alignment: AlignmentDirectional(0.0, 1.0),
+                          alignment: const AlignmentDirectional(0.0, 1.0),
                           child: ClipRRect(
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                               bottomLeft: Radius.circular(8.0),
                               bottomRight: Radius.circular(8.0),
                               topLeft: Radius.circular(0.0),
@@ -594,12 +589,12 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                             ),
                             child: Container(
                               width: 450.0,
-                              constraints: BoxConstraints(
+                              constraints: const BoxConstraints(
                                 minHeight: 75.0,
                                 maxWidth: 450.0,
                                 maxHeight: 110.0,
                               ),
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Color(0xA0000000),
                                 borderRadius: BorderRadius.only(
                                   bottomLeft: Radius.circular(8.0),
@@ -609,7 +604,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                 ),
                               ),
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     5.0, 5.0, 5.0, 5.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
@@ -623,23 +618,23 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 2.0),
                                           child: ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(24.0),
                                             child: Container(
                                               decoration: BoxDecoration(
-                                                color: Color(0x3D000000),
+                                                color: const Color(0x3D000000),
                                                 borderRadius:
                                                     BorderRadius.circular(24.0),
                                               ),
                                               child: Stack(
                                                 children: [
-                                                  if (!widget!.post!.isStealth)
+                                                  if (!widget.post!.isStealth)
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   3.0,
                                                                   3.0,
@@ -660,7 +655,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                             queryParameters: {
                                                               'userReference':
                                                                   serializeParam(
-                                                                widget!.post
+                                                                widget.post
                                                                     ?.author,
                                                                 ParamType
                                                                     .DocumentReference,
@@ -678,18 +673,18 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                               clipBehavior: Clip
                                                                   .antiAlias,
                                                               decoration:
-                                                                  BoxDecoration(
+                                                                  const BoxDecoration(
                                                                 shape: BoxShape
                                                                     .circle,
                                                               ),
                                                               child:
                                                                   CachedNetworkImage(
                                                                 fadeInDuration:
-                                                                    Duration(
+                                                                    const Duration(
                                                                         milliseconds:
                                                                             500),
                                                                 fadeOutDuration:
-                                                                    Duration(
+                                                                    const Duration(
                                                                         milliseconds:
                                                                             500),
                                                                 imageUrl:
@@ -701,7 +696,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                             ),
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           5.0,
                                                                           0.0,
@@ -727,7 +722,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                             ),
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           5.0,
                                                                           0.0,
@@ -736,7 +731,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                               child: Icon(
                                                                 Icons.circle,
                                                                 color: () {
-                                                                  if (functions.calculateNetVotes(widget!
+                                                                  if (functions.calculateNetVotes(widget
                                                                           .post!
                                                                           .voters
                                                                           .toList()) >
@@ -744,7 +739,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                     return FlutterFlowTheme.of(
                                                                             context)
                                                                         .success;
-                                                                  } else if (functions.calculateNetVotes(widget!
+                                                                  } else if (functions.calculateNetVotes(widget
                                                                           .post!
                                                                           .voters
                                                                           .toList()) <
@@ -763,7 +758,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                             ),
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           0.0,
@@ -771,7 +766,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                           0.0),
                                                               child: Text(
                                                                 functions
-                                                                    .calculateNetVotes(widget!
+                                                                    .calculateNetVotes(widget
                                                                         .post!
                                                                         .voters
                                                                         .toList())
@@ -791,7 +786,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                             ),
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           5.0,
                                                                           0.0,
@@ -807,7 +802,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                             ),
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           0.0,
@@ -816,7 +811,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                               child: Text(
                                                                 dateTimeFormat(
                                                                   "relative",
-                                                                  widget!.post!
+                                                                  widget.post!
                                                                       .timePosted!,
                                                                   locale: FFLocalizations.of(
                                                                               context)
@@ -843,11 +838,11 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                         ),
                                                       ),
                                                     ),
-                                                  if (widget!.post?.isStealth ??
+                                                  if (widget.post?.isStealth ??
                                                       true)
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   5.0,
                                                                   0.0,
@@ -863,7 +858,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                             clipBehavior:
                                                                 Clip.antiAlias,
                                                             decoration:
-                                                                BoxDecoration(
+                                                                const BoxDecoration(
                                                               shape: BoxShape
                                                                   .circle,
                                                             ),
@@ -879,7 +874,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                           ),
                                                           Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         5.0,
                                                                         0.0,
@@ -906,7 +901,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                           ),
                                                           Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         5.0,
                                                                         0.0,
@@ -915,7 +910,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                             child: Icon(
                                                               Icons.circle,
                                                               color: () {
-                                                                if (functions.calculateNetVotes(widget!
+                                                                if (functions.calculateNetVotes(widget
                                                                         .post!
                                                                         .voters
                                                                         .toList()) >
@@ -923,7 +918,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                   return FlutterFlowTheme.of(
                                                                           context)
                                                                       .success;
-                                                                } else if (functions.calculateNetVotes(widget!
+                                                                } else if (functions.calculateNetVotes(widget
                                                                         .post!
                                                                         .voters
                                                                         .toList()) <
@@ -942,7 +937,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                           ),
                                                           Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         0.0,
                                                                         0.0,
@@ -951,7 +946,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                             child: Text(
                                                               functions
                                                                   .calculateNetVotes(
-                                                                      widget!
+                                                                      widget
                                                                           .post!
                                                                           .voters
                                                                           .toList())
@@ -971,7 +966,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                           ),
                                                           Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         5.0,
                                                                         0.0,
@@ -987,7 +982,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                           ),
                                                           Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         0.0,
                                                                         0.0,
@@ -996,7 +991,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                             child: Text(
                                                               functions
                                                                   .calculateNetVotes(
-                                                                      widget!
+                                                                      widget
                                                                           .post!
                                                                           .voters
                                                                           .toList())
@@ -1025,7 +1020,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                         ),
                                         Container(
                                           width: 250.0,
-                                          decoration: BoxDecoration(),
+                                          decoration: const BoxDecoration(),
                                           child: SingleChildScrollView(
                                             child: Column(
                                               mainAxisSize: MainAxisSize.min,
@@ -1033,12 +1028,12 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           5.0, 0.0, 0.0, 2.0),
                                                   child: Text(
                                                     valueOrDefault<String>(
-                                                      widget!.post?.caption,
+                                                      widget.post?.caption,
                                                       'None',
                                                     ),
                                                     maxLines: 3,
@@ -1063,7 +1058,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                         Flexible(
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     5.0, 0.0, 0.0, 0.0),
                                             child: InkWell(
                                               splashColor: Colors.transparent,
@@ -1083,7 +1078,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                           .viewInsetsOf(
                                                               context),
                                                       child: CommentsWidget(
-                                                        post: widget!
+                                                        post: widget
                                                             .post?.reference,
                                                       ),
                                                     );
@@ -1131,7 +1126,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                     borderRadius: 20.0,
                                                     borderWidth: 1.0,
                                                     buttonSize: 50.0,
-                                                    icon: Icon(
+                                                    icon: const Icon(
                                                       Icons.thumb_up,
                                                       color: Colors.white,
                                                       size: 30.0,
@@ -1144,7 +1139,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                       try {
                                                         if (functions
                                                                 .voterInList(
-                                                                    widget!
+                                                                    widget
                                                                         .post!
                                                                         .voters
                                                                         .toList(),
@@ -1152,7 +1147,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                 .toString() ==
                                                             '1') {
                                                           firestoreBatch.update(
-                                                              widget!.post!
+                                                              widget.post!
                                                                   .reference,
                                                               {
                                                                 ...mapToFirestore(
@@ -1182,7 +1177,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                           safeSetState(() {});
                                                           if (functions
                                                                   .voterInList(
-                                                                      widget!
+                                                                      widget
                                                                           .post!
                                                                           .voters
                                                                           .toList(),
@@ -1190,7 +1185,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                   .toString() ==
                                                               '-1') {
                                                             firestoreBatch.update(
-                                                                widget!.post!
+                                                                widget.post!
                                                                     .reference,
                                                                 {
                                                                   ...mapToFirestore(
@@ -1215,7 +1210,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                 });
 
                                                             firestoreBatch.update(
-                                                                widget!.post!
+                                                                widget.post!
                                                                     .reference,
                                                                 {
                                                                   ...mapToFirestore(
@@ -1240,7 +1235,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                 });
                                                           } else {
                                                             firestoreBatch.update(
-                                                                widget!.post!
+                                                                widget.post!
                                                                     .reference,
                                                                 {
                                                                   ...mapToFirestore(
@@ -1295,7 +1290,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                     context),
                                                             child:
                                                                 PostUsersLikedClickWidget(
-                                                              voters: widget!
+                                                              voters: widget
                                                                   .post!.voters,
                                                             ),
                                                           );
@@ -1310,7 +1305,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                       borderRadius: 20.0,
                                                       borderWidth: 1.0,
                                                       buttonSize: 50.0,
-                                                      icon: Icon(
+                                                      icon: const Icon(
                                                         Icons.thumb_up_outlined,
                                                         color: Colors.white,
                                                         size: 30.0,
@@ -1323,7 +1318,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                         try {
                                                           if (functions
                                                                   .voterInList(
-                                                                      widget!
+                                                                      widget
                                                                           .post!
                                                                           .voters
                                                                           .toList(),
@@ -1335,7 +1330,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                             safeSetState(() {});
 
                                                             firestoreBatch.update(
-                                                                widget!.post!
+                                                                widget.post!
                                                                     .reference,
                                                                 {
                                                                   ...mapToFirestore(
@@ -1377,7 +1372,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                             safeSetState(() {});
                                                             if (functions
                                                                     .voterInList(
-                                                                        widget!
+                                                                        widget
                                                                             .post!
                                                                             .voters
                                                                             .toList(),
@@ -1385,7 +1380,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                     .toString() ==
                                                                 '-1') {
                                                               firestoreBatch.update(
-                                                                  widget!.post!
+                                                                  widget.post!
                                                                       .reference,
                                                                   {
                                                                     ...mapToFirestore(
@@ -1406,7 +1401,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                   });
 
                                                               firestoreBatch.update(
-                                                                  widget!.post!
+                                                                  widget.post!
                                                                       .reference,
                                                                   {
                                                                     ...mapToFirestore(
@@ -1439,7 +1434,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                   });
                                                             } else {
                                                               firestoreBatch.update(
-                                                                  widget!.post!
+                                                                  widget.post!
                                                                       .reference,
                                                                   {
                                                                     ...mapToFirestore(
@@ -1553,7 +1548,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                     borderRadius: 20.0,
                                                     borderWidth: 1.0,
                                                     buttonSize: 50.0,
-                                                    icon: Icon(
+                                                    icon: const Icon(
                                                       Icons.thumb_down,
                                                       color: Colors.white,
                                                       size: 30.0,
@@ -1566,7 +1561,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                       try {
                                                         if (functions
                                                                 .voterInList(
-                                                                    widget!
+                                                                    widget
                                                                         .post!
                                                                         .voters
                                                                         .toList(),
@@ -1574,7 +1569,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                 .toString() ==
                                                             '-1') {
                                                           firestoreBatch.update(
-                                                              widget!.post!
+                                                              widget.post!
                                                                   .reference,
                                                               {
                                                                 ...mapToFirestore(
@@ -1604,7 +1599,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                           safeSetState(() {});
                                                           if (functions
                                                                   .voterInList(
-                                                                      widget!
+                                                                      widget
                                                                           .post!
                                                                           .voters
                                                                           .toList(),
@@ -1612,7 +1607,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                   .toString() ==
                                                               '1') {
                                                             firestoreBatch.update(
-                                                                widget!.post!
+                                                                widget.post!
                                                                     .reference,
                                                                 {
                                                                   ...mapToFirestore(
@@ -1637,7 +1632,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                 });
 
                                                             firestoreBatch.update(
-                                                                widget!.post!
+                                                                widget.post!
                                                                     .reference,
                                                                 {
                                                                   ...mapToFirestore(
@@ -1662,7 +1657,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                 });
                                                           } else {
                                                             firestoreBatch.update(
-                                                                widget!.post!
+                                                                widget.post!
                                                                     .reference,
                                                                 {
                                                                   ...mapToFirestore(
@@ -1700,7 +1695,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                     borderRadius: 20.0,
                                                     borderWidth: 1.0,
                                                     buttonSize: 50.0,
-                                                    icon: Icon(
+                                                    icon: const Icon(
                                                       Icons.thumb_down_outlined,
                                                       color: Colors.white,
                                                       size: 30.0,
@@ -1713,7 +1708,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                       try {
                                                         if (functions
                                                                 .voterInList(
-                                                                    widget!
+                                                                    widget
                                                                         .post!
                                                                         .voters
                                                                         .toList(),
@@ -1724,7 +1719,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                           safeSetState(() {});
 
                                                           firestoreBatch.update(
-                                                              widget!.post!
+                                                              widget.post!
                                                                   .reference,
                                                               {
                                                                 ...mapToFirestore(
@@ -1765,7 +1760,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                           safeSetState(() {});
                                                           if (functions
                                                                   .voterInList(
-                                                                      widget!
+                                                                      widget
                                                                           .post!
                                                                           .voters
                                                                           .toList(),
@@ -1773,7 +1768,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                   .toString() ==
                                                               '1') {
                                                             firestoreBatch.update(
-                                                                widget!.post!
+                                                                widget.post!
                                                                     .reference,
                                                                 {
                                                                   ...mapToFirestore(
@@ -1798,7 +1793,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                 });
 
                                                             firestoreBatch.update(
-                                                                widget!.post!
+                                                                widget.post!
                                                                     .reference,
                                                                 {
                                                                   ...mapToFirestore(
@@ -1836,7 +1831,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                 });
                                                           } else {
                                                             firestoreBatch.update(
-                                                                widget!.post!
+                                                                widget.post!
                                                                     .reference,
                                                                 {
                                                                   ...mapToFirestore(

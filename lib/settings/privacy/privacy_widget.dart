@@ -7,12 +7,8 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'privacy_model.dart';
 export 'privacy_model.dart';
 
@@ -57,12 +53,12 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
                   child: Container(
                     width: double.infinity,
                     height: 55.0,
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                         colors: [Color(0x7F2120BC), Color(0x7B7D16C1)],
                         stops: [0.0, 1.0],
                         begin: AlignmentDirectional(1.0, -1.0),
@@ -76,7 +72,7 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                       children: [
                         Flexible(
                           child: Padding(
-                            padding: EdgeInsets.all(3.0),
+                            padding: const EdgeInsets.all(3.0),
                             child: Container(
                               width: double.infinity,
                               height: 90.0,
@@ -90,7 +86,7 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         3.0, 0.0, 0.0, 0.0),
                                     child: FlutterFlowIconButton(
                                       borderColor: Colors.transparent,
@@ -117,10 +113,10 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                                       children: [
                                         Align(
                                           alignment:
-                                              AlignmentDirectional(0.0, 0.0),
+                                              const AlignmentDirectional(0.0, 0.0),
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 40.0, 0.0),
                                             child: Text(
                                               FFLocalizations.of(context)
@@ -155,13 +151,13 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(10.0, 5.0, 10.0, 2.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(10.0, 5.0, 10.0, 2.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 5.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 5.0),
                         child: Text(
                           FFLocalizations.of(context).getText(
                             '681yty02' /* Stealth Mode */,
@@ -182,7 +178,7 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                     if (!valueOrDefault<bool>(
                         currentUserDocument?.isStealth, false))
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             10.0, 0.0, 10.0, 0.0),
                         child: AuthUserStreamWidget(
                           builder: (context) => InkWell(
@@ -208,7 +204,7 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                                         FocusScope.of(context).unfocus(),
                                     child: Padding(
                                       padding: MediaQuery.viewInsetsOf(context),
-                                      child: InfoWidget(
+                                      child: const InfoWidget(
                                         text: 'Stealth Mode On',
                                       ),
                                     ),
@@ -220,7 +216,7 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                               width: double.infinity,
                               height: 55.0,
                               decoration: BoxDecoration(
-                                gradient: LinearGradient(
+                                gradient: const LinearGradient(
                                   colors: [
                                     Color(0xE14E20BC),
                                     Color(0xA40D1B62)
@@ -236,13 +232,13 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 5.0, 0.0),
                                     child: FlutterFlowIconButton(
                                       borderColor: Colors.transparent,
                                       borderRadius: 30.0,
                                       buttonSize: 42.0,
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.visibility,
                                         color: Colors.white,
                                         size: 25.0,
@@ -253,7 +249,7 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                                     ),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
                                     child: Text(
                                       FFLocalizations.of(context).getText(
                                         'cs0ficz6' /* Stealth Mode Off */,
@@ -279,7 +275,7 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                         currentUserDocument?.isStealth, false))
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
                         child: AuthUserStreamWidget(
                           builder: (context) => InkWell(
                             splashColor: Colors.transparent,
@@ -304,7 +300,7 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                                         FocusScope.of(context).unfocus(),
                                     child: Padding(
                                       padding: MediaQuery.viewInsetsOf(context),
-                                      child: InfoWidget(
+                                      child: const InfoWidget(
                                         text: 'Stealth Mode Off',
                                       ),
                                     ),
@@ -316,7 +312,7 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                               width: double.infinity,
                               height: 55.0,
                               decoration: BoxDecoration(
-                                gradient: LinearGradient(
+                                gradient: const LinearGradient(
                                   colors: [
                                     Color(0xE14E20BC),
                                     Color(0xA40D1B62)
@@ -333,7 +329,7 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                                 children: [
                                   Flexible(
                                     child: Padding(
-                                      padding: EdgeInsets.all(3.0),
+                                      padding: const EdgeInsets.all(3.0),
                                       child: Container(
                                         width: double.infinity,
                                         height: 90.0,
@@ -349,13 +345,13 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                                               MainAxisAlignment.center,
                                           children: [
                                             Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 5.0, 0.0),
                                               child: FlutterFlowIconButton(
                                                 borderColor: Colors.transparent,
                                                 borderRadius: 30.0,
                                                 buttonSize: 42.0,
-                                                icon: FaIcon(
+                                                icon: const FaIcon(
                                                   FontAwesomeIcons.userSecret,
                                                   color: Colors.white,
                                                   size: 25.0,
@@ -367,7 +363,7 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                                               ),
                                             ),
                                             Align(
-                                              alignment: AlignmentDirectional(
+                                              alignment: const AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: Text(
                                                 FFLocalizations.of(context)
@@ -403,13 +399,13 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                 Flexible(
                   child: Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(10.0, 20.0, 10.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(10.0, 20.0, 10.0, 0.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 5.0, 10.0, 2.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -430,9 +426,9 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
+                          alignment: const AlignmentDirectional(0.0, 0.0),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 10.0, 10.0, 10.0, 0.0),
                             child: FFButtonWidget(
                               onPressed: () async {
@@ -447,7 +443,7 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                                       child: Padding(
                                         padding:
                                             MediaQuery.viewInsetsOf(context),
-                                        child: BlockedWidget(),
+                                        child: const BlockedWidget(),
                                       ),
                                     );
                                   },
@@ -464,11 +460,11 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                               options: FFButtonOptions(
                                 width: double.infinity,
                                 height: 50.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     24.0, 0.0, 24.0, 0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
-                                color: Color(0x004B39EF),
+                                color: const Color(0x004B39EF),
                                 textStyle: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
@@ -488,7 +484,7 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 10.0, 10.0, 0.0),
                           child: FFButtonWidget(
                             onPressed: () async {
@@ -503,7 +499,7 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                                         FocusScope.of(context).unfocus(),
                                     child: Padding(
                                       padding: MediaQuery.viewInsetsOf(context),
-                                      child: InfoWidget(
+                                      child: const InfoWidget(
                                         text: 'Coming Soon',
                                       ),
                                     ),
@@ -522,11 +518,11 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                             options: FFButtonOptions(
                               width: double.infinity,
                               height: 50.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 24.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
-                              color: Color(0x004B39EF),
+                              color: const Color(0x004B39EF),
                               textStyle: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .override(
@@ -545,7 +541,7 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 10.0, 10.0, 0.0),
                           child: FFButtonWidget(
                             onPressed: () async {
@@ -559,7 +555,7 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                                         FocusScope.of(context).unfocus(),
                                     child: Padding(
                                       padding: MediaQuery.viewInsetsOf(context),
-                                      child: SelectGroupWidget(),
+                                      child: const SelectGroupWidget(),
                                     ),
                                   );
                                 },
@@ -576,11 +572,11 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                             options: FFButtonOptions(
                               width: double.infinity,
                               height: 50.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 24.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
-                              color: Color(0x004B39EF),
+                              color: const Color(0x004B39EF),
                               textStyle: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .override(
@@ -599,7 +595,7 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 10.0, 10.0, 0.0),
                           child: FFButtonWidget(
                             onPressed: () {
@@ -616,11 +612,11 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                             options: FFButtonOptions(
                               width: double.infinity,
                               height: 50.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 24.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
-                              color: Color(0x004B39EF),
+                              color: const Color(0x004B39EF),
                               textStyle: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .override(
@@ -639,7 +635,7 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 10.0, 10.0, 0.0),
                           child: FFButtonWidget(
                             onPressed: () {
@@ -656,11 +652,11 @@ class _PrivacyWidgetState extends State<PrivacyWidget> {
                             options: FFButtonOptions(
                               width: double.infinity,
                               height: 50.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 24.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
-                              color: Color(0x004B39EF),
+                              color: const Color(0x004B39EF),
                               textStyle: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .override(

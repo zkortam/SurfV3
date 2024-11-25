@@ -2,13 +2,8 @@ import '/backend/backend.dart';
 import '/components/snippet_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'snippets_model.dart';
 export 'snippets_model.dart';
 
@@ -58,7 +53,7 @@ class _SnippetsWidgetState extends State<SnippetsWidget> {
               queryBuilder: (snippetsRecord) => snippetsRecord
                   .where(
                     'author',
-                    isEqualTo: widget!.author,
+                    isEqualTo: widget.author,
                   )
                   .where(
                     'timeCloses',
@@ -90,7 +85,7 @@ class _SnippetsWidgetState extends State<SnippetsWidget> {
               }
               List<SnippetsRecord> pageViewSnippetsRecordList = snapshot.data!;
 
-              return Container(
+              return SizedBox(
                 width: double.infinity,
                 height: MediaQuery.sizeOf(context).height * 1.0,
                 child: PageView.builder(
@@ -114,7 +109,7 @@ class _SnippetsWidgetState extends State<SnippetsWidget> {
                               snippet: pageViewSnippetsRecord,
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0.0, 0.0),
+                              alignment: const AlignmentDirectional(0.0, 0.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
@@ -127,7 +122,7 @@ class _SnippetsWidgetState extends State<SnippetsWidget> {
                                       onTap: () async {
                                         await _model.pageViewController
                                             ?.previousPage(
-                                          duration: Duration(milliseconds: 300),
+                                          duration: const Duration(milliseconds: 300),
                                           curve: Curves.ease,
                                         );
                                       },
@@ -136,7 +131,7 @@ class _SnippetsWidgetState extends State<SnippetsWidget> {
                                             MediaQuery.sizeOf(context).width *
                                                 0.5,
                                         height: 1000.0,
-                                        decoration: BoxDecoration(),
+                                        decoration: const BoxDecoration(),
                                       ),
                                     ),
                                   ),
@@ -149,7 +144,7 @@ class _SnippetsWidgetState extends State<SnippetsWidget> {
                                       onTap: () async {
                                         await _model.pageViewController
                                             ?.nextPage(
-                                          duration: Duration(milliseconds: 300),
+                                          duration: const Duration(milliseconds: 300),
                                           curve: Curves.ease,
                                         );
                                       },
@@ -158,7 +153,7 @@ class _SnippetsWidgetState extends State<SnippetsWidget> {
                                             MediaQuery.sizeOf(context).width *
                                                 0.5,
                                         height: 1000.0,
-                                        decoration: BoxDecoration(),
+                                        decoration: const BoxDecoration(),
                                       ),
                                     ),
                                   ),

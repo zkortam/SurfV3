@@ -17,19 +17,13 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_video_player.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
-import 'dart:math';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'create_post_model.dart';
 export 'create_post_model.dart';
 
@@ -63,7 +57,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
       length: 4,
       initialIndex: min(
           valueOrDefault<int>(
-            widget!.tabIndex,
+            widget.tabIndex,
             0,
           ),
           3),
@@ -223,9 +217,9 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: AlignmentDirectional(0.0, 0.0),
+            alignment: const AlignmentDirectional(0.0, 0.0),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 30.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 30.0),
               child: Column(
                 children: [
                   Expanded(
@@ -234,21 +228,21 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                       children: [
                         KeepAliveWidgetWrapper(
                           builder: (context) => Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 10.0, 0.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 10.0, 0.0, 10.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             5.0, 0.0, 0.0, 0.0),
                                         child: AuthUserStreamWidget(
                                           builder: (context) =>
@@ -291,7 +285,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             5.0, 0.0, 0.0, 0.0),
                                         child: FlutterFlowIconButton(
                                           borderColor: _model.isSpoiler
@@ -325,12 +319,10 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                       Stack(
                                         children: [
                                           if ((_model.textController1.text !=
-                                                      null &&
-                                                  _model.textController1.text !=
                                                       '') &&
-                                              (_model.media.length > 0))
+                                              (_model.media.isNotEmpty))
                                             Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(5.0, 0.0, 0.0, 0.0),
                                               child: FFButtonWidget(
                                                 onPressed: () async {
@@ -338,9 +330,6 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                               .isNotEmpty) !=
                                                           null) &&
                                                       (_model.textController1
-                                                                  .text !=
-                                                              null &&
-                                                          _model.textController1
                                                                   .text !=
                                                               '')) {
                                                     await PostsRecord.collection
@@ -403,7 +392,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                                   .viewInsetsOf(
                                                                       context),
                                                               child:
-                                                                  ErrorBarWidget(
+                                                                  const ErrorBarWidget(
                                                                 text:
                                                                     'Enter a Caption',
                                                               ),
@@ -431,7 +420,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                                   .viewInsetsOf(
                                                                       context),
                                                               child:
-                                                                  ErrorBarWidget(
+                                                                  const ErrorBarWidget(
                                                                 text:
                                                                     'Add an Image',
                                                               ),
@@ -455,9 +444,6 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                               null) &&
                                                           (_model.textController1
                                                                       .text !=
-                                                                  null &&
-                                                              _model.textController1
-                                                                      .text !=
                                                                   '')
                                                       ? Colors.white
                                                       : FlutterFlowTheme.of(
@@ -467,20 +453,17 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                 ),
                                                 options: FFButtonOptions(
                                                   height: 40.0,
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           24.0, 0.0, 24.0, 0.0),
                                                   iconPadding:
-                                                      EdgeInsetsDirectional
+                                                      const EdgeInsetsDirectional
                                                           .fromSTEB(0.0, 0.0,
                                                               5.0, 0.0),
                                                   color: ((_model.media
                                                                   .isNotEmpty) !=
                                                               null) &&
                                                           (_model.textController1
-                                                                      .text !=
-                                                                  null &&
-                                                              _model.textController1
                                                                       .text !=
                                                                   '')
                                                       ? FlutterFlowTheme.of(
@@ -499,7 +482,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                             color: Colors.white,
                                                             letterSpacing: 0.0,
                                                           ),
-                                                  borderSide: BorderSide(
+                                                  borderSide: const BorderSide(
                                                     color: Colors.transparent,
                                                     width: 1.0,
                                                   ),
@@ -511,12 +494,10 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                               ),
                                             ),
                                           if ((_model.textController1.text ==
-                                                      null ||
-                                                  _model.textController1.text ==
                                                       '') ||
-                                              (_model.media.length == 0))
+                                              (_model.media.isEmpty))
                                             Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(5.0, 0.0, 0.0, 0.0),
                                               child: FFButtonWidget(
                                                 onPressed: () {
@@ -528,19 +509,19 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                         .getText(
                                                   '185qny7q' /* Post */,
                                                 ),
-                                                icon: Icon(
+                                                icon: const Icon(
                                                   Icons.not_interested,
                                                   size: 15.0,
                                                 ),
                                                 options: FFButtonOptions(
                                                   height: 40.0,
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           24.0, 0.0, 24.0, 0.0),
                                                   iconAlignment:
                                                       IconAlignment.end,
                                                   iconPadding:
-                                                      EdgeInsetsDirectional
+                                                      const EdgeInsetsDirectional
                                                           .fromSTEB(0.0, 0.0,
                                                               5.0, 0.0),
                                                   color: FlutterFlowTheme.of(
@@ -556,7 +537,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                             color: Colors.white,
                                                             letterSpacing: 0.0,
                                                           ),
-                                                  borderSide: BorderSide(
+                                                  borderSide: const BorderSide(
                                                     color: Colors.transparent,
                                                     width: 1.0,
                                                   ),
@@ -576,7 +557,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 20.0, 0.0, 10.0),
                                       child: TextFormField(
                                         controller: _model.textController1,
@@ -684,9 +665,9 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                       ),
                                       child: Stack(
                                         children: [
-                                          if (_model.media.length > 0)
+                                          if (_model.media.isNotEmpty)
                                             Align(
-                                              alignment: AlignmentDirectional(
+                                              alignment: const AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: Builder(
                                                 builder: (context) {
@@ -696,7 +677,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                       .take(10)
                                                       .toList();
 
-                                                  return Container(
+                                                  return SizedBox(
                                                     width: 450.0,
                                                     height: 600.0,
                                                     child: Stack(
@@ -768,12 +749,12 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                                 ),
                                                                 Align(
                                                                   alignment:
-                                                                      AlignmentDirectional(
+                                                                      const AlignmentDirectional(
                                                                           1.0,
                                                                           -1.0),
                                                                   child:
                                                                       Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             0.0,
                                                                             5.0,
@@ -791,7 +772,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                                       buttonSize:
                                                                           40.0,
                                                                       fillColor:
-                                                                          Color(
+                                                                          const Color(
                                                                               0x97D01C27),
                                                                       icon:
                                                                           Icon(
@@ -818,12 +799,12 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                                         .length))
                                                                   Align(
                                                                     alignment:
-                                                                        AlignmentDirectional(
+                                                                        const AlignmentDirectional(
                                                                             1.0,
                                                                             1.0),
                                                                     child:
                                                                         Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                                                           0.0,
                                                                           0.0,
                                                                           5.0,
@@ -839,7 +820,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                                         buttonSize:
                                                                             40.0,
                                                                         fillColor:
-                                                                            Color(0x944B39EF),
+                                                                            const Color(0x944B39EF),
                                                                         icon:
                                                                             Icon(
                                                                           Icons
@@ -915,11 +896,11 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                         ),
                                                         Align(
                                                           alignment:
-                                                              AlignmentDirectional(
+                                                              const AlignmentDirectional(
                                                                   -1.0, -0.95),
                                                           child: Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         16.0,
                                                                         0.0,
@@ -945,7 +926,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                                     .viewMediaController!
                                                                     .animateToPage(
                                                                   i,
-                                                                  duration: Duration(
+                                                                  duration: const Duration(
                                                                       milliseconds:
                                                                           500),
                                                                   curve: Curves
@@ -982,7 +963,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                 },
                                               ),
                                             ),
-                                          if (_model.media.length == 0)
+                                          if (_model.media.isEmpty)
                                             InkWell(
                                               splashColor: Colors.transparent,
                                               focusColor: Colors.transparent,
@@ -1093,7 +1074,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                       height: 70.0,
                                                       decoration: BoxDecoration(
                                                         color:
-                                                            Color(0x834B39EF),
+                                                            const Color(0x834B39EF),
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(50.0),
@@ -1106,7 +1087,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                       ),
                                                       child: Align(
                                                         alignment:
-                                                            AlignmentDirectional(
+                                                            const AlignmentDirectional(
                                                                 0.0, 0.0),
                                                         child: Stack(
                                                           children: [
@@ -1157,7 +1138,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                         ),
                         KeepAliveWidgetWrapper(
                           builder: (context) => Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 10.0, 5.0, 10.0, 0.0),
                             child: SingleChildScrollView(
                               child: Column(
@@ -1165,7 +1146,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 10.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -1173,7 +1154,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   5.0, 0.0, 0.0, 0.0),
                                           child: AuthUserStreamWidget(
                                             builder: (context) =>
@@ -1219,29 +1200,20 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                         ),
                                         Stack(
                                           children: [
-                                            if ((_model.textController2.text !=
-                                                        null &&
-                                                    _model.textController2
+                                            if ((_model.textController2
                                                             .text !=
                                                         '') &&
                                                 (_model.uploadedFileUrl3 !=
-                                                        null &&
-                                                    _model.uploadedFileUrl3 !=
                                                         ''))
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         5.0, 0.0, 0.0, 0.0),
                                                 child: FFButtonWidget(
                                                   onPressed: () async {
                                                     if ((_model.uploadedFileUrl3 !=
-                                                                null &&
-                                                            _model.uploadedFileUrl3 !=
                                                                 '') &&
                                                         (_model.textController2
-                                                                    .text !=
-                                                                null &&
-                                                            _model.textController2
                                                                     .text !=
                                                                 '')) {
                                                       await PostsRecord
@@ -1308,7 +1280,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                                     .viewInsetsOf(
                                                                         context),
                                                                 child:
-                                                                    ErrorBarWidget(
+                                                                    const ErrorBarWidget(
                                                                   text:
                                                                       'Enter a Caption',
                                                                 ),
@@ -1338,7 +1310,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                                     .viewInsetsOf(
                                                                         context),
                                                                 child:
-                                                                    ErrorBarWidget(
+                                                                    const ErrorBarWidget(
                                                                   text:
                                                                       'Add an Image',
                                                                 ),
@@ -1363,9 +1335,6 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                                 null) &&
                                                             (_model.textController2
                                                                         .text !=
-                                                                    null &&
-                                                                _model.textController2
-                                                                        .text !=
                                                                     '')
                                                         ? Colors.white
                                                         : FlutterFlowTheme.of(
@@ -1376,20 +1345,17 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                   options: FFButtonOptions(
                                                     height: 40.0,
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(24.0, 0.0,
                                                                 24.0, 0.0),
                                                     iconPadding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 0.0,
                                                                 5.0, 0.0),
                                                     color: ((_model.media
                                                                     .isNotEmpty) !=
                                                                 null) &&
                                                             (_model.textController2
-                                                                        .text !=
-                                                                    null &&
-                                                                _model.textController2
                                                                         .text !=
                                                                     '')
                                                         ? FlutterFlowTheme.of(
@@ -1407,7 +1373,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                           color: Colors.white,
                                                           letterSpacing: 0.0,
                                                         ),
-                                                    borderSide: BorderSide(
+                                                    borderSide: const BorderSide(
                                                       color: Colors.transparent,
                                                       width: 1.0,
                                                     ),
@@ -1418,17 +1384,13 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                   showLoadingIndicator: false,
                                                 ),
                                               ),
-                                            if ((_model.textController2.text ==
-                                                        null ||
-                                                    _model.textController2
+                                            if ((_model.textController2
                                                             .text ==
                                                         '') ||
                                                 (_model.uploadedFileUrl3 ==
-                                                        null ||
-                                                    _model.uploadedFileUrl3 ==
                                                         ''))
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         5.0, 0.0, 0.0, 0.0),
                                                 child: FFButtonWidget(
@@ -1441,20 +1403,20 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                       .getText(
                                                     'tl42iy7e' /* Post */,
                                                   ),
-                                                  icon: Icon(
+                                                  icon: const Icon(
                                                     Icons.not_interested,
                                                     size: 15.0,
                                                   ),
                                                   options: FFButtonOptions(
                                                     height: 40.0,
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(24.0, 0.0,
                                                                 24.0, 0.0),
                                                     iconAlignment:
                                                         IconAlignment.end,
                                                     iconPadding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 0.0,
                                                                 5.0, 0.0),
                                                     color: FlutterFlowTheme.of(
@@ -1469,7 +1431,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                           color: Colors.white,
                                                           letterSpacing: 0.0,
                                                         ),
-                                                    borderSide: BorderSide(
+                                                    borderSide: const BorderSide(
                                                       color: Colors.transparent,
                                                       width: 1.0,
                                                     ),
@@ -1489,7 +1451,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 5.0),
                                         child: TextFormField(
                                           controller: _model.textController2,
@@ -1607,9 +1569,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                           ),
                                           child: Stack(
                                             children: [
-                                              if (_model.uploadedFileUrl3 ==
-                                                      null ||
-                                                  _model.uploadedFileUrl3 == '')
+                                              if (_model.uploadedFileUrl3 == '')
                                                 InkWell(
                                                   splashColor:
                                                       Colors.transparent,
@@ -1724,7 +1684,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                           height: 70.0,
                                                           decoration:
                                                               BoxDecoration(
-                                                            color: Color(
+                                                            color: const Color(
                                                                 0x834B39EF),
                                                             borderRadius:
                                                                 BorderRadius
@@ -1739,7 +1699,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                           ),
                                                           child: Align(
                                                             alignment:
-                                                                AlignmentDirectional(
+                                                                const AlignmentDirectional(
                                                                     0.0, 0.0),
                                                             child: Stack(
                                                               children: [
@@ -1779,9 +1739,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                   ),
                                                 ).animateOnPageLoad(animationsMap[
                                                     'containerOnPageLoadAnimation2']!),
-                                              if (_model.uploadedFileUrl3 !=
-                                                      null &&
-                                                  _model.uploadedFileUrl3 != '')
+                                              if (_model.uploadedFileUrl3 != '')
                                                 Stack(
                                                   children: [
                                                     FlutterFlowMediaDisplay(
@@ -1816,11 +1774,11 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                     ),
                                                     Align(
                                                       alignment:
-                                                          AlignmentDirectional(
+                                                          const AlignmentDirectional(
                                                               1.0, -1.0),
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     5.0,
@@ -1836,7 +1794,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                           borderWidth: 3.0,
                                                           buttonSize: 40.0,
                                                           fillColor:
-                                                              Color(0x97D01C27),
+                                                              const Color(0x97D01C27),
                                                           icon: Icon(
                                                             Icons
                                                                 .remove_rounded,
@@ -1876,14 +1834,14 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                         ),
                         KeepAliveWidgetWrapper(
                           builder: (context) => Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 5.0, 10.0, 5.0, 10.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 5.0, 0.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -1892,7 +1850,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                       Flexible(
                                         child: Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   5.0, 0.0, 0.0, 0.0),
                                           child: Container(
                                             width: double.infinity,
@@ -1913,7 +1871,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                 Flexible(
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(10.0, 0.0,
                                                                 0.0, 0.0),
                                                     child: Row(
@@ -1965,10 +1923,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                           buttonSize: 40.0,
                                                           icon: Icon(
                                                             Icons.mic_rounded,
-                                                            color: _model
-                                                                            .uploadedFileUrl4 !=
-                                                                        null &&
-                                                                    _model.uploadedFileUrl4 !=
+                                                            color: _model.uploadedFileUrl4 !=
                                                                         ''
                                                                 ? FlutterFlowTheme.of(
                                                                         context)
@@ -1980,8 +1935,6 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                           ),
                                                           onPressed: () async {
                                                             if (_model.uploadedFileUrl4 !=
-                                                                    null &&
-                                                                _model.uploadedFileUrl4 !=
                                                                     '') {
                                                               safeSetState(() {
                                                                 _model.isDataUploading4 =
@@ -2096,7 +2049,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                                 await _model
                                                                     .pageViewController
                                                                     ?.previousPage(
-                                                                  duration: Duration(
+                                                                  duration: const Duration(
                                                                       milliseconds:
                                                                           300),
                                                                   curve: Curves
@@ -2110,7 +2063,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                                 await _model
                                                                     .pageViewController
                                                                     ?.nextPage(
-                                                                  duration: Duration(
+                                                                  duration: const Duration(
                                                                       milliseconds:
                                                                           300),
                                                                   curve: Curves
@@ -2144,7 +2097,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                             ),
                                                             onPressed:
                                                                 () async {
-                                                              var _shouldSetState =
+                                                              var shouldSetState =
                                                                   false;
                                                               await geminiGenerateText(
                                                                 context,
@@ -2161,7 +2114,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                                         generatedText);
                                                               });
 
-                                                              _shouldSetState =
+                                                              shouldSetState =
                                                                   true;
                                                               await showModalBottomSheet(
                                                                 isScrollControlled:
@@ -2201,7 +2154,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                                       _model.isBeautified =
                                                                           value));
 
-                                                              _shouldSetState =
+                                                              shouldSetState =
                                                                   true;
                                                               if (_model
                                                                   .isBeautified!) {
@@ -2230,9 +2183,10 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                                   });
                                                                 });
                                                               } else {
-                                                                if (_shouldSetState)
+                                                                if (shouldSetState) {
                                                                   safeSetState(
                                                                       () {});
+                                                                }
                                                                 return;
                                                               }
 
@@ -2240,9 +2194,10 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                                   true;
                                                               safeSetState(
                                                                   () {});
-                                                              if (_shouldSetState)
+                                                              if (shouldSetState) {
                                                                 safeSetState(
                                                                     () {});
+                                                              }
                                                             },
                                                           ),
                                                         FlutterFlowIconButton(
@@ -2293,7 +2248,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                                           .viewInsetsOf(
                                                                               context),
                                                                       child:
-                                                                          SpaceSelectorWidget(),
+                                                                          const SpaceSelectorWidget(),
                                                                     ),
                                                                   );
                                                                 },
@@ -2314,7 +2269,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                         ),
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       0.0,
                                                                       0.0,
@@ -2368,7 +2323,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                                         padding:
                                                                             MediaQuery.viewInsetsOf(context),
                                                                         child:
-                                                                            ThreadSettingsWidget(),
+                                                                            const ThreadSettingsWidget(),
                                                                       ),
                                                                     );
                                                                   },
@@ -2386,14 +2341,8 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                 if (!(_model.isPoll
                                                     ? ((_model.titleTextController1
                                                                     .text !=
-                                                                null &&
-                                                            _model.titleTextController1
-                                                                    .text !=
                                                                 '') &&
                                                         (_model.titleTextController2
-                                                                    .text !=
-                                                                null &&
-                                                            _model.titleTextController2
                                                                     .text !=
                                                                 ''))
                                                     : ((functions.stringLength(
@@ -2403,13 +2352,10 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                             50) &&
                                                         (_model.titleThreadsTextController
                                                                     .text !=
-                                                                null &&
-                                                            _model.titleThreadsTextController
-                                                                    .text !=
                                                                 ''))))
                                                   Padding(
                                                     padding:
-                                                        EdgeInsets.all(3.0),
+                                                        const EdgeInsets.all(3.0),
                                                     child: FFButtonWidget(
                                                       onPressed: () async {
                                                         await showModalBottomSheet(
@@ -2430,7 +2376,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                                     .viewInsetsOf(
                                                                         context),
                                                                 child:
-                                                                    ErrorBarWidget(
+                                                                    const ErrorBarWidget(
                                                                   text:
                                                                       'Fill Title and Text',
                                                                 ),
@@ -2446,28 +2392,28 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                           .getText(
                                                         'ujzhuu82' /* Post */,
                                                       ),
-                                                      icon: Icon(
+                                                      icon: const Icon(
                                                         Icons.not_interested,
                                                         size: 15.0,
                                                       ),
                                                       options: FFButtonOptions(
                                                         height: 50.0,
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     24.0,
                                                                     0.0,
                                                                     24.0,
                                                                     0.0),
                                                         iconPadding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     0.0,
                                                                     5.0,
                                                                     0.0),
                                                         color:
-                                                            Color(0x004B39EF),
+                                                            const Color(0x004B39EF),
                                                         textStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -2499,14 +2445,8 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                 if (_model.isPoll
                                                     ? ((_model.titleTextController1
                                                                     .text !=
-                                                                null &&
-                                                            _model.titleTextController1
-                                                                    .text !=
                                                                 '') &&
                                                         (_model.titleTextController2
-                                                                    .text !=
-                                                                null &&
-                                                            _model.titleTextController2
                                                                     .text !=
                                                                 ''))
                                                     : ((functions.stringLength(
@@ -2516,13 +2456,10 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                             50) &&
                                                         (_model.titleThreadsTextController
                                                                     .text !=
-                                                                null &&
-                                                            _model.titleThreadsTextController
-                                                                    .text !=
                                                                 '')))
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(3.0, 3.0,
                                                                 3.0, 3.0),
                                                     child: FFButtonWidget(
@@ -2583,7 +2520,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                               isCommentsAllowed:
                                                                   currentUserDocument
                                                                       ?.threadSettings
-                                                                      ?.isComments,
+                                                                      .isComments,
                                                               space: _model
                                                                   .selectedSpace
                                                                   ?.reference
@@ -2591,7 +2528,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                               isPrivate:
                                                                   currentUserDocument
                                                                       ?.threadSettings
-                                                                      ?.isPrivate,
+                                                                      .isPrivate,
                                                               link: functions
                                                                   .extractLink(_model
                                                                       .textThreadTextController
@@ -2693,14 +2630,14 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                                 isCommentsAllowed:
                                                                     currentUserDocument
                                                                         ?.threadSettings
-                                                                        ?.isComments,
+                                                                        .isComments,
                                                                 space: _model
                                                                     .selectedSpace
                                                                     ?.reference
                                                                     .id,
                                                                 isPrivate: currentUserDocument
                                                                     ?.threadSettings
-                                                                    ?.isPrivate,
+                                                                    .isPrivate,
                                                                 link: functions
                                                                     .extractLink(_model
                                                                         .textThreadTextController
@@ -2751,14 +2688,14 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                                 isCommentsAllowed:
                                                                     currentUserDocument
                                                                         ?.threadSettings
-                                                                        ?.isComments,
+                                                                        .isComments,
                                                                 space: _model
                                                                     .selectedSpace
                                                                     ?.reference
                                                                     .id,
                                                                 isPrivate: currentUserDocument
                                                                     ?.threadSettings
-                                                                    ?.isPrivate,
+                                                                    .isPrivate,
                                                                 link: functions
                                                                     .extractLink(_model
                                                                         .textThreadTextController
@@ -2798,7 +2735,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                                     .viewInsetsOf(
                                                                         context),
                                                                 child:
-                                                                    InfoWidget(
+                                                                    const InfoWidget(
                                                                   text:
                                                                       'Posted',
                                                                 ),
@@ -2819,7 +2756,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                           .getText(
                                                         '239b6y6e' /*  */,
                                                       ),
-                                                      icon: Icon(
+                                                      icon: const Icon(
                                                         Icons
                                                             .arrow_forward_sharp,
                                                         color: Colors.white,
@@ -2828,21 +2765,21 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                       options: FFButtonOptions(
                                                         height: 50.0,
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     25.0,
                                                                     0.0,
                                                                     15.0,
                                                                     0.0),
                                                         iconPadding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     0.0,
                                                                     5.0,
                                                                     0.0),
                                                         color:
-                                                            Color(0xFF4B39EF),
+                                                            const Color(0xFF4B39EF),
                                                         textStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -2855,7 +2792,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                                   letterSpacing:
                                                                       0.0,
                                                                 ),
-                                                        borderSide: BorderSide(
+                                                        borderSide: const BorderSide(
                                                           color: Colors
                                                               .transparent,
                                                           width: 0.0,
@@ -2877,10 +2814,9 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                   ),
                                 ),
                                 if (_model.isArticle &&
-                                    (_model.uploadedFileUrl5 != null &&
-                                        _model.uploadedFileUrl5 != ''))
+                                    (_model.uploadedFileUrl5 != ''))
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         10.0, 10.0, 10.0, 0.0),
                                     child: Container(
                                       width: double.infinity,
@@ -2898,7 +2834,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                             BorderRadius.circular(30.0),
                                       ),
                                       child: Padding(
-                                        padding: EdgeInsets.all(10.0),
+                                        padding: const EdgeInsets.all(10.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -2907,10 +2843,10 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                               CrossAxisAlignment.end,
                                           children: [
                                             Align(
-                                              alignment: AlignmentDirectional(
+                                              alignment: const AlignmentDirectional(
                                                   1.0, -1.0),
                                               child: Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 5.0, 5.0, 0.0),
                                                 child: FlutterFlowIconButton(
@@ -2921,7 +2857,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                   borderRadius: 30.0,
                                                   borderWidth: 3.0,
                                                   buttonSize: 40.0,
-                                                  fillColor: Color(0x97D01C27),
+                                                  fillColor: const Color(0x97D01C27),
                                                   icon: Icon(
                                                     Icons.remove_rounded,
                                                     color: FlutterFlowTheme.of(
@@ -2953,7 +2889,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                   ),
                                 if (_model.isArticle)
                                   Padding(
-                                    padding: EdgeInsets.all(10.0),
+                                    padding: const EdgeInsets.all(10.0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
                                         final selectedMedia =
@@ -3021,10 +2957,10 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                       options: FFButtonOptions(
                                         width: double.infinity,
                                         height: 50.0,
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             16.0, 0.0, 16.0, 0.0),
                                         iconPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
+                                            const EdgeInsetsDirectional.fromSTEB(
                                                 0.0, 0.0, 0.0, 0.0),
                                         color: FlutterFlowTheme.of(context)
                                             .primary,
@@ -3042,7 +2978,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                     ),
                                   ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       8.0, 10.0, 8.0, 10.0),
                                   child: TextFormField(
                                     controller:
@@ -3115,7 +3051,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                         borderRadius:
                                             BorderRadius.circular(24.0),
                                       ),
-                                      contentPadding: EdgeInsets.all(15.0),
+                                      contentPadding: const EdgeInsets.all(15.0),
                                     ),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
@@ -3135,7 +3071,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                   ),
                                 ),
                                 Flexible(
-                                  child: Container(
+                                  child: SizedBox(
                                     width: double.infinity,
                                     height: double.infinity,
                                     child: PageView(
@@ -3150,7 +3086,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                           children: [
                                             Flexible(
                                               child: Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         8.0, 0.0, 8.0, 0.0),
                                                 child: TextFormField(
@@ -3291,11 +3227,9 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                 ),
                                               ),
                                             ),
-                                            if (_model.uploadedFileUrl4 !=
-                                                    null &&
-                                                _model.uploadedFileUrl4 != '')
+                                            if (_model.uploadedFileUrl4 != '')
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         10.0, 10.0, 10.0, 10.0),
                                                 child: Container(
@@ -3314,7 +3248,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                   ),
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsets.all(5.0),
+                                                        const EdgeInsets.all(5.0),
                                                     child:
                                                         FlutterFlowAudioPlayer(
                                                       audio: Audio.network(
@@ -3345,7 +3279,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                                     0.0,
                                                               ),
                                                       fillColor:
-                                                          Color(0x00000000),
+                                                          const Color(0x00000000),
                                                       playbackButtonColor:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -3370,7 +3304,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                             Stack(
                                               children: [
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           8.0, 20.0, 8.0, 10.0),
                                                   child: TextFormField(
@@ -3499,7 +3433,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                             Stack(
                                               children: [
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           8.0, 2.0, 8.0, 10.0),
                                                   child: TextFormField(
@@ -3627,13 +3561,13 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                             ),
                                             if (_model.addMoreValue >= 3)
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 0.0, 0.0, 8.0),
                                                 child: Container(
                                                   width: double.infinity,
                                                   height: 60.0,
-                                                  decoration: BoxDecoration(),
+                                                  decoration: const BoxDecoration(),
                                                   child: Row(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
@@ -3644,7 +3578,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                       Expanded(
                                                         child: Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       8.0,
                                                                       0.0,
@@ -3799,7 +3733,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                       ),
                                                       Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     0.0,
@@ -3882,13 +3816,13 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                               ),
                                             if (_model.addMoreValue == 4)
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 0.0, 0.0, 8.0),
                                                 child: Container(
                                                   width: double.infinity,
                                                   height: 60.0,
-                                                  decoration: BoxDecoration(),
+                                                  decoration: const BoxDecoration(),
                                                   child: Row(
                                                     mainAxisSize:
                                                         MainAxisSize.min,
@@ -3899,13 +3833,13 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                       Flexible(
                                                         child: Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       8.0,
                                                                       0.0,
                                                                       8.0,
                                                                       0.0),
-                                                          child: Container(
+                                                          child: SizedBox(
                                                             width: 400.0,
                                                             child:
                                                                 TextFormField(
@@ -4057,7 +3991,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                       ),
                                                       Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     0.0,
@@ -4140,7 +4074,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                               ),
                                             if (_model.addMoreValue != 4)
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         8.0, 0.0, 8.0, 0.0),
                                                 child: InkWell(
@@ -4230,7 +4164,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     5.0, 0.0, 0.0, 0.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -4238,7 +4172,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           5.0, 0.0, 0.0, 0.0),
                                       child: FlutterFlowIconButton(
                                         borderColor:
@@ -4258,7 +4192,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                         },
                                       ),
                                     ),
-                                    Padding(
+                                    const Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           10.0, 0.0, 10.0, 0.0),
                                       child: Row(
@@ -4278,7 +4212,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                     ),
                   ),
                   Align(
-                    alignment: Alignment(0.0, 0),
+                    alignment: const Alignment(0.0, 0),
                     child: FlutterFlowButtonTabBar(
                       useToggleButtonStyle: true,
                       isScrollable: true,
@@ -4287,7 +4221,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                 fontFamily: 'Montserrat',
                                 letterSpacing: 0.0,
                               ),
-                      unselectedLabelStyle: TextStyle(),
+                      unselectedLabelStyle: const TextStyle(),
                       labelColor: Colors.white,
                       unselectedLabelColor:
                           FlutterFlowTheme.of(context).secondaryText,
@@ -4300,12 +4234,12 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                       borderRadius: 80.0,
                       elevation: 0.0,
                       buttonMargin:
-                          EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
                       tabs: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Padding(
+                            const Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   30.0, 0.0, 30.0, 0.0),
                               child: Icon(
@@ -4322,7 +4256,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Padding(
+                            const Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   30.0, 0.0, 30.0, 0.0),
                               child: Icon(
@@ -4339,7 +4273,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Padding(
+                            const Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   30.0, 0.0, 30.0, 0.0),
                               child: Icon(
@@ -4356,7 +4290,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Padding(
+                            const Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   30.0, 0.0, 30.0, 0.0),
                               child: Icon(

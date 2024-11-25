@@ -4,11 +4,8 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'comments_model.dart';
 export 'comments_model.dart';
 
@@ -60,7 +57,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
       height: 700.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
           topLeft: Radius.circular(30.0),
@@ -71,7 +68,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
         mainAxisSize: MainAxisSize.max,
         children: [
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
             child: Container(
               width: double.infinity,
               height: 55.0,
@@ -88,7 +85,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
                     child: FlutterFlowIconButton(
                       borderRadius: 30.0,
                       buttonSize: 42.0,
@@ -106,7 +103,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                   Flexible(
                     child: Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 37.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 37.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -136,15 +133,15 @@ class _CommentsWidgetState extends State<CommentsWidget> {
           ),
           Stack(
             children: [
-              if (widget!.post != null)
+              if (widget.post != null)
                 Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(15.0, 10.0, 15.0, 0.0),
+                      const EdgeInsetsDirectional.fromSTEB(15.0, 10.0, 15.0, 0.0),
                   child: StreamBuilder<List<CommentsRecord>>(
                     stream: queryCommentsRecord(
                       queryBuilder: (commentsRecord) => commentsRecord.where(
                         'PostReference',
-                        isEqualTo: widget!.post,
+                        isEqualTo: widget.post,
                       ),
                     ),
                     builder: (context, snapshot) {
@@ -165,7 +162,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                           snapshot.data!;
 
                       return ListView.separated(
-                        padding: EdgeInsets.fromLTRB(
+                        padding: const EdgeInsets.fromLTRB(
                           0,
                           10.0,
                           0,
@@ -174,7 +171,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         itemCount: listViewPostCommentsRecordList.length,
-                        separatorBuilder: (_, __) => SizedBox(height: 10.0),
+                        separatorBuilder: (_, __) => const SizedBox(height: 10.0),
                         itemBuilder: (context, listViewPostIndex) {
                           final listViewPostCommentsRecord =
                               listViewPostCommentsRecordList[listViewPostIndex];
@@ -214,13 +211,13 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 5.0, 0.0),
                                           child: Container(
                                             width: 35.0,
                                             height: 35.0,
                                             clipBehavior: Clip.antiAlias,
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               shape: BoxShape.circle,
                                             ),
                                             child: Image.network(
@@ -231,9 +228,9 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                         ),
                                         ClipRRect(
                                           child: Container(
-                                            decoration: BoxDecoration(),
+                                            decoration: const BoxDecoration(),
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(3.0, 0.0, 0.0, 0.0),
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.max,
@@ -263,7 +260,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                                       ),
                                                       Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     2.0,
                                                                     0.0,
@@ -313,7 +310,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 0.0,
                                                                 0.0, 5.0),
                                                     child: Text(
@@ -434,7 +431,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                       ],
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           2.0, 0.0, 0.0, 0.0),
                                       child: Text(
                                         listViewPostCommentsRecord.votes.length
@@ -458,16 +455,16 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                     },
                   ),
                 ),
-              if (widget!.thread != null)
+              if (widget.thread != null)
                 Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
+                      const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
                   child: StreamBuilder<List<CommentsRecord>>(
                     stream: queryCommentsRecord(
                       queryBuilder: (commentsRecord) => commentsRecord
                           .where(
                             'ThreadReference',
-                            isEqualTo: widget!.thread,
+                            isEqualTo: widget.thread,
                           )
                           .orderBy('TimeStamp', descending: true),
                     ),
@@ -489,7 +486,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                           snapshot.data!;
 
                       return ListView.separated(
-                        padding: EdgeInsets.fromLTRB(
+                        padding: const EdgeInsets.fromLTRB(
                           0,
                           10.0,
                           0,
@@ -498,7 +495,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         itemCount: listViewThreadCommentsRecordList.length,
-                        separatorBuilder: (_, __) => SizedBox(height: 10.0),
+                        separatorBuilder: (_, __) => const SizedBox(height: 10.0),
                         itemBuilder: (context, listViewThreadIndex) {
                           final listViewThreadCommentsRecord =
                               listViewThreadCommentsRecordList[
@@ -541,13 +538,13 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                         children: [
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 5.0, 0.0),
                                             child: Container(
                                               width: 35.0,
                                               height: 35.0,
                                               clipBehavior: Clip.antiAlias,
-                                              decoration: BoxDecoration(
+                                              decoration: const BoxDecoration(
                                                 shape: BoxShape.circle,
                                               ),
                                               child: Image.network(
@@ -560,9 +557,9 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                             child: ClipRRect(
                                               child: Container(
                                                 width: 300.0,
-                                                decoration: BoxDecoration(),
+                                                decoration: const BoxDecoration(),
                                                 child: Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           3.0, 0.0, 0.0, 0.0),
                                                   child: Column(
@@ -596,7 +593,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                                           ),
                                                           Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         2.0,
                                                                         0.0,
@@ -644,7 +641,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                                       ),
                                                       Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     0.0,
@@ -770,7 +767,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                       ],
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           2.0, 0.0, 0.0, 0.0),
                                       child: Text(
                                         listViewThreadCommentsRecord
@@ -799,16 +796,16 @@ class _CommentsWidgetState extends State<CommentsWidget> {
           ),
           Flexible(
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Padding(
-                    padding: EdgeInsets.all(5.0),
+                    padding: const EdgeInsets.all(5.0),
                     child: Container(
                       width: double.infinity,
-                      constraints: BoxConstraints(
+                      constraints: const BoxConstraints(
                         minHeight: 55.0,
                         maxHeight: 150.0,
                       ),
@@ -825,8 +822,8 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                         children: [
                           Expanded(
                             child: Padding(
-                              padding: EdgeInsets.all(5.0),
-                              child: Container(
+                              padding: const EdgeInsets.all(5.0),
+                              child: SizedBox(
                                 width: double.infinity,
                                 child: TextFormField(
                                   controller: _model.emailTextController,
@@ -836,8 +833,8 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                         .doc()
                                         .set(createCommentsRecordData(
                                           timeStamp: getCurrentTimestamp,
-                                          postReference: widget!.post,
-                                          threadReference: widget!.thread,
+                                          postReference: widget.post,
+                                          threadReference: widget.thread,
                                           author: currentUserReference,
                                           text: _model.emailTextController.text,
                                           isStealth: valueOrDefault<bool>(
@@ -905,7 +902,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                     filled: true,
                                     fillColor: FlutterFlowTheme.of(context)
                                         .primaryBackground,
-                                    contentPadding: EdgeInsets.all(10.0),
+                                    contentPadding: const EdgeInsets.all(10.0),
                                   ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyLarge
@@ -923,7 +920,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 5.0, 0.0),
                             child: FlutterFlowIconButton(
                               borderColor: Colors.transparent,
@@ -940,8 +937,8 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                     .doc()
                                     .set(createCommentsRecordData(
                                       timeStamp: getCurrentTimestamp,
-                                      postReference: widget!.post,
-                                      threadReference: widget!.thread,
+                                      postReference: widget.post,
+                                      threadReference: widget.thread,
                                       author: currentUserReference,
                                       text: _model.emailTextController.text,
                                       isStealth: valueOrDefault<bool>(

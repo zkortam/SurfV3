@@ -3,9 +3,6 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'navigation_bar_model.dart';
 export 'navigation_bar_model.dart';
 
@@ -52,15 +49,15 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
     return Container(
       width: 400.0,
       height: 120.0,
-      decoration: BoxDecoration(),
+      decoration: const BoxDecoration(),
       child: Align(
-        alignment: AlignmentDirectional(0.0, 1.0),
+        alignment: const AlignmentDirectional(0.0, 1.0),
         child: Stack(
           children: [
             Align(
-              alignment: AlignmentDirectional(0.0, 1.0),
+              alignment: const AlignmentDirectional(0.0, 1.0),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 20.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 20.0),
                 child: Container(
                   width: double.infinity,
                   height: 60.0,
@@ -73,14 +70,14 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             20.0, 5.0, 20.0, 5.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Align(
-                              alignment: AlignmentDirectional(0.0, 0.0),
+                              alignment: const AlignmentDirectional(0.0, 0.0),
                               child: FlutterFlowIconButton(
                                 borderColor: Colors.transparent,
                                 borderRadius: 20.0,
@@ -88,7 +85,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                                 buttonSize: 50.0,
                                 icon: Icon(
                                   Icons.home_rounded,
-                                  color: widget!.page == 1
+                                  color: widget.page == 1
                                       ? FlutterFlowTheme.of(context).primaryText
                                       : FlutterFlowTheme.of(context)
                                           .secondaryText,
@@ -100,7 +97,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0.0, 0.0),
+                              alignment: const AlignmentDirectional(0.0, 0.0),
                               child: FlutterFlowIconButton(
                                 borderColor: Colors.transparent,
                                 borderRadius: 20.0,
@@ -108,7 +105,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                                 buttonSize: 50.0,
                                 icon: Icon(
                                   Icons.movie,
-                                  color: widget!.page == 2
+                                  color: widget.page == 2
                                       ? FlutterFlowTheme.of(context).primaryText
                                       : FlutterFlowTheme.of(context)
                                           .secondaryText,
@@ -119,17 +116,17 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                                 },
                               ),
                             ),
-                          ].divide(SizedBox(width: 10.0)),
+                          ].divide(const SizedBox(width: 10.0)),
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             20.0, 5.0, 20.0, 5.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Align(
-                              alignment: AlignmentDirectional(0.0, 0.0),
+                              alignment: const AlignmentDirectional(0.0, 0.0),
                               child: FlutterFlowIconButton(
                                 borderColor: Colors.transparent,
                                 borderRadius: 20.0,
@@ -137,7 +134,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                                 buttonSize: 50.0,
                                 icon: Icon(
                                   Icons.gesture_rounded,
-                                  color: widget!.page == 3
+                                  color: widget.page == 3
                                       ? FlutterFlowTheme.of(context).primaryText
                                       : FlutterFlowTheme.of(context)
                                           .secondaryText,
@@ -167,7 +164,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                               child: Container(
                                 width: 50.0,
                                 height: 50.0,
-                                decoration: BoxDecoration(),
+                                decoration: const BoxDecoration(),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -176,7 +173,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                                       width: 35.0,
                                       height: 35.0,
                                       decoration: BoxDecoration(
-                                        color: widget!.page == 4
+                                        color: widget.page == 4
                                             ? FlutterFlowTheme.of(context)
                                                 .primary
                                             : FlutterFlowTheme.of(context)
@@ -194,7 +191,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                                               width: 32.0,
                                               height: 32.0,
                                               clipBehavior: Clip.antiAlias,
-                                              decoration: BoxDecoration(
+                                              decoration: const BoxDecoration(
                                                 shape: BoxShape.circle,
                                               ),
                                               child: Image.network(
@@ -210,7 +207,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                                 ),
                               ),
                             ),
-                          ].divide(SizedBox(width: 10.0)),
+                          ].divide(const SizedBox(width: 10.0)),
                         ),
                       ),
                     ],
@@ -219,7 +216,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
               ),
             ),
             Align(
-              alignment: AlignmentDirectional(0.0, 0.0),
+              alignment: const AlignmentDirectional(0.0, 0.0),
               child: InkWell(
                 splashColor: Colors.transparent,
                 focusColor: Colors.transparent,
@@ -230,28 +227,28 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                     'CreatePost',
                     queryParameters: {
                       'tabIndex': serializeParam(
-                        widget!.tabIndex,
+                        widget.tabIndex,
                         ParamType.int,
                       ),
                     }.withoutNulls,
                   );
                 },
-                child: Container(
+                child: SizedBox(
                   width: 70.0,
                   height: 70.0,
                   child: Stack(
-                    alignment: AlignmentDirectional(0.0, 0.0),
+                    alignment: const AlignmentDirectional(0.0, 0.0),
                     children: [
                       Align(
-                        alignment: AlignmentDirectional(0.0, 0.0),
+                        alignment: const AlignmentDirectional(0.0, 0.0),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 5.0),
                           child: Container(
                             width: 70.0,
                             height: 70.0,
                             decoration: BoxDecoration(
-                              gradient: LinearGradient(
+                              gradient: const LinearGradient(
                                 colors: [Color(0xFF2120BC), Color(0xFF7D16C1)],
                                 stops: [0.0, 1.0],
                                 begin: AlignmentDirectional(1.0, -1.0),
@@ -259,7 +256,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                               ),
                               borderRadius: BorderRadius.circular(25.0),
                             ),
-                            child: Icon(
+                            child: const Icon(
                               Icons.add,
                               color: Colors.white,
                               size: 33.0,
@@ -267,20 +264,20 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                           ),
                         ),
                       ),
-                      if (widget!.page != 0)
+                      if (widget.page != 0)
                         Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
+                          alignment: const AlignmentDirectional(0.0, 0.0),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 5.0),
                             child: Container(
                               width: 70.0,
                               height: 70.0,
                               decoration: BoxDecoration(
-                                color: Color(0x59000000),
+                                color: const Color(0x59000000),
                                 borderRadius: BorderRadius.circular(25.0),
                               ),
-                              child: Icon(
+                              child: const Icon(
                                 Icons.add,
                                 color: Colors.white,
                                 size: 33.0,

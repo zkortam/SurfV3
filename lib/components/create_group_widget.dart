@@ -4,13 +4,9 @@ import '/components/info_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutterflow_colorpicker/flutterflow_colorpicker.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'create_group_model.dart';
 export 'create_group_model.dart';
 
@@ -55,7 +51,7 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
       height: 500.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
           topLeft: Radius.circular(30.0),
@@ -66,7 +62,7 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
         mainAxisSize: MainAxisSize.max,
         children: [
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
             child: Container(
               width: double.infinity,
               height: 55.0,
@@ -83,7 +79,7 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
                     child: FlutterFlowIconButton(
                       borderColor: Colors.transparent,
                       borderRadius: 30.0,
@@ -123,7 +119,7 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 3.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 3.0, 0.0),
                     child: FlutterFlowIconButton(
                       borderColor: Colors.transparent,
                       borderRadius: 30.0,
@@ -161,7 +157,7 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
                           builder: (context) {
                             return Padding(
                               padding: MediaQuery.viewInsetsOf(context),
-                              child: InfoWidget(
+                              child: const InfoWidget(
                                 text: 'Group Created',
                               ),
                             );
@@ -176,7 +172,7 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
           ),
           Flexible(
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(8.0, 10.0, 8.0, 10.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(8.0, 10.0, 8.0, 10.0),
               child: TextFormField(
                 controller: _model.titleThreadsTextController,
                 focusNode: _model.titleThreadsFocusNode,
@@ -250,7 +246,7 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
             ),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -271,10 +267,10 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
             child: Opacity(
               opacity: 0.9,
               child: Padding(
-                padding: EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(10.0),
                 child: GridView(
                   padding: EdgeInsets.zero,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 4,
                     crossAxisSpacing: 5.0,
                     mainAxisSpacing: 5.0,
@@ -288,19 +284,19 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        _model.color = Color(0xFFFF0000);
+                        _model.color = const Color(0xFFFF0000);
                         safeSetState(() {});
                       },
                       child: Container(
                         width: 100.0,
                         height: 50.0,
                         decoration: BoxDecoration(
-                          color: Color(0xFFFF0000),
+                          color: const Color(0xFFFF0000),
                           borderRadius: BorderRadius.circular(100.0),
                         ),
                         child: Visibility(
-                          visible: _model.color == Color(0xFFFF0000),
-                          child: Icon(
+                          visible: _model.color == const Color(0xFFFF0000),
+                          child: const Icon(
                             Icons.check_circle_sharp,
                             color: Colors.white,
                             size: 24.0,
@@ -314,19 +310,19 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        _model.color = Color(0xFFFF7F00);
+                        _model.color = const Color(0xFFFF7F00);
                         safeSetState(() {});
                       },
                       child: Container(
                         width: 100.0,
                         height: 50.0,
                         decoration: BoxDecoration(
-                          color: Color(0xFFFF7F00),
+                          color: const Color(0xFFFF7F00),
                           borderRadius: BorderRadius.circular(100.0),
                         ),
                         child: Visibility(
-                          visible: _model.color == Color(0xFFFF7F00),
-                          child: Icon(
+                          visible: _model.color == const Color(0xFFFF7F00),
+                          child: const Icon(
                             Icons.check_circle_sharp,
                             color: Colors.white,
                             size: 24.0,
@@ -340,19 +336,19 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        _model.color = Color(0xFFFFFF00);
+                        _model.color = const Color(0xFFFFFF00);
                         safeSetState(() {});
                       },
                       child: Container(
                         width: 100.0,
                         height: 50.0,
                         decoration: BoxDecoration(
-                          color: Color(0xFFFFFF00),
+                          color: const Color(0xFFFFFF00),
                           borderRadius: BorderRadius.circular(100.0),
                         ),
                         child: Visibility(
-                          visible: _model.color == Color(0xFFFFFF00),
-                          child: Icon(
+                          visible: _model.color == const Color(0xFFFFFF00),
+                          child: const Icon(
                             Icons.check_circle_sharp,
                             color: Colors.white,
                             size: 24.0,
@@ -366,19 +362,19 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        _model.color = Color(0xFF7FFF00);
+                        _model.color = const Color(0xFF7FFF00);
                         safeSetState(() {});
                       },
                       child: Container(
                         width: 100.0,
                         height: 50.0,
                         decoration: BoxDecoration(
-                          color: Color(0xFF7FFF00),
+                          color: const Color(0xFF7FFF00),
                           borderRadius: BorderRadius.circular(100.0),
                         ),
                         child: Visibility(
-                          visible: _model.color == Color(0xFF7FFF00),
-                          child: Icon(
+                          visible: _model.color == const Color(0xFF7FFF00),
+                          child: const Icon(
                             Icons.check_circle_sharp,
                             color: Colors.white,
                             size: 24.0,
@@ -392,19 +388,19 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        _model.color = Color(0xFF00FF00);
+                        _model.color = const Color(0xFF00FF00);
                         safeSetState(() {});
                       },
                       child: Container(
                         width: 100.0,
                         height: 50.0,
                         decoration: BoxDecoration(
-                          color: Color(0xFF00FF00),
+                          color: const Color(0xFF00FF00),
                           borderRadius: BorderRadius.circular(100.0),
                         ),
                         child: Visibility(
-                          visible: _model.color == Color(0xFF00FF00),
-                          child: Icon(
+                          visible: _model.color == const Color(0xFF00FF00),
+                          child: const Icon(
                             Icons.check_circle_sharp,
                             color: Colors.white,
                             size: 24.0,
@@ -418,19 +414,19 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        _model.color = Color(0xFF00FF7F);
+                        _model.color = const Color(0xFF00FF7F);
                         safeSetState(() {});
                       },
                       child: Container(
                         width: 100.0,
                         height: 50.0,
                         decoration: BoxDecoration(
-                          color: Color(0xFF00FF7F),
+                          color: const Color(0xFF00FF7F),
                           borderRadius: BorderRadius.circular(100.0),
                         ),
                         child: Visibility(
-                          visible: _model.color == Color(0xFF00FF7F),
-                          child: Icon(
+                          visible: _model.color == const Color(0xFF00FF7F),
+                          child: const Icon(
                             Icons.check_circle_sharp,
                             color: Colors.white,
                             size: 24.0,
@@ -444,19 +440,19 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        _model.color = Color(0xFF007FFF);
+                        _model.color = const Color(0xFF007FFF);
                         safeSetState(() {});
                       },
                       child: Container(
                         width: 100.0,
                         height: 50.0,
                         decoration: BoxDecoration(
-                          color: Color(0xFF007FFF),
+                          color: const Color(0xFF007FFF),
                           borderRadius: BorderRadius.circular(100.0),
                         ),
                         child: Visibility(
-                          visible: _model.color == Color(0xFF007FFF),
-                          child: Icon(
+                          visible: _model.color == const Color(0xFF007FFF),
+                          child: const Icon(
                             Icons.check_circle_sharp,
                             color: Colors.white,
                             size: 24.0,
@@ -470,19 +466,19 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        _model.color = Color(0xFF0000FF);
+                        _model.color = const Color(0xFF0000FF);
                         safeSetState(() {});
                       },
                       child: Container(
                         width: 100.0,
                         height: 50.0,
                         decoration: BoxDecoration(
-                          color: Color(0xFF0000FF),
+                          color: const Color(0xFF0000FF),
                           borderRadius: BorderRadius.circular(100.0),
                         ),
                         child: Visibility(
-                          visible: _model.color == Color(0xFF0000FF),
-                          child: Icon(
+                          visible: _model.color == const Color(0xFF0000FF),
+                          child: const Icon(
                             Icons.check_circle_sharp,
                             color: Colors.white,
                             size: 24.0,
@@ -496,19 +492,19 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        _model.color = Color(0xFF4B0082);
+                        _model.color = const Color(0xFF4B0082);
                         safeSetState(() {});
                       },
                       child: Container(
                         width: 100.0,
                         height: 50.0,
                         decoration: BoxDecoration(
-                          color: Color(0xFF4B0082),
+                          color: const Color(0xFF4B0082),
                           borderRadius: BorderRadius.circular(100.0),
                         ),
                         child: Visibility(
-                          visible: _model.color == Color(0xFF4B0082),
-                          child: Icon(
+                          visible: _model.color == const Color(0xFF4B0082),
+                          child: const Icon(
                             Icons.check_circle_sharp,
                             color: Colors.white,
                             size: 24.0,
@@ -522,19 +518,19 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        _model.color = Color(0xFF9400D3);
+                        _model.color = const Color(0xFF9400D3);
                         safeSetState(() {});
                       },
                       child: Container(
                         width: 100.0,
                         height: 50.0,
                         decoration: BoxDecoration(
-                          color: Color(0xFF9400D3),
+                          color: const Color(0xFF9400D3),
                           borderRadius: BorderRadius.circular(100.0),
                         ),
                         child: Visibility(
-                          visible: _model.color == Color(0xFF9400D3),
-                          child: Icon(
+                          visible: _model.color == const Color(0xFF9400D3),
+                          child: const Icon(
                             Icons.check_circle_sharp,
                             color: Colors.white,
                             size: 24.0,
@@ -548,19 +544,19 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        _model.color = Color(0xFFFF00FF);
+                        _model.color = const Color(0xFFFF00FF);
                         safeSetState(() {});
                       },
                       child: Container(
                         width: 100.0,
                         height: 50.0,
                         decoration: BoxDecoration(
-                          color: Color(0xFFFF00FF),
+                          color: const Color(0xFFFF00FF),
                           borderRadius: BorderRadius.circular(100.0),
                         ),
                         child: Visibility(
-                          visible: _model.color == Color(0xFFFF00FF),
-                          child: Icon(
+                          visible: _model.color == const Color(0xFFFF00FF),
+                          child: const Icon(
                             Icons.check_circle_sharp,
                             color: Colors.white,
                             size: 24.0,
@@ -574,7 +570,7 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        final _colorPickedColor = await showFFColorPicker(
+                        final colorPickedColor = await showFFColorPicker(
                           context,
                           currentColor: _model.colorPicked ??=
                               FlutterFlowTheme.of(context).primary,
@@ -592,9 +588,9 @@ class _CreateGroupWidgetState extends State<CreateGroupWidget> {
                           displayAsBottomSheet: isMobileWidth(context),
                         );
 
-                        if (_colorPickedColor != null) {
+                        if (colorPickedColor != null) {
                           safeSetState(
-                              () => _model.colorPicked = _colorPickedColor);
+                              () => _model.colorPicked = colorPickedColor);
                         }
 
                         _model.color = _model.colorPicked!;

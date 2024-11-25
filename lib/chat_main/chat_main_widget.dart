@@ -4,12 +4,9 @@ import '/components/create_chat_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'chat_main_model.dart';
 export 'chat_main_model.dart';
 
@@ -54,12 +51,12 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
             children: [
               Flexible(
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
                   child: Container(
                     width: double.infinity,
                     height: 55.0,
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                         colors: [Color(0xFF2120BC), Color(0xFF7D16C1)],
                         stops: [0.0, 1.0],
                         begin: AlignmentDirectional(1.0, -1.0),
@@ -73,7 +70,7 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
                       children: [
                         Flexible(
                           child: Padding(
-                            padding: EdgeInsets.all(3.0),
+                            padding: const EdgeInsets.all(3.0),
                             child: Container(
                               width: double.infinity,
                               height: 90.0,
@@ -83,7 +80,7 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
                                 borderRadius: BorderRadius.circular(24.0),
                               ),
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     10.0, 0.0, 0.0, 0.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -91,7 +88,7 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 5.0, 0.0),
                                       child: FlutterFlowIconButton(
                                         borderColor: Colors.transparent,
@@ -131,7 +128,7 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 5.0, 0.0),
                                           child: FlutterFlowIconButton(
                                             borderColor: Colors.transparent,
@@ -152,7 +149,7 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 5.0, 0.0),
                                           child: FlutterFlowIconButton(
                                             borderColor:
@@ -164,7 +161,7 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
                                             fillColor:
                                                 FlutterFlowTheme.of(context)
                                                     .primary,
-                                            icon: Icon(
+                                            icon: const Icon(
                                               Icons.add_rounded,
                                               color: Colors.white,
                                               size: 24.0,
@@ -184,7 +181,7 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
                                                       padding: MediaQuery
                                                           .viewInsetsOf(
                                                               context),
-                                                      child: CreateChatWidget(),
+                                                      child: const CreateChatWidget(),
                                                     ),
                                                   );
                                                 },
@@ -207,7 +204,7 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(10.0),
                 child: StreamBuilder<List<ChatsRecord>>(
                   stream: queryChatsRecord(
                     queryBuilder: (chatsRecord) => chatsRecord
@@ -249,7 +246,7 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
                                 .secondaryBackground,
                           ),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 10.0, 0.0),
                             child: FutureBuilder<UsersRecord>(
                               future: UsersRecord.getDocumentOnce(
@@ -287,7 +284,7 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
                                           width: 50.0,
                                           height: 50.0,
                                           clipBehavior: Clip.antiAlias,
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                             shape: BoxShape.circle,
                                           ),
                                           child: Image.network(
@@ -297,7 +294,7 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   10.0, 0.0, 0.0, 0.0),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,

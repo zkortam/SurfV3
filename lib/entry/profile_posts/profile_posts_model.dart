@@ -1,15 +1,9 @@
 import '/backend/backend.dart';
 import '/components/post_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'profile_posts_widget.dart' show ProfilePostsWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:provider/provider.dart';
 
 class ProfilePostsModel extends FlutterFlowModel<ProfilePostsWidget> {
   ///  State fields for stateful widgets in this page.
@@ -45,7 +39,9 @@ class ProfilePostsModel extends FlutterFlowModel<ProfilePostsWidget> {
     singlePostList?.dispose();
     postModel2.dispose();
     listView20?.dispose();
-    listView2StreamSubscriptions.forEach((s) => s?.cancel());
+    for (var s in listView2StreamSubscriptions) {
+      s?.cancel();
+    }
     listView2PagingController?.dispose();
   }
 

@@ -7,9 +7,7 @@ import '/flutter_flow/flutter_flow_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:provider/provider.dart';
 import 'snippet_model.dart';
 export 'snippet_model.dart';
 
@@ -47,7 +45,7 @@ class _SnippetWidgetState extends State<SnippetWidget> {
       }
       _model.soundPlayer!.setVolume(1.0);
       _model.soundPlayer!
-          .setUrl(widget!.snippet!.audioTrack)
+          .setUrl(widget.snippet!.audioTrack)
           .then((_) => _model.soundPlayer!.play());
     });
 
@@ -64,28 +62,28 @@ class _SnippetWidgetState extends State<SnippetWidget> {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: AlignmentDirectional(0.0, 0.0),
+      alignment: const AlignmentDirectional(0.0, 0.0),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
+        padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Align(
-              alignment: AlignmentDirectional(-1.0, -1.0),
+              alignment: const AlignmentDirectional(-1.0, -1.0),
               child: Padding(
-                padding: EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Container(
                   height: 40.0,
                   decoration: BoxDecoration(
-                    color: Color(0xA514181B),
+                    color: const Color(0xA514181B),
                     borderRadius: BorderRadius.circular(25.0),
                   ),
                   child: Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(2.0, 5.0, 10.0, 5.0),
+                        const EdgeInsetsDirectional.fromSTEB(2.0, 5.0, 10.0, 5.0),
                     child: FutureBuilder<UsersRecord>(
                       future:
-                          UsersRecord.getDocumentOnce(widget!.snippet!.author!),
+                          UsersRecord.getDocumentOnce(widget.snippet!.author!),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
                         if (!snapshot.hasData) {
@@ -112,7 +110,7 @@ class _SnippetWidgetState extends State<SnippetWidget> {
                               width: 38.0,
                               height: 38.0,
                               clipBehavior: Clip.antiAlias,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                               ),
                               child: Image.network(
@@ -122,7 +120,7 @@ class _SnippetWidgetState extends State<SnippetWidget> {
                             ),
                             Flexible(
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     5.0, 0.0, 0.0, 0.0),
                                 child: Text(
                                   rowUsersRecord.displayName,
@@ -140,7 +138,7 @@ class _SnippetWidgetState extends State<SnippetWidget> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   5.0, 0.0, 5.0, 0.0),
                               child: Icon(
                                 Icons.circle,
@@ -151,12 +149,12 @@ class _SnippetWidgetState extends State<SnippetWidget> {
                             ),
                             Flexible(
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     5.0, 0.0, 0.0, 0.0),
                                 child: Text(
                                   dateTimeFormat(
                                     "relative",
-                                    widget!.snippet!.timePosted!,
+                                    widget.snippet!.timePosted!,
                                     locale: FFLocalizations.of(context)
                                             .languageShortCode ??
                                         FFLocalizations.of(context)
@@ -183,38 +181,38 @@ class _SnippetWidgetState extends State<SnippetWidget> {
                 ),
               ),
             ),
-            if (widget!.snippet?.caption != null &&
-                widget!.snippet?.caption != '')
+            if (widget.snippet?.caption != null &&
+                widget.snippet?.caption != '')
               Align(
-                alignment: AlignmentDirectional(0.0, 1.0),
+                alignment: const AlignmentDirectional(0.0, 1.0),
                 child: Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(10.0, 40.0, 10.0, 10.0),
+                      const EdgeInsetsDirectional.fromSTEB(10.0, 40.0, 10.0, 10.0),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(25.0),
                     child: Container(
                       width: double.infinity,
-                      constraints: BoxConstraints(
+                      constraints: const BoxConstraints(
                         minHeight: 45.0,
                         maxHeight: 100.0,
                       ),
                       decoration: BoxDecoration(
-                        color: Color(0xDE14181B),
+                        color: const Color(0xDE14181B),
                         borderRadius: BorderRadius.circular(25.0),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.all(10.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   5.0, 0.0, 0.0, 2.0),
                               child: Text(
                                 valueOrDefault<String>(
-                                  widget!.snippet?.caption,
+                                  widget.snippet?.caption,
                                   'Caption',
                                 ),
                                 maxLines: 3,
@@ -239,10 +237,10 @@ class _SnippetWidgetState extends State<SnippetWidget> {
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                if (widget!.snippet?.video != null &&
-                    widget!.snippet?.video != '')
+                if (widget.snippet?.video != null &&
+                    widget.snippet?.video != '')
                   FlutterFlowVideoPlayer(
-                    path: widget!.snippet!.video,
+                    path: widget.snippet!.video,
                     videoType: VideoType.network,
                     width: MediaQuery.sizeOf(context).width * 1.0,
                     height: MediaQuery.sizeOf(context).height * 1.0,
@@ -252,26 +250,26 @@ class _SnippetWidgetState extends State<SnippetWidget> {
                     allowFullScreen: false,
                     allowPlaybackSpeedMenu: false,
                   ),
-                if (widget!.snippet?.image != null &&
-                    widget!.snippet?.image != '')
+                if (widget.snippet?.image != null &&
+                    widget.snippet?.image != '')
                   Padding(
-                    padding: EdgeInsets.all(15.0),
+                    padding: const EdgeInsets.all(15.0),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
                       child: Image.network(
-                        widget!.snippet!.image,
+                        widget.snippet!.image,
                         width: double.infinity,
                         height: double.infinity,
                         fit: BoxFit.cover,
                       ),
                     ),
                   ),
-                if (widget!.snippet?.postShortReference != null)
+                if (widget.snippet?.postShortReference != null)
                   Padding(
-                    padding: EdgeInsets.all(15.0),
+                    padding: const EdgeInsets.all(15.0),
                     child: FutureBuilder<PostsRecord>(
                       future: PostsRecord.getDocumentOnce(
-                          widget!.snippet!.postShortReference!),
+                          widget.snippet!.postShortReference!),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
                         if (!snapshot.hasData) {
@@ -299,15 +297,15 @@ class _SnippetWidgetState extends State<SnippetWidget> {
                       },
                     ),
                   ),
-                if (widget!.snippet?.threadsReference != null)
+                if (widget.snippet?.threadsReference != null)
                   Align(
-                    alignment: AlignmentDirectional(0.0, -1.0),
+                    alignment: const AlignmentDirectional(0.0, -1.0),
                     child: Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 15.0),
+                          const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 15.0),
                       child: FutureBuilder<ThreadsRecord>(
                         future: ThreadsRecord.getDocumentOnce(
-                            widget!.snippet!.threadsReference!),
+                            widget.snippet!.threadsReference!),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
                           if (!snapshot.hasData) {

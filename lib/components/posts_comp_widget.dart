@@ -6,12 +6,9 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:async';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'posts_comp_model.dart';
 export 'posts_comp_model.dart';
@@ -59,7 +56,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
       height: 500.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
           topLeft: Radius.circular(30.0),
@@ -67,7 +64,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
         ),
       ),
       child: StreamBuilder<PostsRecord>(
-        stream: PostsRecord.getDocument(widget!.post!),
+        stream: PostsRecord.getDocument(widget.post!),
         builder: (context, snapshot) {
           // Customize what your widget looks like when it's loading.
           if (!snapshot.hasData) {
@@ -90,12 +87,12 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
             children: [
               Flexible(
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 20.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 20.0),
                   child: Container(
                     width: double.infinity,
                     height: 55.0,
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                         colors: [Color(0x7F2120BC), Color(0x7B7D16C1)],
                         stops: [0.0, 1.0],
                         begin: AlignmentDirectional(1.0, -1.0),
@@ -109,7 +106,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                       children: [
                         Flexible(
                           child: Padding(
-                            padding: EdgeInsets.all(4.0),
+                            padding: const EdgeInsets.all(4.0),
                             child: Container(
                               width: double.infinity,
                               height: 90.0,
@@ -123,7 +120,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         3.0, 0.0, 0.0, 0.0),
                                     child: FlutterFlowIconButton(
                                       borderColor: Colors.transparent,
@@ -150,10 +147,10 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                                       children: [
                                         Align(
                                           alignment:
-                                              AlignmentDirectional(0.0, 0.0),
+                                              const AlignmentDirectional(0.0, 0.0),
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 42.0, 0.0),
                                             child: Text(
                                               FFLocalizations.of(context)
@@ -189,7 +186,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(5.0),
+                padding: const EdgeInsets.all(5.0),
                 child: InkWell(
                   splashColor: Colors.transparent,
                   focusColor: Colors.transparent,
@@ -205,7 +202,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                         return Padding(
                           padding: MediaQuery.viewInsetsOf(context),
                           child: MakeSnippetCaptionWidget(
-                            post: widget!.post,
+                            post: widget.post,
                           ),
                         );
                       },
@@ -224,7 +221,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                     ),
                     child: Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -238,7 +235,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     10.0, 0.0, 0.0, 0.0),
                                 child: Text(
                                   FFLocalizations.of(context).getText(
@@ -265,7 +262,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
               ),
               if (columnPostsRecord.author == currentUserReference)
                 Padding(
-                  padding: EdgeInsets.all(5.0),
+                  padding: const EdgeInsets.all(5.0),
                   child: InkWell(
                     splashColor: Colors.transparent,
                     focusColor: Colors.transparent,
@@ -281,7 +278,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                           return Padding(
                             padding: MediaQuery.viewInsetsOf(context),
                             child: PostsCompEditWidget(
-                              post: widget!.post!,
+                              post: widget.post!,
                             ),
                           );
                         },
@@ -300,7 +297,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                       ),
                       child: Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -314,7 +311,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       10.0, 0.0, 0.0, 0.0),
                                   child: Text(
                                     FFLocalizations.of(context).getText(
@@ -341,7 +338,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                 ),
               Builder(
                 builder: (context) => Padding(
-                  padding: EdgeInsets.all(5.0),
+                  padding: const EdgeInsets.all(5.0),
                   child: InkWell(
                     splashColor: Colors.transparent,
                     focusColor: Colors.transparent,
@@ -392,7 +389,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                       ),
                       child: Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -406,7 +403,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       10.0, 0.0, 0.0, 0.0),
                                   child: Text(
                                     FFLocalizations.of(context).getText(
@@ -433,7 +430,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(5.0),
+                padding: const EdgeInsets.all(5.0),
                 child: InkWell(
                   splashColor: Colors.transparent,
                   focusColor: Colors.transparent,
@@ -476,7 +473,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                     ),
                     child: Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -490,7 +487,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     10.0, 0.0, 0.0, 0.0),
                                 child: Text(
                                   FFLocalizations.of(context).getText(
@@ -517,7 +514,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
               ),
               if (columnPostsRecord.author != currentUserReference)
                 Padding(
-                  padding: EdgeInsets.all(5.0),
+                  padding: const EdgeInsets.all(5.0),
                   child: Container(
                     width: double.infinity,
                     height: 60.0,
@@ -525,13 +522,13 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                       color: FlutterFlowTheme.of(context).secondaryBackground,
                       borderRadius: BorderRadius.circular(30.0),
                       border: Border.all(
-                        color: Color(0x84D01C27),
+                        color: const Color(0x84D01C27),
                         width: 4.0,
                       ),
                     ),
                     child: Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -545,7 +542,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     10.0, 0.0, 0.0, 0.0),
                                 child: Text(
                                   FFLocalizations.of(context).getText(
@@ -571,14 +568,14 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                 ),
               if (columnPostsRecord.author == currentUserReference)
                 Padding(
-                  padding: EdgeInsets.all(5.0),
+                  padding: const EdgeInsets.all(5.0),
                   child: InkWell(
                     splashColor: Colors.transparent,
                     focusColor: Colors.transparent,
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      await widget!.post!.delete();
+                      await widget.post!.delete();
                       Navigator.pop(context);
                     },
                     child: Container(
@@ -588,13 +585,13 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                         color: FlutterFlowTheme.of(context).secondaryBackground,
                         borderRadius: BorderRadius.circular(30.0),
                         border: Border.all(
-                          color: Color(0x84D01C27),
+                          color: const Color(0x84D01C27),
                           width: 4.0,
                         ),
                       ),
                       child: Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -608,7 +605,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       10.0, 0.0, 0.0, 0.0),
                                   child: Text(
                                     FFLocalizations.of(context).getText(

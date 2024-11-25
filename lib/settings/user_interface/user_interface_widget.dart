@@ -5,12 +5,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_language_selector.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'user_interface_model.dart';
 export 'user_interface_model.dart';
 
@@ -55,12 +50,12 @@ class _UserInterfaceWidgetState extends State<UserInterfaceWidget> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
                   child: Container(
                     width: double.infinity,
                     height: 55.0,
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                         colors: [Color(0x7F2120BC), Color(0x7B7D16C1)],
                         stops: [0.0, 1.0],
                         begin: AlignmentDirectional(1.0, -1.0),
@@ -74,7 +69,7 @@ class _UserInterfaceWidgetState extends State<UserInterfaceWidget> {
                       children: [
                         Flexible(
                           child: Padding(
-                            padding: EdgeInsets.all(3.0),
+                            padding: const EdgeInsets.all(3.0),
                             child: Container(
                               width: double.infinity,
                               height: 90.0,
@@ -88,7 +83,7 @@ class _UserInterfaceWidgetState extends State<UserInterfaceWidget> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         3.0, 0.0, 0.0, 0.0),
                                     child: FlutterFlowIconButton(
                                       borderColor: Colors.transparent,
@@ -115,10 +110,10 @@ class _UserInterfaceWidgetState extends State<UserInterfaceWidget> {
                                       children: [
                                         Align(
                                           alignment:
-                                              AlignmentDirectional(0.0, 0.0),
+                                              const AlignmentDirectional(0.0, 0.0),
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 40.0, 0.0),
                                             child: Text(
                                               FFLocalizations.of(context)
@@ -155,13 +150,13 @@ class _UserInterfaceWidgetState extends State<UserInterfaceWidget> {
                 Flexible(
                   child: Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(10.0, 20.0, 10.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(10.0, 20.0, 10.0, 0.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 5.0, 10.0, 2.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -182,7 +177,7 @@ class _UserInterfaceWidgetState extends State<UserInterfaceWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 10.0, 10.0, 20.0),
                           child: FlutterFlowLanguageSelector(
                             width: double.infinity,
@@ -211,7 +206,7 @@ class _UserInterfaceWidgetState extends State<UserInterfaceWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 5.0, 10.0, 5.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -232,12 +227,12 @@ class _UserInterfaceWidgetState extends State<UserInterfaceWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               5.0, 0.0, 5.0, 0.0),
                           child: Stack(
                             children: [
                               if (currentUserDocument
-                                      ?.userSettings?.isSwipeFeed ??
+                                      ?.userSettings.isSwipeFeed ??
                                   true)
                                 AuthUserStreamWidget(
                                   builder: (context) => InkWell(
@@ -267,7 +262,7 @@ class _UserInterfaceWidgetState extends State<UserInterfaceWidget> {
                                             child: Padding(
                                               padding: MediaQuery.viewInsetsOf(
                                                   context),
-                                              child: InfoWidget(
+                                              child: const InfoWidget(
                                                 text: 'Swipe Feed Off',
                                               ),
                                             ),
@@ -279,7 +274,7 @@ class _UserInterfaceWidgetState extends State<UserInterfaceWidget> {
                                       width: double.infinity,
                                       height: 55.0,
                                       decoration: BoxDecoration(
-                                        gradient: LinearGradient(
+                                        gradient: const LinearGradient(
                                           colors: [
                                             Color(0x7FBF13D9),
                                             Color(0x7BF1601C)
@@ -299,7 +294,7 @@ class _UserInterfaceWidgetState extends State<UserInterfaceWidget> {
                                         children: [
                                           Flexible(
                                             child: Padding(
-                                              padding: EdgeInsets.all(3.0),
+                                              padding: const EdgeInsets.all(3.0),
                                               child: Container(
                                                 width: double.infinity,
                                                 height: 90.0,
@@ -327,7 +322,7 @@ class _UserInterfaceWidgetState extends State<UserInterfaceWidget> {
                                                         children: [
                                                           Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         0.0,
                                                                         0.0,
@@ -343,7 +338,7 @@ class _UserInterfaceWidgetState extends State<UserInterfaceWidget> {
                                                           ),
                                                           Align(
                                                             alignment:
-                                                                AlignmentDirectional(
+                                                                const AlignmentDirectional(
                                                                     0.0, 0.0),
                                                             child: Text(
                                                               FFLocalizations.of(
@@ -413,7 +408,7 @@ class _UserInterfaceWidgetState extends State<UserInterfaceWidget> {
                                             child: Padding(
                                               padding: MediaQuery.viewInsetsOf(
                                                   context),
-                                              child: InfoWidget(
+                                              child: const InfoWidget(
                                                 text: 'Swipe Feed On',
                                               ),
                                             ),
@@ -425,7 +420,7 @@ class _UserInterfaceWidgetState extends State<UserInterfaceWidget> {
                                       width: double.infinity,
                                       height: 55.0,
                                       decoration: BoxDecoration(
-                                        gradient: LinearGradient(
+                                        gradient: const LinearGradient(
                                           colors: [
                                             Color(0xD8BF13D9),
                                             Color(0xD2F1601C)
@@ -449,7 +444,7 @@ class _UserInterfaceWidgetState extends State<UserInterfaceWidget> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
-                                                Padding(
+                                                const Padding(
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 0.0, 10.0, 0.0),
@@ -461,7 +456,7 @@ class _UserInterfaceWidgetState extends State<UserInterfaceWidget> {
                                                 ),
                                                 Align(
                                                   alignment:
-                                                      AlignmentDirectional(
+                                                      const AlignmentDirectional(
                                                           0.0, 0.0),
                                                   child: Text(
                                                     FFLocalizations.of(context)
@@ -497,7 +492,7 @@ class _UserInterfaceWidgetState extends State<UserInterfaceWidget> {
                             if (Theme.of(context).brightness ==
                                 Brightness.light)
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     5.0, 5.0, 5.0, 0.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
@@ -511,7 +506,7 @@ class _UserInterfaceWidgetState extends State<UserInterfaceWidget> {
                                     width: double.infinity,
                                     height: 55.0,
                                     decoration: BoxDecoration(
-                                      gradient: LinearGradient(
+                                      gradient: const LinearGradient(
                                         colors: [
                                           Color(0xDDE58010),
                                           Color(0xE6C1B716)
@@ -529,7 +524,7 @@ class _UserInterfaceWidgetState extends State<UserInterfaceWidget> {
                                       children: [
                                         Flexible(
                                           child: Padding(
-                                            padding: EdgeInsets.all(3.0),
+                                            padding: const EdgeInsets.all(3.0),
                                             child: Container(
                                               width: double.infinity,
                                               height: 90.0,
@@ -555,7 +550,7 @@ class _UserInterfaceWidgetState extends State<UserInterfaceWidget> {
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       0.0,
                                                                       0.0,
@@ -572,7 +567,7 @@ class _UserInterfaceWidgetState extends State<UserInterfaceWidget> {
                                                         ),
                                                         Align(
                                                           alignment:
-                                                              AlignmentDirectional(
+                                                              const AlignmentDirectional(
                                                                   0.0, 0.0),
                                                           child: Text(
                                                             FFLocalizations.of(
@@ -613,7 +608,7 @@ class _UserInterfaceWidgetState extends State<UserInterfaceWidget> {
                               ),
                             if (Theme.of(context).brightness == Brightness.dark)
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     5.0, 5.0, 5.0, 0.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
@@ -628,7 +623,7 @@ class _UserInterfaceWidgetState extends State<UserInterfaceWidget> {
                                     width: double.infinity,
                                     height: 55.0,
                                     decoration: BoxDecoration(
-                                      gradient: LinearGradient(
+                                      gradient: const LinearGradient(
                                         colors: [
                                           Color(0xDD4001B5),
                                           Color(0xDD4001B5)
@@ -646,7 +641,7 @@ class _UserInterfaceWidgetState extends State<UserInterfaceWidget> {
                                       children: [
                                         Flexible(
                                           child: Padding(
-                                            padding: EdgeInsets.all(3.0),
+                                            padding: const EdgeInsets.all(3.0),
                                             child: Container(
                                               width: double.infinity,
                                               height: 90.0,
@@ -672,7 +667,7 @@ class _UserInterfaceWidgetState extends State<UserInterfaceWidget> {
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       0.0,
                                                                       0.0,
@@ -688,7 +683,7 @@ class _UserInterfaceWidgetState extends State<UserInterfaceWidget> {
                                                         ),
                                                         Align(
                                                           alignment:
-                                                              AlignmentDirectional(
+                                                              const AlignmentDirectional(
                                                                   0.0, 0.0),
                                                           child: Text(
                                                             FFLocalizations.of(

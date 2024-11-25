@@ -1,4 +1,3 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/components/error_bar_widget.dart';
@@ -7,12 +6,8 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/upload_data.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'create_space_model.dart';
 export 'create_space_model.dart';
 
@@ -60,7 +55,7 @@ class _CreateSpaceWidgetState extends State<CreateSpaceWidget> {
       height: 450.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
           topLeft: Radius.circular(30.0),
@@ -71,7 +66,7 @@ class _CreateSpaceWidgetState extends State<CreateSpaceWidget> {
         mainAxisSize: MainAxisSize.max,
         children: [
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
             child: Container(
               width: double.infinity,
               height: 55.0,
@@ -88,7 +83,7 @@ class _CreateSpaceWidgetState extends State<CreateSpaceWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
                     child: FlutterFlowIconButton(
                       borderColor: Colors.transparent,
                       borderRadius: 30.0,
@@ -128,7 +123,7 @@ class _CreateSpaceWidgetState extends State<CreateSpaceWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 3.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 3.0, 0.0),
                     child: FlutterFlowIconButton(
                       borderColor: Colors.transparent,
                       borderRadius: 30.0,
@@ -146,8 +141,7 @@ class _CreateSpaceWidgetState extends State<CreateSpaceWidget> {
                             (functions.stringLength(
                                     _model.nameTextController.text) >
                                 3) &&
-                            (_model.uploadedFileUrl != null &&
-                                _model.uploadedFileUrl != '')) {
+                            (_model.uploadedFileUrl != '')) {
                           await SpacesRecord.collection
                               .doc()
                               .set(createSpacesRecordData(
@@ -163,7 +157,7 @@ class _CreateSpaceWidgetState extends State<CreateSpaceWidget> {
                             builder: (context) {
                               return Padding(
                                 padding: MediaQuery.viewInsetsOf(context),
-                                child: ErrorBarWidget(
+                                child: const ErrorBarWidget(
                                   text: 'Fill all fields',
                                 ),
                               );
@@ -180,7 +174,7 @@ class _CreateSpaceWidgetState extends State<CreateSpaceWidget> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             child: InkWell(
               splashColor: Colors.transparent,
               focusColor: Colors.transparent,
@@ -247,13 +241,12 @@ class _CreateSpaceWidgetState extends State<CreateSpaceWidget> {
               child: Container(
                 width: double.infinity,
                 height: 120.0,
-                constraints: BoxConstraints(
+                constraints: const BoxConstraints(
                   maxWidth: 600.0,
                   maxHeight: 120.0,
                 ),
                 decoration: BoxDecoration(
-                  color: _model.uploadedLocalFile != null &&
-                          (_model.uploadedLocalFile.bytes?.isNotEmpty ?? false)
+                  color: (_model.uploadedLocalFile.bytes?.isNotEmpty ?? false)
                       ? FlutterFlowTheme.of(context).secondaryBackground
                       : FlutterFlowTheme.of(context).primary,
                   image: DecorationImage(
@@ -266,10 +259,9 @@ class _CreateSpaceWidgetState extends State<CreateSpaceWidget> {
                 ),
                 child: Stack(
                   children: [
-                    if (_model.uploadedFileUrl == null ||
-                        _model.uploadedFileUrl == '')
+                    if (_model.uploadedFileUrl == '')
                       Align(
-                        alignment: AlignmentDirectional(-0.91, 0.76),
+                        alignment: const AlignmentDirectional(-0.91, 0.76),
                         child: Icon(
                           Icons.file_upload_outlined,
                           color: FlutterFlowTheme.of(context).secondaryText,
@@ -282,7 +274,7 @@ class _CreateSpaceWidgetState extends State<CreateSpaceWidget> {
             ),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
             child: TextFormField(
               controller: _model.nameTextController,
               focusNode: _model.nameFocusNode,
@@ -349,7 +341,7 @@ class _CreateSpaceWidgetState extends State<CreateSpaceWidget> {
             ),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(8.0, 10.0, 8.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(8.0, 10.0, 8.0, 0.0),
             child: TextFormField(
               controller: _model.textTextController,
               focusNode: _model.textFocusNode,

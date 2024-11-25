@@ -7,8 +7,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'music_selector_model.dart';
 export 'music_selector_model.dart';
 
@@ -50,7 +48,7 @@ class _MusicSelectorWidgetState extends State<MusicSelectorWidget> {
       height: 550.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
           topLeft: Radius.circular(30.0),
@@ -61,12 +59,12 @@ class _MusicSelectorWidgetState extends State<MusicSelectorWidget> {
         mainAxisSize: MainAxisSize.max,
         children: [
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
             child: Container(
               width: double.infinity,
               height: 55.0,
               decoration: BoxDecoration(
-                gradient: LinearGradient(
+                gradient: const LinearGradient(
                   colors: [Color(0x7F2120BC), Color(0x7B7D16C1)],
                   stops: [0.0, 1.0],
                   begin: AlignmentDirectional(1.0, -1.0),
@@ -80,7 +78,7 @@ class _MusicSelectorWidgetState extends State<MusicSelectorWidget> {
                 children: [
                   Flexible(
                     child: Padding(
-                      padding: EdgeInsets.all(3.0),
+                      padding: const EdgeInsets.all(3.0),
                       child: Container(
                         width: double.infinity,
                         height: 90.0,
@@ -94,7 +92,7 @@ class _MusicSelectorWidgetState extends State<MusicSelectorWidget> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   3.0, 0.0, 0.0, 0.0),
                               child: FlutterFlowIconButton(
                                 borderColor: Colors.transparent,
@@ -118,7 +116,7 @@ class _MusicSelectorWidgetState extends State<MusicSelectorWidget> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Align(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
                                     child: Text(
                                       FFLocalizations.of(context).getText(
                                         '0640bl7c' /* Select Audio */,
@@ -139,7 +137,7 @@ class _MusicSelectorWidgetState extends State<MusicSelectorWidget> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 3.0, 0.0),
                               child: FlutterFlowIconButton(
                                 borderColor: Colors.transparent,
@@ -166,7 +164,7 @@ class _MusicSelectorWidgetState extends State<MusicSelectorWidget> {
             ),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
             child: FFButtonWidget(
               onPressed: () async {
                 await showModalBottomSheet(
@@ -177,7 +175,7 @@ class _MusicSelectorWidgetState extends State<MusicSelectorWidget> {
                   builder: (context) {
                     return Padding(
                       padding: MediaQuery.viewInsetsOf(context),
-                      child: CreateAudioWidget(),
+                      child: const CreateAudioWidget(),
                     );
                   },
                 ).then((value) => safeSetState(() {}));
@@ -188,8 +186,8 @@ class _MusicSelectorWidgetState extends State<MusicSelectorWidget> {
               options: FFButtonOptions(
                 width: double.infinity,
                 height: 50.0,
-                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                iconPadding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                 color: FlutterFlowTheme.of(context).primary,
                 textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                       fontFamily: 'Montserrat',
@@ -203,7 +201,7 @@ class _MusicSelectorWidgetState extends State<MusicSelectorWidget> {
           ),
           Flexible(
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
               child: StreamBuilder<List<MusicRecord>>(
                 stream: queryMusicRecord(),
                 builder: (context, snapshot) {
@@ -227,7 +225,7 @@ class _MusicSelectorWidgetState extends State<MusicSelectorWidget> {
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     itemCount: listViewMusicRecordList.length,
-                    separatorBuilder: (_, __) => SizedBox(height: 10.0),
+                    separatorBuilder: (_, __) => const SizedBox(height: 10.0),
                     itemBuilder: (context, listViewIndex) {
                       final listViewMusicRecord =
                           listViewMusicRecordList[listViewIndex];
@@ -246,7 +244,7 @@ class _MusicSelectorWidgetState extends State<MusicSelectorWidget> {
                             color: valueOrDefault<Color>(
                               _model.selectedAudio?.reference ==
                                       listViewMusicRecord.reference
-                                  ? Color(0x9C4B39EF)
+                                  ? const Color(0x9C4B39EF)
                                   : FlutterFlowTheme.of(context)
                                       .secondaryBackground,
                               FlutterFlowTheme.of(context).secondaryBackground,
@@ -261,7 +259,7 @@ class _MusicSelectorWidgetState extends State<MusicSelectorWidget> {
                             ),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all(5.0),
+                            padding: const EdgeInsets.all(5.0),
                             child: FlutterFlowAudioPlayer(
                               audio: Audio.network(
                                 listViewMusicRecord.audio,
@@ -284,7 +282,7 @@ class _MusicSelectorWidgetState extends State<MusicSelectorWidget> {
                                         fontSize: 14.0,
                                         letterSpacing: 0.0,
                                       ),
-                              fillColor: Color(0x00000000),
+                              fillColor: const Color(0x00000000),
                               playbackButtonColor:
                                   FlutterFlowTheme.of(context).primary,
                               activeTrackColor:

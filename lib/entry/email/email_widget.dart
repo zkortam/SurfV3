@@ -5,14 +5,10 @@ import '/flutter_flow/flutter_flow_timer.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/instant_timer.dart';
-import 'dart:math';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'email_model.dart';
 export 'email_model.dart';
 
@@ -41,7 +37,7 @@ class _EmailWidgetState extends State<EmailWidget>
       await authManager.refreshUser();
       await authManager.sendEmailVerification();
       _model.instantTimer = InstantTimer.periodic(
-        duration: Duration(milliseconds: 1000),
+        duration: const Duration(milliseconds: 1000),
         callback: (timer) async {
           if (currentUserEmailVerified) {
             _model.instantTimer?.cancel();
@@ -105,7 +101,7 @@ class _EmailWidgetState extends State<EmailWidget>
               child: Container(
                 width: double.infinity,
                 height: double.infinity,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     colors: [Color(0xFF9F1CFA), Color(0xFF0D28A2)],
                     stops: [0.0, 1.0],
@@ -113,7 +109,7 @@ class _EmailWidgetState extends State<EmailWidget>
                     end: AlignmentDirectional(-0.87, 1.0),
                   ),
                 ),
-                alignment: AlignmentDirectional(0.0, -1.0),
+                alignment: const AlignmentDirectional(0.0, -1.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -129,7 +125,7 @@ class _EmailWidgetState extends State<EmailWidget>
                           milliSecond: false,
                         ),
                         controller: _model.timerController,
-                        updateStateInterval: Duration(milliseconds: 1000),
+                        updateStateInterval: const Duration(milliseconds: 1000),
                         onChanged: (value, displayTime, shouldUpdate) {
                           _model.timerMilliseconds = value;
                           _model.timerValue = displayTime;
@@ -145,17 +141,17 @@ class _EmailWidgetState extends State<EmailWidget>
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(
+                      padding: const EdgeInsetsDirectional.fromSTEB(
                           16.0, 16.0, 16.0, 10.0),
                       child: Container(
                         width: double.infinity,
-                        constraints: BoxConstraints(
+                        constraints: const BoxConstraints(
                           maxWidth: 570.0,
                         ),
                         decoration: BoxDecoration(
                           color:
                               FlutterFlowTheme.of(context).secondaryBackground,
-                          boxShadow: [
+                          boxShadow: const [
                             BoxShadow(
                               blurRadius: 4.0,
                               color: Color(0x33000000),
@@ -168,9 +164,9 @@ class _EmailWidgetState extends State<EmailWidget>
                           borderRadius: BorderRadius.circular(30.0),
                         ),
                         child: Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
+                          alignment: const AlignmentDirectional(0.0, 0.0),
                           child: Padding(
-                            padding: EdgeInsets.all(20.0),
+                            padding: const EdgeInsets.all(20.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -189,7 +185,7 @@ class _EmailWidgetState extends State<EmailWidget>
                                       ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 5.0, 0.0, 12.0),
                                   child: Text(
                                     FFLocalizations.of(context).getText(
@@ -206,7 +202,7 @@ class _EmailWidgetState extends State<EmailWidget>
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 10.0, 0.0, 0.0),
                                   child: FFButtonWidget(
                                     onPressed: () async {
@@ -237,9 +233,9 @@ class _EmailWidgetState extends State<EmailWidget>
                                     options: FFButtonOptions(
                                       width: 200.0,
                                       height: 47.0,
-                                      padding: EdgeInsets.all(0.0),
+                                      padding: const EdgeInsets.all(0.0),
                                       iconPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
+                                          const EdgeInsetsDirectional.fromSTEB(
                                               0.0, 0.0, 0.0, 0.0),
                                       color: _model.isClicked
                                           ? FlutterFlowTheme.of(context)
@@ -254,7 +250,7 @@ class _EmailWidgetState extends State<EmailWidget>
                                             letterSpacing: 0.0,
                                           ),
                                       elevation: 3.0,
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Colors.transparent,
                                         width: 1.0,
                                       ),
@@ -272,17 +268,17 @@ class _EmailWidgetState extends State<EmailWidget>
                     ),
                     if (_model.isClicked)
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 16.0),
                         child: Container(
                           width: double.infinity,
-                          constraints: BoxConstraints(
+                          constraints: const BoxConstraints(
                             maxWidth: 570.0,
                           ),
                           decoration: BoxDecoration(
                             color: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
-                            boxShadow: [
+                            boxShadow: const [
                               BoxShadow(
                                 blurRadius: 4.0,
                                 color: Color(0x33000000),
@@ -295,9 +291,9 @@ class _EmailWidgetState extends State<EmailWidget>
                             borderRadius: BorderRadius.circular(30.0),
                           ),
                           child: Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Padding(
-                              padding: EdgeInsets.all(15.0),
+                              padding: const EdgeInsets.all(15.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -324,7 +320,7 @@ class _EmailWidgetState extends State<EmailWidget>
                                             ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             10.0, 0.0, 0.0, 0.0),
                                         child: Icon(
                                           Icons.check_circle_rounded,

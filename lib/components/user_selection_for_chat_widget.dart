@@ -7,13 +7,8 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'user_selection_for_chat_model.dart';
 export 'user_selection_for_chat_model.dart';
 
@@ -21,7 +16,7 @@ class UserSelectionForChatWidget extends StatefulWidget {
   const UserSelectionForChatWidget({
     super.key,
     bool? creatingGroup,
-  }) : this.creatingGroup = creatingGroup ?? false;
+  }) : creatingGroup = creatingGroup ?? false;
 
   final bool creatingGroup;
 
@@ -62,7 +57,7 @@ class _UserSelectionForChatWidgetState
       height: 600.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
           topLeft: Radius.circular(30.0),
@@ -70,12 +65,12 @@ class _UserSelectionForChatWidgetState
         ),
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
+        padding: const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
               child: Container(
                 width: double.infinity,
                 height: 55.0,
@@ -93,7 +88,7 @@ class _UserSelectionForChatWidgetState
                   children: [
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
                       child: FlutterFlowIconButton(
                         borderColor: Colors.transparent,
                         borderRadius: 30.0,
@@ -135,7 +130,7 @@ class _UserSelectionForChatWidgetState
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 3.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 3.0, 0.0),
                       child: FlutterFlowIconButton(
                         borderColor: Colors.transparent,
                         borderRadius: 30.0,
@@ -147,7 +142,7 @@ class _UserSelectionForChatWidgetState
                           size: 24.0,
                         ),
                         onPressed: () async {
-                          if (widget!.creatingGroup) {
+                          if (widget.creatingGroup) {
                             await showModalBottomSheet(
                               isScrollControlled: true,
                               backgroundColor: Colors.transparent,
@@ -262,7 +257,7 @@ class _UserSelectionForChatWidgetState
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(5.0, 10.0, 5.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(5.0, 10.0, 5.0, 0.0),
               child: StreamBuilder<List<UsersRecord>>(
                 stream: queryUsersRecord(
                   queryBuilder: (usersRecord) =>
@@ -285,7 +280,7 @@ class _UserSelectionForChatWidgetState
                   List<UsersRecord> listViewUsersRecordList = snapshot.data!;
 
                   return ListView.separated(
-                    padding: EdgeInsets.fromLTRB(
+                    padding: const EdgeInsets.fromLTRB(
                       0,
                       0,
                       0,
@@ -294,7 +289,7 @@ class _UserSelectionForChatWidgetState
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     itemCount: listViewUsersRecordList.length,
-                    separatorBuilder: (_, __) => SizedBox(height: 10.0),
+                    separatorBuilder: (_, __) => const SizedBox(height: 10.0),
                     itemBuilder: (context, listViewIndex) {
                       final listViewUsersRecord =
                           listViewUsersRecordList[listViewIndex];
@@ -304,7 +299,7 @@ class _UserSelectionForChatWidgetState
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          if (widget!.creatingGroup) {
+                          if (widget.creatingGroup) {
                             if (functions.userInList(
                                 _model.selectedUsers.toList(),
                                 listViewUsersRecord.reference)) {
@@ -345,7 +340,7 @@ class _UserSelectionForChatWidgetState
                             color: functions.userInList(
                                     _model.selectedUsers.toList(),
                                     listViewUsersRecord.reference)
-                                ? Color(0x9B4B39EF)
+                                ? const Color(0x9B4B39EF)
                                 : FlutterFlowTheme.of(context)
                                     .secondaryBackground,
                             borderRadius: BorderRadius.circular(50.0),
@@ -366,13 +361,13 @@ class _UserSelectionForChatWidgetState
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         2.0, 5.0, 5.0, 5.0),
                                     child: Container(
                                       width: 50.0,
                                       height: 50.0,
                                       clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         shape: BoxShape.circle,
                                       ),
                                       child: Image.network(

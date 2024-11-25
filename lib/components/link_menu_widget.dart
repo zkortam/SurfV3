@@ -4,9 +4,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'link_menu_model.dart';
 export 'link_menu_model.dart';
 
@@ -53,7 +50,7 @@ class _LinkMenuWidgetState extends State<LinkMenuWidget> {
       height: 450.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
           topLeft: Radius.circular(30.0),
@@ -64,7 +61,7 @@ class _LinkMenuWidgetState extends State<LinkMenuWidget> {
         mainAxisSize: MainAxisSize.max,
         children: [
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
             child: Container(
               width: double.infinity,
               height: 55.0,
@@ -72,7 +69,7 @@ class _LinkMenuWidgetState extends State<LinkMenuWidget> {
                 color: FlutterFlowTheme.of(context).secondaryBackground,
                 borderRadius: BorderRadius.circular(50.0),
                 border: Border.all(
-                  color: Color(0xFFDD6013),
+                  color: const Color(0xFFDD6013),
                   width: 3.0,
                 ),
               ),
@@ -81,7 +78,7 @@ class _LinkMenuWidgetState extends State<LinkMenuWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
                     child: FlutterFlowIconButton(
                       borderColor: Colors.transparent,
                       borderRadius: 30.0,
@@ -122,16 +119,16 @@ class _LinkMenuWidgetState extends State<LinkMenuWidget> {
                   ),
                   Stack(
                     children: [
-                      if (functions.isSecure(widget!.link!).toString() == '1')
+                      if (functions.isSecure(widget.link!).toString() == '1')
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 3.0, 0.0),
                           child: FlutterFlowIconButton(
                             borderColor: Colors.transparent,
                             borderRadius: 30.0,
                             buttonSize: 42.0,
                             fillColor: FlutterFlowTheme.of(context).success,
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.shield,
                               color: Colors.white,
                               size: 20.0,
@@ -141,16 +138,16 @@ class _LinkMenuWidgetState extends State<LinkMenuWidget> {
                             },
                           ),
                         ),
-                      if (functions.isSecure(widget!.link!).toString() == '0')
+                      if (functions.isSecure(widget.link!).toString() == '0')
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 3.0, 0.0),
                           child: FlutterFlowIconButton(
                             borderColor: Colors.transparent,
                             borderRadius: 30.0,
                             buttonSize: 42.0,
                             fillColor: FlutterFlowTheme.of(context).error,
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.dangerous_sharp,
                               color: Colors.white,
                               size: 20.0,
@@ -160,9 +157,9 @@ class _LinkMenuWidgetState extends State<LinkMenuWidget> {
                             },
                           ),
                         ),
-                      if (functions.isSecure(widget!.link!).toString() == '-1')
+                      if (functions.isSecure(widget.link!).toString() == '-1')
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 3.0, 0.0),
                           child: FlutterFlowIconButton(
                             borderColor: Colors.transparent,
@@ -186,7 +183,7 @@ class _LinkMenuWidgetState extends State<LinkMenuWidget> {
             ),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(5.0, 20.0, 5.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(5.0, 20.0, 5.0, 0.0),
             child: Container(
               width: double.infinity,
               decoration: BoxDecoration(
@@ -198,13 +195,13 @@ class _LinkMenuWidgetState extends State<LinkMenuWidget> {
                 ),
               ),
               child: Padding(
-                padding: EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(
+                      padding: const EdgeInsetsDirectional.fromSTEB(
                           10.0, 10.0, 10.0, 10.0),
                       child: Text(
                         FFLocalizations.of(context).getText(
@@ -221,7 +218,7 @@ class _LinkMenuWidgetState extends State<LinkMenuWidget> {
                     ),
                     Text(
                       valueOrDefault<String>(
-                        widget!.link,
+                        widget.link,
                         'link',
                       ),
                       textAlign: TextAlign.center,
@@ -238,7 +235,7 @@ class _LinkMenuWidgetState extends State<LinkMenuWidget> {
           ),
           Flexible(
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -254,9 +251,9 @@ class _LinkMenuWidgetState extends State<LinkMenuWidget> {
                       width: MediaQuery.sizeOf(context).width * 0.3,
                       height: 40.0,
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                       iconPadding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                       color: FlutterFlowTheme.of(context).secondaryText,
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
@@ -265,7 +262,7 @@ class _LinkMenuWidgetState extends State<LinkMenuWidget> {
                                 letterSpacing: 0.0,
                               ),
                       elevation: 3.0,
-                      borderSide: BorderSide(
+                      borderSide: const BorderSide(
                         color: Colors.transparent,
                         width: 1.0,
                       ),
@@ -274,10 +271,10 @@ class _LinkMenuWidgetState extends State<LinkMenuWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        await launchURL(widget!.link!);
+                        await launchURL(widget.link!);
                       },
                       text: FFLocalizations.of(context).getText(
                         'e4q2q1x4' /* Confirm */,
@@ -285,10 +282,10 @@ class _LinkMenuWidgetState extends State<LinkMenuWidget> {
                       options: FFButtonOptions(
                         width: MediaQuery.sizeOf(context).width * 0.6,
                         height: 40.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
                         iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).primaryText,
                         textStyle:
                             FlutterFlowTheme.of(context).labelMedium.override(
@@ -298,7 +295,7 @@ class _LinkMenuWidgetState extends State<LinkMenuWidget> {
                                   letterSpacing: 0.0,
                                 ),
                         elevation: 3.0,
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Colors.transparent,
                           width: 1.0,
                         ),

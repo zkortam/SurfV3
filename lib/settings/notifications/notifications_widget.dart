@@ -4,12 +4,7 @@ import '/components/info_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'notifications_model.dart';
 export 'notifications_model.dart';
 
@@ -60,12 +55,12 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                   children: [
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
                       child: Container(
                         width: double.infinity,
                         height: 55.0,
                         decoration: BoxDecoration(
-                          gradient: LinearGradient(
+                          gradient: const LinearGradient(
                             colors: [Color(0x7F2120BC), Color(0x7B7D16C1)],
                             stops: [0.0, 1.0],
                             begin: AlignmentDirectional(1.0, -1.0),
@@ -79,7 +74,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                           children: [
                             Flexible(
                               child: Padding(
-                                padding: EdgeInsets.all(3.0),
+                                padding: const EdgeInsets.all(3.0),
                                 child: Container(
                                   width: double.infinity,
                                   height: 90.0,
@@ -93,7 +88,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             3.0, 0.0, 0.0, 0.0),
                                         child: FlutterFlowIconButton(
                                           borderColor: Colors.transparent,
@@ -120,10 +115,10 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                               MainAxisAlignment.center,
                                           children: [
                                             Align(
-                                              alignment: AlignmentDirectional(
+                                              alignment: const AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 0.0, 40.0, 0.0),
                                                 child: Text(
@@ -162,7 +157,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(10.0, 30.0, 10.0, 2.0),
+                          const EdgeInsetsDirectional.fromSTEB(10.0, 30.0, 10.0, 2.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -183,12 +178,12 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 20.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 20.0),
                       child: Stack(
                         children: [
                           if (!currentUserDocument!.userSettings.isSilent)
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   10.0, 0.0, 10.0, 0.0),
                               child: AuthUserStreamWidget(
                                 builder: (context) => InkWell(
@@ -218,7 +213,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                           child: Padding(
                                             padding: MediaQuery.viewInsetsOf(
                                                 context),
-                                            child: InfoWidget(
+                                            child: const InfoWidget(
                                               text: 'Silent Mode On',
                                             ),
                                           ),
@@ -232,12 +227,12 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                     decoration: BoxDecoration(
                                       gradient: LinearGradient(
                                         colors: [
-                                          Color(0xADE0771A),
+                                          const Color(0xADE0771A),
                                           FlutterFlowTheme.of(context).warning
                                         ],
-                                        stops: [0.0, 1.0],
-                                        begin: AlignmentDirectional(1.0, -1.0),
-                                        end: AlignmentDirectional(-1.0, 1.0),
+                                        stops: const [0.0, 1.0],
+                                        begin: const AlignmentDirectional(1.0, -1.0),
+                                        end: const AlignmentDirectional(-1.0, 1.0),
                                       ),
                                       borderRadius: BorderRadius.circular(50.0),
                                     ),
@@ -248,13 +243,13 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 5.0, 0.0),
                                           child: FlutterFlowIconButton(
                                             borderColor: Colors.transparent,
                                             borderRadius: 30.0,
                                             buttonSize: 42.0,
-                                            icon: Icon(
+                                            icon: const Icon(
                                               Icons.notifications_rounded,
                                               color: Colors.white,
                                               size: 25.0,
@@ -266,7 +261,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                         ),
                                         Align(
                                           alignment:
-                                              AlignmentDirectional(0.0, 0.0),
+                                              const AlignmentDirectional(0.0, 0.0),
                                           child: Text(
                                             FFLocalizations.of(context).getText(
                                               'tl5dq2fq' /* Silent Mode Off */,
@@ -288,10 +283,10 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                 ),
                               ),
                             ),
-                          if (currentUserDocument?.userSettings?.isSilent ??
+                          if (currentUserDocument?.userSettings.isSilent ??
                               true)
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   5.0, 0.0, 5.0, 0.0),
                               child: AuthUserStreamWidget(
                                 builder: (context) => InkWell(
@@ -321,7 +316,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                           child: Padding(
                                             padding: MediaQuery.viewInsetsOf(
                                                 context),
-                                            child: InfoWidget(
+                                            child: const InfoWidget(
                                               text: 'Silent Mode Off',
                                             ),
                                           ),
@@ -335,12 +330,12 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                     decoration: BoxDecoration(
                                       gradient: LinearGradient(
                                         colors: [
-                                          Color(0xADE0771A),
+                                          const Color(0xADE0771A),
                                           FlutterFlowTheme.of(context).warning
                                         ],
-                                        stops: [0.0, 1.0],
-                                        begin: AlignmentDirectional(1.0, -1.0),
-                                        end: AlignmentDirectional(-1.0, 1.0),
+                                        stops: const [0.0, 1.0],
+                                        begin: const AlignmentDirectional(1.0, -1.0),
+                                        end: const AlignmentDirectional(-1.0, 1.0),
                                       ),
                                       borderRadius: BorderRadius.circular(40.0),
                                     ),
@@ -351,7 +346,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                       children: [
                                         Flexible(
                                           child: Padding(
-                                            padding: EdgeInsets.all(3.0),
+                                            padding: const EdgeInsets.all(3.0),
                                             child: Container(
                                               width: double.infinity,
                                               height: 90.0,
@@ -369,7 +364,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 0.0,
                                                                 5.0, 0.0),
                                                     child:
@@ -378,7 +373,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                                           Colors.transparent,
                                                       borderRadius: 30.0,
                                                       buttonSize: 42.0,
-                                                      icon: Icon(
+                                                      icon: const Icon(
                                                         Icons
                                                             .notifications_off_rounded,
                                                         color: Colors.white,
@@ -392,7 +387,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                                   ),
                                                   Align(
                                                     alignment:
-                                                        AlignmentDirectional(
+                                                        const AlignmentDirectional(
                                                             0.0, 0.0),
                                                     child: Text(
                                                       FFLocalizations.of(
@@ -430,7 +425,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 2.0),
+                          const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 2.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -451,7 +446,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
                       child: Container(
                         width: double.infinity,
                         height: 55.0,
@@ -463,7 +458,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                           ),
                         ),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               5.0, 0.0, 5.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -475,13 +470,13 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 5.0, 0.0),
                                     child: FlutterFlowIconButton(
                                       borderColor: Colors.transparent,
                                       borderRadius: 30.0,
                                       buttonSize: 42.0,
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.mail,
                                         color: Colors.white,
                                         size: 25.0,
@@ -492,7 +487,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                     ),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
                                     child: Text(
                                       FFLocalizations.of(context).getText(
                                         'ir2filp7' /* Email Notifications */,
@@ -515,8 +510,8 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                   value: _model.switchValue1!,
                                   onChanged: (newValue) async {
                                     safeSetState(
-                                        () => _model.switchValue1 = newValue!);
-                                    if (newValue!) {
+                                        () => _model.switchValue1 = newValue);
+                                    if (newValue) {
                                       await currentUserReference!
                                           .update(createUsersRecordData(
                                         userSettings: createUserSettingsStruct(
@@ -551,7 +546,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
                       child: Container(
                         width: double.infinity,
                         height: 55.0,
@@ -563,7 +558,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                           ),
                         ),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               5.0, 0.0, 5.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -575,13 +570,13 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 5.0, 0.0),
                                     child: FlutterFlowIconButton(
                                       borderColor: Colors.transparent,
                                       borderRadius: 30.0,
                                       buttonSize: 42.0,
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.smartphone,
                                         color: Colors.white,
                                         size: 25.0,
@@ -592,7 +587,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                     ),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
                                     child: Text(
                                       FFLocalizations.of(context).getText(
                                         'mcp676zu' /* Push Notifications */,
@@ -615,8 +610,8 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                   value: _model.switchValue2!,
                                   onChanged: (newValue) async {
                                     safeSetState(
-                                        () => _model.switchValue2 = newValue!);
-                                    if (newValue!) {
+                                        () => _model.switchValue2 = newValue);
+                                    if (newValue) {
                                       await currentUserReference!
                                           .update(createUsersRecordData(
                                         userSettings: createUserSettingsStruct(

@@ -8,15 +8,9 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
-import 'dart:math';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'create_audio_model.dart';
 export 'create_audio_model.dart';
 
@@ -109,7 +103,7 @@ class _CreateAudioWidgetState extends State<CreateAudioWidget>
       height: 650.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
           topLeft: Radius.circular(30.0),
@@ -120,7 +114,7 @@ class _CreateAudioWidgetState extends State<CreateAudioWidget>
         mainAxisSize: MainAxisSize.max,
         children: [
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
             child: Container(
               width: double.infinity,
               height: 55.0,
@@ -137,7 +131,7 @@ class _CreateAudioWidgetState extends State<CreateAudioWidget>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
                     child: FlutterFlowIconButton(
                       borderColor: Colors.transparent,
                       borderRadius: 30.0,
@@ -156,7 +150,7 @@ class _CreateAudioWidgetState extends State<CreateAudioWidget>
                   Flexible(
                     child: Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -176,13 +170,13 @@ class _CreateAudioWidgetState extends State<CreateAudioWidget>
                                 ),
                           ),
                         ]
-                            .divide(SizedBox(width: 10.0))
-                            .addToEnd(SizedBox(width: 10.0)),
+                            .divide(const SizedBox(width: 10.0))
+                            .addToEnd(const SizedBox(width: 10.0)),
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 3.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 3.0, 0.0),
                     child: FlutterFlowIconButton(
                       borderColor: Colors.transparent,
                       borderRadius: 30.0,
@@ -214,7 +208,7 @@ class _CreateAudioWidgetState extends State<CreateAudioWidget>
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             child: InkWell(
               splashColor: Colors.transparent,
               focusColor: Colors.transparent,
@@ -273,13 +267,12 @@ class _CreateAudioWidgetState extends State<CreateAudioWidget>
               child: Container(
                 width: double.infinity,
                 height: 120.0,
-                constraints: BoxConstraints(
+                constraints: const BoxConstraints(
                   maxWidth: 600.0,
                   maxHeight: 120.0,
                 ),
                 decoration: BoxDecoration(
-                  color: _model.uploadedLocalFile1 != null &&
-                          (_model.uploadedLocalFile1.bytes?.isNotEmpty ?? false)
+                  color: (_model.uploadedLocalFile1.bytes?.isNotEmpty ?? false)
                       ? FlutterFlowTheme.of(context).secondaryBackground
                       : FlutterFlowTheme.of(context).primary,
                   image: DecorationImage(
@@ -293,7 +286,7 @@ class _CreateAudioWidgetState extends State<CreateAudioWidget>
                 child: Stack(
                   children: [
                     Align(
-                      alignment: AlignmentDirectional(-0.91, 0.76),
+                      alignment: const AlignmentDirectional(-0.91, 0.76),
                       child: Icon(
                         Icons.file_upload_outlined,
                         color: FlutterFlowTheme.of(context).secondaryText,
@@ -307,11 +300,10 @@ class _CreateAudioWidgetState extends State<CreateAudioWidget>
           ),
           Stack(
             children: [
-              if (_model.uploadedLocalFile1 != null &&
-                  (_model.uploadedLocalFile1.bytes?.isNotEmpty ?? false))
+              if ((_model.uploadedLocalFile1.bytes?.isNotEmpty ?? false))
                 Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(10.0, 20.0, 10.0, 0.0),
+                      const EdgeInsetsDirectional.fromSTEB(10.0, 20.0, 10.0, 0.0),
                   child: Container(
                     width: double.infinity,
                     height: 150.0,
@@ -338,7 +330,7 @@ class _CreateAudioWidgetState extends State<CreateAudioWidget>
             ],
           ),
           Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             child: FFButtonWidget(
               onPressed: () async {
                 final selectedFiles = await selectFiles(
@@ -387,8 +379,8 @@ class _CreateAudioWidgetState extends State<CreateAudioWidget>
               options: FFButtonOptions(
                 width: double.infinity,
                 height: 50.0,
-                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                iconPadding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                 color: FlutterFlowTheme.of(context).primary,
                 textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                       fontFamily: 'Montserrat',
@@ -401,7 +393,7 @@ class _CreateAudioWidgetState extends State<CreateAudioWidget>
             ),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
             child: TextFormField(
               controller: _model.textThreadTextController1,
               focusNode: _model.textThreadFocusNode1,
@@ -473,7 +465,7 @@ class _CreateAudioWidgetState extends State<CreateAudioWidget>
             ),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(8.0, 10.0, 8.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(8.0, 10.0, 8.0, 0.0),
             child: TextFormField(
               controller: _model.textThreadTextController2,
               focusNode: _model.textThreadFocusNode2,
@@ -544,9 +536,9 @@ class _CreateAudioWidgetState extends State<CreateAudioWidget>
                   .asValidator(context),
             ),
           ),
-          if (_model.uploadedFileUrl2 != null && _model.uploadedFileUrl2 != '')
+          if (_model.uploadedFileUrl2 != '')
             Padding(
-              padding: EdgeInsets.all(5.0),
+              padding: const EdgeInsets.all(5.0),
               child: Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
@@ -558,7 +550,7 @@ class _CreateAudioWidgetState extends State<CreateAudioWidget>
                   ),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.all(5.0),
+                  padding: const EdgeInsets.all(5.0),
                   child: FlutterFlowAudioPlayer(
                     audio: Audio.network(
                       _model.uploadedFileUrl2,
@@ -578,7 +570,7 @@ class _CreateAudioWidgetState extends State<CreateAudioWidget>
                               fontSize: 14.0,
                               letterSpacing: 0.0,
                             ),
-                    fillColor: Color(0x00000000),
+                    fillColor: const Color(0x00000000),
                     playbackButtonColor: FlutterFlowTheme.of(context).primary,
                     activeTrackColor: FlutterFlowTheme.of(context).primary,
                     elevation: 0.0,

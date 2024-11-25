@@ -4,12 +4,9 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'user_selection_for_group_model.dart';
 export 'user_selection_for_group_model.dart';
 
@@ -43,8 +40,8 @@ class _UserSelectionForGroupWidgetState
 
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.selectedUsers = (currentUserDocument?.groups?.toList() ?? [])
-          .where((e) => e.name == widget!.groupName)
+      _model.selectedUsers = (currentUserDocument?.groups.toList() ?? [])
+          .where((e) => e.name == widget.groupName)
           .toList()
           .first
           .people
@@ -70,7 +67,7 @@ class _UserSelectionForGroupWidgetState
       height: 600.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
           topLeft: Radius.circular(30.0),
@@ -78,12 +75,12 @@ class _UserSelectionForGroupWidgetState
         ),
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
+        padding: const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
               child: Container(
                 width: double.infinity,
                 height: 55.0,
@@ -101,7 +98,7 @@ class _UserSelectionForGroupWidgetState
                   children: [
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
                       child: FlutterFlowIconButton(
                         borderColor: Colors.transparent,
                         borderRadius: 30.0,
@@ -143,7 +140,7 @@ class _UserSelectionForGroupWidgetState
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 3.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 3.0, 0.0),
                       child: FlutterFlowIconButton(
                         borderColor: Colors.transparent,
                         borderRadius: 30.0,
@@ -160,8 +157,8 @@ class _UserSelectionForGroupWidgetState
                               {
                                 'groups': getFollowerGroupListFirestoreData(
                                   functions.updateGroupPeople(
-                                      widget!.groupName!,
-                                      (currentUserDocument?.groups?.toList() ??
+                                      widget.groupName!,
+                                      (currentUserDocument?.groups.toList() ??
                                               [])
                                           .toList(),
                                       _model.selectedUsers.toList()),
@@ -178,7 +175,7 @@ class _UserSelectionForGroupWidgetState
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(5.0, 10.0, 5.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(5.0, 10.0, 5.0, 0.0),
               child: StreamBuilder<List<UsersRecord>>(
                 stream: queryUsersRecord(
                   queryBuilder: (usersRecord) =>
@@ -201,7 +198,7 @@ class _UserSelectionForGroupWidgetState
                   List<UsersRecord> listViewUsersRecordList = snapshot.data!;
 
                   return ListView.separated(
-                    padding: EdgeInsets.fromLTRB(
+                    padding: const EdgeInsets.fromLTRB(
                       0,
                       0,
                       0,
@@ -210,7 +207,7 @@ class _UserSelectionForGroupWidgetState
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     itemCount: listViewUsersRecordList.length,
-                    separatorBuilder: (_, __) => SizedBox(height: 10.0),
+                    separatorBuilder: (_, __) => const SizedBox(height: 10.0),
                     itemBuilder: (context, listViewIndex) {
                       final listViewUsersRecord =
                           listViewUsersRecordList[listViewIndex];
@@ -239,7 +236,7 @@ class _UserSelectionForGroupWidgetState
                             color: functions.userInList(
                                     _model.selectedUsers.toList(),
                                     listViewUsersRecord.reference)
-                                ? Color(0x9B4B39EF)
+                                ? const Color(0x9B4B39EF)
                                 : FlutterFlowTheme.of(context)
                                     .secondaryBackground,
                             borderRadius: BorderRadius.circular(50.0),
@@ -260,13 +257,13 @@ class _UserSelectionForGroupWidgetState
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         2.0, 5.0, 5.0, 5.0),
                                     child: Container(
                                       width: 50.0,
                                       height: 50.0,
                                       clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         shape: BoxShape.circle,
                                       ),
                                       child: Image.network(

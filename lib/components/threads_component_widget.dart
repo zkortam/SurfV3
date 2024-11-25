@@ -10,13 +10,10 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:provider/provider.dart';
 import 'threads_component_model.dart';
 export 'threads_component_model.dart';
 
@@ -61,7 +58,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
     return Visibility(
       visible: true /* Warning: Trying to access variable not yet defined. */,
       child: FutureBuilder<UsersRecord>(
-        future: UsersRecord.getDocumentOnce(widget!.thread!.author!),
+        future: UsersRecord.getDocumentOnce(widget.thread!.author!),
         builder: (context, snapshot) {
           // Customize what your widget looks like when it's loading.
           if (!snapshot.hasData) {
@@ -94,7 +91,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                   return Padding(
                     padding: MediaQuery.viewInsetsOf(context),
                     child: ThreadsCompWidget(
-                      thread: widget!.thread!.reference,
+                      thread: widget.thread!.reference,
                     ),
                   );
                 },
@@ -102,7 +99,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
             },
             child: Container(
               width: 450.0,
-              constraints: BoxConstraints(
+              constraints: const BoxConstraints(
                 maxWidth: 450.0,
                 maxHeight: 500.0,
               ),
@@ -116,7 +113,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                 children: [
                   Flexible(
                     child: Padding(
-                      padding: EdgeInsets.all(5.0),
+                      padding: const EdgeInsets.all(5.0),
                       child: Container(
                         width: 450.0,
                         height: 60.0,
@@ -129,7 +126,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   5.0, 0.0, 5.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -154,14 +151,14 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                       width: 50.0,
                                       height: 50.0,
                                       clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         shape: BoxShape.circle,
                                       ),
                                       child: CachedNetworkImage(
                                         fadeInDuration:
-                                            Duration(milliseconds: 500),
+                                            const Duration(milliseconds: 500),
                                         fadeOutDuration:
-                                            Duration(milliseconds: 500),
+                                            const Duration(milliseconds: 500),
                                         imageUrl: containerUsersRecord.photoUrl,
                                         fit: BoxFit.cover,
                                         errorWidget:
@@ -173,7 +170,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           10.0, 0.0, 0.0, 0.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
@@ -212,13 +209,13 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 20.0, 0.0),
                               child: Text(
                                 valueOrDefault<String>(
                                   functions
                                       .calculateNetVotes(
-                                          widget!.thread!.votes.toList())
+                                          widget.thread!.votes.toList())
                                       .toString(),
                                   '0',
                                 ),
@@ -238,10 +235,10 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
                     child: Text(
                       valueOrDefault<String>(
-                        widget!.thread?.title,
+                        widget.thread?.title,
                         'Title',
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -254,12 +251,12 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 5.0),
+                        const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 5.0),
                     child: Text(
                       valueOrDefault<String>(
                         dateTimeFormat(
                           "relative",
-                          widget!.thread?.timeStamp,
+                          widget.thread?.timeStamp,
                           locale:
                               FFLocalizations.of(context).languageShortCode ??
                                   FFLocalizations.of(context).languageCode,
@@ -274,21 +271,21 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                           ),
                     ),
                   ),
-                  if (!widget!.thread!.poll.isPoll)
+                  if (!widget.thread!.poll.isPoll)
                     Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 5.0, 10.0, 5.0),
                           child: ClipRRect(
                             child: Container(
                               width: 450.0,
-                              constraints: BoxConstraints(
+                              constraints: const BoxConstraints(
                                 minHeight: 30.0,
                                 maxHeight: 300.0,
                               ),
-                              decoration: BoxDecoration(),
+                              decoration: const BoxDecoration(),
                               child: SingleChildScrollView(
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
@@ -298,7 +295,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                       child: SelectionArea(
                                           child: Text(
                                         valueOrDefault<String>(
-                                          widget!.thread?.text,
+                                          widget.thread?.text,
                                           'Text',
                                         ),
                                         maxLines: 6,
@@ -316,15 +313,15 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                             ),
                           ),
                         ),
-                        if (widget!.thread?.summary != null &&
-                            widget!.thread?.summary != '')
+                        if (widget.thread?.summary != null &&
+                            widget.thread?.summary != '')
                           Flexible(
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   5.0, 5.0, 5.0, 0.0),
                               child: Container(
                                 width: double.infinity,
-                                constraints: BoxConstraints(
+                                constraints: const BoxConstraints(
                                   maxHeight: 80.0,
                                 ),
                                 decoration: BoxDecoration(
@@ -338,7 +335,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                   ),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       10.0, 7.0, 10.0, 7.0),
                                   child: SingleChildScrollView(
                                     child: Column(
@@ -365,7 +362,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                         Flexible(
                                           child: Text(
                                             valueOrDefault<String>(
-                                              widget!.thread?.summary,
+                                              widget.thread?.summary,
                                               'text',
                                             ),
                                             maxLines: 2,
@@ -390,16 +387,16 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                           ),
                       ],
                     ),
-                  if (widget!.thread?.poll?.isPoll ?? true)
+                  if (widget.thread?.poll.isPoll ?? true)
                     Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         if (functions.voterInList(
-                                widget!.thread!.poll.voters.toList(),
+                                widget.thread!.poll.voters.toList(),
                                 currentUserReference!) ==
                             0)
                           Padding(
-                            padding: EdgeInsets.all(5.0),
+                            padding: const EdgeInsets.all(5.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -409,7 +406,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    await widget!.thread!.reference
+                                    await widget.thread!.reference
                                         .update(createThreadsRecordData(
                                       poll: createPollStruct(
                                         fieldValues: {
@@ -449,7 +446,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                       children: [
                                         Text(
                                           valueOrDefault<String>(
-                                            widget!.thread?.poll?.options?[0],
+                                            widget.thread?.poll.options[0],
                                             'Option',
                                           ),
                                           style: FlutterFlowTheme.of(context)
@@ -469,7 +466,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    await widget!.thread!.reference
+                                    await widget.thread!.reference
                                         .update(createThreadsRecordData(
                                       poll: createPollStruct(
                                         fieldValues: {
@@ -509,7 +506,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                       children: [
                                         Text(
                                           valueOrDefault<String>(
-                                            widget!.thread?.poll?.options?[1],
+                                            widget.thread?.poll.options[1],
                                             'Option',
                                           ),
                                           style: FlutterFlowTheme.of(context)
@@ -524,7 +521,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                   ),
                                 ),
                                 if (valueOrDefault<String>(
-                                      widget!.thread?.poll?.options?[2],
+                                      widget.thread?.poll.options[2],
                                       'Option',
                                     ) !=
                                     ' ')
@@ -534,7 +531,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      await widget!.thread!.reference
+                                      await widget.thread!.reference
                                           .update(createThreadsRecordData(
                                         poll: createPollStruct(
                                           fieldValues: {
@@ -575,7 +572,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                         children: [
                                           Text(
                                             valueOrDefault<String>(
-                                              widget!.thread?.poll?.options?[2],
+                                              widget.thread?.poll.options[2],
                                               'Option',
                                             ),
                                             style: FlutterFlowTheme.of(context)
@@ -590,7 +587,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                     ),
                                   ),
                                 if (valueOrDefault<String>(
-                                      widget!.thread?.poll?.options?[3],
+                                      widget.thread?.poll.options[3],
                                       'Option',
                                     ) !=
                                     ' ')
@@ -600,7 +597,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      await widget!.thread!.reference
+                                      await widget.thread!.reference
                                           .update(createThreadsRecordData(
                                         poll: createPollStruct(
                                           fieldValues: {
@@ -641,7 +638,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                         children: [
                                           Text(
                                             valueOrDefault<String>(
-                                              widget!.thread?.poll?.options?[3],
+                                              widget.thread?.poll.options[3],
                                               'Option',
                                             ),
                                             style: FlutterFlowTheme.of(context)
@@ -655,15 +652,15 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                       ),
                                     ),
                                   ),
-                              ].divide(SizedBox(height: 5.0)),
+                              ].divide(const SizedBox(height: 5.0)),
                             ),
                           ),
                         if (functions.voterInList(
-                                widget!.thread!.poll.voters.toList(),
+                                widget.thread!.poll.voters.toList(),
                                 currentUserReference!) !=
                             0)
                           Padding(
-                            padding: EdgeInsets.all(5.0),
+                            padding: const EdgeInsets.all(5.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -687,7 +684,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                         LinearPercentIndicator(
                                           percent: valueOrDefault<double>(
                                             functions.votePercent(
-                                                widget!.thread!.votes.toList(),
+                                                widget.thread!.votes.toList(),
                                                 1),
                                             0.0,
                                           ),
@@ -700,15 +697,15 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                           backgroundColor:
                                               FlutterFlowTheme.of(context)
                                                   .secondaryBackground,
-                                          barRadius: Radius.circular(30.0),
+                                          barRadius: const Radius.circular(30.0),
                                           padding: EdgeInsets.zero,
                                         ),
                                         Align(
                                           alignment:
-                                              AlignmentDirectional(0.0, 0.0),
+                                              const AlignmentDirectional(0.0, 0.0),
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     10.0, 0.0, 20.0, 0.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -722,8 +719,8 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                   children: [
                                                     Text(
                                                       valueOrDefault<String>(
-                                                        widget!.thread?.poll
-                                                            ?.options?[0],
+                                                        widget.thread?.poll
+                                                            .options[0],
                                                         'Option',
                                                       ),
                                                       style: FlutterFlowTheme
@@ -736,14 +733,14 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                           ),
                                                     ),
                                                     if (functions.voterInList(
-                                                            widget!.thread!.poll
+                                                            widget.thread!.poll
                                                                 .voters
                                                                 .toList(),
                                                             currentUserReference!) ==
                                                         1)
                                                       Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     5.0,
                                                                     0.0,
@@ -765,7 +762,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                     functions
                                                         .roundAndMultiply(
                                                             functions.votePercent(
-                                                                widget!.thread!
+                                                                widget.thread!
                                                                     .votes
                                                                     .toList(),
                                                                 1))
@@ -810,7 +807,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                         LinearPercentIndicator(
                                           percent: valueOrDefault<double>(
                                             functions.votePercent(
-                                                widget!.thread!.votes.toList(),
+                                                widget.thread!.votes.toList(),
                                                 2),
                                             0.0,
                                           ),
@@ -823,15 +820,15 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                           backgroundColor:
                                               FlutterFlowTheme.of(context)
                                                   .secondaryBackground,
-                                          barRadius: Radius.circular(30.0),
+                                          barRadius: const Radius.circular(30.0),
                                           padding: EdgeInsets.zero,
                                         ),
                                         Align(
                                           alignment:
-                                              AlignmentDirectional(0.0, 0.0),
+                                              const AlignmentDirectional(0.0, 0.0),
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     10.0, 0.0, 20.0, 0.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -845,8 +842,8 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                   children: [
                                                     Text(
                                                       valueOrDefault<String>(
-                                                        widget!.thread?.poll
-                                                            ?.options?[1],
+                                                        widget.thread?.poll
+                                                            .options[1],
                                                         'Option',
                                                       ),
                                                       style: FlutterFlowTheme
@@ -859,14 +856,14 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                           ),
                                                     ),
                                                     if (functions.voterInList(
-                                                            widget!.thread!.poll
+                                                            widget.thread!.poll
                                                                 .voters
                                                                 .toList(),
                                                             currentUserReference!) ==
                                                         2)
                                                       Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     5.0,
                                                                     0.0,
@@ -888,7 +885,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                     functions
                                                         .roundAndMultiply(
                                                             functions.votePercent(
-                                                                widget!.thread!
+                                                                widget.thread!
                                                                     .votes
                                                                     .toList(),
                                                                 2))
@@ -914,7 +911,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                   ),
                                 ),
                                 if (valueOrDefault<String>(
-                                      widget!.thread?.poll?.options?[2],
+                                      widget.thread?.poll.options[2],
                                       'Option',
                                     ) !=
                                     ' ')
@@ -939,7 +936,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                           LinearPercentIndicator(
                                             percent: valueOrDefault<double>(
                                               functions.votePercent(
-                                                  widget!.thread!.votes
+                                                  widget.thread!.votes
                                                       .toList(),
                                                   3),
                                               0.0,
@@ -953,14 +950,14 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                             backgroundColor:
                                                 FlutterFlowTheme.of(context)
                                                     .secondaryBackground,
-                                            barRadius: Radius.circular(30.0),
+                                            barRadius: const Radius.circular(30.0),
                                             padding: EdgeInsets.zero,
                                           ),
                                           Align(
                                             alignment:
-                                                AlignmentDirectional(0.0, 0.0),
+                                                const AlignmentDirectional(0.0, 0.0),
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       10.0, 0.0, 20.0, 0.0),
                                               child: Row(
@@ -975,8 +972,8 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                     children: [
                                                       Text(
                                                         valueOrDefault<String>(
-                                                          widget!.thread?.poll
-                                                              ?.options?[2],
+                                                          widget.thread?.poll
+                                                              .options[2],
                                                           'Option',
                                                         ),
                                                         style:
@@ -991,14 +988,14 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                                 ),
                                                       ),
                                                       if (functions.voterInList(
-                                                              widget!.thread!
+                                                              widget.thread!
                                                                   .poll.voters
                                                                   .toList(),
                                                               currentUserReference!) ==
                                                           3)
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       5.0,
                                                                       0.0,
@@ -1020,7 +1017,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                       functions
                                                           .roundAndMultiply(
                                                               functions.votePercent(
-                                                                  widget!
+                                                                  widget
                                                                       .thread!
                                                                       .votes
                                                                       .toList(),
@@ -1047,7 +1044,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                     ),
                                   ),
                                 if (valueOrDefault<String>(
-                                      widget!.thread?.poll?.options?[3],
+                                      widget.thread?.poll.options[3],
                                       'Option',
                                     ) !=
                                     ' ')
@@ -1072,7 +1069,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                           LinearPercentIndicator(
                                             percent: valueOrDefault<double>(
                                               functions.votePercent(
-                                                  widget!.thread!.votes
+                                                  widget.thread!.votes
                                                       .toList(),
                                                   4),
                                               0.0,
@@ -1086,14 +1083,14 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                             backgroundColor:
                                                 FlutterFlowTheme.of(context)
                                                     .secondaryBackground,
-                                            barRadius: Radius.circular(30.0),
+                                            barRadius: const Radius.circular(30.0),
                                             padding: EdgeInsets.zero,
                                           ),
                                           Align(
                                             alignment:
-                                                AlignmentDirectional(0.0, 0.0),
+                                                const AlignmentDirectional(0.0, 0.0),
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       10.0, 0.0, 20.0, 0.0),
                                               child: Row(
@@ -1108,8 +1105,8 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                     children: [
                                                       Text(
                                                         valueOrDefault<String>(
-                                                          widget!.thread?.poll
-                                                              ?.options?[3],
+                                                          widget.thread?.poll
+                                                              .options[3],
                                                           'Option',
                                                         ),
                                                         style:
@@ -1124,14 +1121,14 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                                 ),
                                                       ),
                                                       if (functions.voterInList(
-                                                              widget!.thread!
+                                                              widget.thread!
                                                                   .poll.voters
                                                                   .toList(),
                                                               currentUserReference!) ==
                                                           4)
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       5.0,
                                                                       0.0,
@@ -1153,7 +1150,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                       functions
                                                           .roundAndMultiply(
                                                               functions.votePercent(
-                                                                  widget!
+                                                                  widget
                                                                       .thread!
                                                                       .votes
                                                                       .toList(),
@@ -1179,16 +1176,16 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                       ),
                                     ),
                                   ),
-                              ].divide(SizedBox(height: 5.0)),
+                              ].divide(const SizedBox(height: 5.0)),
                             ),
                           ),
                       ],
                     ),
-                  if (widget!.thread?.audio != null &&
-                      widget!.thread?.audio != '')
+                  if (widget.thread?.audio != null &&
+                      widget.thread?.audio != '')
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(5.0, 10.0, 5.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(5.0, 10.0, 5.0, 0.0),
                       child: Container(
                         width: 450.0,
                         decoration: BoxDecoration(
@@ -1201,10 +1198,10 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                           ),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.all(5.0),
+                          padding: const EdgeInsets.all(5.0),
                           child: FlutterFlowAudioPlayer(
                             audio: Audio.network(
-                              widget!.thread!.audio,
+                              widget.thread!.audio,
                               metas: Metas(
                                 title: 'Audio File',
                               ),
@@ -1223,7 +1220,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                       fontFamily: 'Outfit',
                                       letterSpacing: 0.0,
                                     ),
-                            fillColor: Color(0x00000000),
+                            fillColor: const Color(0x00000000),
                             playbackButtonColor:
                                 FlutterFlowTheme.of(context).primary,
                             activeTrackColor:
@@ -1236,7 +1233,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                       ),
                     ),
                   Padding(
-                    padding: EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1244,22 +1241,22 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                         Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            if ((widget!.thread?.link != null &&
-                                    widget!.thread?.link != '') &&
+                            if ((widget.thread?.link != null &&
+                                    widget.thread?.link != '') &&
                                 (functions
                                         .identifySocialMediaPlatform(
-                                            widget!.thread!.link)
+                                            widget.thread!.link)
                                         .toString() ==
                                     '-1'))
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 5.0, 0.0),
                                 child: FlutterFlowIconButton(
-                                  borderColor: Color(0xFFDD6013),
+                                  borderColor: const Color(0xFFDD6013),
                                   borderRadius: 20.0,
                                   borderWidth: 2.0,
                                   buttonSize: 40.0,
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.link,
                                     color: Color(0xFFDD6013),
                                     size: 22.0,
@@ -1275,7 +1272,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                           padding:
                                               MediaQuery.viewInsetsOf(context),
                                           child: LinkMenuWidget(
-                                            link: widget!.thread!.link,
+                                            link: widget.thread!.link,
                                           ),
                                         );
                                       },
@@ -1289,17 +1286,17 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                await launchURL(widget!.thread!.link);
+                                await launchURL(widget.thread!.link);
                               },
                               child: Stack(
                                 children: [
                                   if (functions
                                           .identifySocialMediaPlatform(
-                                              widget!.thread!.link)
+                                              widget.thread!.link)
                                           .toString() ==
                                       '10')
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 5.0, 0.0),
                                       child: FlutterFlowIconButton(
                                         borderColor:
@@ -1315,17 +1312,17 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                           size: 22.0,
                                         ),
                                         onPressed: () async {
-                                          await launchURL(widget!.thread!.link);
+                                          await launchURL(widget.thread!.link);
                                         },
                                       ),
                                     ),
                                   if (functions
                                           .identifySocialMediaPlatform(
-                                              widget!.thread!.link)
+                                              widget.thread!.link)
                                           .toString() ==
                                       '1')
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 5.0, 0.0),
                                       child: FlutterFlowIconButton(
                                         borderColor:
@@ -1341,17 +1338,17 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                           size: 22.0,
                                         ),
                                         onPressed: () async {
-                                          await launchURL(widget!.thread!.link);
+                                          await launchURL(widget.thread!.link);
                                         },
                                       ),
                                     ),
                                   if (functions
                                           .identifySocialMediaPlatform(
-                                              widget!.thread!.link)
+                                              widget.thread!.link)
                                           .toString() ==
                                       '2')
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 5.0, 0.0),
                                       child: FlutterFlowIconButton(
                                         borderColor:
@@ -1367,17 +1364,17 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                           size: 20.0,
                                         ),
                                         onPressed: () async {
-                                          await launchURL(widget!.thread!.link);
+                                          await launchURL(widget.thread!.link);
                                         },
                                       ),
                                     ),
                                   if (functions
                                           .identifySocialMediaPlatform(
-                                              widget!.thread!.link)
+                                              widget.thread!.link)
                                           .toString() ==
                                       '3')
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 5.0, 0.0),
                                       child: FlutterFlowIconButton(
                                         borderColor:
@@ -1393,17 +1390,17 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                           size: 22.0,
                                         ),
                                         onPressed: () async {
-                                          await launchURL(widget!.thread!.link);
+                                          await launchURL(widget.thread!.link);
                                         },
                                       ),
                                     ),
                                   if (functions
                                           .identifySocialMediaPlatform(
-                                              widget!.thread!.link)
+                                              widget.thread!.link)
                                           .toString() ==
                                       '4')
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 5.0, 0.0),
                                       child: FlutterFlowIconButton(
                                         borderColor:
@@ -1419,17 +1416,17 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                           size: 22.0,
                                         ),
                                         onPressed: () async {
-                                          await launchURL(widget!.thread!.link);
+                                          await launchURL(widget.thread!.link);
                                         },
                                       ),
                                     ),
                                   if (functions
                                           .identifySocialMediaPlatform(
-                                              widget!.thread!.link)
+                                              widget.thread!.link)
                                           .toString() ==
                                       '5')
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 5.0, 0.0),
                                       child: FlutterFlowIconButton(
                                         borderColor:
@@ -1445,17 +1442,17 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                           size: 22.0,
                                         ),
                                         onPressed: () async {
-                                          await launchURL(widget!.thread!.link);
+                                          await launchURL(widget.thread!.link);
                                         },
                                       ),
                                     ),
                                   if (functions
                                           .identifySocialMediaPlatform(
-                                              widget!.thread!.link)
+                                              widget.thread!.link)
                                           .toString() ==
                                       '7')
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 5.0, 0.0),
                                       child: FlutterFlowIconButton(
                                         borderColor:
@@ -1471,17 +1468,17 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                           size: 20.0,
                                         ),
                                         onPressed: () async {
-                                          await launchURL(widget!.thread!.link);
+                                          await launchURL(widget.thread!.link);
                                         },
                                       ),
                                     ),
                                   if (functions
                                           .identifySocialMediaPlatform(
-                                              widget!.thread!.link)
+                                              widget.thread!.link)
                                           .toString() ==
                                       '8')
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 5.0, 0.0),
                                       child: FlutterFlowIconButton(
                                         borderColor:
@@ -1497,17 +1494,17 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                           size: 22.0,
                                         ),
                                         onPressed: () async {
-                                          await launchURL(widget!.thread!.link);
+                                          await launchURL(widget.thread!.link);
                                         },
                                       ),
                                     ),
                                   if (functions
                                           .identifySocialMediaPlatform(
-                                              widget!.thread!.link)
+                                              widget.thread!.link)
                                           .toString() ==
                                       '9')
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 5.0, 0.0),
                                       child: FlutterFlowIconButton(
                                         borderColor:
@@ -1523,17 +1520,17 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                           size: 22.0,
                                         ),
                                         onPressed: () async {
-                                          await launchURL(widget!.thread!.link);
+                                          await launchURL(widget.thread!.link);
                                         },
                                       ),
                                     ),
                                   if (functions
                                           .identifySocialMediaPlatform(
-                                              widget!.thread!.link)
+                                              widget.thread!.link)
                                           .toString() ==
                                       '11')
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 5.0, 0.0),
                                       child: FlutterFlowIconButton(
                                         borderColor:
@@ -1549,17 +1546,17 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                           size: 22.0,
                                         ),
                                         onPressed: () async {
-                                          await launchURL(widget!.thread!.link);
+                                          await launchURL(widget.thread!.link);
                                         },
                                       ),
                                     ),
                                   if (functions
                                           .identifySocialMediaPlatform(
-                                              widget!.thread!.link)
+                                              widget.thread!.link)
                                           .toString() ==
                                       '12')
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 5.0, 0.0),
                                       child: FlutterFlowIconButton(
                                         borderColor:
@@ -1575,17 +1572,17 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                           size: 22.0,
                                         ),
                                         onPressed: () async {
-                                          await launchURL(widget!.thread!.link);
+                                          await launchURL(widget.thread!.link);
                                         },
                                       ),
                                     ),
                                   if (functions
                                           .identifySocialMediaPlatform(
-                                              widget!.thread!.link)
+                                              widget.thread!.link)
                                           .toString() ==
                                       '13')
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 5.0, 0.0),
                                       child: FlutterFlowIconButton(
                                         borderColor:
@@ -1601,17 +1598,17 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                           size: 22.0,
                                         ),
                                         onPressed: () async {
-                                          await launchURL(widget!.thread!.link);
+                                          await launchURL(widget.thread!.link);
                                         },
                                       ),
                                     ),
                                   if (functions
                                           .identifySocialMediaPlatform(
-                                              widget!.thread!.link)
+                                              widget.thread!.link)
                                           .toString() ==
                                       '14')
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 5.0, 0.0),
                                       child: FlutterFlowIconButton(
                                         borderColor:
@@ -1627,15 +1624,15 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                           size: 22.0,
                                         ),
                                         onPressed: () async {
-                                          await launchURL(widget!.thread!.link);
+                                          await launchURL(widget.thread!.link);
                                         },
                                       ),
                                     ),
                                 ],
                               ),
                             ),
-                            if ((widget!.thread?.hashtags != null &&
-                                    (widget!.thread?.hashtags)!.isNotEmpty) ==
+                            if ((widget.thread?.hashtags != null &&
+                                    (widget.thread?.hashtags)!.isNotEmpty) ==
                                 true)
                               FlutterFlowIconButton(
                                 borderColor:
@@ -1658,7 +1655,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                         padding:
                                             MediaQuery.viewInsetsOf(context),
                                         child: HashtagsWidget(
-                                          hashtags: widget!.thread!.hashtags,
+                                          hashtags: widget.thread!.hashtags,
                                         ),
                                       );
                                     },
@@ -1674,12 +1671,12 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                               children: [
                                 if (functions
                                         .voterInList(
-                                            widget!.thread!.votes.toList(),
+                                            widget.thread!.votes.toList(),
                                             currentUserReference!)
                                         .toString() !=
                                     '1')
                                   Align(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
                                     child: FlutterFlowIconButton(
                                       borderRadius: 20.0,
                                       borderWidth: 1.0,
@@ -1693,12 +1690,12 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                       onPressed: () async {
                                         if (functions
                                                 .voterInList(
-                                                    widget!.thread!.votes
+                                                    widget.thread!.votes
                                                         .toList(),
                                                     currentUserReference!)
                                                 .toString() ==
                                             '1') {
-                                          await widget!.thread!.reference
+                                          await widget.thread!.reference
                                               .update({
                                             ...mapToFirestore(
                                               {
@@ -1720,12 +1717,12 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                         } else {
                                           if (functions
                                                   .voterInList(
-                                                      widget!.thread!.votes
+                                                      widget.thread!.votes
                                                           .toList(),
                                                       currentUserReference!)
                                                   .toString() ==
                                               '-1') {
-                                            await widget!.thread!.reference
+                                            await widget.thread!.reference
                                                 .update({
                                               ...mapToFirestore(
                                                 {
@@ -1745,7 +1742,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                               ),
                                             });
 
-                                            await widget!.thread!.reference
+                                            await widget.thread!.reference
                                                 .update({
                                               ...mapToFirestore(
                                                 {
@@ -1765,7 +1762,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                               ),
                                             });
                                           } else {
-                                            await widget!.thread!.reference
+                                            await widget.thread!.reference
                                                 .update({
                                               ...mapToFirestore(
                                                 {
@@ -1791,12 +1788,12 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                   ),
                                 if (functions
                                         .voterInList(
-                                            widget!.thread!.votes.toList(),
+                                            widget.thread!.votes.toList(),
                                             currentUserReference!)
                                         .toString() ==
                                     '1')
                                   Align(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
                                     child: FlutterFlowIconButton(
                                       borderRadius: 20.0,
                                       borderWidth: 1.0,
@@ -1813,13 +1810,13 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                         try {
                                           if (functions
                                                   .voterInList(
-                                                      widget!.thread!.votes
+                                                      widget.thread!.votes
                                                           .toList(),
                                                       currentUserReference!)
                                                   .toString() ==
                                               '1') {
                                             firestoreBatch.update(
-                                                widget!.thread!.reference, {
+                                                widget.thread!.reference, {
                                               ...mapToFirestore(
                                                 {
                                                   'Votes':
@@ -1852,13 +1849,13 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                           } else {
                                             if (functions
                                                     .voterInList(
-                                                        widget!.thread!.votes
+                                                        widget.thread!.votes
                                                             .toList(),
                                                         currentUserReference!)
                                                     .toString() ==
                                                 '-1') {
                                               firestoreBatch.update(
-                                                  widget!.thread!.reference, {
+                                                  widget.thread!.reference, {
                                                 ...mapToFirestore(
                                                   {
                                                     'Votes':
@@ -1879,7 +1876,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                               });
 
                                               firestoreBatch.update(
-                                                  widget!.thread!.reference, {
+                                                  widget.thread!.reference, {
                                                 ...mapToFirestore(
                                                   {
                                                     'Votes':
@@ -1912,7 +1909,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                   });
                                             } else {
                                               firestoreBatch.update(
-                                                  widget!.thread!.reference, {
+                                                  widget.thread!.reference, {
                                                 ...mapToFirestore(
                                                   {
                                                     'Votes':
@@ -1957,12 +1954,12 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                               children: [
                                 if (functions
                                         .voterInList(
-                                            widget!.thread!.votes.toList(),
+                                            widget.thread!.votes.toList(),
                                             currentUserReference!)
                                         .toString() ==
                                     '-1')
                                   Align(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
                                     child: FlutterFlowIconButton(
                                       borderRadius: 20.0,
                                       borderWidth: 1.0,
@@ -1976,12 +1973,12 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                       onPressed: () async {
                                         if (functions
                                                 .voterInList(
-                                                    widget!.thread!.votes
+                                                    widget.thread!.votes
                                                         .toList(),
                                                     currentUserReference!)
                                                 .toString() ==
                                             '-1') {
-                                          await widget!.thread!.reference
+                                          await widget.thread!.reference
                                               .update({
                                             ...mapToFirestore(
                                               {
@@ -2003,12 +2000,12 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                         } else {
                                           if (functions
                                                   .voterInList(
-                                                      widget!.thread!.votes
+                                                      widget.thread!.votes
                                                           .toList(),
                                                       currentUserReference!)
                                                   .toString() ==
                                               '1') {
-                                            await widget!.thread!.reference
+                                            await widget.thread!.reference
                                                 .update({
                                               ...mapToFirestore(
                                                 {
@@ -2028,7 +2025,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                               ),
                                             });
 
-                                            await widget!.thread!.reference
+                                            await widget.thread!.reference
                                                 .update({
                                               ...mapToFirestore(
                                                 {
@@ -2048,7 +2045,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                               ),
                                             });
                                           } else {
-                                            await widget!.thread!.reference
+                                            await widget.thread!.reference
                                                 .update({
                                               ...mapToFirestore(
                                                 {
@@ -2074,12 +2071,12 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                   ),
                                 if (functions
                                         .voterInList(
-                                            widget!.thread!.votes.toList(),
+                                            widget.thread!.votes.toList(),
                                             currentUserReference!)
                                         .toString() !=
                                     '-1')
                                   Align(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
                                     child: FlutterFlowIconButton(
                                       borderRadius: 20.0,
                                       borderWidth: 1.0,
@@ -2096,13 +2093,13 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                         try {
                                           if (functions
                                                   .voterInList(
-                                                      widget!.thread!.votes
+                                                      widget.thread!.votes
                                                           .toList(),
                                                       currentUserReference!)
                                                   .toString() ==
                                               '-1') {
                                             firestoreBatch.update(
-                                                widget!.thread!.reference, {
+                                                widget.thread!.reference, {
                                               ...mapToFirestore(
                                                 {
                                                   'Votes':
@@ -2123,13 +2120,13 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                           } else {
                                             if (functions
                                                     .voterInList(
-                                                        widget!.thread!.votes
+                                                        widget.thread!.votes
                                                             .toList(),
                                                         currentUserReference!)
                                                     .toString() ==
                                                 '1') {
                                               firestoreBatch.update(
-                                                  widget!.thread!.reference, {
+                                                  widget.thread!.reference, {
                                                 ...mapToFirestore(
                                                   {
                                                     'Votes':
@@ -2150,7 +2147,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                               });
 
                                               firestoreBatch.update(
-                                                  widget!.thread!.reference, {
+                                                  widget.thread!.reference, {
                                                 ...mapToFirestore(
                                                   {
                                                     'Votes':
@@ -2171,7 +2168,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                               });
                                             } else {
                                               firestoreBatch.update(
-                                                  widget!.thread!.reference, {
+                                                  widget.thread!.reference, {
                                                 ...mapToFirestore(
                                                   {
                                                     'Votes':
@@ -2200,9 +2197,9 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                   ),
                               ],
                             ),
-                            if (widget!.thread?.isCommentsAllowed ?? true)
+                            if (widget.thread?.isCommentsAllowed ?? true)
                               Align(
-                                alignment: AlignmentDirectional(0.0, 0.0),
+                                alignment: const AlignmentDirectional(0.0, 0.0),
                                 child: FlutterFlowIconButton(
                                   borderColor: Colors.transparent,
                                   borderRadius: 20.0,
@@ -2224,7 +2221,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                           padding:
                                               MediaQuery.viewInsetsOf(context),
                                           child: CommentsWidget(
-                                            thread: widget!.thread?.reference,
+                                            thread: widget.thread?.reference,
                                           ),
                                         );
                                       },

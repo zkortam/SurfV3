@@ -4,15 +4,10 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:provider/provider.dart';
 import 'articles_model.dart';
 export 'articles_model.dart';
 
@@ -72,7 +67,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: AlignmentDirectional(0.0, -1.0),
+            alignment: const AlignmentDirectional(0.0, -1.0),
             child: Stack(
               children: [
                 SingleChildScrollView(
@@ -82,13 +77,13 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                     children: [
                       Flexible(
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               5.0, 0.0, 5.0, 0.0),
                           child: Container(
                             width: double.infinity,
                             height: 55.0,
                             decoration: BoxDecoration(
-                              gradient: LinearGradient(
+                              gradient: const LinearGradient(
                                 colors: [Color(0xFF2120BC), Color(0xFF7D16C1)],
                                 stops: [0.0, 1.0],
                                 begin: AlignmentDirectional(1.0, -1.0),
@@ -102,7 +97,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                               children: [
                                 Flexible(
                                   child: Padding(
-                                    padding: EdgeInsets.all(3.0),
+                                    padding: const EdgeInsets.all(3.0),
                                     child: Container(
                                       width: double.infinity,
                                       height: 90.0,
@@ -113,7 +108,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                                             BorderRadius.circular(24.0),
                                       ),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             15.0, 0.0, 10.0, 0.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
@@ -124,7 +119,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 0.0, 5.0, 0.0),
                                                   child: FlutterFlowIconButton(
@@ -168,7 +163,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 0.0, 5.0, 0.0),
                                                   child: FlutterFlowIconButton(
@@ -205,9 +200,9 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                       ),
                       Flexible(
                         child: Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
+                          alignment: const AlignmentDirectional(0.0, 0.0),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 5.0, 0.0, 5.0, 0.0),
                             child: PagedListView<DocumentSnapshot<Object?>?,
                                 ThreadsRecord>.separated(
@@ -219,7 +214,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                                     )
                                     .orderBy('TimeStamp', descending: true),
                               ),
-                              padding: EdgeInsets.fromLTRB(
+                              padding: const EdgeInsets.fromLTRB(
                                 0,
                                 10.0,
                                 0,
@@ -230,7 +225,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                               reverse: false,
                               scrollDirection: Axis.vertical,
                               separatorBuilder: (_, __) =>
-                                  SizedBox(height: 5.0),
+                                  const SizedBox(height: 5.0),
                               builderDelegate:
                                   PagedChildBuilderDelegate<ThreadsRecord>(
                                 // Customize what your widget looks like when it's loading the first page.
@@ -303,7 +298,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                                           ),
                                         ),
                                         child: Padding(
-                                          padding: EdgeInsets.all(20.0),
+                                          padding: const EdgeInsets.all(20.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.min,
                                             mainAxisAlignment:
@@ -321,7 +316,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                                                       child: Container(
                                                         width: 270.0,
                                                         decoration:
-                                                            BoxDecoration(),
+                                                            const BoxDecoration(),
                                                         child: Column(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
@@ -349,7 +344,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                                                             ),
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           5.0,
@@ -397,7 +392,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                                                                             .start,
                                                                     children: [
                                                                       Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                                                             0.0,
                                                                             0.0,
                                                                             5.0,
@@ -411,7 +406,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                                                                           clipBehavior:
                                                                               Clip.antiAlias,
                                                                           decoration:
-                                                                              BoxDecoration(
+                                                                              const BoxDecoration(
                                                                             shape:
                                                                                 BoxShape.circle,
                                                                           ),
@@ -436,7 +431,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                                                                             ),
                                                                       ),
                                                                       Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                                                             5.0,
                                                                             0.0,
                                                                             5.0,
@@ -509,7 +504,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                                                 ],
                                               ),
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 0.0, 10.0, 0.0),
                                                 child: Column(
@@ -527,7 +522,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       0.0,
                                                                       0.0,
@@ -571,7 +566,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       0.0,
                                                                       0.0,
@@ -607,7 +602,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                                                       ],
                                                     ),
                                                   ].divide(
-                                                      SizedBox(height: 10.0)),
+                                                      const SizedBox(height: 10.0)),
                                                 ),
                                               ),
                                             ],
@@ -627,11 +622,11 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                   ),
                 ),
                 Align(
-                  alignment: AlignmentDirectional(0.0, 1.0),
+                  alignment: const AlignmentDirectional(0.0, 1.0),
                   child: wrapWithModel(
                     model: _model.navigationBarModel,
                     updateCallback: () => safeSetState(() {}),
-                    child: Hero(
+                    child: const Hero(
                       tag: 'navBar',
                       transitionOnUserGestures: true,
                       child: Material(

@@ -3,14 +3,8 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:math';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'forgotpassword_model.dart';
 export 'forgotpassword_model.dart';
 
@@ -53,22 +47,22 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 300.0.ms,
-            begin: Offset(0.0, 140.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 140.0),
+            end: const Offset(0.0, 0.0),
           ),
           ScaleEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 300.0.ms,
-            begin: Offset(0.9, 0.9),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(0.9, 0.9),
+            end: const Offset(1.0, 1.0),
           ),
           TiltEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 300.0.ms,
-            begin: Offset(-0.349, 0),
-            end: Offset(0, 0),
+            begin: const Offset(-0.349, 0),
+            end: const Offset(0, 0),
           ),
         ],
       ),
@@ -94,7 +88,7 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget>
         body: Container(
           width: double.infinity,
           height: double.infinity,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [Color(0xFF9F1CFA), Color(0xFF0D28A2)],
               stops: [0.0, 1.0],
@@ -102,21 +96,21 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget>
               end: AlignmentDirectional(-0.87, 1.0),
             ),
           ),
-          alignment: AlignmentDirectional(0.0, -1.0),
+          alignment: const AlignmentDirectional(0.0, -1.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                padding: EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(16.0),
                 child: Container(
                   width: double.infinity,
-                  constraints: BoxConstraints(
+                  constraints: const BoxConstraints(
                     maxWidth: 570.0,
                   ),
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                         blurRadius: 4.0,
                         color: Color(0x33000000),
@@ -129,9 +123,9 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget>
                     borderRadius: BorderRadius.circular(30.0),
                   ),
                   child: Align(
-                    alignment: AlignmentDirectional(0.0, 0.0),
+                    alignment: const AlignmentDirectional(0.0, 0.0),
                     child: Padding(
-                      padding: EdgeInsets.all(32.0),
+                      padding: const EdgeInsets.all(32.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -150,7 +144,7 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget>
                                 ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 5.0, 0.0, 24.0),
                             child: Text(
                               FFLocalizations.of(context).getText(
@@ -166,15 +160,15 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget>
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 16.0),
-                            child: Container(
+                            child: SizedBox(
                               width: double.infinity,
                               child: TextFormField(
                                 controller: _model.emailAddressTextController,
                                 focusNode: _model.emailAddressFocusNode,
                                 autofocus: true,
-                                autofillHints: [AutofillHints.email],
+                                autofillHints: const [AutofillHints.email],
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText:
@@ -237,14 +231,14 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget>
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 5.0),
                             child: FFButtonWidget(
                               onPressed: () async {
                                 if (_model
                                     .emailAddressTextController.text.isEmpty) {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
+                                    const SnackBar(
                                       content: Text(
                                         'Email required!',
                                       ),
@@ -263,9 +257,9 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget>
                               options: FFButtonOptions(
                                 width: double.infinity,
                                 height: 44.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
                                 color: FlutterFlowTheme.of(context).primary,
                                 textStyle: FlutterFlowTheme.of(context)
@@ -276,7 +270,7 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget>
                                       letterSpacing: 0.0,
                                     ),
                                 elevation: 3.0,
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Colors.transparent,
                                   width: 1.0,
                                 ),
@@ -287,7 +281,7 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget>
 
                           // You will have to add an action on this rich text to go to your login page.
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 12.0, 0.0, 12.0),
                             child: InkWell(
                               splashColor: Colors.transparent,
@@ -305,7 +299,7 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget>
                                       text: FFLocalizations.of(context).getText(
                                         'dayxfu64' /* Remember your password?  */,
                                       ),
-                                      style: TextStyle(),
+                                      style: const TextStyle(),
                                     ),
                                     TextSpan(
                                       text: FFLocalizations.of(context).getText(

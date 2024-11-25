@@ -1,4 +1,3 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/components/error_bar_widget.dart';
@@ -7,11 +6,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/upload_data.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'create_group_chat_model.dart';
 export 'create_group_chat_model.dart';
 
@@ -61,7 +56,7 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
       height: 450.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
           topLeft: Radius.circular(30.0),
@@ -69,12 +64,12 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
         ),
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
+        padding: const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 20.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 20.0),
               child: Container(
                 width: double.infinity,
                 height: 55.0,
@@ -92,7 +87,7 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
                   children: [
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
                       child: FlutterFlowIconButton(
                         borderColor: Colors.transparent,
                         borderRadius: 30.0,
@@ -134,7 +129,7 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 3.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 3.0, 0.0),
                       child: FlutterFlowIconButton(
                         borderColor: Colors.transparent,
                         borderRadius: 30.0,
@@ -146,7 +141,7 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
                           size: 24.0,
                         ),
                         onPressed: () async {
-                          if (widget!.users!.length > 2) {
+                          if (widget.users!.length > 2) {
                             var chatsRecordReference =
                                 ChatsRecord.collection.doc();
                             await chatsRecordReference.set({
@@ -158,7 +153,7 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
                               ),
                               ...mapToFirestore(
                                 {
-                                  'users': widget!.users,
+                                  'users': widget.users,
                                 },
                               ),
                             });
@@ -171,7 +166,7 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
                               ),
                               ...mapToFirestore(
                                 {
-                                  'users': widget!.users,
+                                  'users': widget.users,
                                 },
                               ),
                             }, chatsRecordReference);
@@ -183,7 +178,7 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
                               builder: (context) {
                                 return Padding(
                                   padding: MediaQuery.viewInsetsOf(context),
-                                  child: InfoWidget(
+                                  child: const InfoWidget(
                                     text: 'Group Created',
                                   ),
                                 );
@@ -230,7 +225,7 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(10.0),
               child: InkWell(
                 splashColor: Colors.transparent,
                 focusColor: Colors.transparent,
@@ -296,8 +291,7 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
                     borderRadius: BorderRadius.circular(80.0),
                   ),
                   child: Visibility(
-                    visible: _model.uploadedFileUrl == null ||
-                        _model.uploadedFileUrl == '',
+                    visible: _model.uploadedFileUrl == '',
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -315,8 +309,8 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
             ),
             Flexible(
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(30.0, 10.0, 30.0, 10.0),
-                child: Container(
+                padding: const EdgeInsetsDirectional.fromSTEB(30.0, 10.0, 30.0, 10.0),
+                child: SizedBox(
                   width: double.infinity,
                   child: TextFormField(
                     controller: _model.textController,
@@ -339,14 +333,14 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
                                 letterSpacing: 0.0,
                               ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Color(0x00000000),
                           width: 1.0,
                         ),
                         borderRadius: BorderRadius.circular(30.0),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Color(0x00000000),
                           width: 1.0,
                         ),
@@ -368,7 +362,7 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
                       ),
                       filled: true,
                       fillColor: FlutterFlowTheme.of(context).primaryBackground,
-                      contentPadding: EdgeInsets.all(20.0),
+                      contentPadding: const EdgeInsets.all(20.0),
                     ),
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Montserrat',

@@ -3,10 +3,6 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'create_chat_model.dart';
 export 'create_chat_model.dart';
 
@@ -48,7 +44,7 @@ class _CreateChatWidgetState extends State<CreateChatWidget> {
       height: 350.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
           topLeft: Radius.circular(30.0),
@@ -60,12 +56,12 @@ class _CreateChatWidgetState extends State<CreateChatWidget> {
         children: [
           Flexible(
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
               child: Container(
                 width: double.infinity,
                 height: 55.0,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
+                  gradient: const LinearGradient(
                     colors: [Color(0x7F2120BC), Color(0x7B7D16C1)],
                     stops: [0.0, 1.0],
                     begin: AlignmentDirectional(1.0, -1.0),
@@ -79,7 +75,7 @@ class _CreateChatWidgetState extends State<CreateChatWidget> {
                   children: [
                     Flexible(
                       child: Padding(
-                        padding: EdgeInsets.all(4.0),
+                        padding: const EdgeInsets.all(4.0),
                         child: Container(
                           width: double.infinity,
                           height: 90.0,
@@ -93,7 +89,7 @@ class _CreateChatWidgetState extends State<CreateChatWidget> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     3.0, 0.0, 0.0, 0.0),
                                 child: FlutterFlowIconButton(
                                   borderColor: Colors.transparent,
@@ -117,9 +113,9 @@ class _CreateChatWidgetState extends State<CreateChatWidget> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Align(
-                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 42.0, 0.0),
                                         child: Text(
                                           FFLocalizations.of(context).getText(
@@ -153,7 +149,7 @@ class _CreateChatWidgetState extends State<CreateChatWidget> {
             ),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(5.0, 10.0, 5.0, 5.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(5.0, 10.0, 5.0, 5.0),
             child: InkWell(
               splashColor: Colors.transparent,
               focusColor: Colors.transparent,
@@ -169,7 +165,7 @@ class _CreateChatWidgetState extends State<CreateChatWidget> {
                   builder: (context) {
                     return Padding(
                       padding: MediaQuery.viewInsetsOf(context),
-                      child: UserSelectionForChatWidget(
+                      child: const UserSelectionForChatWidget(
                         creatingGroup: false,
                       ),
                     );
@@ -197,7 +193,7 @@ class _CreateChatWidgetState extends State<CreateChatWidget> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 10.0, 0.0),
                             child: Icon(
                               Icons.person_sharp,
@@ -229,7 +225,7 @@ class _CreateChatWidgetState extends State<CreateChatWidget> {
             ),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
             child: InkWell(
               splashColor: Colors.transparent,
               focusColor: Colors.transparent,
@@ -245,7 +241,7 @@ class _CreateChatWidgetState extends State<CreateChatWidget> {
                   builder: (context) {
                     return Padding(
                       padding: MediaQuery.viewInsetsOf(context),
-                      child: UserSelectionForChatWidget(
+                      child: const UserSelectionForChatWidget(
                         creatingGroup: true,
                       ),
                     );
@@ -273,7 +269,7 @@ class _CreateChatWidgetState extends State<CreateChatWidget> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 10.0, 0.0),
                             child: Icon(
                               Icons.people_sharp,

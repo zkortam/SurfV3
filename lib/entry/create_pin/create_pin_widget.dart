@@ -4,15 +4,10 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:math';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'create_pin_model.dart';
 export 'create_pin_model.dart';
 
@@ -53,22 +48,22 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 300.0.ms,
-            begin: Offset(0.0, 140.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 140.0),
+            end: const Offset(0.0, 0.0),
           ),
           ScaleEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 300.0.ms,
-            begin: Offset(0.9, 0.9),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(0.9, 0.9),
+            end: const Offset(1.0, 1.0),
           ),
           TiltEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 300.0.ms,
-            begin: Offset(-0.349, 0),
-            end: Offset(0, 0),
+            begin: const Offset(-0.349, 0),
+            end: const Offset(0, 0),
           ),
         ],
       ),
@@ -101,22 +96,22 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 300.0.ms,
-            begin: Offset(0.0, 140.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 140.0),
+            end: const Offset(0.0, 0.0),
           ),
           ScaleEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 300.0.ms,
-            begin: Offset(0.9, 0.9),
-            end: Offset(1.0, 1.0),
+            begin: const Offset(0.9, 0.9),
+            end: const Offset(1.0, 1.0),
           ),
           TiltEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 300.0.ms,
-            begin: Offset(-0.349, 0),
-            end: Offset(0, 0),
+            begin: const Offset(-0.349, 0),
+            end: const Offset(0, 0),
           ),
         ],
       ),
@@ -167,7 +162,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
               child: Container(
                 width: double.infinity,
                 height: double.infinity,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     colors: [Color(0xFF6E09B3), Color(0xFF040F46)],
                     stops: [0.0, 1.0],
@@ -175,23 +170,23 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                     end: AlignmentDirectional(-0.87, 1.0),
                   ),
                 ),
-                alignment: AlignmentDirectional(0.0, -1.0),
+                alignment: const AlignmentDirectional(0.0, -1.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     if (!_model.biometric)
                       Padding(
-                        padding: EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(16.0),
                         child: Container(
                           width: double.infinity,
                           height: 450.0,
-                          constraints: BoxConstraints(
+                          constraints: const BoxConstraints(
                             maxWidth: 570.0,
                           ),
                           decoration: BoxDecoration(
-                            color: Color(0xFF161A1D),
-                            boxShadow: [
+                            color: const Color(0xFF161A1D),
+                            boxShadow: const [
                               BoxShadow(
                                 blurRadius: 4.0,
                                 color: Color(0x33000000),
@@ -204,15 +199,15 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                             borderRadius: BorderRadius.circular(30.0),
                           ),
                           child: Align(
-                            alignment: AlignmentDirectional(0.0, -0.3),
+                            alignment: const AlignmentDirectional(0.0, -0.3),
                             child: Padding(
-                              padding: EdgeInsets.all(30.0),
+                              padding: const EdgeInsets.all(30.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 3.0),
                                     child: Text(
                                       FFLocalizations.of(context).getText(
@@ -244,7 +239,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                                         ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 20.0, 0.0, 0.0),
                                     child: PinCodeTextField(
                                       autoDisposeControllers: false,
@@ -274,7 +269,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                                         fieldHeight: 60.0,
                                         fieldWidth: 60.0,
                                         borderWidth: 2.0,
-                                        borderRadius: BorderRadius.only(
+                                        borderRadius: const BorderRadius.only(
                                           bottomLeft: Radius.circular(40.0),
                                           bottomRight: Radius.circular(40.0),
                                           topLeft: Radius.circular(40.0),
@@ -284,7 +279,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                                         activeColor:
                                             FlutterFlowTheme.of(context)
                                                 .primary,
-                                        inactiveColor: Color(0xFF1C2427),
+                                        inactiveColor: const Color(0xFF1C2427),
                                         selectedColor:
                                             FlutterFlowTheme.of(context)
                                                 .secondaryText,
@@ -299,7 +294,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 10.0, 0.0, 20.0),
                                     child: Text(
                                       FFLocalizations.of(context).getText(
@@ -310,14 +305,14 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                                           .bodySmall
                                           .override(
                                             fontFamily: 'Montserrat',
-                                            color: Color(0xFFCA3527),
+                                            color: const Color(0xFFCA3527),
                                             fontSize: 14.0,
                                             letterSpacing: 0.0,
                                           ),
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 20.0, 0.0, 0.0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
@@ -358,20 +353,20 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                                       options: FFButtonOptions(
                                         width: 260.0,
                                         height: 48.0,
-                                        padding: EdgeInsets.all(0.0),
+                                        padding: const EdgeInsets.all(0.0),
                                         iconPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
+                                            const EdgeInsetsDirectional.fromSTEB(
                                                 0.0, 0.0, 0.0, 0.0),
-                                        color: Color(0xFF4F575E),
+                                        color: const Color(0xFF4F575E),
                                         textStyle: FlutterFlowTheme.of(context)
                                             .titleSmall
                                             .override(
                                               fontFamily: 'Montserrat',
-                                              color: Color(0xFFC6CDD4),
+                                              color: const Color(0xFFC6CDD4),
                                               letterSpacing: 0.0,
                                             ),
                                         elevation: 3.0,
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Colors.transparent,
                                           width: 1.0,
                                         ),
@@ -394,16 +389,16 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                       ),
                     if (_model.biometric)
                       Padding(
-                        padding: EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(16.0),
                         child: Container(
                           width: double.infinity,
                           height: 200.0,
-                          constraints: BoxConstraints(
+                          constraints: const BoxConstraints(
                             maxWidth: 570.0,
                           ),
                           decoration: BoxDecoration(
-                            color: Color(0xFF161A1D),
-                            boxShadow: [
+                            color: const Color(0xFF161A1D),
+                            boxShadow: const [
                               BoxShadow(
                                 blurRadius: 4.0,
                                 color: Color(0x33000000),
@@ -416,7 +411,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                             borderRadius: BorderRadius.circular(30.0),
                           ),
                           child: Align(
-                            alignment: AlignmentDirectional(0.0, -0.3),
+                            alignment: const AlignmentDirectional(0.0, -0.3),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -435,7 +430,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                                       ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       30.0, 8.0, 30.0, 0.0),
                                   child: Text(
                                     FFLocalizations.of(context).getText(
@@ -454,7 +449,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 20.0, 0.0, 0.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -476,9 +471,9 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                                         options: FFButtonOptions(
                                           width: 120.0,
                                           height: 45.0,
-                                          padding: EdgeInsets.all(0.0),
+                                          padding: const EdgeInsets.all(0.0),
                                           iconPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 0.0),
                                           color: Colors.white,
                                           textStyle:
@@ -490,7 +485,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                                                     letterSpacing: 0.0,
                                                   ),
                                           elevation: 3.0,
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                             color: Colors.transparent,
                                             width: 1.0,
                                           ),
@@ -499,7 +494,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             10.0, 0.0, 0.0, 0.0),
                                         child: FFButtonWidget(
                                           onPressed: () async {
@@ -517,9 +512,9 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                                           options: FFButtonOptions(
                                             width: 120.0,
                                             height: 45.0,
-                                            padding: EdgeInsets.all(0.0),
+                                            padding: const EdgeInsets.all(0.0),
                                             iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),
                                             color: FlutterFlowTheme.of(context)
                                                 .secondaryText,
@@ -532,7 +527,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget>
                                                       letterSpacing: 0.0,
                                                     ),
                                             elevation: 3.0,
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Colors.transparent,
                                               width: 1.0,
                                             ),

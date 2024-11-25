@@ -1,6 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
 import '/components/info_widget.dart';
 import '/components/music_selector_widget.dart';
 import '/components/pick_group_for_snippet_widget.dart';
@@ -8,12 +7,8 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'make_snippet_caption_model.dart';
 export 'make_snippet_caption_model.dart';
 
@@ -66,7 +61,7 @@ class _MakeSnippetCaptionWidgetState extends State<MakeSnippetCaptionWidget> {
       height: 450.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
           topLeft: Radius.circular(30.0),
@@ -77,7 +72,7 @@ class _MakeSnippetCaptionWidgetState extends State<MakeSnippetCaptionWidget> {
         mainAxisSize: MainAxisSize.max,
         children: [
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
             child: Container(
               width: double.infinity,
               height: 55.0,
@@ -94,7 +89,7 @@ class _MakeSnippetCaptionWidgetState extends State<MakeSnippetCaptionWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
                     child: FlutterFlowIconButton(
                       borderColor: Colors.transparent,
                       borderRadius: 30.0,
@@ -113,7 +108,7 @@ class _MakeSnippetCaptionWidgetState extends State<MakeSnippetCaptionWidget> {
                   Flexible(
                     child: Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -132,7 +127,7 @@ class _MakeSnippetCaptionWidgetState extends State<MakeSnippetCaptionWidget> {
                                 builder: (context) {
                                   return Padding(
                                     padding: MediaQuery.viewInsetsOf(context),
-                                    child: MusicSelectorWidget(),
+                                    child: const MusicSelectorWidget(),
                                   );
                                 },
                               ).then((value) =>
@@ -152,13 +147,13 @@ class _MakeSnippetCaptionWidgetState extends State<MakeSnippetCaptionWidget> {
                             ),
                           ),
                         ]
-                            .divide(SizedBox(width: 10.0))
-                            .addToEnd(SizedBox(width: 10.0)),
+                            .divide(const SizedBox(width: 10.0))
+                            .addToEnd(const SizedBox(width: 10.0)),
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 3.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 3.0, 0.0),
                     child: FlutterFlowIconButton(
                       borderColor: Colors.transparent,
                       borderRadius: 30.0,
@@ -178,10 +173,10 @@ class _MakeSnippetCaptionWidgetState extends State<MakeSnippetCaptionWidget> {
                               timePosted: getCurrentTimestamp,
                               author: currentUserReference,
                               caption: _model.textThreadTextController.text,
-                              threadsReference: widget!.thread,
+                              threadsReference: widget.thread,
                               timeCloses:
                                   functions.nextDay(getCurrentTimestamp),
-                              postShortReference: widget!.post,
+                              postShortReference: widget.post,
                               isOnlyForGroup:
                                   _model.groupOutput?.people != null &&
                                       (_model.groupOutput?.people)!.isNotEmpty,
@@ -204,7 +199,7 @@ class _MakeSnippetCaptionWidgetState extends State<MakeSnippetCaptionWidget> {
                             builder: (context) {
                               return Padding(
                                 padding: MediaQuery.viewInsetsOf(context),
-                                child: InfoWidget(
+                                child: const InfoWidget(
                                   text: 'Created Snippet',
                                 ),
                               );
@@ -228,7 +223,7 @@ class _MakeSnippetCaptionWidgetState extends State<MakeSnippetCaptionWidget> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             child: InkWell(
               splashColor: Colors.transparent,
               focusColor: Colors.transparent,
@@ -243,7 +238,7 @@ class _MakeSnippetCaptionWidgetState extends State<MakeSnippetCaptionWidget> {
                   builder: (context) {
                     return Padding(
                       padding: MediaQuery.viewInsetsOf(context),
-                      child: PickGroupForSnippetWidget(),
+                      child: const PickGroupForSnippetWidget(),
                     );
                   },
                 ).then(
@@ -262,9 +257,7 @@ class _MakeSnippetCaptionWidgetState extends State<MakeSnippetCaptionWidget> {
                   borderRadius: BorderRadius.circular(50.0),
                   border: Border.all(
                     color: valueOrDefault<Color>(
-                      _model.color != null
-                          ? _model.color
-                          : FlutterFlowTheme.of(context).primary,
+                      _model.color ?? FlutterFlowTheme.of(context).primary,
                       FlutterFlowTheme.of(context).primary,
                     ),
                     width: 4.0,
@@ -276,7 +269,7 @@ class _MakeSnippetCaptionWidgetState extends State<MakeSnippetCaptionWidget> {
                   children: [
                     Text(
                       valueOrDefault<String>(
-                        _model.name != null && _model.name != ''
+                        _model.name != ''
                             ? valueOrDefault<String>(
                                 _model.name,
                                 'Everyone',
@@ -296,7 +289,7 @@ class _MakeSnippetCaptionWidgetState extends State<MakeSnippetCaptionWidget> {
             ),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(8.0, 10.0, 8.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(8.0, 10.0, 8.0, 0.0),
             child: TextFormField(
               controller: _model.textThreadTextController,
               focusNode: _model.textThreadFocusNode,

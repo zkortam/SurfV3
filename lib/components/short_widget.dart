@@ -7,17 +7,12 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_video_player.dart';
-import 'dart:math';
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'short_model.dart';
 export 'short_model.dart';
 
@@ -82,7 +77,7 @@ class _ShortWidgetState extends State<ShortWidget>
             delay: 250.0.ms,
             duration: 1000.0.ms,
             hz: 4,
-            offset: Offset(0.0, 0.0),
+            offset: const Offset(0.0, 0.0),
             rotation: 0.175,
           ),
         ],
@@ -118,7 +113,7 @@ class _ShortWidgetState extends State<ShortWidget>
             delay: 250.0.ms,
             duration: 1000.0.ms,
             hz: 4,
-            offset: Offset(0.0, 0.0),
+            offset: const Offset(0.0, 0.0),
             rotation: 0.175,
           ),
         ],
@@ -151,10 +146,10 @@ class _ShortWidgetState extends State<ShortWidget>
       onDoubleTap: () async {
         if (functions
                 .voterInList(
-                    widget!.post!.voters.toList(), currentUserReference!)
+                    widget.post!.voters.toList(), currentUserReference!)
                 .toString() ==
             '1') {
-          await widget!.post!.reference.update({
+          await widget.post!.reference.update({
             ...mapToFirestore(
               {
                 'Voters': FieldValue.arrayRemove([
@@ -179,7 +174,7 @@ class _ShortWidgetState extends State<ShortWidget>
                     .reverse);
           }
         } else {
-          await widget!.post!.reference.update({
+          await widget.post!.reference.update({
             ...mapToFirestore(
               {
                 'Voters': FieldValue.arrayUnion([
@@ -214,7 +209,7 @@ class _ShortWidgetState extends State<ShortWidget>
             return Padding(
               padding: MediaQuery.viewInsetsOf(context),
               child: PostsCompWidget(
-                post: widget!.post!.reference,
+                post: widget.post!.reference,
               ),
             );
           },
@@ -229,18 +224,18 @@ class _ShortWidgetState extends State<ShortWidget>
             color: FlutterFlowTheme.of(context).secondaryBackground,
             borderRadius: BorderRadius.circular(10.0),
           ),
-          child: Container(
+          child: SizedBox(
             height: MediaQuery.sizeOf(context).height * 1.0,
             child: Stack(
               children: [
                 Align(
-                  alignment: AlignmentDirectional(-1.0, 0.0),
+                  alignment: const AlignmentDirectional(-1.0, 0.0),
                   child: Container(
                     width: double.infinity,
                     height: MediaQuery.sizeOf(context).height * 1.0,
-                    decoration: BoxDecoration(),
+                    decoration: const BoxDecoration(),
                     child: FlutterFlowVideoPlayer(
-                      path: widget!.post!.shortVideo,
+                      path: widget.post!.shortVideo,
                       videoType: VideoType.network,
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       height: MediaQuery.sizeOf(context).height * 0.94,
@@ -256,14 +251,14 @@ class _ShortWidgetState extends State<ShortWidget>
                   children: [
                     Container(
                       width: double.infinity,
-                      decoration: BoxDecoration(),
+                      decoration: const BoxDecoration(),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
                                   blurRadius: 50.0,
                                   color: Color(0x6FD01C27),
@@ -281,7 +276,7 @@ class _ShortWidgetState extends State<ShortWidget>
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 10.0, 0.0, 0.0),
                                   child: Icon(
                                     Icons.favorite,
@@ -303,14 +298,14 @@ class _ShortWidgetState extends State<ShortWidget>
                     ),
                     Container(
                       width: double.infinity,
-                      decoration: BoxDecoration(),
+                      decoration: const BoxDecoration(),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
                                   blurRadius: 50.0,
                                   color: Color(0x6FD01C27),
@@ -328,7 +323,7 @@ class _ShortWidgetState extends State<ShortWidget>
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 10.0, 0.0, 0.0),
                                   child: Icon(
                                     Icons.heart_broken_rounded,
@@ -351,16 +346,16 @@ class _ShortWidgetState extends State<ShortWidget>
                   ],
                 ),
                 Align(
-                  alignment: AlignmentDirectional(-1.0, 0.0),
+                  alignment: const AlignmentDirectional(-1.0, 0.0),
                   child: Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 40.0),
+                        const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 40.0),
                     child: Stack(
                       children: [
                         Opacity(
                           opacity: 0.75,
                           child: Align(
-                            alignment: AlignmentDirectional(0.0, 1.0),
+                            alignment: const AlignmentDirectional(0.0, 1.0),
                             child: Container(
                               width: double.infinity,
                               height: 80.0,
@@ -373,7 +368,7 @@ class _ShortWidgetState extends State<ShortWidget>
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(0.0, 1.0),
+                          alignment: const AlignmentDirectional(0.0, 1.0),
                           child: Container(
                             width: double.infinity,
                             height: 80.0,
@@ -385,9 +380,9 @@ class _ShortWidgetState extends State<ShortWidget>
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Align(
-                                  alignment: AlignmentDirectional(-1.0, 1.0),
+                                  alignment: const AlignmentDirectional(-1.0, 1.0),
                                   child: Padding(
-                                    padding: EdgeInsets.all(5.0),
+                                    padding: const EdgeInsets.all(5.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
@@ -398,7 +393,7 @@ class _ShortWidgetState extends State<ShortWidget>
                                         Flexible(
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 2.0),
                                             child: Container(
                                               height: 25.0,
@@ -408,10 +403,10 @@ class _ShortWidgetState extends State<ShortWidget>
                                               ),
                                               child: Stack(
                                                 children: [
-                                                  if (!widget!.post!.isStealth)
+                                                  if (!widget.post!.isStealth)
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   5.0,
                                                                   0.0,
@@ -420,7 +415,7 @@ class _ShortWidgetState extends State<ShortWidget>
                                                       child: StreamBuilder<
                                                           UsersRecord>(
                                                         stream: UsersRecord
-                                                            .getDocument(widget!
+                                                            .getDocument(widget
                                                                 .post!.author!),
                                                         builder: (context,
                                                             snapshot) {
@@ -481,18 +476,18 @@ class _ShortWidgetState extends State<ShortWidget>
                                                                   clipBehavior:
                                                                       Clip.antiAlias,
                                                                   decoration:
-                                                                      BoxDecoration(
+                                                                      const BoxDecoration(
                                                                     shape: BoxShape
                                                                         .circle,
                                                                   ),
                                                                   child:
                                                                       CachedNetworkImage(
                                                                     fadeInDuration:
-                                                                        Duration(
+                                                                        const Duration(
                                                                             milliseconds:
                                                                                 500),
                                                                     fadeOutDuration:
-                                                                        Duration(
+                                                                        const Duration(
                                                                             milliseconds:
                                                                                 500),
                                                                     imageUrl:
@@ -512,7 +507,7 @@ class _ShortWidgetState extends State<ShortWidget>
                                                                   ),
                                                                 ),
                                                                 Padding(
-                                                                  padding: EdgeInsetsDirectional
+                                                                  padding: const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           5.0,
                                                                           0.0,
@@ -537,7 +532,7 @@ class _ShortWidgetState extends State<ShortWidget>
                                                                   ),
                                                                 ),
                                                                 Padding(
-                                                                  padding: EdgeInsetsDirectional
+                                                                  padding: const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           5.0,
                                                                           0.0,
@@ -547,14 +542,14 @@ class _ShortWidgetState extends State<ShortWidget>
                                                                     Icons
                                                                         .circle,
                                                                     color: () {
-                                                                      if (functions.calculateNetVotes(widget!
+                                                                      if (functions.calculateNetVotes(widget
                                                                               .post!
                                                                               .voters
                                                                               .toList()) >
                                                                           0) {
                                                                         return FlutterFlowTheme.of(context)
                                                                             .success;
-                                                                      } else if (functions.calculateNetVotes(widget!
+                                                                      } else if (functions.calculateNetVotes(widget
                                                                               .post!
                                                                               .voters
                                                                               .toList()) <
@@ -570,7 +565,7 @@ class _ShortWidgetState extends State<ShortWidget>
                                                                   ),
                                                                 ),
                                                                 Padding(
-                                                                  padding: EdgeInsetsDirectional
+                                                                  padding: const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           0.0,
@@ -579,7 +574,7 @@ class _ShortWidgetState extends State<ShortWidget>
                                                                   child: Text(
                                                                     dateTimeFormat(
                                                                       "relative",
-                                                                      widget!
+                                                                      widget
                                                                           .post!
                                                                           .timePosted!,
                                                                       locale: FFLocalizations.of(context)
@@ -606,11 +601,11 @@ class _ShortWidgetState extends State<ShortWidget>
                                                         },
                                                       ),
                                                     ),
-                                                  if (widget!.post?.isStealth ??
+                                                  if (widget.post?.isStealth ??
                                                       true)
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   5.0,
                                                                   0.0,
@@ -626,7 +621,7 @@ class _ShortWidgetState extends State<ShortWidget>
                                                             clipBehavior:
                                                                 Clip.antiAlias,
                                                             decoration:
-                                                                BoxDecoration(
+                                                                const BoxDecoration(
                                                               shape: BoxShape
                                                                   .circle,
                                                             ),
@@ -642,7 +637,7 @@ class _ShortWidgetState extends State<ShortWidget>
                                                           ),
                                                           Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         5.0,
                                                                         0.0,
@@ -669,7 +664,7 @@ class _ShortWidgetState extends State<ShortWidget>
                                                           ),
                                                           Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         5.0,
                                                                         0.0,
@@ -678,7 +673,7 @@ class _ShortWidgetState extends State<ShortWidget>
                                                             child: Icon(
                                                               Icons.circle,
                                                               color: () {
-                                                                if (functions.calculateNetVotes(widget!
+                                                                if (functions.calculateNetVotes(widget
                                                                         .post!
                                                                         .voters
                                                                         .toList()) >
@@ -686,7 +681,7 @@ class _ShortWidgetState extends State<ShortWidget>
                                                                   return FlutterFlowTheme.of(
                                                                           context)
                                                                       .success;
-                                                                } else if (functions.calculateNetVotes(widget!
+                                                                } else if (functions.calculateNetVotes(widget
                                                                         .post!
                                                                         .voters
                                                                         .toList()) <
@@ -705,7 +700,7 @@ class _ShortWidgetState extends State<ShortWidget>
                                                           ),
                                                           Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         0.0,
                                                                         0.0,
@@ -714,7 +709,7 @@ class _ShortWidgetState extends State<ShortWidget>
                                                             child: Text(
                                                               functions
                                                                   .calculateNetVotes(
-                                                                      widget!
+                                                                      widget
                                                                           .post!
                                                                           .voters
                                                                           .toList())
@@ -734,7 +729,7 @@ class _ShortWidgetState extends State<ShortWidget>
                                                           ),
                                                           Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         5.0,
                                                                         0.0,
@@ -750,7 +745,7 @@ class _ShortWidgetState extends State<ShortWidget>
                                                           ),
                                                           Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         0.0,
                                                                         0.0,
@@ -759,7 +754,7 @@ class _ShortWidgetState extends State<ShortWidget>
                                                             child: Text(
                                                               functions
                                                                   .calculateNetVotes(
-                                                                      widget!
+                                                                      widget
                                                                           .post!
                                                                           .voters
                                                                           .toList())
@@ -789,13 +784,13 @@ class _ShortWidgetState extends State<ShortWidget>
                                         Flexible(
                                           child: Container(
                                             width: 260.0,
-                                            decoration: BoxDecoration(),
+                                            decoration: const BoxDecoration(),
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(5.0, 0.0, 0.0, 2.0),
                                               child: Text(
                                                 valueOrDefault<String>(
-                                                  widget!.post?.caption,
+                                                  widget.post?.caption,
                                                   'None',
                                                 ),
                                                 maxLines: 3,
@@ -818,7 +813,7 @@ class _ShortWidgetState extends State<ShortWidget>
                                         Flexible(
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     5.0, 0.0, 0.0, 0.0),
                                             child: InkWell(
                                               splashColor: Colors.transparent,
@@ -838,7 +833,7 @@ class _ShortWidgetState extends State<ShortWidget>
                                                           .viewInsetsOf(
                                                               context),
                                                       child: CommentsWidget(
-                                                        post: widget!
+                                                        post: widget
                                                             .post?.reference,
                                                       ),
                                                     );
@@ -875,7 +870,7 @@ class _ShortWidgetState extends State<ShortWidget>
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 10.0, 0.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -906,7 +901,7 @@ class _ShortWidgetState extends State<ShortWidget>
                                                         MediaQuery.viewInsetsOf(
                                                             context),
                                                     child: CommentsWidget(
-                                                      post: widget!
+                                                      post: widget
                                                           .post?.reference,
                                                     ),
                                                   );
@@ -917,8 +912,8 @@ class _ShortWidgetState extends State<ShortWidget>
                                           ),
                                           Text(
                                             valueOrDefault<String>(
-                                              widget!.post?.comments?.length
-                                                  ?.toString(),
+                                              widget.post?.comments.length
+                                                  .toString(),
                                               '0',
                                             ),
                                             style: FlutterFlowTheme.of(context)
@@ -937,7 +932,7 @@ class _ShortWidgetState extends State<ShortWidget>
                                             children: [
                                               if (functions
                                                       .voterInList(
-                                                          widget!.post!.voters
+                                                          widget.post!.voters
                                                               .toList(),
                                                           currentUserReference!)
                                                       .toString() ==
@@ -957,13 +952,13 @@ class _ShortWidgetState extends State<ShortWidget>
                                                   onPressed: () async {
                                                     if (functions
                                                             .voterInList(
-                                                                widget!.post!
+                                                                widget.post!
                                                                     .voters
                                                                     .toList(),
                                                                 currentUserReference!)
                                                             .toString() ==
                                                         '1') {
-                                                      await widget!
+                                                      await widget
                                                           .post!.reference
                                                           .update({
                                                         ...mapToFirestore(
@@ -1011,7 +1006,7 @@ class _ShortWidgetState extends State<ShortWidget>
                                                                     .reverse);
                                                       }
                                                     } else {
-                                                      await widget!
+                                                      await widget
                                                           .post!.reference
                                                           .update({
                                                         ...mapToFirestore(
@@ -1063,7 +1058,7 @@ class _ShortWidgetState extends State<ShortWidget>
                                                 ),
                                               if (functions
                                                       .voterInList(
-                                                          widget!.post!.voters
+                                                          widget.post!.voters
                                                               .toList(),
                                                           currentUserReference!)
                                                       .toString() !=
@@ -1083,13 +1078,13 @@ class _ShortWidgetState extends State<ShortWidget>
                                                   onPressed: () async {
                                                     if (functions
                                                             .voterInList(
-                                                                widget!.post!
+                                                                widget.post!
                                                                     .voters
                                                                     .toList(),
                                                                 currentUserReference!)
                                                             .toString() ==
                                                         '1') {
-                                                      await widget!
+                                                      await widget
                                                           .post!.reference
                                                           .update({
                                                         ...mapToFirestore(
@@ -1124,7 +1119,7 @@ class _ShortWidgetState extends State<ShortWidget>
                                                                     .reverse);
                                                       }
                                                     } else {
-                                                      await widget!
+                                                      await widget
                                                           .post!.reference
                                                           .update({
                                                         ...mapToFirestore(
@@ -1165,8 +1160,8 @@ class _ShortWidgetState extends State<ShortWidget>
                                           ),
                                           Text(
                                             valueOrDefault<String>(
-                                              widget!.post?.voters?.length
-                                                  ?.toString(),
+                                              widget.post?.voters.length
+                                                  .toString(),
                                               '0',
                                             ),
                                             style: FlutterFlowTheme.of(context)

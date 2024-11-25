@@ -4,9 +4,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'terms_of_service_model.dart';
 export 'terms_of_service_model.dart';
 
@@ -49,7 +46,7 @@ class _TermsOfServiceWidgetState extends State<TermsOfServiceWidget> {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: AlignmentDirectional(0.0, 0.0),
+      alignment: const AlignmentDirectional(0.0, 0.0),
       child: Container(
         width: 400.0,
         height: 275.0,
@@ -61,7 +58,7 @@ class _TermsOfServiceWidgetState extends State<TermsOfServiceWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 20.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 20.0),
               child: InkWell(
                 splashColor: Colors.transparent,
                 focusColor: Colors.transparent,
@@ -73,13 +70,13 @@ class _TermsOfServiceWidgetState extends State<TermsOfServiceWidget> {
                 child: Container(
                   width: double.infinity,
                   height: 190.0,
-                  constraints: BoxConstraints(
+                  constraints: const BoxConstraints(
                     maxWidth: 350.0,
                     maxHeight: 275.0,
                   ),
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                         blurRadius: 5.0,
                         color: Color(0x44111417),
@@ -97,15 +94,15 @@ class _TermsOfServiceWidgetState extends State<TermsOfServiceWidget> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Align(
-                        alignment: AlignmentDirectional(-0.05, 0.0),
+                        alignment: const AlignmentDirectional(-0.05, 0.0),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               5.0, 5.0, 5.0, 0.0),
                           child: Container(
                             width: double.infinity,
                             height: 40.0,
                             decoration: BoxDecoration(
-                              gradient: LinearGradient(
+                              gradient: const LinearGradient(
                                 colors: [Color(0xFF0F66E2), Color(0xFF541BE3)],
                                 stops: [0.0, 1.0],
                                 begin: AlignmentDirectional(1.0, 0.0),
@@ -113,13 +110,13 @@ class _TermsOfServiceWidgetState extends State<TermsOfServiceWidget> {
                               ),
                               borderRadius: BorderRadius.circular(15.0),
                             ),
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  alignment: const AlignmentDirectional(0.0, 0.0),
                                   child: FlutterFlowIconButton(
                                     borderColor: Colors.transparent,
                                     borderRadius: 0.0,
@@ -154,7 +151,7 @@ class _TermsOfServiceWidgetState extends State<TermsOfServiceWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             12.0, 0.0, 12.0, 0.0),
                         child: Container(
                           width: double.infinity,
@@ -164,9 +161,9 @@ class _TermsOfServiceWidgetState extends State<TermsOfServiceWidget> {
                                 .secondaryBackground,
                           ),
                           child: Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   10.0, 5.0, 10.0, 0.0),
                               child: RichText(
                                 textScaler: MediaQuery.of(context).textScaler,
@@ -207,7 +204,7 @@ class _TermsOfServiceWidgetState extends State<TermsOfServiceWidget> {
                                       text: FFLocalizations.of(context).getText(
                                         'fpw2anq1' /* ,  */,
                                       ),
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 17.0,
                                       ),
                                     ),
@@ -231,7 +228,7 @@ class _TermsOfServiceWidgetState extends State<TermsOfServiceWidget> {
                                       text: FFLocalizations.of(context).getText(
                                         'qblu3qy0' /* , and  */,
                                       ),
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 17.0,
                                       ),
                                     ),
@@ -255,7 +252,7 @@ class _TermsOfServiceWidgetState extends State<TermsOfServiceWidget> {
                                       text: FFLocalizations.of(context).getText(
                                         'op3428od' /*  */,
                                       ),
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 17.0,
                                       ),
                                     )
@@ -274,7 +271,7 @@ class _TermsOfServiceWidgetState extends State<TermsOfServiceWidget> {
                       ),
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -283,7 +280,7 @@ class _TermsOfServiceWidgetState extends State<TermsOfServiceWidget> {
                             FFButtonWidget(
                               onPressed: () async {
                                 Navigator.pop(context);
-                                if (widget!.isEmail!) {
+                                if (widget.isEmail!) {
                                   context.goNamed('Email');
                                 } else {
                                   return;
@@ -295,9 +292,9 @@ class _TermsOfServiceWidgetState extends State<TermsOfServiceWidget> {
                               options: FFButtonOptions(
                                 width: 150.0,
                                 height: 45.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
                                 color: FlutterFlowTheme.of(context).primaryText,
                                 textStyle: FlutterFlowTheme.of(context)
@@ -309,7 +306,7 @@ class _TermsOfServiceWidgetState extends State<TermsOfServiceWidget> {
                                       letterSpacing: 0.0,
                                     ),
                                 elevation: 2.0,
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Colors.transparent,
                                   width: 1.0,
                                 ),
