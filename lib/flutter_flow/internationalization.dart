@@ -555,7 +555,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'tr': 'Giriş yapmak',
       'zh_Hans': '登录',
     },
-    'rbal66xm': {
+    'e0yv59z0': {
       'en': 'Home',
       'ar': 'بيت',
       'de': 'Heim',
@@ -884,7 +884,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'tr': 'Afiş',
       'zh_Hans': '横幅',
     },
-    'c1tfdizs': {
+    'kqqo9ssl': {
       'en': '',
       'ar': '',
       'de': '',
@@ -952,7 +952,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'tr': 'Örnek 2',
       'zh_Hans': '示例 2',
     },
-    'wt0lggv2': {
+    's63tct97': {
       'en': '',
       'ar': '',
       'de': '',
@@ -986,7 +986,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'tr': 'Adınız',
       'zh_Hans': '您的名字',
     },
-    'tltkqoge': {
+    'eay94rd5': {
       'en': '',
       'ar': '',
       'de': '',
@@ -3084,7 +3084,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // SingleArticle
   {
-    '8s7wyyt4': {
+    'kx8dqq31': {
       'en': 'Home',
       'ar': 'بيت',
       'de': 'Heim',
@@ -3121,7 +3121,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'tr': '',
       'zh_Hans': '',
     },
-    'vcwwnaln': {
+    'ixfccswz': {
       'en': 'Home',
       'ar': 'بيت',
       'de': 'Heim',
@@ -3158,7 +3158,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'tr': '',
       'zh_Hans': '',
     },
-    'ehdykmdc': {
+    'szbawfnx': {
       'en': 'Home',
       'ar': 'بيت',
       'de': 'Heim',
@@ -4494,7 +4494,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'tr': '',
       'zh_Hans': '',
     },
-    'un0h29r0': {
+    'spfz3b1a': {
       'en': 'Username',
       'ar': 'اسم المستخدم',
       'de': 'Benutzername',

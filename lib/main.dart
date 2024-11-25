@@ -58,7 +58,7 @@ class _MyAppState extends State<MyApp> {
 
     _appStateNotifier = AppStateNotifier.instance;
     _router = createRouter(_appStateNotifier);
-    userStream = surfV3FirebaseUserStream()
+    userStream = surfFirebaseUserStream()
       ..listen((user) {
         _appStateNotifier.update(user);
       });
@@ -89,7 +89,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Surf V3',
+      title: 'Surf',
       localizationsDelegates: const [
         FFLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,

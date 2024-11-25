@@ -9,6 +9,7 @@ import '/flutter_flow/upload_data.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'single_chat_model.dart';
 export 'single_chat_model.dart';
@@ -143,16 +144,20 @@ class _SingleChatWidgetState extends State<SingleChatWidget> {
                                 ),
                               ],
                             ),
-                            Container(
-                              width: 40.0,
-                              height: 40.0,
-                              clipBehavior: Clip.antiAlias,
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                              ),
-                              child: Image.network(
-                                containerUsersRecord.photoUrl,
-                                fit: BoxFit.cover,
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 2.0, 0.0),
+                              child: Container(
+                                width: 40.0,
+                                height: 40.0,
+                                clipBehavior: Clip.antiAlias,
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Image.network(
+                                  containerUsersRecord.photoUrl,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           ],
@@ -679,7 +684,7 @@ class _SingleChatWidgetState extends State<SingleChatWidget> {
                           ),
                           child: Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                10.0, 0.0, 10.0, 0.0),
+                                0.0, 0.0, 0.0, 10.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -791,7 +796,7 @@ class _SingleChatWidgetState extends State<SingleChatWidget> {
                                                                 context)
                                                             .primaryBackground,
                                                     contentPadding:
-                                                        const EdgeInsets.all(20.0),
+                                                        const EdgeInsets.all(18.0),
                                                   ),
                                                   style: FlutterFlowTheme.of(
                                                           context)
@@ -946,6 +951,8 @@ class _SingleChatWidgetState extends State<SingleChatWidget> {
                                     size: 24.0,
                                   ),
                                   onPressed: () async {
+                                    HapticFeedback.mediumImpact();
+
                                     await ChatMessagesRecord.createDoc(
                                             widget.chat!.reference)
                                         .set(createChatMessagesRecordData(

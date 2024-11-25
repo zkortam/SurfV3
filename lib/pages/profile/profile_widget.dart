@@ -321,6 +321,8 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                         hoverColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
+                                          HapticFeedback.mediumImpact();
+
                                           context.pushNamed('EnterPin');
                                         },
                                         child: Container(
@@ -1622,7 +1624,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
                               color: Colors.transparent,
                               child: NavigationBarWidget(
                                 page: 4,
-                                tabIndex: 2,
+                                tabIndex: 3,
                               ),
                             ),
                           ),

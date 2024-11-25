@@ -544,7 +544,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         color: Colors.transparent,
                         child: NavigationBarWidget(
                           page: 1,
-                          tabIndex: 1,
+                          tabIndex: 0,
                         ),
                       ),
                     ),
