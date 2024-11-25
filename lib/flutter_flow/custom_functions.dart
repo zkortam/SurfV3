@@ -330,3 +330,10 @@ bool isDMExistent(
   // If no matching chat is found, return false
   return false;
 }
+
+bool isMessageValid(String str) {
+  String trimmedStr = str.trim();
+
+  // Check if the trimmed string is empty
+  return trimmedStr.isNotEmpty;
+}

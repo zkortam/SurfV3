@@ -214,9 +214,8 @@ class _UserSelectionForChatWidgetState
                                   },
                                 ),
                               }, chatsRecordReference);
-                              Navigator.pop(context);
 
-                              context.pushNamed(
+                              context.goNamed(
                                 'singleChat',
                                 queryParameters: {
                                   'chat': serializeParam(

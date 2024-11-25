@@ -56,13 +56,150 @@ class GetrecommendationsCall {
 
   static List? postids(dynamic response) => getJsonField(
         response,
-        r'''$.post_ids''',
+        r'''$.posts''',
         true,
       ) as List?;
-  static dynamic code(dynamic response) => getJsonField(
+  static int? code(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.code''',
-      );
+      ));
+  static List<String>? authors(dynamic response) => (getJsonField(
+        response,
+        r'''$.posts[:].Author''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List<String>? captions(dynamic response) => (getJsonField(
+        response,
+        r'''$.posts[:].Caption''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List? timeposteds(dynamic response) => getJsonField(
+        response,
+        r'''$.posts[:].TimePosted''',
+        true,
+      ) as List?;
+  static List? voters(dynamic response) => getJsonField(
+        response,
+        r'''$.posts[:].Voters''',
+        true,
+      ) as List?;
+  static List<String>? voteruserrefereces(dynamic response) => (getJsonField(
+        response,
+        r'''$.posts[:].Voters[:].UserReference''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List<String>? votevotevaleus(dynamic response) => (getJsonField(
+        response,
+        r'''$.posts[:].Voters[:].VoteValue''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List? spoilerclickers(dynamic response) => getJsonField(
+        response,
+        r'''$.posts[:].SpoilerClickers''',
+        true,
+      ) as List?;
+  static List? hashtags(dynamic response) => getJsonField(
+        response,
+        r'''$.posts[:].hashtags''',
+        true,
+      ) as List?;
+  static List<String>? ids(dynamic response) => (getJsonField(
+        response,
+        r'''$.posts[:].id''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List<String>? informativevalues(dynamic response) => (getJsonField(
+        response,
+        r'''$.posts[:].informative_value''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List<String>? isshorts(dynamic response) => (getJsonField(
+        response,
+        r'''$.posts[:].isShort''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List<String>? isspoilers(dynamic response) => (getJsonField(
+        response,
+        r'''$.posts[:].isSpoiler''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List<String>? isstealhs(dynamic response) => (getJsonField(
+        response,
+        r'''$.posts[:].isStealth''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List? medias(dynamic response) => getJsonField(
+        response,
+        r'''$.posts[:].media''',
+        true,
+      ) as List?;
+  static List<String>? politicalvalues(dynamic response) => (getJsonField(
+        response,
+        r'''$.posts[:].political_value''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List<String>? toxicvalues(dynamic response) => (getJsonField(
+        response,
+        r'''$.posts[:].toxic_value''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List<String>? vulgarvalues(dynamic response) => (getJsonField(
+        response,
+        r'''$.posts[:].vulgar_value''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static int? count(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.count''',
+      ));
 }
 
 class ApiPagingParams {

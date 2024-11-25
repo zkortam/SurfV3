@@ -315,7 +315,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'zh_Hans': '登录',
     },
     'ukkpvyd4': {
-      'en': 'Don\'t have an account?  ',
+      'en': 'No Account?  ',
       'ar': 'ليس لديك حساب؟',
       'de': 'Sie haben noch kein Konto?',
       'es': '¿No tienes una cuenta?',
@@ -555,7 +555,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'tr': 'Giriş yapmak',
       'zh_Hans': '登录',
     },
-    'e0yv59z0': {
+    'zgx3lwos': {
       'en': 'Home',
       'ar': 'بيت',
       'de': 'Heim',
@@ -3174,6 +3174,26 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ru': 'Дом',
       'tr': 'Ev',
       'zh_Hans': '家',
+    },
+  },
+  // algotesting
+  {
+    'e0yv59z0': {
+      'en': 'Home',
+      'ar': '',
+      'de': '',
+      'es': '',
+      'fr': '',
+      'he': '',
+      'hi': '',
+      'id': '',
+      'it': '',
+      'ms': '',
+      'nl': '',
+      'pt': '',
+      'ru': '',
+      'tr': '',
+      'zh_Hans': '',
     },
   },
   // TermsOfService

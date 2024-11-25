@@ -1,5 +1,4 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/components/custom_algorithm_widget.dart';
 import '/components/navigation_bar_widget.dart';
@@ -10,7 +9,6 @@ import '/flutter_flow/flutter_flow_swipeable_stack.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -36,16 +34,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => HomePageModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if (RootPageContext.isInactiveRootPage(context)) {
-        return;
-      }
-      _model.postIds = await GetrecommendationsCall.call(
-        userId: currentUserUid,
-      );
-    });
 
     animationsMap.addAll({
       'listViewOnPageLoadAnimation': AnimationInfo(
@@ -271,7 +259,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                     borderWidth: 1.0,
                                                     buttonSize: 40.0,
                                                     icon: Icon(
-                                                      Icons.square_outlined,
+                                                      Icons.circle_outlined,
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)

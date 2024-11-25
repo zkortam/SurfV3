@@ -1,4 +1,3 @@
-import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/components/navigation_bar_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -8,10 +7,23 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class HomePageModel extends FlutterFlowModel<HomePageWidget> {
+  ///  Local state fields for this page.
+
+  int postindex = 0;
+
+  List<PostsRecord> postlist = [];
+  void addToPostlist(PostsRecord item) => postlist.add(item);
+  void removeFromPostlist(PostsRecord item) => postlist.remove(item);
+  void removeAtIndexFromPostlist(int index) => postlist.removeAt(index);
+  void insertAtIndexInPostlist(int index, PostsRecord item) =>
+      postlist.insert(index, item);
+  void updatePostlistAtIndex(int index, Function(PostsRecord) updateFn) =>
+      postlist[index] = updateFn(postlist[index]);
+
+  PostsRecord? currentpost;
+
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [Backend Call - API (getrecommendations)] action in HomePage widget.
-  ApiCallResponse? postIds;
   // State field(s) for SwipeableStack widget.
   late CardSwiperController swipeableStackController;
   // State field(s) for ListView widget.
