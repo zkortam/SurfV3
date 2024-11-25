@@ -176,8 +176,8 @@ class _UserSelectionForGroupWidgetState
             ),
             Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(5.0, 10.0, 5.0, 0.0),
-              child: StreamBuilder<List<UsersRecord>>(
-                stream: queryUsersRecord(
+              child: FutureBuilder<List<UsersRecord>>(
+                future: queryUsersRecordOnce(
                   queryBuilder: (usersRecord) =>
                       usersRecord.orderBy('display_name', descending: true),
                 ),
@@ -195,7 +195,9 @@ class _UserSelectionForGroupWidgetState
                       ),
                     );
                   }
-                  List<UsersRecord> listViewUsersRecordList = snapshot.data!;
+                  List<UsersRecord> listViewUsersRecordList = snapshot.data!
+                      .where((u) => u.uid != currentUserUid)
+                      .toList();
 
                   return ListView.separated(
                     padding: const EdgeInsets.fromLTRB(

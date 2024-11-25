@@ -951,40 +951,72 @@ class _SingleChatWidgetState extends State<SingleChatWidget> {
                                     size: 24.0,
                                   ),
                                   onPressed: () async {
-                                    HapticFeedback.mediumImpact();
+                                    final firestoreBatch =
+                                        FirebaseFirestore.instance.batch();
+                                    try {
+                                      HapticFeedback.mediumImpact();
 
-                                    await ChatMessagesRecord.createDoc(
-                                            widget.chat!.reference)
-                                        .set(createChatMessagesRecordData(
-                                      text: _model.textController.text,
-                                      timeStamp: getCurrentTimestamp,
-                                      authorID: currentUserReference,
-                                      image: _model.uploadedFileUrl,
-                                    ));
+                                      var chatMessagesRecordReference =
+                                          ChatMessagesRecord.createDoc(
+                                              widget.chat!.reference);
+                                      firestoreBatch.set(
+                                          chatMessagesRecordReference,
+                                          createChatMessagesRecordData(
+                                            text: _model.textController.text,
+                                            timeStamp: getCurrentTimestamp,
+                                            authorID: currentUserReference,
+                                            image: _model.uploadedFileUrl,
+                                          ));
+                                      _model.output = ChatMessagesRecord
+                                          .getDocumentFromData(
+                                              createChatMessagesRecordData(
+                                                text:
+                                                    _model.textController.text,
+                                                timeStamp: getCurrentTimestamp,
+                                                authorID: currentUserReference,
+                                                image: _model.uploadedFileUrl,
+                                              ),
+                                              chatMessagesRecordReference);
 
-                                    await widget.chat!.reference
-                                        .update(createChatsRecordData(
-                                      lastTime: getCurrentTimestamp,
-                                      lastMessage: _model.textController.text,
-                                    ));
-                                    safeSetState(() {
-                                      _model.textController?.clear();
-                                    });
-                                    safeSetState(() {
-                                      _model.isDataUploading = false;
-                                      _model.uploadedLocalFile = FFUploadedFile(
-                                          bytes: Uint8List.fromList([]));
-                                      _model.uploadedFileUrl = '';
-                                    });
+                                      firestoreBatch
+                                          .update(widget.chat!.reference, {
+                                        ...createChatsRecordData(
+                                          lastTime: getCurrentTimestamp,
+                                          lastMessage:
+                                              _model.textController.text,
+                                        ),
+                                        ...mapToFirestore(
+                                          {
+                                            'chats': FieldValue.arrayUnion(
+                                                [_model.output?.reference]),
+                                          },
+                                        ),
+                                      });
+                                      safeSetState(() {
+                                        _model.textController?.clear();
+                                      });
+                                      safeSetState(() {
+                                        _model.isDataUploading = false;
+                                        _model.uploadedLocalFile =
+                                            FFUploadedFile(
+                                                bytes: Uint8List.fromList([]));
+                                        _model.uploadedFileUrl = '';
+                                      });
 
-                                    _model.refresh = 1;
+                                      _model.refresh = 1;
+                                      safeSetState(() {});
+                                      await _model.listViewController
+                                          ?.animateTo(
+                                        _model.listViewController!.position
+                                            .maxScrollExtent,
+                                        duration: const Duration(milliseconds: 100),
+                                        curve: Curves.ease,
+                                      );
+                                    } finally {
+                                      await firestoreBatch.commit();
+                                    }
+
                                     safeSetState(() {});
-                                    await _model.listViewController?.animateTo(
-                                      _model.listViewController!.position
-                                          .maxScrollExtent,
-                                      duration: const Duration(milliseconds: 100),
-                                      curve: Curves.ease,
-                                    );
                                   },
                                 ),
                               ],
