@@ -4,9 +4,12 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'user_selection_for_group_model.dart';
 export 'user_selection_for_group_model.dart';
 
@@ -40,8 +43,8 @@ class _UserSelectionForGroupWidgetState
 
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.selectedUsers = (currentUserDocument?.groups.toList() ?? [])
-          .where((e) => e.name == widget.groupName)
+      _model.selectedUsers = (currentUserDocument?.groups?.toList() ?? [])
+          .where((e) => e.name == widget!.groupName)
           .toList()
           .first
           .people
@@ -67,7 +70,7 @@ class _UserSelectionForGroupWidgetState
       height: 600.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        borderRadius: const BorderRadius.only(
+        borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
           topLeft: Radius.circular(30.0),
@@ -75,12 +78,12 @@ class _UserSelectionForGroupWidgetState
         ),
       ),
       child: Padding(
-        padding: const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
+        padding: EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
               child: Container(
                 width: double.infinity,
                 height: 55.0,
@@ -98,7 +101,7 @@ class _UserSelectionForGroupWidgetState
                   children: [
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
                       child: FlutterFlowIconButton(
                         borderColor: Colors.transparent,
                         borderRadius: 30.0,
@@ -140,7 +143,7 @@ class _UserSelectionForGroupWidgetState
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 3.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 3.0, 0.0),
                       child: FlutterFlowIconButton(
                         borderColor: Colors.transparent,
                         borderRadius: 30.0,
@@ -157,8 +160,8 @@ class _UserSelectionForGroupWidgetState
                               {
                                 'groups': getFollowerGroupListFirestoreData(
                                   functions.updateGroupPeople(
-                                      widget.groupName!,
-                                      (currentUserDocument?.groups.toList() ??
+                                      widget!.groupName!,
+                                      (currentUserDocument?.groups?.toList() ??
                                               [])
                                           .toList(),
                                       _model.selectedUsers.toList()),
@@ -175,7 +178,7 @@ class _UserSelectionForGroupWidgetState
               ),
             ),
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(5.0, 10.0, 5.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(5.0, 10.0, 5.0, 0.0),
               child: StreamBuilder<List<UsersRecord>>(
                 stream: queryUsersRecord(
                   queryBuilder: (usersRecord) =>
@@ -198,7 +201,7 @@ class _UserSelectionForGroupWidgetState
                   List<UsersRecord> listViewUsersRecordList = snapshot.data!;
 
                   return ListView.separated(
-                    padding: const EdgeInsets.fromLTRB(
+                    padding: EdgeInsets.fromLTRB(
                       0,
                       0,
                       0,
@@ -207,116 +210,88 @@ class _UserSelectionForGroupWidgetState
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     itemCount: listViewUsersRecordList.length,
-                    separatorBuilder: (_, __) => const SizedBox(height: 10.0),
+                    separatorBuilder: (_, __) => SizedBox(height: 10.0),
                     itemBuilder: (context, listViewIndex) {
                       final listViewUsersRecord =
                           listViewUsersRecordList[listViewIndex];
-                      return Container(
-                        width: double.infinity,
-                        height: 60.0,
-                        decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
-                          borderRadius: BorderRadius.circular(50.0),
-                          border: Border.all(
-                            color: FlutterFlowTheme.of(context).alternate,
-                            width: 3.0,
+                      return InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          if (functions.userInList(
+                              _model.selectedUsers.toList(),
+                              listViewUsersRecord.reference)) {
+                            _model.removeFromSelectedUsers(
+                                listViewUsersRecord.reference);
+                            safeSetState(() {});
+                          } else {
+                            _model.addToSelectedUsers(
+                                listViewUsersRecord.reference);
+                            safeSetState(() {});
+                          }
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          height: 60.0,
+                          decoration: BoxDecoration(
+                            color: functions.userInList(
+                                    _model.selectedUsers.toList(),
+                                    listViewUsersRecord.reference)
+                                ? Color(0x9B4B39EF)
+                                : FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                            borderRadius: BorderRadius.circular(50.0),
+                            border: Border.all(
+                              color: functions.userInList(
+                                      _model.selectedUsers.toList(),
+                                      listViewUsersRecord.reference)
+                                  ? FlutterFlowTheme.of(context).primary
+                                  : FlutterFlowTheme.of(context).alternate,
+                              width: 3.0,
+                            ),
                           ),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      2.0, 5.0, 5.0, 5.0),
-                                  child: Container(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    clipBehavior: Clip.antiAlias,
-                                    decoration: const BoxDecoration(
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Image.network(
-                                      listViewUsersRecord.photoUrl,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                                Text(
-                                  listViewUsersRecord.displayName,
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Montserrat',
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                        fontSize: 18.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                ),
-                              ],
-                            ),
-                            Stack(
-                              children: [
-                                if (!functions.userInList(
-                                    _model.selectedUsers.toList(),
-                                    listViewUsersRecord.reference))
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 5.0, 0.0),
-                                    child: FlutterFlowIconButton(
-                                      borderColor: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      borderRadius: 30.0,
-                                      borderWidth: 3.0,
-                                      buttonSize: 45.0,
-                                      icon: Icon(
-                                        Icons.add_rounded,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                        size: 24.0,
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        2.0, 5.0, 5.0, 5.0),
+                                    child: Container(
+                                      width: 50.0,
+                                      height: 50.0,
+                                      clipBehavior: Clip.antiAlias,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
                                       ),
-                                      onPressed: () async {
-                                        _model.addToSelectedUsers(
-                                            listViewUsersRecord.reference);
-                                        safeSetState(() {});
-                                      },
+                                      child: Image.network(
+                                        listViewUsersRecord.photoUrl,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
-                                if (functions.userInList(
-                                    _model.selectedUsers.toList(),
-                                    listViewUsersRecord.reference))
-                                  Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 5.0, 0.0),
-                                    child: FlutterFlowIconButton(
-                                      borderColor:
-                                          FlutterFlowTheme.of(context).primary,
-                                      borderRadius: 30.0,
-                                      borderWidth: 3.0,
-                                      buttonSize: 45.0,
-                                      fillColor:
-                                          FlutterFlowTheme.of(context).primary,
-                                      icon: const Icon(
-                                        Icons.person_add_rounded,
-                                        color: Colors.white,
-                                        size: 20.0,
-                                      ),
-                                      onPressed: () async {
-                                        _model.removeFromSelectedUsers(
-                                            listViewUsersRecord.reference);
-                                        safeSetState(() {});
-                                      },
-                                    ),
+                                  Text(
+                                    listViewUsersRecord.displayName,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Montserrat',
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          fontSize: 18.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                   ),
-                              ],
-                            ),
-                          ],
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     },

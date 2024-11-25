@@ -5,9 +5,12 @@ import '/components/threads_comp_edit_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'threads_comp_model.dart';
 export 'threads_comp_model.dart';
 
@@ -54,7 +57,7 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
       height: 500.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        borderRadius: const BorderRadius.only(
+        borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
           topLeft: Radius.circular(30.0),
@@ -62,7 +65,7 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
         ),
       ),
       child: StreamBuilder<ThreadsRecord>(
-        stream: ThreadsRecord.getDocument(widget.thread!),
+        stream: ThreadsRecord.getDocument(widget!.thread!),
         builder: (context, snapshot) {
           // Customize what your widget looks like when it's loading.
           if (!snapshot.hasData) {
@@ -85,12 +88,12 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
             children: [
               Flexible(
                 child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 20.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 20.0),
                   child: Container(
                     width: double.infinity,
                     height: 55.0,
                     decoration: BoxDecoration(
-                      gradient: const LinearGradient(
+                      gradient: LinearGradient(
                         colors: [Color(0x7F2120BC), Color(0x7B7D16C1)],
                         stops: [0.0, 1.0],
                         begin: AlignmentDirectional(1.0, -1.0),
@@ -104,7 +107,7 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
                       children: [
                         Flexible(
                           child: Padding(
-                            padding: const EdgeInsets.all(4.0),
+                            padding: EdgeInsets.all(4.0),
                             child: Container(
                               width: double.infinity,
                               height: 90.0,
@@ -118,7 +121,7 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         3.0, 0.0, 0.0, 0.0),
                                     child: FlutterFlowIconButton(
                                       borderColor: Colors.transparent,
@@ -145,10 +148,10 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
                                       children: [
                                         Align(
                                           alignment:
-                                              const AlignmentDirectional(0.0, 0.0),
+                                              AlignmentDirectional(0.0, 0.0),
                                           child: Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 42.0, 0.0),
                                             child: Text(
                                               FFLocalizations.of(context)
@@ -184,7 +187,7 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(5.0),
+                padding: EdgeInsets.all(5.0),
                 child: InkWell(
                   splashColor: Colors.transparent,
                   focusColor: Colors.transparent,
@@ -200,7 +203,7 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
                         return Padding(
                           padding: MediaQuery.viewInsetsOf(context),
                           child: MakeSnippetCaptionWidget(
-                            thread: widget.thread,
+                            thread: widget!.thread,
                           ),
                         );
                       },
@@ -219,7 +222,7 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
                     ),
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -233,7 +236,7 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     10.0, 0.0, 0.0, 0.0),
                                 child: Text(
                                   FFLocalizations.of(context).getText(
@@ -260,7 +263,7 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
               ),
               if (columnThreadsRecord.author == currentUserReference)
                 Padding(
-                  padding: const EdgeInsets.all(5.0),
+                  padding: EdgeInsets.all(5.0),
                   child: InkWell(
                     splashColor: Colors.transparent,
                     focusColor: Colors.transparent,
@@ -276,7 +279,7 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
                           return Padding(
                             padding: MediaQuery.viewInsetsOf(context),
                             child: ThreadsCompEditWidget(
-                              thread: widget.thread!,
+                              thread: widget!.thread!,
                             ),
                           );
                         },
@@ -295,7 +298,7 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
                       ),
                       child: Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -309,7 +312,7 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       10.0, 0.0, 0.0, 0.0),
                                   child: Text(
                                     FFLocalizations.of(context).getText(
@@ -335,7 +338,7 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
                   ),
                 ),
               Padding(
-                padding: const EdgeInsets.all(5.0),
+                padding: EdgeInsets.all(5.0),
                 child: Container(
                   width: double.infinity,
                   height: 60.0,
@@ -348,7 +351,7 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -362,7 +365,7 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   10.0, 0.0, 0.0, 0.0),
                               child: Text(
                                 FFLocalizations.of(context).getText(
@@ -387,7 +390,7 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(5.0),
+                padding: EdgeInsets.all(5.0),
                 child: Container(
                   width: double.infinity,
                   height: 60.0,
@@ -400,7 +403,7 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -414,7 +417,7 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   10.0, 0.0, 0.0, 0.0),
                               child: Text(
                                 FFLocalizations.of(context).getText(
@@ -440,7 +443,7 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
               ),
               if (columnThreadsRecord.author != currentUserReference)
                 Padding(
-                  padding: const EdgeInsets.all(5.0),
+                  padding: EdgeInsets.all(5.0),
                   child: Container(
                     width: double.infinity,
                     height: 60.0,
@@ -448,13 +451,13 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
                       color: FlutterFlowTheme.of(context).secondaryBackground,
                       borderRadius: BorderRadius.circular(30.0),
                       border: Border.all(
-                        color: const Color(0x84D01C27),
+                        color: Color(0x84D01C27),
                         width: 4.0,
                       ),
                     ),
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -468,7 +471,7 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     10.0, 0.0, 0.0, 0.0),
                                 child: Text(
                                   FFLocalizations.of(context).getText(
@@ -494,14 +497,14 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
                 ),
               if (columnThreadsRecord.author == currentUserReference)
                 Padding(
-                  padding: const EdgeInsets.all(5.0),
+                  padding: EdgeInsets.all(5.0),
                   child: InkWell(
                     splashColor: Colors.transparent,
                     focusColor: Colors.transparent,
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      await widget.thread!.delete();
+                      await widget!.thread!.delete();
                       Navigator.pop(context);
                     },
                     child: Container(
@@ -511,13 +514,13 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
                         color: FlutterFlowTheme.of(context).secondaryBackground,
                         borderRadius: BorderRadius.circular(30.0),
                         border: Border.all(
-                          color: const Color(0x84D01C27),
+                          color: Color(0x84D01C27),
                           width: 4.0,
                         ),
                       ),
                       child: Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -531,7 +534,7 @@ class _ThreadsCompWidgetState extends State<ThreadsCompWidget> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       10.0, 0.0, 0.0, 0.0),
                                   child: Text(
                                     FFLocalizations.of(context).getText(

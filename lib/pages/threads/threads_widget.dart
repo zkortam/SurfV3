@@ -7,10 +7,15 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:provider/provider.dart';
 import 'threads_model.dart';
 export 'threads_model.dart';
 
@@ -70,7 +75,7 @@ class _ThreadsWidgetState extends State<ThreadsWidget>
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: const AlignmentDirectional(0.0, -1.0),
+            alignment: AlignmentDirectional(0.0, -1.0),
             child: Stack(
               children: [
                 SingleChildScrollView(
@@ -80,13 +85,13 @@ class _ThreadsWidgetState extends State<ThreadsWidget>
                     children: [
                       Flexible(
                         child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               5.0, 0.0, 5.0, 0.0),
                           child: Container(
                             width: double.infinity,
                             height: 55.0,
                             decoration: BoxDecoration(
-                              gradient: const LinearGradient(
+                              gradient: LinearGradient(
                                 colors: [Color(0xFF2120BC), Color(0xFF7D16C1)],
                                 stops: [0.0, 1.0],
                                 begin: AlignmentDirectional(1.0, -1.0),
@@ -100,7 +105,7 @@ class _ThreadsWidgetState extends State<ThreadsWidget>
                               children: [
                                 Flexible(
                                   child: Padding(
-                                    padding: const EdgeInsets.all(3.0),
+                                    padding: EdgeInsets.all(3.0),
                                     child: Container(
                                       width: double.infinity,
                                       height: 90.0,
@@ -111,7 +116,7 @@ class _ThreadsWidgetState extends State<ThreadsWidget>
                                             BorderRadius.circular(24.0),
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             15.0, 0.0, 10.0, 0.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
@@ -126,7 +131,7 @@ class _ThreadsWidgetState extends State<ThreadsWidget>
                                                     Brightness.dark)
                                                   Padding(
                                                     padding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(5.0, 0.0,
                                                                 0.0, 0.0),
                                                     child: ClipRRect(
@@ -146,7 +151,7 @@ class _ThreadsWidgetState extends State<ThreadsWidget>
                                                     Brightness.light)
                                                   Padding(
                                                     padding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(5.0, 0.0,
                                                                 0.0, 0.0),
                                                     child: ClipRRect(
@@ -167,7 +172,7 @@ class _ThreadsWidgetState extends State<ThreadsWidget>
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 0.0, 5.0, 0.0),
                                                   child: FlutterFlowIconButton(
@@ -202,7 +207,7 @@ class _ThreadsWidgetState extends State<ThreadsWidget>
                                                                   .viewInsetsOf(
                                                                       context),
                                                               child:
-                                                                  const CustomAlgorithmWidget(),
+                                                                  CustomAlgorithmWidget(),
                                                             ),
                                                           );
                                                         },
@@ -212,7 +217,7 @@ class _ThreadsWidgetState extends State<ThreadsWidget>
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 0.0, 5.0, 0.0),
                                                   child: FlutterFlowIconButton(
@@ -236,7 +241,7 @@ class _ThreadsWidgetState extends State<ThreadsWidget>
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 0.0, 5.0, 0.0),
                                                   child: FlutterFlowIconButton(
@@ -272,7 +277,7 @@ class _ThreadsWidgetState extends State<ThreadsWidget>
                                                                   .viewInsetsOf(
                                                                       context),
                                                               child:
-                                                                  const SpaceSelectorWidget(),
+                                                                  SpaceSelectorWidget(),
                                                             ),
                                                           );
                                                         },
@@ -322,9 +327,9 @@ class _ThreadsWidgetState extends State<ThreadsWidget>
                       ),
                       Flexible(
                         child: Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
+                          alignment: AlignmentDirectional(0.0, 0.0),
                           child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 5.0, 0.0, 5.0, 0.0),
                             child: PagedListView<DocumentSnapshot<Object?>?,
                                 ThreadsRecord>.separated(
@@ -336,7 +341,7 @@ class _ThreadsWidgetState extends State<ThreadsWidget>
                                     )
                                     .orderBy('TimeStamp', descending: true),
                               ),
-                              padding: const EdgeInsets.fromLTRB(
+                              padding: EdgeInsets.fromLTRB(
                                 0,
                                 10.0,
                                 0,
@@ -347,7 +352,7 @@ class _ThreadsWidgetState extends State<ThreadsWidget>
                               reverse: false,
                               scrollDirection: Axis.vertical,
                               separatorBuilder: (_, __) =>
-                                  const SizedBox(height: 10.0),
+                                  SizedBox(height: 10.0),
                               builderDelegate:
                                   PagedChildBuilderDelegate<ThreadsRecord>(
                                 // Customize what your widget looks like when it's loading the first page.
@@ -396,11 +401,11 @@ class _ThreadsWidgetState extends State<ThreadsWidget>
                   ),
                 ),
                 Align(
-                  alignment: const AlignmentDirectional(0.0, 1.0),
+                  alignment: AlignmentDirectional(0.0, 1.0),
                   child: wrapWithModel(
                     model: _model.navigationBarModel,
                     updateCallback: () => safeSetState(() {}),
-                    child: const Hero(
+                    child: Hero(
                       tag: 'navBar',
                       transitionOnUserGestures: true,
                       child: Material(

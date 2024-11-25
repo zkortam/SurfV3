@@ -1,13 +1,14 @@
 import '/backend/backend.dart';
 import '/components/create_audio_widget.dart';
-import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_audio_player.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'music_selector_model.dart';
 export 'music_selector_model.dart';
 
@@ -18,11 +19,8 @@ class MusicSelectorWidget extends StatefulWidget {
   State<MusicSelectorWidget> createState() => _MusicSelectorWidgetState();
 }
 
-class _MusicSelectorWidgetState extends State<MusicSelectorWidget>
-    with TickerProviderStateMixin {
+class _MusicSelectorWidgetState extends State<MusicSelectorWidget> {
   late MusicSelectorModel _model;
-
-  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void setState(VoidCallback callback) {
@@ -34,48 +32,6 @@ class _MusicSelectorWidgetState extends State<MusicSelectorWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => MusicSelectorModel());
-
-    animationsMap.addAll({
-      'containerOnPageLoadAnimation': AnimationInfo(
-        trigger: AnimationTrigger.onPageLoad,
-        applyInitialState: true,
-        effectsBuilder: () => [
-          FadeEffect(
-            curve: Curves.easeInOut,
-            delay: 0.0.ms,
-            duration: 1000.0.ms,
-            begin: 0.0,
-            end: 1.0,
-          ),
-        ],
-      ),
-      'containerOnActionTriggerAnimation': AnimationInfo(
-        trigger: AnimationTrigger.onActionTrigger,
-        applyInitialState: true,
-        effectsBuilder: () => [
-          FadeEffect(
-            curve: Curves.easeInOut,
-            delay: 0.0.ms,
-            duration: 1000.0.ms,
-            begin: 0.0,
-            end: 1.0,
-          ),
-          SaturateEffect(
-            curve: Curves.easeInOut,
-            delay: 0.0.ms,
-            duration: 3000.0.ms,
-            begin: 0.0,
-            end: 1.0,
-          ),
-        ],
-      ),
-    });
-    setupAnimations(
-      animationsMap.values.where((anim) =>
-          anim.trigger == AnimationTrigger.onActionTrigger ||
-          !anim.applyInitialState),
-      this,
-    );
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -94,7 +50,7 @@ class _MusicSelectorWidgetState extends State<MusicSelectorWidget>
       height: 550.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        borderRadius: const BorderRadius.only(
+        borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
           topLeft: Radius.circular(30.0),
@@ -105,12 +61,12 @@ class _MusicSelectorWidgetState extends State<MusicSelectorWidget>
         mainAxisSize: MainAxisSize.max,
         children: [
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
             child: Container(
               width: double.infinity,
               height: 55.0,
               decoration: BoxDecoration(
-                gradient: const LinearGradient(
+                gradient: LinearGradient(
                   colors: [Color(0x7F2120BC), Color(0x7B7D16C1)],
                   stops: [0.0, 1.0],
                   begin: AlignmentDirectional(1.0, -1.0),
@@ -124,7 +80,7 @@ class _MusicSelectorWidgetState extends State<MusicSelectorWidget>
                 children: [
                   Flexible(
                     child: Padding(
-                      padding: const EdgeInsets.all(3.0),
+                      padding: EdgeInsets.all(3.0),
                       child: Container(
                         width: double.infinity,
                         height: 90.0,
@@ -138,7 +94,7 @@ class _MusicSelectorWidgetState extends State<MusicSelectorWidget>
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   3.0, 0.0, 0.0, 0.0),
                               child: FlutterFlowIconButton(
                                 borderColor: Colors.transparent,
@@ -162,7 +118,7 @@ class _MusicSelectorWidgetState extends State<MusicSelectorWidget>
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Align(
-                                    alignment: const AlignmentDirectional(0.0, 0.0),
+                                    alignment: AlignmentDirectional(0.0, 0.0),
                                     child: Text(
                                       FFLocalizations.of(context).getText(
                                         '0640bl7c' /* Select Audio */,
@@ -183,7 +139,7 @@ class _MusicSelectorWidgetState extends State<MusicSelectorWidget>
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 3.0, 0.0),
                               child: FlutterFlowIconButton(
                                 borderColor: Colors.transparent,
@@ -210,13 +166,9 @@ class _MusicSelectorWidgetState extends State<MusicSelectorWidget>
             ),
           ),
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
-            child: InkWell(
-              splashColor: Colors.transparent,
-              focusColor: Colors.transparent,
-              hoverColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              onTap: () async {
+            padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
+            child: FFButtonWidget(
+              onPressed: () async {
                 await showModalBottomSheet(
                   isScrollControlled: true,
                   backgroundColor: Colors.transparent,
@@ -225,48 +177,33 @@ class _MusicSelectorWidgetState extends State<MusicSelectorWidget>
                   builder: (context) {
                     return Padding(
                       padding: MediaQuery.viewInsetsOf(context),
-                      child: const CreateAudioWidget(),
+                      child: CreateAudioWidget(),
                     );
                   },
                 ).then((value) => safeSetState(() {}));
               },
-              child: Container(
+              text: FFLocalizations.of(context).getText(
+                '1w4wve84' /* Create Audio */,
+              ),
+              options: FFButtonOptions(
                 width: double.infinity,
                 height: 50.0,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30.0),
-                  border: Border.all(
-                    color: FlutterFlowTheme.of(context).primary,
-                    width: 5.0,
-                  ),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      FFLocalizations.of(context).getText(
-                        'tbvek8ln' /* Create Audio */,
-                      ),
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Montserrat',
-                            fontSize: 15.0,
-                            letterSpacing: 0.0,
-                          ),
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                color: FlutterFlowTheme.of(context).primary,
+                textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                      fontFamily: 'Montserrat',
+                      color: Colors.white,
+                      letterSpacing: 0.0,
                     ),
-                  ],
-                ),
+                elevation: 0.0,
+                borderRadius: BorderRadius.circular(40.0),
               ),
-            )
-                .animateOnPageLoad(
-                    animationsMap['containerOnPageLoadAnimation']!)
-                .animateOnActionTrigger(
-                  animationsMap['containerOnActionTriggerAnimation']!,
-                ),
+            ),
           ),
           Flexible(
             child: Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
+              padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
               child: StreamBuilder<List<MusicRecord>>(
                 stream: queryMusicRecord(),
                 builder: (context, snapshot) {
@@ -290,7 +227,7 @@ class _MusicSelectorWidgetState extends State<MusicSelectorWidget>
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     itemCount: listViewMusicRecordList.length,
-                    separatorBuilder: (_, __) => const SizedBox(height: 10.0),
+                    separatorBuilder: (_, __) => SizedBox(height: 10.0),
                     itemBuilder: (context, listViewIndex) {
                       final listViewMusicRecord =
                           listViewMusicRecordList[listViewIndex];
@@ -309,7 +246,7 @@ class _MusicSelectorWidgetState extends State<MusicSelectorWidget>
                             color: valueOrDefault<Color>(
                               _model.selectedAudio?.reference ==
                                       listViewMusicRecord.reference
-                                  ? const Color(0x9C4B39EF)
+                                  ? Color(0x9C4B39EF)
                                   : FlutterFlowTheme.of(context)
                                       .secondaryBackground,
                               FlutterFlowTheme.of(context).secondaryBackground,
@@ -317,14 +254,14 @@ class _MusicSelectorWidgetState extends State<MusicSelectorWidget>
                             borderRadius: BorderRadius.circular(24.0),
                             border: Border.all(
                               color: listViewMusicRecord.reference ==
-                                      listViewMusicRecord.reference
+                                      _model.selectedAudio?.reference
                                   ? FlutterFlowTheme.of(context).primary
                                   : FlutterFlowTheme.of(context).alternate,
                               width: 3.0,
                             ),
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.all(5.0),
+                            padding: EdgeInsets.all(5.0),
                             child: FlutterFlowAudioPlayer(
                               audio: Audio.network(
                                 listViewMusicRecord.audio,
@@ -347,7 +284,7 @@ class _MusicSelectorWidgetState extends State<MusicSelectorWidget>
                                         fontSize: 14.0,
                                         letterSpacing: 0.0,
                                       ),
-                              fillColor: const Color(0x00000000),
+                              fillColor: Color(0x00000000),
                               playbackButtonColor:
                                   FlutterFlowTheme.of(context).primary,
                               activeTrackColor:

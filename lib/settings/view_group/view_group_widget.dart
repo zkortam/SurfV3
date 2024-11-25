@@ -4,9 +4,13 @@ import '/components/user_selection_for_group_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'view_group_model.dart';
 export 'view_group_model.dart';
 
@@ -59,7 +63,7 @@ class _ViewGroupWidgetState extends State<ViewGroupWidget> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
                 child: Container(
                   width: double.infinity,
                   height: 60.0,
@@ -68,7 +72,7 @@ class _ViewGroupWidgetState extends State<ViewGroupWidget> {
                     borderRadius: BorderRadius.circular(50.0),
                     border: Border.all(
                       color: valueOrDefault<Color>(
-                        widget.groupColor,
+                        widget!.groupColor,
                         FlutterFlowTheme.of(context).alternate,
                       ),
                       width: 3.0,
@@ -80,7 +84,7 @@ class _ViewGroupWidgetState extends State<ViewGroupWidget> {
                     children: [
                       Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
                         child: FlutterFlowIconButton(
                           borderColor: Colors.transparent,
                           borderRadius: 30.0,
@@ -104,7 +108,7 @@ class _ViewGroupWidgetState extends State<ViewGroupWidget> {
                           children: [
                             Text(
                               valueOrDefault<String>(
-                                widget.groupName,
+                                widget!.groupName,
                                 'Group',
                               ),
                               style: FlutterFlowTheme.of(context)
@@ -123,7 +127,7 @@ class _ViewGroupWidgetState extends State<ViewGroupWidget> {
                       ),
                       Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 4.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 4.0, 0.0),
                         child: FlutterFlowIconButton(
                           borderColor: Colors.transparent,
                           borderRadius: 30.0,
@@ -145,7 +149,7 @@ class _ViewGroupWidgetState extends State<ViewGroupWidget> {
                                   child: Padding(
                                     padding: MediaQuery.viewInsetsOf(context),
                                     child: UserSelectionForGroupWidget(
-                                      groupName: widget.groupName!,
+                                      groupName: widget!.groupName!,
                                     ),
                                   ),
                                 );
@@ -162,13 +166,13 @@ class _ViewGroupWidgetState extends State<ViewGroupWidget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(5.0, 10.0, 5.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(5.0, 10.0, 5.0, 0.0),
                 child: Builder(
                   builder: (context) {
-                    final listOfUsers = widget.listOfUsers!.toList();
+                    final listOfUsers = widget!.listOfUsers!.toList();
 
                     return ListView.separated(
-                      padding: const EdgeInsets.fromLTRB(
+                      padding: EdgeInsets.fromLTRB(
                         0,
                         0,
                         0,
@@ -177,7 +181,7 @@ class _ViewGroupWidgetState extends State<ViewGroupWidget> {
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
                       itemCount: listOfUsers.length,
-                      separatorBuilder: (_, __) => const SizedBox(height: 10.0),
+                      separatorBuilder: (_, __) => SizedBox(height: 10.0),
                       itemBuilder: (context, listOfUsersIndex) {
                         final listOfUsersItem = listOfUsers[listOfUsersIndex];
                         return Container(
@@ -222,13 +226,13 @@ class _ViewGroupWidgetState extends State<ViewGroupWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             2.0, 5.0, 5.0, 5.0),
                                         child: Container(
                                           width: 50.0,
                                           height: 50.0,
                                           clipBehavior: Clip.antiAlias,
-                                          decoration: const BoxDecoration(
+                                          decoration: BoxDecoration(
                                             shape: BoxShape.circle,
                                           ),
                                           child: Image.network(
@@ -257,7 +261,7 @@ class _ViewGroupWidgetState extends State<ViewGroupWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 5.0, 0.0),
                                         child: FlutterFlowIconButton(
                                           borderColor: Colors.transparent,
@@ -280,7 +284,7 @@ class _ViewGroupWidgetState extends State<ViewGroupWidget> {
                                                       getFollowerGroupListFirestoreData(
                                                     functions
                                                         .removeUserFromGroup(
-                                                            widget.groupName!,
+                                                            widget!.groupName!,
                                                             rowUsersRecord
                                                                 .groups
                                                                 .toList(),
@@ -293,7 +297,7 @@ class _ViewGroupWidgetState extends State<ViewGroupWidget> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 5.0, 0.0),
                                         child: FlutterFlowIconButton(
                                           borderColor: Colors.transparent,

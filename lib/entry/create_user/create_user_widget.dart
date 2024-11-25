@@ -8,11 +8,17 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import 'dart:math';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'create_user_model.dart';
 export 'create_user_model.dart';
 
@@ -90,7 +96,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
               child: Container(
                 width: double.infinity,
                 height: double.infinity,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [Color(0xFF9F1CFA), Color(0xFF0D28A2)],
                     stops: [0.0, 1.0],
@@ -98,7 +104,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                     end: AlignmentDirectional(-0.87, 1.0),
                   ),
                 ),
-                alignment: const AlignmentDirectional(0.0, -1.0),
+                alignment: AlignmentDirectional(0.0, -1.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -106,7 +112,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                     Container(
                       width: double.infinity,
                       height: 500.0,
-                      decoration: const BoxDecoration(),
+                      decoration: BoxDecoration(),
                       child: Column(
                         children: [
                           Expanded(
@@ -117,14 +123,14 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.all(16.0),
+                                      padding: EdgeInsets.all(16.0),
                                       child: Container(
                                         width: double.infinity,
                                         height: 265.0,
                                         decoration: BoxDecoration(
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryBackground,
-                                          boxShadow: const [
+                                          boxShadow: [
                                             BoxShadow(
                                               blurRadius: 4.0,
                                               color: Color(0x33000000),
@@ -138,7 +144,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                               BorderRadius.circular(30.0),
                                         ),
                                         child: Padding(
-                                          padding: const EdgeInsets.all(10.0),
+                                          padding: EdgeInsets.all(10.0),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.min,
                                             crossAxisAlignment:
@@ -236,12 +242,14 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                 child: Container(
                                                   width: double.infinity,
                                                   height: 120.0,
-                                                  constraints: const BoxConstraints(
+                                                  constraints: BoxConstraints(
                                                     maxWidth: 600.0,
                                                     maxHeight: 120.0,
                                                   ),
                                                   decoration: BoxDecoration(
-                                                    color: (_model
+                                                    color: _model.uploadedLocalFile1 !=
+                                                                null &&
+                                                            (_model
                                                                     .uploadedLocalFile1
                                                                     .bytes
                                                                     ?.isNotEmpty ??
@@ -266,7 +274,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                     children: [
                                                       Align(
                                                         alignment:
-                                                            const AlignmentDirectional(
+                                                            AlignmentDirectional(
                                                                 0.0, 0.0),
                                                         child: Row(
                                                           mainAxisSize:
@@ -370,7 +378,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                                   }
                                                                 }
                                                               },
-                                                              child: SizedBox(
+                                                              child: Container(
                                                                 width: 90.0,
                                                                 height: 90.0,
                                                                 child: Stack(
@@ -383,7 +391,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                                       clipBehavior:
                                                                           Clip.antiAlias,
                                                                       decoration:
-                                                                          const BoxDecoration(
+                                                                          BoxDecoration(
                                                                         shape: BoxShape
                                                                             .circle,
                                                                       ),
@@ -396,6 +404,8 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                                       ),
                                                                     ),
                                                                     if (_model.uploadedFileUrl2 ==
+                                                                            null ||
+                                                                        _model.uploadedFileUrl2 ==
                                                                             '')
                                                                       Container(
                                                                         width:
@@ -427,10 +437,12 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                         ),
                                                       ),
                                                       if (_model.uploadedFileUrl1 ==
+                                                              null ||
+                                                          _model.uploadedFileUrl1 ==
                                                               '')
                                                         Align(
                                                           alignment:
-                                                              const AlignmentDirectional(
+                                                              AlignmentDirectional(
                                                                   -0.91, 0.76),
                                                           child: Icon(
                                                             Icons
@@ -446,7 +458,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                 ),
                                               ),
                                               Padding(
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 10.0, 0.0, 0.0),
                                                 child: Row(
@@ -457,7 +469,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                   children: [
                                                     Padding(
                                                       padding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   0.0,
@@ -466,8 +478,10 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                       child: Stack(
                                                         children: [
                                                           if (_model.uploadedFileUrl2 !=
+                                                                  null &&
+                                                              _model.uploadedFileUrl2 !=
                                                                   '')
-                                                            const Icon(
+                                                            Icon(
                                                               Icons
                                                                   .check_circle,
                                                               color: Color(
@@ -475,6 +489,8 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                               size: 24.0,
                                                             ),
                                                           if (_model.uploadedFileUrl2 ==
+                                                                  null ||
+                                                              _model.uploadedFileUrl2 ==
                                                                   '')
                                                             Icon(
                                                               Icons
@@ -489,7 +505,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                     ),
                                                     Padding(
                                                       padding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   5.0,
                                                                   0.0,
@@ -516,14 +532,18 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                     Stack(
                                                       children: [
                                                         if (_model.uploadedFileUrl1 !=
+                                                                null &&
+                                                            _model.uploadedFileUrl1 !=
                                                                 '')
-                                                          const Icon(
+                                                          Icon(
                                                             Icons.check_circle,
                                                             color: Color(
                                                                 0xFF39C727),
                                                             size: 24.0,
                                                           ),
                                                         if (_model.uploadedFileUrl1 ==
+                                                                null ||
+                                                            _model.uploadedFileUrl1 ==
                                                                 '')
                                                           Icon(
                                                             Icons
@@ -537,7 +557,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                     ),
                                                     Padding(
                                                       padding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   5.0,
                                                                   0.0,
@@ -566,10 +586,10 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                               ),
                                               Flexible(
                                                 child: Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 10.0, 0.0, 0.0),
-                                                  child: SizedBox(
+                                                  child: Container(
                                                     width: double.infinity,
                                                     child: TextFormField(
                                                       controller: _model
@@ -579,7 +599,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                       onChanged: (_) =>
                                                           EasyDebounce.debounce(
                                                         '_model.usernameTextController',
-                                                        const Duration(
+                                                        Duration(
                                                             milliseconds: 2000),
                                                         () async {
                                                           _model.usernameCheckCopy =
@@ -652,7 +672,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                                       .viewInsetsOf(
                                                                           context),
                                                                   child:
-                                                                      const ErrorBarWidget(
+                                                                      ErrorBarWidget(
                                                                     text:
                                                                         'Username already Exists',
                                                                   ),
@@ -787,7 +807,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                                     context)
                                                                 .primaryBackground,
                                                         contentPadding:
-                                                            const EdgeInsets.all(
+                                                            EdgeInsets.all(
                                                                 15.0),
                                                         suffixIcon: Icon(
                                                           Icons.check_circle,
@@ -839,7 +859,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                           'containerOnPageLoadAnimation']!),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           20.0, 0.0, 16.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -859,7 +879,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                         _model.tabBarController!
                                                                 .index +
                                                             1),
-                                                    duration: const Duration(
+                                                    duration: Duration(
                                                         milliseconds: 300),
                                                     curve: Curves.ease,
                                                   );
@@ -884,9 +904,9 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                               options: FFButtonOptions(
                                                 width: 200.0,
                                                 height: 47.0,
-                                                padding: const EdgeInsets.all(0.0),
+                                                padding: EdgeInsets.all(0.0),
                                                 iconPadding:
-                                                    const EdgeInsetsDirectional
+                                                    EdgeInsetsDirectional
                                                         .fromSTEB(
                                                             0.0, 0.0, 0.0, 0.0),
                                                 color:
@@ -904,7 +924,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                       letterSpacing: 0.0,
                                                     ),
                                                 elevation: 3.0,
-                                                borderSide: const BorderSide(
+                                                borderSide: BorderSide(
                                                   color: Colors.transparent,
                                                   width: 1.0,
                                                 ),
@@ -919,22 +939,22 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                   ],
                                 ),
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       20.0, 0.0, 20.0, 0.0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 10.0),
-                                        child: SizedBox(
+                                        child: Container(
                                           width: double.infinity,
                                           child: TextFormField(
                                             controller:
                                                 _model.emailTextController1,
                                             focusNode: _model.emailFocusNode1,
                                             autofocus: false,
-                                            autofillHints: const [
+                                            autofillHints: [
                                               AutofillHints.email
                                             ],
                                             obscureText: false,
@@ -1009,7 +1029,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                   FlutterFlowTheme.of(context)
                                                       .primaryBackground,
                                               contentPadding:
-                                                  const EdgeInsets.all(20.0),
+                                                  EdgeInsets.all(20.0),
                                             ),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyLarge
@@ -1026,14 +1046,14 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                           ),
                                         ),
                                       ),
-                                      SizedBox(
+                                      Container(
                                         width: double.infinity,
                                         child: TextFormField(
                                           controller:
                                               _model.emailTextController2,
                                           focusNode: _model.emailFocusNode2,
                                           autofocus: false,
-                                          autofillHints: const [AutofillHints.email],
+                                          autofillHints: [AutofillHints.email],
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             labelStyle:
@@ -1118,7 +1138,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                 FlutterFlowTheme.of(context)
                                                     .primaryBackground,
                                             contentPadding:
-                                                const EdgeInsets.all(20.0),
+                                                EdgeInsets.all(20.0),
                                           ),
                                           style: FlutterFlowTheme.of(context)
                                               .bodyLarge
@@ -1140,7 +1160,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 20.0, 0.0, 0.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
@@ -1148,7 +1168,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                               MainAxisAlignment.center,
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsetsDirectional
+                                              padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       0.0, 0.0, 10.0, 0.0),
                                               child: FFButtonWidget(
@@ -1161,7 +1181,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                           _model.tabBarController!
                                                                   .index -
                                                               1),
-                                                      duration: const Duration(
+                                                      duration: Duration(
                                                           milliseconds: 300),
                                                       curve: Curves.ease,
                                                     );
@@ -1178,11 +1198,11 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                               .width *
                                                           0.3,
                                                   height: 47.0,
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           30.0, 0.0, 30.0, 0.0),
                                                   iconPadding:
-                                                      const EdgeInsetsDirectional
+                                                      EdgeInsetsDirectional
                                                           .fromSTEB(0.0, 0.0,
                                                               0.0, 0.0),
                                                   color: FlutterFlowTheme.of(
@@ -1201,7 +1221,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                         letterSpacing: 0.0,
                                                       ),
                                                   elevation: 3.0,
-                                                  borderSide: const BorderSide(
+                                                  borderSide: BorderSide(
                                                     color: Colors.transparent,
                                                     width: 1.0,
                                                   ),
@@ -1239,9 +1259,9 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                             .width *
                                                         0.55,
                                                 height: 47.0,
-                                                padding: const EdgeInsets.all(0.0),
+                                                padding: EdgeInsets.all(0.0),
                                                 iconPadding:
-                                                    const EdgeInsetsDirectional
+                                                    EdgeInsetsDirectional
                                                         .fromSTEB(
                                                             0.0, 0.0, 0.0, 0.0),
                                                 color:
@@ -1259,7 +1279,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                                           letterSpacing: 0.0,
                                                         ),
                                                 elevation: 3.0,
-                                                borderSide: const BorderSide(
+                                                borderSide: BorderSide(
                                                   color: Colors.transparent,
                                                   width: 1.0,
                                                 ),
@@ -1278,7 +1298,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                             ),
                           ),
                           Align(
-                            alignment: const Alignment(0.0, 0),
+                            alignment: Alignment(0.0, 0),
                             child: FlutterFlowButtonTabBar(
                               useToggleButtonStyle: false,
                               labelStyle: FlutterFlowTheme.of(context)
@@ -1287,17 +1307,17 @@ class _CreateUserWidgetState extends State<CreateUserWidget>
                                     fontFamily: 'Montserrat',
                                     letterSpacing: 0.0,
                                   ),
-                              unselectedLabelStyle: const TextStyle(),
+                              unselectedLabelStyle: TextStyle(),
                               labelColor: Colors.transparent,
                               unselectedLabelColor: Colors.transparent,
                               backgroundColor: Colors.transparent,
-                              unselectedBackgroundColor: const Color(0x00262D34),
+                              unselectedBackgroundColor: Color(0x00262D34),
                               borderColor: Colors.transparent,
-                              unselectedBorderColor: const Color(0x00262D34),
+                              unselectedBorderColor: Color(0x00262D34),
                               borderWidth: 0.0,
                               borderRadius: 0.0,
                               elevation: 0.0,
-                              buttonMargin: const EdgeInsetsDirectional.fromSTEB(
+                              buttonMargin: EdgeInsetsDirectional.fromSTEB(
                                   8.0, 0.0, 8.0, 0.0),
                               tabs: [
                                 Tab(

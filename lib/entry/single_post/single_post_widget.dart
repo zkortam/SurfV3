@@ -3,9 +3,12 @@ import '/components/post_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'single_post_model.dart';
 export 'single_post_model.dart';
 
@@ -36,8 +39,8 @@ class _SinglePostWidgetState extends State<SinglePostWidget> {
       _model.currentPageLink = await generateCurrentPageLink(
         context,
         title: 'Post',
-        imageUrl: widget.post?.media.first,
-        description: widget.post?.caption,
+        imageUrl: widget!.post?.media?.first,
+        description: widget!.post?.caption,
         forceRedirect: true,
       );
     });
@@ -66,7 +69,7 @@ class _SinglePostWidgetState extends State<SinglePostWidget> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
                   child: Container(
                     width: double.infinity,
                     height: 55.0,
@@ -83,7 +86,7 @@ class _SinglePostWidgetState extends State<SinglePostWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               3.0, 0.0, 0.0, 0.0),
                           child: FlutterFlowIconButton(
                             borderColor: Colors.transparent,
@@ -103,7 +106,7 @@ class _SinglePostWidgetState extends State<SinglePostWidget> {
                         ),
                         Flexible(
                           child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 40.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -134,24 +137,24 @@ class _SinglePostWidgetState extends State<SinglePostWidget> {
                 ),
                 Padding(
                   padding:
-                      const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
+                      EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
                   child: wrapWithModel(
                     model: _model.postModel1,
                     updateCallback: () => safeSetState(() {}),
                     child: PostWidget(
-                      post: widget.post!,
+                      post: widget!.post!,
                     ),
                   ),
                 ),
                 Padding(
                   padding:
-                      const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
+                      EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
                   child: StreamBuilder<List<PostsRecord>>(
                     stream: queryPostsRecord(
                       queryBuilder: (postsRecord) => postsRecord
                           .where(
                             'post_id',
-                            isNotEqualTo: widget.post?.postId,
+                            isNotEqualTo: widget!.post?.postId,
                           )
                           .where(
                             'isShort',
@@ -176,7 +179,7 @@ class _SinglePostWidgetState extends State<SinglePostWidget> {
                           snapshot.data!;
 
                       return ListView.separated(
-                        padding: const EdgeInsets.fromLTRB(
+                        padding: EdgeInsets.fromLTRB(
                           0,
                           0,
                           0,
@@ -185,7 +188,7 @@ class _SinglePostWidgetState extends State<SinglePostWidget> {
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         itemCount: listViewPostsRecordList.length,
-                        separatorBuilder: (_, __) => const SizedBox(height: 10.0),
+                        separatorBuilder: (_, __) => SizedBox(height: 10.0),
                         itemBuilder: (context, listViewIndex) {
                           final listViewPostsRecord =
                               listViewPostsRecordList[listViewIndex];

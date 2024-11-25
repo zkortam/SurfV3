@@ -15,12 +15,12 @@ export '/pages/create_post/create_post_widget.dart' show CreatePostWidget;
 export '/pages/profile/profile_widget.dart' show ProfileWidget;
 export '/gemini_experiment/gemini_experiment_widget.dart'
     show GeminiExperimentWidget;
-export '/single_post/single_post_widget.dart' show SinglePostWidget;
-export '/single_thread/single_thread_widget.dart' show SingleThreadWidget;
+export '/entry/single_post/single_post_widget.dart' show SinglePostWidget;
+export '/entry/single_thread/single_thread_widget.dart' show SingleThreadWidget;
 export '/pages/spaces/spaces_widget.dart' show SpacesWidget;
 export '/settings/enter_pin/enter_pin_widget.dart' show EnterPinWidget;
 export '/settings/settings/settings_widget.dart' show SettingsWidget;
-export '/profile_posts/profile_posts_widget.dart' show ProfilePostsWidget;
+export '/entry/profile_posts/profile_posts_widget.dart' show ProfilePostsWidget;
 export '/pages/snippets/snippets_widget.dart' show SnippetsWidget;
 export '/settings/privacy/privacy_widget.dart' show PrivacyWidget;
 export '/settings/view_group/view_group_widget.dart' show ViewGroupWidget;
@@ -30,4 +30,7 @@ export '/settings/notifications/notifications_widget.dart'
     show NotificationsWidget;
 export '/settings/security/security_widget.dart' show SecurityWidget;
 export '/pages/articles/articles_widget.dart' show ArticlesWidget;
-export '/single_article/single_article_widget.dart' show SingleArticleWidget;
+export '/entry/single_article/single_article_widget.dart'
+    show SingleArticleWidget;
+export '/chat_main/chat_main_widget.dart' show ChatMainWidget;
+export '/single_chat/single_chat_widget.dart' show SingleChatWidget;

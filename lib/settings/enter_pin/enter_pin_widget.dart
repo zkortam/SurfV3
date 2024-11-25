@@ -4,12 +4,16 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:provider/provider.dart';
 import 'enter_pin_model.dart';
 export 'enter_pin_model.dart';
 
@@ -36,12 +40,12 @@ class _EnterPinWidgetState extends State<EnterPinWidget>
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       if (valueOrDefault<bool>(currentUserDocument?.isBiometric, false)) {
-        final localAuth = LocalAuthentication();
-        bool isBiometricSupported = await localAuth.isDeviceSupported();
+        final _localAuth = LocalAuthentication();
+        bool _isBiometricSupported = await _localAuth.isDeviceSupported();
 
-        if (isBiometricSupported) {
+        if (_isBiometricSupported) {
           try {
-            _model.isBio = await localAuth.authenticate(
+            _model.isBio = await _localAuth.authenticate(
                 localizedReason: FFLocalizations.of(context).getText(
               'zp1ioy50' /* Please verify that you're you ... */,
             ));
@@ -51,7 +55,7 @@ class _EnterPinWidgetState extends State<EnterPinWidget>
           safeSetState(() {});
         }
 
-        if (_model.isBio) {
+        if (_model.isBio!) {
           context.goNamed('Settings');
         }
       }
@@ -74,22 +78,22 @@ class _EnterPinWidgetState extends State<EnterPinWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 300.0.ms,
-            begin: const Offset(0.0, 140.0),
-            end: const Offset(0.0, 0.0),
+            begin: Offset(0.0, 140.0),
+            end: Offset(0.0, 0.0),
           ),
           ScaleEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 300.0.ms,
-            begin: const Offset(0.9, 0.9),
-            end: const Offset(1.0, 1.0),
+            begin: Offset(0.9, 0.9),
+            end: Offset(1.0, 1.0),
           ),
           TiltEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 300.0.ms,
-            begin: const Offset(-0.349, 0),
-            end: const Offset(0, 0),
+            begin: Offset(-0.349, 0),
+            end: Offset(0, 0),
           ),
         ],
       ),
@@ -121,22 +125,22 @@ class _EnterPinWidgetState extends State<EnterPinWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 300.0.ms,
-            begin: const Offset(0.0, 140.0),
-            end: const Offset(0.0, 0.0),
+            begin: Offset(0.0, 140.0),
+            end: Offset(0.0, 0.0),
           ),
           ScaleEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 300.0.ms,
-            begin: const Offset(0.9, 0.9),
-            end: const Offset(1.0, 1.0),
+            begin: Offset(0.9, 0.9),
+            end: Offset(1.0, 1.0),
           ),
           TiltEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 300.0.ms,
-            begin: const Offset(-0.349, 0),
-            end: const Offset(0, 0),
+            begin: Offset(-0.349, 0),
+            end: Offset(0, 0),
           ),
         ],
       ),
@@ -173,7 +177,7 @@ class _EnterPinWidgetState extends State<EnterPinWidget>
               child: Container(
                 width: double.infinity,
                 height: double.infinity,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [Color(0xFF6E09B3), Color(0xFF040F46)],
                     stops: [0.0, 1.0],
@@ -181,7 +185,7 @@ class _EnterPinWidgetState extends State<EnterPinWidget>
                     end: AlignmentDirectional(-0.87, 1.0),
                   ),
                 ),
-                alignment: const AlignmentDirectional(0.0, -1.0),
+                alignment: AlignmentDirectional(0.0, -1.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -189,17 +193,17 @@ class _EnterPinWidgetState extends State<EnterPinWidget>
                     if (!valueOrDefault<bool>(
                         currentUserDocument?.isBiometric, false))
                       Padding(
-                        padding: const EdgeInsets.all(16.0),
+                        padding: EdgeInsets.all(16.0),
                         child: AuthUserStreamWidget(
                           builder: (context) => Container(
                             width: double.infinity,
                             height: 400.0,
-                            constraints: const BoxConstraints(
+                            constraints: BoxConstraints(
                               maxWidth: 570.0,
                             ),
                             decoration: BoxDecoration(
-                              color: const Color(0xFF161A1D),
-                              boxShadow: const [
+                              color: Color(0xFF161A1D),
+                              boxShadow: [
                                 BoxShadow(
                                   blurRadius: 4.0,
                                   color: Color(0x33000000),
@@ -212,23 +216,23 @@ class _EnterPinWidgetState extends State<EnterPinWidget>
                               borderRadius: BorderRadius.circular(30.0),
                             ),
                             child: Align(
-                              alignment: const AlignmentDirectional(0.0, -0.3),
+                              alignment: AlignmentDirectional(0.0, -0.3),
                               child: Padding(
-                                padding: const EdgeInsets.all(30.0),
+                                padding: EdgeInsets.all(30.0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 50.0, 0.0, 0.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 3.0),
                                             child: Text(
                                               FFLocalizations.of(context)
@@ -263,7 +267,7 @@ class _EnterPinWidgetState extends State<EnterPinWidget>
                                           ),
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 20.0, 0.0, 0.0),
                                             child: PinCodeTextField(
                                               autoDisposeControllers: false,
@@ -297,7 +301,7 @@ class _EnterPinWidgetState extends State<EnterPinWidget>
                                                 fieldHeight: 60.0,
                                                 fieldWidth: 60.0,
                                                 borderWidth: 2.0,
-                                                borderRadius: const BorderRadius.only(
+                                                borderRadius: BorderRadius.only(
                                                   bottomLeft:
                                                       Radius.circular(40.0),
                                                   bottomRight:
@@ -312,7 +316,7 @@ class _EnterPinWidgetState extends State<EnterPinWidget>
                                                     FlutterFlowTheme.of(context)
                                                         .primary,
                                                 inactiveColor:
-                                                    const Color(0xFF1C2427),
+                                                    Color(0xFF1C2427),
                                                 selectedColor:
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryText,
@@ -351,7 +355,7 @@ class _EnterPinWidgetState extends State<EnterPinWidget>
                                                   padding:
                                                       MediaQuery.viewInsetsOf(
                                                           context),
-                                                  child: const ErrorBarWidget(
+                                                  child: ErrorBarWidget(
                                                     text: 'Incorrect Pin',
                                                   ),
                                                 ),
@@ -367,20 +371,20 @@ class _EnterPinWidgetState extends State<EnterPinWidget>
                                       options: FFButtonOptions(
                                         width: 260.0,
                                         height: 48.0,
-                                        padding: const EdgeInsets.all(0.0),
+                                        padding: EdgeInsets.all(0.0),
                                         iconPadding:
-                                            const EdgeInsetsDirectional.fromSTEB(
+                                            EdgeInsetsDirectional.fromSTEB(
                                                 0.0, 0.0, 0.0, 0.0),
-                                        color: const Color(0xFF4F575E),
+                                        color: Color(0xFF4F575E),
                                         textStyle: FlutterFlowTheme.of(context)
                                             .titleSmall
                                             .override(
                                               fontFamily: 'Montserrat',
-                                              color: const Color(0xFFC6CDD4),
+                                              color: Color(0xFFC6CDD4),
                                               letterSpacing: 0.0,
                                             ),
                                         elevation: 3.0,
-                                        borderSide: const BorderSide(
+                                        borderSide: BorderSide(
                                           color: Colors.transparent,
                                           width: 1.0,
                                         ),
@@ -404,17 +408,17 @@ class _EnterPinWidgetState extends State<EnterPinWidget>
                     if (valueOrDefault<bool>(
                         currentUserDocument?.isBiometric, false))
                       Padding(
-                        padding: const EdgeInsets.all(16.0),
+                        padding: EdgeInsets.all(16.0),
                         child: AuthUserStreamWidget(
                           builder: (context) => Container(
                             width: double.infinity,
                             height: 200.0,
-                            constraints: const BoxConstraints(
+                            constraints: BoxConstraints(
                               maxWidth: 570.0,
                             ),
                             decoration: BoxDecoration(
-                              color: const Color(0xFF161A1D),
-                              boxShadow: const [
+                              color: Color(0xFF161A1D),
+                              boxShadow: [
                                 BoxShadow(
                                   blurRadius: 4.0,
                                   color: Color(0x33000000),
@@ -427,7 +431,7 @@ class _EnterPinWidgetState extends State<EnterPinWidget>
                               borderRadius: BorderRadius.circular(30.0),
                             ),
                             child: Align(
-                              alignment: const AlignmentDirectional(0.0, -0.3),
+                              alignment: AlignmentDirectional(0.0, -0.3),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -446,7 +450,7 @@ class _EnterPinWidgetState extends State<EnterPinWidget>
                                         ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         30.0, 0.0, 30.0, 0.0),
                                     child: Text(
                                       FFLocalizations.of(context).getText(
@@ -464,7 +468,7 @@ class _EnterPinWidgetState extends State<EnterPinWidget>
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 20.0, 0.0, 0.0),
                                     child: Icon(
                                       Icons.face,

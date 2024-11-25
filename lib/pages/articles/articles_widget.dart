@@ -4,10 +4,15 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:provider/provider.dart';
 import 'articles_model.dart';
 export 'articles_model.dart';
 
@@ -67,7 +72,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: const AlignmentDirectional(0.0, -1.0),
+            alignment: AlignmentDirectional(0.0, -1.0),
             child: Stack(
               children: [
                 SingleChildScrollView(
@@ -77,13 +82,13 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                     children: [
                       Flexible(
                         child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               5.0, 0.0, 5.0, 0.0),
                           child: Container(
                             width: double.infinity,
                             height: 55.0,
                             decoration: BoxDecoration(
-                              gradient: const LinearGradient(
+                              gradient: LinearGradient(
                                 colors: [Color(0xFF2120BC), Color(0xFF7D16C1)],
                                 stops: [0.0, 1.0],
                                 begin: AlignmentDirectional(1.0, -1.0),
@@ -97,7 +102,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                               children: [
                                 Flexible(
                                   child: Padding(
-                                    padding: const EdgeInsets.all(3.0),
+                                    padding: EdgeInsets.all(3.0),
                                     child: Container(
                                       width: double.infinity,
                                       height: 90.0,
@@ -108,7 +113,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                                             BorderRadius.circular(24.0),
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             15.0, 0.0, 10.0, 0.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
@@ -119,7 +124,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 0.0, 5.0, 0.0),
                                                   child: FlutterFlowIconButton(
@@ -163,7 +168,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 0.0, 5.0, 0.0),
                                                   child: FlutterFlowIconButton(
@@ -200,9 +205,9 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                       ),
                       Flexible(
                         child: Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
+                          alignment: AlignmentDirectional(0.0, 0.0),
                           child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 5.0, 0.0, 5.0, 0.0),
                             child: PagedListView<DocumentSnapshot<Object?>?,
                                 ThreadsRecord>.separated(
@@ -214,7 +219,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                                     )
                                     .orderBy('TimeStamp', descending: true),
                               ),
-                              padding: const EdgeInsets.fromLTRB(
+                              padding: EdgeInsets.fromLTRB(
                                 0,
                                 10.0,
                                 0,
@@ -225,7 +230,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                               reverse: false,
                               scrollDirection: Axis.vertical,
                               separatorBuilder: (_, __) =>
-                                  const SizedBox(height: 5.0),
+                                  SizedBox(height: 5.0),
                               builderDelegate:
                                   PagedChildBuilderDelegate<ThreadsRecord>(
                                 // Customize what your widget looks like when it's loading the first page.
@@ -298,7 +303,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                                           ),
                                         ),
                                         child: Padding(
-                                          padding: const EdgeInsets.all(20.0),
+                                          padding: EdgeInsets.all(20.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.min,
                                             mainAxisAlignment:
@@ -311,132 +316,173 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(
-                                                    listViewThreadsRecord.title,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Montserrat',
-                                                          fontSize: 19.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 5.0,
-                                                                0.0, 0.0),
-                                                    child: StreamBuilder<
-                                                        UsersRecord>(
-                                                      stream: UsersRecord
-                                                          .getDocument(
-                                                              listViewThreadsRecord
-                                                                  .author!),
-                                                      builder:
-                                                          (context, snapshot) {
-                                                        // Customize what your widget looks like when it's loading.
-                                                        if (!snapshot.hasData) {
-                                                          return Center(
-                                                            child: SizedBox(
-                                                              width: 40.0,
-                                                              height: 40.0,
-                                                              child:
-                                                                  SpinKitFadingFour(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                                size: 40.0,
-                                                              ),
-                                                            ),
-                                                          );
-                                                        }
-
-                                                        final rowUsersRecord =
-                                                            snapshot.data!;
-
-                                                        return Row(
+                                                  Flexible(
+                                                    child: ClipRRect(
+                                                      child: Container(
+                                                        width: 270.0,
+                                                        decoration:
+                                                            BoxDecoration(),
+                                                        child: Column(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
                                                                   .start,
                                                           children: [
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          5.0,
-                                                                          0.0),
-                                                              child: Container(
-                                                                width: 25.0,
-                                                                height: 25.0,
-                                                                clipBehavior: Clip
-                                                                    .antiAlias,
-                                                                decoration:
-                                                                    const BoxDecoration(
-                                                                  shape: BoxShape
-                                                                      .circle,
-                                                                ),
-                                                                child: Image
-                                                                    .network(
-                                                                  rowUsersRecord
-                                                                      .photoUrl,
-                                                                  fit: BoxFit
-                                                                      .cover,
-                                                                ),
-                                                              ),
-                                                            ),
                                                             Text(
-                                                              'by ${rowUsersRecord.name}',
+                                                              listViewThreadsRecord
+                                                                  .title,
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyMedium
                                                                   .override(
                                                                     fontFamily:
                                                                         'Montserrat',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondaryText,
                                                                     fontSize:
-                                                                        16.0,
+                                                                        19.0,
                                                                     letterSpacing:
                                                                         0.0,
                                                                     fontWeight:
                                                                         FontWeight
-                                                                            .w500,
+                                                                            .bold,
                                                                   ),
                                                             ),
                                                             Padding(
                                                               padding:
-                                                                  const EdgeInsetsDirectional
+                                                                  EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          5.0,
                                                                           0.0,
                                                                           5.0,
+                                                                          0.0,
                                                                           0.0),
-                                                              child: Icon(
-                                                                Icons.circle,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryText,
-                                                                size: 10.0,
+                                                              child: StreamBuilder<
+                                                                  UsersRecord>(
+                                                                stream: UsersRecord
+                                                                    .getDocument(
+                                                                        listViewThreadsRecord
+                                                                            .author!),
+                                                                builder: (context,
+                                                                    snapshot) {
+                                                                  // Customize what your widget looks like when it's loading.
+                                                                  if (!snapshot
+                                                                      .hasData) {
+                                                                    return Center(
+                                                                      child:
+                                                                          SizedBox(
+                                                                        width:
+                                                                            40.0,
+                                                                        height:
+                                                                            40.0,
+                                                                        child:
+                                                                            SpinKitFadingFour(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primary,
+                                                                          size:
+                                                                              40.0,
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  }
+
+                                                                  final rowUsersRecord =
+                                                                      snapshot
+                                                                          .data!;
+
+                                                                  return Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .start,
+                                                                    children: [
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            5.0,
+                                                                            0.0),
+                                                                        child:
+                                                                            Container(
+                                                                          width:
+                                                                              25.0,
+                                                                          height:
+                                                                              25.0,
+                                                                          clipBehavior:
+                                                                              Clip.antiAlias,
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            shape:
+                                                                                BoxShape.circle,
+                                                                          ),
+                                                                          child:
+                                                                              Image.network(
+                                                                            rowUsersRecord.photoUrl,
+                                                                            fit:
+                                                                                BoxFit.cover,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                      Text(
+                                                                        'by ${rowUsersRecord.name}',
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: 'Montserrat',
+                                                                              color: FlutterFlowTheme.of(context).secondaryText,
+                                                                              fontSize: 16.0,
+                                                                              letterSpacing: 0.0,
+                                                                              fontWeight: FontWeight.w500,
+                                                                            ),
+                                                                      ),
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            5.0,
+                                                                            0.0,
+                                                                            5.0,
+                                                                            0.0),
+                                                                        child:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .circle,
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).secondaryText,
+                                                                          size:
+                                                                              10.0,
+                                                                        ),
+                                                                      ),
+                                                                      Text(
+                                                                        dateTimeFormat(
+                                                                          "yMd",
+                                                                          listViewThreadsRecord
+                                                                              .timeStamp!,
+                                                                          locale:
+                                                                              FFLocalizations.of(context).languageCode,
+                                                                        ),
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: 'Montserrat',
+                                                                              color: FlutterFlowTheme.of(context).secondaryText,
+                                                                              fontSize: 16.0,
+                                                                              letterSpacing: 0.0,
+                                                                              fontWeight: FontWeight.w500,
+                                                                            ),
+                                                                      ),
+                                                                    ],
+                                                                  );
+                                                                },
                                                               ),
                                                             ),
                                                             Text(
-                                                              dateTimeFormat(
-                                                                "yMd",
-                                                                listViewThreadsRecord
-                                                                    .timeStamp!,
-                                                                locale: FFLocalizations.of(
-                                                                        context)
-                                                                    .languageCode,
+                                                              listViewThreadsRecord
+                                                                  .text
+                                                                  .maybeHandleOverflow(
+                                                                maxChars: 50,
+                                                                replacement:
+                                                                    '…',
                                                               ),
+                                                              maxLines: 2,
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyMedium
@@ -447,7 +493,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                                                                             context)
                                                                         .secondaryText,
                                                                     fontSize:
-                                                                        16.0,
+                                                                        14.0,
                                                                     letterSpacing:
                                                                         0.0,
                                                                     fontWeight:
@@ -456,48 +502,14 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                                                                   ),
                                                             ),
                                                           ],
-                                                        );
-                                                      },
-                                                    ),
-                                                  ),
-                                                  Flexible(
-                                                    child: Container(
-                                                      width: 250.0,
-                                                      decoration:
-                                                          const BoxDecoration(),
-                                                      child: Text(
-                                                        listViewThreadsRecord
-                                                            .text
-                                                            .maybeHandleOverflow(
-                                                          maxChars: 50,
-                                                          replacement: '…',
                                                         ),
-                                                        maxLines: 2,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Montserrat',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryText,
-                                                                  fontSize:
-                                                                      14.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
                                                       ),
                                                     ),
                                                   ),
                                                 ],
                                               ),
                                               Padding(
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 0.0, 10.0, 0.0),
                                                 child: Column(
@@ -515,7 +527,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              const EdgeInsetsDirectional
+                                                              EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       0.0,
                                                                       0.0,
@@ -559,7 +571,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              const EdgeInsetsDirectional
+                                                              EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       0.0,
                                                                       0.0,
@@ -595,7 +607,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                                                       ],
                                                     ),
                                                   ].divide(
-                                                      const SizedBox(height: 10.0)),
+                                                      SizedBox(height: 10.0)),
                                                 ),
                                               ),
                                             ],
@@ -615,11 +627,11 @@ class _ArticlesWidgetState extends State<ArticlesWidget>
                   ),
                 ),
                 Align(
-                  alignment: const AlignmentDirectional(0.0, 1.0),
+                  alignment: AlignmentDirectional(0.0, 1.0),
                   child: wrapWithModel(
                     model: _model.navigationBarModel,
                     updateCallback: () => safeSetState(() {}),
-                    child: const Hero(
+                    child: Hero(
                       tag: 'navBar',
                       transitionOnUserGestures: true,
                       child: Material(

@@ -8,10 +8,15 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:provider/provider.dart';
 import 'spaces_model.dart';
 export 'spaces_model.dart';
 
@@ -103,12 +108,12 @@ class _SpacesWidgetState extends State<SpacesWidget>
                     Flexible(
                       child: Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
                         child: Container(
                           width: double.infinity,
                           height: 55.0,
                           decoration: BoxDecoration(
-                            gradient: const LinearGradient(
+                            gradient: LinearGradient(
                               colors: [Color(0xFF2120BC), Color(0xFF7D16C1)],
                               stops: [0.0, 1.0],
                               begin: AlignmentDirectional(1.0, -1.0),
@@ -122,7 +127,7 @@ class _SpacesWidgetState extends State<SpacesWidget>
                             children: [
                               Flexible(
                                 child: Padding(
-                                  padding: const EdgeInsets.all(3.0),
+                                  padding: EdgeInsets.all(3.0),
                                   child: Container(
                                     width: double.infinity,
                                     height: 90.0,
@@ -132,7 +137,7 @@ class _SpacesWidgetState extends State<SpacesWidget>
                                       borderRadius: BorderRadius.circular(24.0),
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           15.0, 0.0, 10.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -146,7 +151,7 @@ class _SpacesWidgetState extends State<SpacesWidget>
                                                       .brightness ==
                                                   Brightness.dark)
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           5.0, 0.0, 0.0, 0.0),
                                                   child: ClipRRect(
@@ -165,7 +170,7 @@ class _SpacesWidgetState extends State<SpacesWidget>
                                                       .brightness ==
                                                   Brightness.light)
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           5.0, 0.0, 0.0, 0.0),
                                                   child: ClipRRect(
@@ -186,7 +191,7 @@ class _SpacesWidgetState extends State<SpacesWidget>
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Padding(
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 0.0, 5.0, 0.0),
                                                 child: FlutterFlowIconButton(
@@ -208,7 +213,7 @@ class _SpacesWidgetState extends State<SpacesWidget>
                                                 ),
                                               ),
                                               Padding(
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 0.0, 5.0, 0.0),
                                                 child: FlutterFlowIconButton(
@@ -241,7 +246,7 @@ class _SpacesWidgetState extends State<SpacesWidget>
                                                                 .viewInsetsOf(
                                                                     context),
                                                             child:
-                                                                const CustomAlgorithmWidget(),
+                                                                CustomAlgorithmWidget(),
                                                           ),
                                                         );
                                                       },
@@ -251,7 +256,7 @@ class _SpacesWidgetState extends State<SpacesWidget>
                                                 ),
                                               ),
                                               Padding(
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 0.0, 5.0, 0.0),
                                                 child: FlutterFlowIconButton(
@@ -286,7 +291,7 @@ class _SpacesWidgetState extends State<SpacesWidget>
                                                                 .viewInsetsOf(
                                                                     context),
                                                             child:
-                                                                const SpaceSelectorWidget(),
+                                                                SpaceSelectorWidget(),
                                                           ),
                                                         );
                                                       },
@@ -336,7 +341,7 @@ class _SpacesWidgetState extends State<SpacesWidget>
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(5.0, 10.0, 5.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(5.0, 10.0, 5.0, 0.0),
                       child: Container(
                         width: double.infinity,
                         height: 200.0,
@@ -345,7 +350,7 @@ class _SpacesWidgetState extends State<SpacesWidget>
                           image: DecorationImage(
                             fit: BoxFit.cover,
                             image: Image.network(
-                              widget.space!.banner,
+                              widget!.space!.banner,
                             ).image,
                           ),
                           borderRadius: BorderRadius.circular(30.0),
@@ -357,7 +362,7 @@ class _SpacesWidgetState extends State<SpacesWidget>
                             Opacity(
                               opacity: 0.8,
                               child: Padding(
-                                padding: const EdgeInsets.all(5.0),
+                                padding: EdgeInsets.all(5.0),
                                 child: Container(
                                   width: double.infinity,
                                   height: 60.0,
@@ -367,7 +372,7 @@ class _SpacesWidgetState extends State<SpacesWidget>
                                     borderRadius: BorderRadius.circular(40.0),
                                   ),
                                   child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         20.0, 0.0, 7.0, 0.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -376,7 +381,7 @@ class _SpacesWidgetState extends State<SpacesWidget>
                                       children: [
                                         Text(
                                           valueOrDefault<String>(
-                                            widget.space?.name,
+                                            widget!.space?.name,
                                             'Name',
                                           ),
                                           style: FlutterFlowTheme.of(context)
@@ -416,7 +421,7 @@ class _SpacesWidgetState extends State<SpacesWidget>
                                                             context),
                                                     child: SpaceRulesWidget(
                                                       rules:
-                                                          widget.space!.rules,
+                                                          widget!.space!.rules,
                                                     ),
                                                   ),
                                                 );
@@ -438,9 +443,9 @@ class _SpacesWidgetState extends State<SpacesWidget>
                     ),
                     Flexible(
                       child: Align(
-                        alignment: const AlignmentDirectional(0.0, 0.0),
+                        alignment: AlignmentDirectional(0.0, 0.0),
                         child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               5.0, 0.0, 5.0, 0.0),
                           child: PagedListView<DocumentSnapshot<Object?>?,
                               ThreadsRecord>.separated(
@@ -448,11 +453,11 @@ class _SpacesWidgetState extends State<SpacesWidget>
                               ThreadsRecord.collection
                                   .where(
                                     'Space',
-                                    isEqualTo: widget.space?.reference.id,
+                                    isEqualTo: widget!.space?.reference.id,
                                   )
                                   .orderBy('TimeStamp', descending: true),
                             ),
-                            padding: const EdgeInsets.fromLTRB(
+                            padding: EdgeInsets.fromLTRB(
                               0,
                               10.0,
                               0,
@@ -462,7 +467,7 @@ class _SpacesWidgetState extends State<SpacesWidget>
                             shrinkWrap: true,
                             reverse: false,
                             scrollDirection: Axis.vertical,
-                            separatorBuilder: (_, __) => const SizedBox(height: 10.0),
+                            separatorBuilder: (_, __) => SizedBox(height: 10.0),
                             builderDelegate:
                                 PagedChildBuilderDelegate<ThreadsRecord>(
                               // Customize what your widget looks like when it's loading the first page.
@@ -508,11 +513,11 @@ class _SpacesWidgetState extends State<SpacesWidget>
                 ),
               ),
               Align(
-                alignment: const AlignmentDirectional(0.0, 1.0),
+                alignment: AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.navigationBarModel,
                   updateCallback: () => safeSetState(() {}),
-                  child: const Hero(
+                  child: Hero(
                     tag: 'navBar',
                     transitionOnUserGestures: true,
                     child: Material(

@@ -3,8 +3,11 @@ import '/components/nav_bar_shorts_widget.dart';
 import '/components/short_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'shorts_model.dart';
 export 'shorts_model.dart';
 
@@ -43,12 +46,12 @@ class _ShortsWidgetState extends State<ShortsWidget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: Align(
-          alignment: const AlignmentDirectional(0.0, -1.0),
+          alignment: AlignmentDirectional(0.0, -1.0),
           child: Stack(
-            alignment: const AlignmentDirectional(0.0, -1.0),
+            alignment: AlignmentDirectional(0.0, -1.0),
             children: [
               Align(
-                alignment: const AlignmentDirectional(0.0, -1.0),
+                alignment: AlignmentDirectional(0.0, -1.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -84,7 +87,7 @@ class _ShortsWidgetState extends State<ShortsWidget> {
                           List<PostsRecord> pageViewPostsRecordList =
                               snapshot.data!;
 
-                          return SizedBox(
+                          return Container(
                             width: double.infinity,
                             height: MediaQuery.sizeOf(context).height * 1.0,
                             child: PageView.builder(
@@ -122,17 +125,17 @@ class _ShortsWidgetState extends State<ShortsWidget> {
                 ),
               ),
               Align(
-                alignment: const AlignmentDirectional(0.0, 1.0),
-                child: SizedBox(
+                alignment: AlignmentDirectional(0.0, 1.0),
+                child: Container(
                   height: 60.0,
                   child: Stack(
                     children: [
                       Align(
-                        alignment: const AlignmentDirectional(0.0, 1.0),
+                        alignment: AlignmentDirectional(0.0, 1.0),
                         child: wrapWithModel(
                           model: _model.navBarShortsModel,
                           updateCallback: () => safeSetState(() {}),
-                          child: const Hero(
+                          child: Hero(
                             tag: 'navBar',
                             transitionOnUserGestures: true,
                             child: Material(

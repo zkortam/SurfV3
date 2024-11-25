@@ -5,8 +5,12 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/upload_data.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'edit_profile_model.dart';
 export 'edit_profile_model.dart';
 
@@ -60,7 +64,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
       height: 650.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        borderRadius: const BorderRadius.only(
+        borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
           topLeft: Radius.circular(30.0),
@@ -71,7 +75,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
         mainAxisSize: MainAxisSize.max,
         children: [
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
             child: Container(
               width: double.infinity,
               height: 55.0,
@@ -88,7 +92,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
+                    padding: EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
                     child: FlutterFlowIconButton(
                       borderColor: Colors.transparent,
                       borderRadius: 30.0,
@@ -128,7 +132,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 3.0, 0.0),
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 3.0, 0.0),
                     child: FlutterFlowIconButton(
                       borderColor: Colors.transparent,
                       borderRadius: 30.0,
@@ -145,10 +149,12 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           displayName: _model.textThreadTextController2.text,
                           name: _model.textThreadTextController1.text,
                           bio: _model.textThreadTextController3.text,
-                          photoUrl: _model.uploadedFileUrl2 != ''
+                          photoUrl: _model.uploadedFileUrl2 != null &&
+                                  _model.uploadedFileUrl2 != ''
                               ? _model.uploadedFileUrl2
                               : currentUserPhoto,
-                          banner: _model.uploadedFileUrl1 != ''
+                          banner: _model.uploadedFileUrl1 != null &&
+                                  _model.uploadedFileUrl1 != ''
                               ? _model.uploadedFileUrl1
                               : valueOrDefault(currentUserDocument?.banner, ''),
                         ));
@@ -160,7 +166,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: EdgeInsets.all(10.0),
             child: AuthUserStreamWidget(
               builder: (context) => InkWell(
                 splashColor: Colors.transparent,
@@ -220,19 +226,21 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                 child: Container(
                   width: double.infinity,
                   height: 120.0,
-                  constraints: const BoxConstraints(
+                  constraints: BoxConstraints(
                     maxWidth: 600.0,
                     maxHeight: 120.0,
                   ),
                   decoration: BoxDecoration(
-                    color: (_model.uploadedLocalFile1.bytes?.isNotEmpty ??
+                    color: _model.uploadedLocalFile1 != null &&
+                            (_model.uploadedLocalFile1.bytes?.isNotEmpty ??
                                 false)
                         ? FlutterFlowTheme.of(context).secondaryBackground
                         : FlutterFlowTheme.of(context).primary,
                     image: DecorationImage(
                       fit: BoxFit.cover,
                       image: Image.network(
-                        _model.uploadedFileUrl1 != ''
+                        _model.uploadedFileUrl1 != null &&
+                                _model.uploadedFileUrl1 != ''
                             ? _model.uploadedFileUrl1
                             : valueOrDefault(currentUserDocument?.banner, ''),
                       ).image,
@@ -242,7 +250,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                   child: Stack(
                     children: [
                       Align(
-                        alignment: const AlignmentDirectional(0.0, 0.0),
+                        alignment: AlignmentDirectional(0.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -311,7 +319,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                   }
                                 }
                               },
-                              child: SizedBox(
+                              child: Container(
                                 width: 90.0,
                                 height: 90.0,
                                 child: Stack(
@@ -320,7 +328,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                       width: 90.0,
                                       height: 90.0,
                                       clipBehavior: Clip.antiAlias,
-                                      decoration: const BoxDecoration(
+                                      decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                       ),
                                       child: Image.network(
@@ -328,7 +336,8 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                         fit: BoxFit.cover,
                                       ),
                                     ),
-                                    if (_model.uploadedFileUrl2 == '')
+                                    if (_model.uploadedFileUrl2 == null ||
+                                        _model.uploadedFileUrl2 == '')
                                       Container(
                                         width: 90.0,
                                         height: 90.0,
@@ -358,9 +367,10 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           ],
                         ),
                       ),
-                      if (_model.uploadedFileUrl1 == '')
+                      if (_model.uploadedFileUrl1 == null ||
+                          _model.uploadedFileUrl1 == '')
                         Align(
-                          alignment: const AlignmentDirectional(-0.91, 0.76),
+                          alignment: AlignmentDirectional(-0.91, 0.76),
                           child: Icon(
                             Icons.file_upload_outlined,
                             color: FlutterFlowTheme.of(context).secondaryText,
@@ -374,7 +384,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
             ),
           ),
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
             child: AuthUserStreamWidget(
               builder: (context) => TextFormField(
                 controller: _model.textThreadTextController1,
@@ -422,7 +432,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                     ),
                     borderRadius: BorderRadius.circular(24.0),
                   ),
-                  contentPadding: const EdgeInsets.all(20.0),
+                  contentPadding: EdgeInsets.all(20.0),
                 ),
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Montserrat',
@@ -443,7 +453,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
             ),
           ),
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(8.0, 10.0, 8.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(8.0, 10.0, 8.0, 0.0),
             child: AuthUserStreamWidget(
               builder: (context) => TextFormField(
                 controller: _model.textThreadTextController2,
@@ -491,7 +501,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                     ),
                     borderRadius: BorderRadius.circular(24.0),
                   ),
-                  contentPadding: const EdgeInsets.all(20.0),
+                  contentPadding: EdgeInsets.all(20.0),
                 ),
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Montserrat',
@@ -512,7 +522,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
             ),
           ),
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(8.0, 10.0, 8.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(8.0, 10.0, 8.0, 0.0),
             child: AuthUserStreamWidget(
               builder: (context) => TextFormField(
                 controller: _model.textThreadTextController3,
@@ -560,7 +570,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                     ),
                     borderRadius: BorderRadius.circular(24.0),
                   ),
-                  contentPadding: const EdgeInsets.all(20.0),
+                  contentPadding: EdgeInsets.all(20.0),
                 ),
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Montserrat',

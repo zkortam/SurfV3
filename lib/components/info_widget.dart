@@ -2,6 +2,9 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'info_model.dart';
 export 'info_model.dart';
 
@@ -50,12 +53,12 @@ class _InfoWidgetState extends State<InfoWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
+      padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
       child: Container(
         width: double.infinity,
         height: 55.0,
         decoration: BoxDecoration(
-          gradient: const LinearGradient(
+          gradient: LinearGradient(
             colors: [Color(0x7F2120BC), Color(0x7B7D16C1)],
             stops: [0.0, 1.0],
             begin: AlignmentDirectional(1.0, -1.0),
@@ -69,7 +72,7 @@ class _InfoWidgetState extends State<InfoWidget> {
           children: [
             Flexible(
               child: Padding(
-                padding: const EdgeInsets.all(3.0),
+                padding: EdgeInsets.all(3.0),
                 child: Container(
                   width: double.infinity,
                   height: 90.0,
@@ -87,10 +90,10 @@ class _InfoWidgetState extends State<InfoWidget> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Align(
-                              alignment: const AlignmentDirectional(0.0, 0.0),
+                              alignment: AlignmentDirectional(0.0, 0.0),
                               child: Text(
                                 valueOrDefault<String>(
-                                  widget.text,
+                                  widget!.text,
                                   'text',
                                 ),
                                 textAlign: TextAlign.start,

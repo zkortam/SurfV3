@@ -9,11 +9,16 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_swipeable_stack.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:provider/provider.dart';
 import 'home_page_model.dart';
 export 'home_page_model.dart';
 
@@ -83,11 +88,11 @@ class _HomePageWidgetState extends State<HomePageWidget>
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: const AlignmentDirectional(0.0, -1.0),
+            alignment: AlignmentDirectional(0.0, -1.0),
             child: Stack(
               children: [
                 Align(
-                  alignment: const AlignmentDirectional(0.0, -1.0),
+                  alignment: AlignmentDirectional(0.0, -1.0),
                   child: SingleChildScrollView(
                     primary: false,
                     child: Column(
@@ -95,13 +100,13 @@ class _HomePageWidgetState extends State<HomePageWidget>
                       children: [
                         Flexible(
                           child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 5.0, 0.0, 5.0, 0.0),
                             child: Container(
                               width: double.infinity,
                               height: 55.0,
                               decoration: BoxDecoration(
-                                gradient: const LinearGradient(
+                                gradient: LinearGradient(
                                   colors: [
                                     Color(0x7F2120BC),
                                     Color(0x7B7D16C1)
@@ -112,14 +117,14 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 ),
                                 borderRadius: BorderRadius.circular(40.0),
                               ),
-                              alignment: const AlignmentDirectional(0.0, -1.0),
+                              alignment: AlignmentDirectional(0.0, -1.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Flexible(
                                     child: Padding(
-                                      padding: const EdgeInsets.all(3.0),
+                                      padding: EdgeInsets.all(3.0),
                                       child: Container(
                                         width: double.infinity,
                                         height: 90.0,
@@ -131,7 +136,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         ),
                                         child: Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   15.0, 0.0, 10.0, 0.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
@@ -146,7 +151,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       Brightness.dark)
                                                     Padding(
                                                       padding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   5.0,
                                                                   0.0,
@@ -169,7 +174,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       Brightness.light)
                                                     Padding(
                                                       padding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   5.0,
                                                                   0.0,
@@ -194,7 +199,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 0.0,
                                                                 5.0, 0.0),
                                                     child:
@@ -231,7 +236,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                     .viewInsetsOf(
                                                                         context),
                                                                 child:
-                                                                    const CustomAlgorithmWidget(),
+                                                                    CustomAlgorithmWidget(),
                                                               ),
                                                             );
                                                           },
@@ -243,7 +248,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 0.0,
                                                                 5.0, 0.0),
                                                     child:
@@ -271,16 +276,16 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                     borderWidth: 1.0,
                                                     buttonSize: 40.0,
                                                     icon: Icon(
-                                                      Icons.send_rounded,
+                                                      Icons.square_outlined,
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .primaryText,
                                                       size: 24.0,
                                                     ),
-                                                    onPressed: () {
-                                                      print(
-                                                          'IconButton pressed ...');
+                                                    onPressed: () async {
+                                                      context.pushNamed(
+                                                          'chatMain');
                                                     },
                                                   ),
                                                 ],
@@ -297,7 +302,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(5.0),
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              5.0, 10.0, 5.0, 10.0),
                           child: FutureBuilder<List<UsersRecord>>(
                             future: queryUsersRecordOnce(
                               queryBuilder: (usersRecord) => usersRecord.where(
@@ -355,12 +361,12 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                             BorderRadius.circular(40.0),
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsets.all(3.0),
+                                        padding: EdgeInsets.all(3.0),
                                         child: Container(
                                           width: 70.0,
                                           height: 70.0,
                                           clipBehavior: Clip.antiAlias,
-                                          decoration: const BoxDecoration(
+                                          decoration: BoxDecoration(
                                             shape: BoxShape.circle,
                                           ),
                                           child: Image.network(
@@ -371,21 +377,21 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       ),
                                     ),
                                   );
-                                }).divide(const SizedBox(width: 5.0)),
+                                }).divide(SizedBox(width: 5.0)),
                               );
                             },
                           ),
                         ),
-                        if (currentUserDocument?.userSettings.isSwipeFeed ??
+                        if (currentUserDocument?.userSettings?.isSwipeFeed ??
                             true)
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 10.0, 0.0, 0.0),
                             child: AuthUserStreamWidget(
                               builder: (context) => Container(
                                 width: 500.0,
                                 height: 550.0,
-                                decoration: const BoxDecoration(),
+                                decoration: BoxDecoration(),
                                 child: FutureBuilder<List<PostsRecord>>(
                                   future: queryPostsRecordOnce(
                                     queryBuilder: (postsRecord) => postsRecord
@@ -446,14 +452,14 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             ),
                           ),
                         if (!valueOrDefault<bool>(
-                          currentUserDocument?.userSettings.isSwipeFeed,
+                          currentUserDocument?.userSettings?.isSwipeFeed,
                           false,
                         ))
                           Flexible(
                             child: Align(
-                              alignment: const AlignmentDirectional(0.0, 0.0),
+                              alignment: AlignmentDirectional(0.0, 0.0),
                               child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     5.0, 0.0, 5.0, 0.0),
                                 child: AuthUserStreamWidget(
                                   builder: (context) => PagedListView<
@@ -469,9 +475,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           .orderBy('TimePosted',
                                               descending: true),
                                     ),
-                                    padding: const EdgeInsets.fromLTRB(
+                                    padding: EdgeInsets.fromLTRB(
                                       0,
-                                      10.0,
+                                      0,
                                       0,
                                       110.0,
                                     ),
@@ -480,7 +486,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                     reverse: false,
                                     scrollDirection: Axis.vertical,
                                     separatorBuilder: (_, __) =>
-                                        const SizedBox(height: 10.0),
+                                        SizedBox(height: 10.0),
                                     builderDelegate:
                                         PagedChildBuilderDelegate<PostsRecord>(
                                       // Customize what your widget looks like when it's loading the first page.
@@ -532,11 +538,11 @@ class _HomePageWidgetState extends State<HomePageWidget>
                   ),
                 ),
                 Align(
-                  alignment: const AlignmentDirectional(0.0, 1.0),
+                  alignment: AlignmentDirectional(0.0, 1.0),
                   child: wrapWithModel(
                     model: _model.navigationBarModel,
                     updateCallback: () => safeSetState(() {}),
-                    child: const Hero(
+                    child: Hero(
                       tag: 'navBar',
                       transitionOnUserGestures: true,
                       child: Material(

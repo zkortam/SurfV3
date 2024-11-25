@@ -3,8 +3,12 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'thread_settings_model.dart';
 export 'thread_settings_model.dart';
 
@@ -51,7 +55,7 @@ class _ThreadSettingsWidgetState extends State<ThreadSettingsWidget> {
       height: 500.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        borderRadius: const BorderRadius.only(
+        borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
           topLeft: Radius.circular(30.0),
@@ -62,7 +66,7 @@ class _ThreadSettingsWidgetState extends State<ThreadSettingsWidget> {
         mainAxisSize: MainAxisSize.max,
         children: [
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
             child: Container(
               width: double.infinity,
               height: 55.0,
@@ -79,7 +83,7 @@ class _ThreadSettingsWidgetState extends State<ThreadSettingsWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
+                    padding: EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
                     child: FlutterFlowIconButton(
                       borderRadius: 30.0,
                       buttonSize: 42.0,
@@ -118,7 +122,7 @@ class _ThreadSettingsWidgetState extends State<ThreadSettingsWidget> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 3.0, 0.0),
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 3.0, 0.0),
                     child: FlutterFlowIconButton(
                       borderColor: Colors.transparent,
                       borderRadius: 30.0,
@@ -150,13 +154,13 @@ class _ThreadSettingsWidgetState extends State<ThreadSettingsWidget> {
           ),
           Flexible(
             child: Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 10.0),
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 10.0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(5.0),
+                    padding: EdgeInsets.all(5.0),
                     child: Container(
                       width: double.infinity,
                       height: 55.0,
@@ -170,7 +174,7 @@ class _ThreadSettingsWidgetState extends State<ThreadSettingsWidget> {
                       ),
                       child: Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -179,7 +183,7 @@ class _ThreadSettingsWidgetState extends State<ThreadSettingsWidget> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.all(5.0),
+                                  padding: EdgeInsets.all(5.0),
                                   child: FlutterFlowIconButton(
                                     borderColor: Colors.transparent,
                                     borderRadius: 30.0,
@@ -197,7 +201,7 @@ class _ThreadSettingsWidgetState extends State<ThreadSettingsWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       5.0, 0.0, 0.0, 0.0),
                                   child: Text(
                                     FFLocalizations.of(context).getText(
@@ -219,7 +223,7 @@ class _ThreadSettingsWidgetState extends State<ThreadSettingsWidget> {
                                 value: _model.switchValue1!,
                                 onChanged: (newValue) async {
                                   safeSetState(
-                                      () => _model.switchValue1 = newValue);
+                                      () => _model.switchValue1 = newValue!);
                                 },
                                 activeColor:
                                     FlutterFlowTheme.of(context).primaryText,
@@ -237,7 +241,7 @@ class _ThreadSettingsWidgetState extends State<ThreadSettingsWidget> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(5.0),
+                    padding: EdgeInsets.all(5.0),
                     child: Container(
                       width: double.infinity,
                       height: 55.0,
@@ -251,7 +255,7 @@ class _ThreadSettingsWidgetState extends State<ThreadSettingsWidget> {
                       ),
                       child: Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -260,7 +264,7 @@ class _ThreadSettingsWidgetState extends State<ThreadSettingsWidget> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.all(5.0),
+                                  padding: EdgeInsets.all(5.0),
                                   child: FlutterFlowIconButton(
                                     borderColor: Colors.transparent,
                                     borderRadius: 30.0,
@@ -278,7 +282,7 @@ class _ThreadSettingsWidgetState extends State<ThreadSettingsWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       5.0, 0.0, 0.0, 0.0),
                                   child: Text(
                                     FFLocalizations.of(context).getText(
@@ -300,7 +304,7 @@ class _ThreadSettingsWidgetState extends State<ThreadSettingsWidget> {
                                 value: _model.switchValue2!,
                                 onChanged: (newValue) async {
                                   safeSetState(
-                                      () => _model.switchValue2 = newValue);
+                                      () => _model.switchValue2 = newValue!);
                                 },
                                 activeColor:
                                     FlutterFlowTheme.of(context).primaryText,
@@ -318,7 +322,7 @@ class _ThreadSettingsWidgetState extends State<ThreadSettingsWidget> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(5.0),
+                    padding: EdgeInsets.all(5.0),
                     child: Container(
                       width: double.infinity,
                       height: 55.0,
@@ -332,7 +336,7 @@ class _ThreadSettingsWidgetState extends State<ThreadSettingsWidget> {
                       ),
                       child: Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -341,7 +345,7 @@ class _ThreadSettingsWidgetState extends State<ThreadSettingsWidget> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.all(5.0),
+                                  padding: EdgeInsets.all(5.0),
                                   child: FlutterFlowIconButton(
                                     borderColor: Colors.transparent,
                                     borderRadius: 30.0,
@@ -359,7 +363,7 @@ class _ThreadSettingsWidgetState extends State<ThreadSettingsWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       5.0, 0.0, 0.0, 0.0),
                                   child: Text(
                                     FFLocalizations.of(context).getText(
@@ -381,7 +385,7 @@ class _ThreadSettingsWidgetState extends State<ThreadSettingsWidget> {
                                 value: _model.switchValue3!,
                                 onChanged: (newValue) async {
                                   safeSetState(
-                                      () => _model.switchValue3 = newValue);
+                                      () => _model.switchValue3 = newValue!);
                                 },
                                 activeColor:
                                     FlutterFlowTheme.of(context).primaryText,
@@ -399,7 +403,7 @@ class _ThreadSettingsWidgetState extends State<ThreadSettingsWidget> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(5.0),
+                    padding: EdgeInsets.all(5.0),
                     child: Container(
                       width: double.infinity,
                       height: 55.0,
@@ -413,7 +417,7 @@ class _ThreadSettingsWidgetState extends State<ThreadSettingsWidget> {
                       ),
                       child: Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -422,7 +426,7 @@ class _ThreadSettingsWidgetState extends State<ThreadSettingsWidget> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.all(5.0),
+                                  padding: EdgeInsets.all(5.0),
                                   child: FlutterFlowIconButton(
                                     borderColor: Colors.transparent,
                                     borderRadius: 30.0,
@@ -440,7 +444,7 @@ class _ThreadSettingsWidgetState extends State<ThreadSettingsWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       5.0, 0.0, 0.0, 0.0),
                                   child: Text(
                                     FFLocalizations.of(context).getText(
@@ -462,7 +466,7 @@ class _ThreadSettingsWidgetState extends State<ThreadSettingsWidget> {
                                 value: _model.switchValue4!,
                                 onChanged: (newValue) async {
                                   safeSetState(
-                                      () => _model.switchValue4 = newValue);
+                                      () => _model.switchValue4 = newValue!);
                                 },
                                 activeColor:
                                     FlutterFlowTheme.of(context).primaryText,

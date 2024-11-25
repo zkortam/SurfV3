@@ -1,7 +1,36 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/firebase_storage/storage.dart';
+import '/backend/gemini/gemini.dart';
+import '/components/beautify_text_widget.dart';
+import '/components/error_bar_widget.dart';
+import '/components/info_widget.dart';
+import '/components/space_selector_widget.dart';
+import '/components/thread_settings_widget.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
+import '/flutter_flow/flutter_flow_audio_player.dart';
+import '/flutter_flow/flutter_flow_button_tabbar.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_media_display.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_video_player.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/upload_data.dart';
+import 'dart:math';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'create_post_widget.dart' show CreatePostWidget;
+import 'package:smooth_page_indicator/smooth_page_indicator.dart'
+    as smooth_page_indicator;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class CreatePostModel extends FlutterFlowModel<CreatePostWidget> {
   ///  Local state fields for this page.
@@ -133,12 +162,6 @@ class CreatePostModel extends FlutterFlowModel<CreatePostWidget> {
   FocusNode? option4FocusNode;
   TextEditingController? option4TextController;
   String? Function(BuildContext, String?)? option4TextControllerValidator;
-  // Stores action output result for [Bottom Sheet - pickGroupForSnippet] action in IconButton widget.
-  FollowerGroupStruct? validPeople;
-  // State field(s) for Caption widget.
-  FocusNode? captionFocusNode;
-  TextEditingController? captionTextController;
-  String? Function(BuildContext, String?)? captionTextControllerValidator;
 
   @override
   void initState(BuildContext context) {}
@@ -169,8 +192,5 @@ class CreatePostModel extends FlutterFlowModel<CreatePostWidget> {
 
     option4FocusNode?.dispose();
     option4TextController?.dispose();
-
-    captionFocusNode?.dispose();
-    captionTextController?.dispose();
   }
 }

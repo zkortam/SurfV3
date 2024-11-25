@@ -4,6 +4,9 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'space_rules_model.dart';
 export 'space_rules_model.dart';
 
@@ -34,7 +37,7 @@ class _SpaceRulesWidgetState extends State<SpaceRulesWidget> {
     _model = createModel(context, () => SpaceRulesModel());
 
     _model.textThreadTextController ??=
-        TextEditingController(text: widget.rules);
+        TextEditingController(text: widget!.rules);
     _model.textThreadFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
@@ -54,7 +57,7 @@ class _SpaceRulesWidgetState extends State<SpaceRulesWidget> {
       height: 450.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        borderRadius: const BorderRadius.only(
+        borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
           topLeft: Radius.circular(30.0),
@@ -65,7 +68,7 @@ class _SpaceRulesWidgetState extends State<SpaceRulesWidget> {
         mainAxisSize: MainAxisSize.max,
         children: [
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
             child: Container(
               width: double.infinity,
               height: 55.0,
@@ -82,7 +85,7 @@ class _SpaceRulesWidgetState extends State<SpaceRulesWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
+                    padding: EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
                     child: FlutterFlowIconButton(
                       borderColor: Colors.transparent,
                       borderRadius: 30.0,
@@ -101,7 +104,7 @@ class _SpaceRulesWidgetState extends State<SpaceRulesWidget> {
                   Flexible(
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 40.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 40.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -130,7 +133,7 @@ class _SpaceRulesWidgetState extends State<SpaceRulesWidget> {
             ),
           ),
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(8.0, 10.0, 8.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(8.0, 10.0, 8.0, 0.0),
             child: TextFormField(
               controller: _model.textThreadTextController,
               focusNode: _model.textThreadFocusNode,

@@ -2,6 +2,9 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'beautify_text_model.dart';
 export 'beautify_text_model.dart';
 
@@ -45,12 +48,12 @@ class _BeautifyTextWidgetState extends State<BeautifyTextWidget> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      constraints: const BoxConstraints(
+      constraints: BoxConstraints(
         maxHeight: 500.0,
       ),
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        borderRadius: const BorderRadius.only(
+        borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
           topLeft: Radius.circular(30.0),
@@ -61,12 +64,12 @@ class _BeautifyTextWidgetState extends State<BeautifyTextWidget> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
             child: Container(
               width: double.infinity,
               height: 55.0,
               decoration: BoxDecoration(
-                gradient: const LinearGradient(
+                gradient: LinearGradient(
                   colors: [Color(0x7F2120BC), Color(0x7B7D16C1)],
                   stops: [0.0, 1.0],
                   begin: AlignmentDirectional(1.0, -1.0),
@@ -80,7 +83,7 @@ class _BeautifyTextWidgetState extends State<BeautifyTextWidget> {
                 children: [
                   Flexible(
                     child: Padding(
-                      padding: const EdgeInsets.all(3.0),
+                      padding: EdgeInsets.all(3.0),
                       child: Container(
                         width: double.infinity,
                         height: 90.0,
@@ -94,7 +97,7 @@ class _BeautifyTextWidgetState extends State<BeautifyTextWidget> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   3.0, 0.0, 0.0, 0.0),
                               child: FlutterFlowIconButton(
                                 borderColor: Colors.transparent,
@@ -118,7 +121,7 @@ class _BeautifyTextWidgetState extends State<BeautifyTextWidget> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Align(
-                                    alignment: const AlignmentDirectional(0.0, 0.0),
+                                    alignment: AlignmentDirectional(0.0, 0.0),
                                     child: Text(
                                       FFLocalizations.of(context).getText(
                                         'jzkyej4z' /* Beautified Text */,
@@ -139,7 +142,7 @@ class _BeautifyTextWidgetState extends State<BeautifyTextWidget> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 3.0, 0.0),
                               child: FlutterFlowIconButton(
                                 borderColor: Colors.transparent,
@@ -166,10 +169,10 @@ class _BeautifyTextWidgetState extends State<BeautifyTextWidget> {
             ),
           ),
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 80.0),
+            padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 80.0),
             child: Text(
               valueOrDefault<String>(
-                widget.text,
+                widget!.text,
                 'Loading',
               ),
               style: FlutterFlowTheme.of(context).bodyMedium.override(

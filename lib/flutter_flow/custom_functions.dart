@@ -301,3 +301,32 @@ List<String> fourOptionsToList(
     option4.trim().isNotEmpty ? option4 : " ",
   ];
 }
+
+DocumentReference returnOtherUser(
+  List<DocumentReference> users,
+  DocumentReference singleUser,
+) {
+  if (users.length >= 2) {
+    return users[0] == singleUser ? users[1] : users[0];
+  } else {
+    return users[0];
+  }
+}
+
+bool isDMExistent(
+  List<ChatsRecord> chats,
+  DocumentReference ref,
+) {
+  for (var chat in chats) {
+    // Check if the users field exists and contains exactly 2 users
+    if (chat.users != null && chat.users.length == 2) {
+      // Check if the provided ref exists in the users list
+      if (chat.users.contains(ref)) {
+        return true;
+      }
+    }
+  }
+
+  // If no matching chat is found, return false
+  return false;
+}

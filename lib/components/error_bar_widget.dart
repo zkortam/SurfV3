@@ -2,6 +2,9 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'error_bar_model.dart';
 export 'error_bar_model.dart';
 
@@ -50,14 +53,14 @@ class _ErrorBarWidgetState extends State<ErrorBarWidget> {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: const AlignmentDirectional(0.0, 1.0),
+      alignment: AlignmentDirectional(0.0, 1.0),
       child: Padding(
-        padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 10.0),
+        padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 10.0),
         child: Container(
           width: 600.0,
           height: 50.0,
           decoration: BoxDecoration(
-            gradient: const LinearGradient(
+            gradient: LinearGradient(
               colors: [Color(0xFFF93333), Color(0xFFDA940A)],
               stops: [0.0, 1.0],
               begin: AlignmentDirectional(1.0, 0.0),
@@ -70,7 +73,7 @@ class _ErrorBarWidgetState extends State<ErrorBarWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                widget.text!,
+                widget!.text!,
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Montserrat',
                       color: Colors.white,
