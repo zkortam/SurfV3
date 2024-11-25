@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/upload_data.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'single_chat_model.dart';
 export 'single_chat_model.dart';
@@ -33,6 +34,15 @@ class _SingleChatWidgetState extends State<SingleChatWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => SingleChatModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await _model.listViewController?.animateTo(
+        _model.listViewController!.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 0),
+        curve: Curves.ease,
+      );
+    });
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
@@ -648,6 +658,7 @@ class _SingleChatWidgetState extends State<SingleChatWidget> {
                                     ),
                                   );
                                 },
+                                controller: _model.listViewController,
                               );
                             },
                           ),
@@ -949,6 +960,24 @@ class _SingleChatWidgetState extends State<SingleChatWidget> {
                                       lastTime: getCurrentTimestamp,
                                       lastMessage: _model.textController.text,
                                     ));
+                                    safeSetState(() {
+                                      _model.textController?.clear();
+                                    });
+                                    safeSetState(() {
+                                      _model.isDataUploading = false;
+                                      _model.uploadedLocalFile = FFUploadedFile(
+                                          bytes: Uint8List.fromList([]));
+                                      _model.uploadedFileUrl = '';
+                                    });
+
+                                    _model.refresh = 1;
+                                    safeSetState(() {});
+                                    await _model.listViewController?.animateTo(
+                                      _model.listViewController!.position
+                                          .maxScrollExtent,
+                                      duration: const Duration(milliseconds: 100),
+                                      curve: Curves.ease,
+                                    );
                                   },
                                 ),
                               ],

@@ -3,8 +3,14 @@ import 'single_chat_widget.dart' show SingleChatWidget;
 import 'package:flutter/material.dart';
 
 class SingleChatModel extends FlutterFlowModel<SingleChatWidget> {
+  ///  Local state fields for this page.
+
+  int refresh = 0;
+
   ///  State fields for stateful widgets in this page.
 
+  // State field(s) for ListView widget.
+  ScrollController? listViewController;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
@@ -15,10 +21,13 @@ class SingleChatModel extends FlutterFlowModel<SingleChatWidget> {
   String uploadedFileUrl = '';
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    listViewController = ScrollController();
+  }
 
   @override
   void dispose() {
+    listViewController?.dispose();
     textFieldFocusNode?.dispose();
     textController?.dispose();
   }
