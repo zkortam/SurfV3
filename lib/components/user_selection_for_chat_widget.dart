@@ -200,6 +200,12 @@ class _UserSelectionForChatWidgetState
                                 ...mapToFirestore(
                                   {
                                     'users': _model.selectedUsers,
+                                    'userChatData':
+                                        getUserMessageDataListFirestoreData(
+                                      functions.userToMessageData(
+                                          _model.selectedUsers.toList(),
+                                          getCurrentTimestamp),
+                                    ),
                                   },
                                 ),
                               });
@@ -211,6 +217,12 @@ class _UserSelectionForChatWidgetState
                                 ...mapToFirestore(
                                   {
                                     'users': _model.selectedUsers,
+                                    'userChatData':
+                                        getUserMessageDataListFirestoreData(
+                                      functions.userToMessageData(
+                                          _model.selectedUsers.toList(),
+                                          getCurrentTimestamp),
+                                    ),
                                   },
                                 ),
                               }, chatsRecordReference);

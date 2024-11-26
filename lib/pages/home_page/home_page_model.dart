@@ -77,7 +77,7 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
           nextPageMarker: nextPageMarker,
           streamSubscriptions: listViewStreamSubscriptions,
           controller: controller,
-          pageSize: 25,
+          pageSize: 15,
           isStream: true,
         ),
       );

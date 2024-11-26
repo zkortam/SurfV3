@@ -308,7 +308,10 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
                                               shape: BoxShape.circle,
                                             ),
                                             child: Image.network(
-                                              rowUsersRecord.photoUrl,
+                                              listViewChatsRecord.users.length >
+                                                      2
+                                                  ? listViewChatsRecord.image
+                                                  : rowUsersRecord.photoUrl,
                                               fit: BoxFit.cover,
                                             ),
                                           ),
@@ -324,7 +327,12 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  rowUsersRecord.name,
+                                                  listViewChatsRecord
+                                                              .users.length >
+                                                          2
+                                                      ? listViewChatsRecord
+                                                          .title
+                                                      : rowUsersRecord.name,
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
@@ -356,24 +364,67 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
                                           ),
                                         ],
                                       ),
-                                      Text(
-                                        dateTimeFormat(
-                                          "relative",
-                                          listViewChatsRecord.lastTime!,
-                                          locale: FFLocalizations.of(context)
-                                                  .languageShortCode ??
-                                              FFLocalizations.of(context)
-                                                  .languageCode,
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Montserrat',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              letterSpacing: 0.0,
+                                      Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            dateTimeFormat(
+                                              "relative",
+                                              listViewChatsRecord.lastTime!,
+                                              locale: FFLocalizations.of(
+                                                          context)
+                                                      .languageShortCode ??
+                                                  FFLocalizations.of(context)
+                                                      .languageCode,
                                             ),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Montserrat',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryText,
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 5.0, 0.0, 0.0),
+                                            child: Stack(
+                                              children: [
+                                                if (!functions.checkIfRead(
+                                                    listViewChatsRecord
+                                                        .lastTime!,
+                                                    listViewChatsRecord
+                                                        .userChatData
+                                                        .toList()))
+                                                  Icon(
+                                                    Icons.circle_outlined,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                    size: 16.0,
+                                                  ),
+                                                if (functions.checkIfRead(
+                                                    listViewChatsRecord
+                                                        .lastTime!,
+                                                    listViewChatsRecord
+                                                        .userChatData
+                                                        .toList()))
+                                                  Icon(
+                                                    Icons.check_circle_sharp,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                    size: 16.0,
+                                                  ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),

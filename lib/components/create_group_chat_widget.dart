@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/upload_data.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'create_group_chat_model.dart';
 export 'create_group_chat_model.dart';
@@ -154,6 +155,12 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
                               ...mapToFirestore(
                                 {
                                   'users': widget.users,
+                                  'userChatData':
+                                      getUserMessageDataListFirestoreData(
+                                    functions.userToMessageData(
+                                        widget.users!.toList(),
+                                        getCurrentTimestamp),
+                                  ),
                                 },
                               ),
                             });
@@ -167,6 +174,12 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
                               ...mapToFirestore(
                                 {
                                   'users': widget.users,
+                                  'userChatData':
+                                      getUserMessageDataListFirestoreData(
+                                    functions.userToMessageData(
+                                        widget.users!.toList(),
+                                        getCurrentTimestamp),
+                                  ),
                                 },
                               ),
                             }, chatsRecordReference);

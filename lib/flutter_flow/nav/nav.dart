@@ -347,12 +347,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   ParamType.Document,
                 ),
               ),
-            ),
-            FFRoute(
-              name: 'algotesting',
-              path: 'algotesting',
-              requireAuth: true,
-              builder: (context, params) => const AlgotestingWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),

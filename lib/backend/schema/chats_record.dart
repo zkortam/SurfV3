@@ -45,6 +45,11 @@ class ChatsRecord extends FirestoreRecord {
   String get lastMessage => _lastMessage ?? '';
   bool hasLastMessage() => _lastMessage != null;
 
+  // "userChatData" field.
+  List<UserMessageDataStruct>? _userChatData;
+  List<UserMessageDataStruct> get userChatData => _userChatData ?? const [];
+  bool hasUserChatData() => _userChatData != null;
+
   void _initializeFields() {
     _users = getDataList(snapshotData['users']);
     _image = snapshotData['image'] as String?;
@@ -52,6 +57,10 @@ class ChatsRecord extends FirestoreRecord {
     _chats = getDataList(snapshotData['chats']);
     _lastTime = snapshotData['lastTime'] as DateTime?;
     _lastMessage = snapshotData['lastMessage'] as String?;
+    _userChatData = getStructList(
+      snapshotData['userChatData'],
+      UserMessageDataStruct.fromMap,
+    );
   }
 
   static CollectionReference get collection =>
@@ -116,12 +125,20 @@ class ChatsRecordDocumentEquality implements Equality<ChatsRecord> {
         e1?.title == e2?.title &&
         listEquality.equals(e1?.chats, e2?.chats) &&
         e1?.lastTime == e2?.lastTime &&
-        e1?.lastMessage == e2?.lastMessage;
+        e1?.lastMessage == e2?.lastMessage &&
+        listEquality.equals(e1?.userChatData, e2?.userChatData);
   }
 
   @override
-  int hash(ChatsRecord? e) => const ListEquality().hash(
-      [e?.users, e?.image, e?.title, e?.chats, e?.lastTime, e?.lastMessage]);
+  int hash(ChatsRecord? e) => const ListEquality().hash([
+        e?.users,
+        e?.image,
+        e?.title,
+        e?.chats,
+        e?.lastTime,
+        e?.lastMessage,
+        e?.userChatData
+      ]);
 
   @override
   bool isValidKey(Object? o) => o is ChatsRecord;

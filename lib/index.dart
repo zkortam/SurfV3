@@ -34,4 +34,3 @@ export '/entry/single_article/single_article_widget.dart'
     show SingleArticleWidget;
 export '/chat_main/chat_main_widget.dart' show ChatMainWidget;
 export '/single_chat/single_chat_widget.dart' show SingleChatWidget;
-export '/algotesting/algotesting_widget.dart' show AlgotestingWidget;
