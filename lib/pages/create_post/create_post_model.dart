@@ -133,12 +133,6 @@ class CreatePostModel extends FlutterFlowModel<CreatePostWidget> {
   FocusNode? option4FocusNode;
   TextEditingController? option4TextController;
   String? Function(BuildContext, String?)? option4TextControllerValidator;
-  // Stores action output result for [Bottom Sheet - pickGroupForSnippet] action in IconButton widget.
-  FollowerGroupStruct? validPeople;
-  // State field(s) for Caption widget.
-  FocusNode? captionFocusNode;
-  TextEditingController? captionTextController;
-  String? Function(BuildContext, String?)? captionTextControllerValidator;
 
   @override
   void initState(BuildContext context) {}
@@ -169,8 +163,5 @@ class CreatePostModel extends FlutterFlowModel<CreatePostWidget> {
 
     option4FocusNode?.dispose();
     option4TextController?.dispose();
-
-    captionFocusNode?.dispose();
-    captionTextController?.dispose();
   }
 }

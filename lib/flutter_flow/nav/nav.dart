@@ -327,6 +327,26 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   collectionNamePath: ['users'],
                 ),
               ),
+            ),
+            FFRoute(
+              name: 'chatMain',
+              path: 'chatMain',
+              requireAuth: true,
+              builder: (context, params) => const ChatMainWidget(),
+            ),
+            FFRoute(
+              name: 'singleChat',
+              path: 'singleChat',
+              requireAuth: true,
+              asyncParams: {
+                'chat': getDoc(['chats'], ChatsRecord.fromSnapshot),
+              },
+              builder: (context, params) => SingleChatWidget(
+                chat: params.getParam(
+                  'chat',
+                  ParamType.Document,
+                ),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),

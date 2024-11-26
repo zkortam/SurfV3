@@ -1,4 +1,4 @@
-# Surf V3
+# Surf
 
 A new Flutter project.
 

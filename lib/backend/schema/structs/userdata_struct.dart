@@ -11,11 +11,9 @@ import '/flutter_flow/flutter_flow_util.dart';
 class UserdataStruct extends FFFirebaseStruct {
   UserdataStruct({
     List<String>? ipAddresses,
-    List<DocumentReference>? friends,
     List<DocumentReference>? feedback,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _ipAddresses = ipAddresses,
-        _friends = friends,
         _feedback = feedback,
         super(firestoreUtilData);
 
@@ -30,17 +28,6 @@ class UserdataStruct extends FFFirebaseStruct {
 
   bool hasIpAddresses() => _ipAddresses != null;
 
-  // "friends" field.
-  List<DocumentReference>? _friends;
-  List<DocumentReference> get friends => _friends ?? const [];
-  set friends(List<DocumentReference>? val) => _friends = val;
-
-  void updateFriends(Function(List<DocumentReference>) updateFn) {
-    updateFn(_friends ??= []);
-  }
-
-  bool hasFriends() => _friends != null;
-
   // "feedback" field.
   List<DocumentReference>? _feedback;
   List<DocumentReference> get feedback => _feedback ?? const [];
@@ -54,7 +41,6 @@ class UserdataStruct extends FFFirebaseStruct {
 
   static UserdataStruct fromMap(Map<String, dynamic> data) => UserdataStruct(
         ipAddresses: getDataList(data['ip_addresses']),
-        friends: getDataList(data['friends']),
         feedback: getDataList(data['feedback']),
       );
 
@@ -63,7 +49,6 @@ class UserdataStruct extends FFFirebaseStruct {
 
   Map<String, dynamic> toMap() => {
         'ip_addresses': _ipAddresses,
-        'friends': _friends,
         'feedback': _feedback,
       }.withoutNulls;
 
@@ -72,11 +57,6 @@ class UserdataStruct extends FFFirebaseStruct {
         'ip_addresses': serializeParam(
           _ipAddresses,
           ParamType.String,
-          isList: true,
-        ),
-        'friends': serializeParam(
-          _friends,
-          ParamType.DocumentReference,
           isList: true,
         ),
         'feedback': serializeParam(
@@ -92,12 +72,6 @@ class UserdataStruct extends FFFirebaseStruct {
           data['ip_addresses'],
           ParamType.String,
           true,
-        ),
-        friends: deserializeParam<DocumentReference>(
-          data['friends'],
-          ParamType.DocumentReference,
-          true,
-          collectionNamePath: ['users'],
         ),
         feedback: deserializeParam<DocumentReference>(
           data['feedback'],
@@ -115,13 +89,11 @@ class UserdataStruct extends FFFirebaseStruct {
     const listEquality = ListEquality();
     return other is UserdataStruct &&
         listEquality.equals(ipAddresses, other.ipAddresses) &&
-        listEquality.equals(friends, other.friends) &&
         listEquality.equals(feedback, other.feedback);
   }
 
   @override
-  int get hashCode =>
-      const ListEquality().hash([ipAddresses, friends, feedback]);
+  int get hashCode => const ListEquality().hash([ipAddresses, feedback]);
 }
 
 UserdataStruct createUserdataStruct({

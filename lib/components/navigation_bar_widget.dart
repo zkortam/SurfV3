@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'navigation_bar_model.dart';
 export 'navigation_bar_model.dart';
 
@@ -92,6 +93,8 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                                   size: 30.0,
                                 ),
                                 onPressed: () async {
+                                  HapticFeedback.lightImpact();
+
                                   context.pushNamed('HomePage');
                                 },
                               ),
@@ -112,6 +115,8 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                                   size: 25.0,
                                 ),
                                 onPressed: () async {
+                                  HapticFeedback.lightImpact();
+
                                   context.pushNamed('Shorts');
                                 },
                               ),
@@ -141,6 +146,8 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                                   size: 30.0,
                                 ),
                                 onPressed: () async {
+                                  HapticFeedback.lightImpact();
+
                                   context.pushNamed('Threads');
                                 },
                               ),
@@ -151,6 +158,8 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
+                                HapticFeedback.lightImpact();
+
                                 context.pushNamed(
                                   'Profile',
                                   queryParameters: {

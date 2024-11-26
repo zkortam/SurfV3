@@ -301,3 +301,91 @@ List<String> fourOptionsToList(
     option4.trim().isNotEmpty ? option4 : " ",
   ];
 }
+
+DocumentReference returnOtherUser(
+  List<DocumentReference> users,
+  DocumentReference singleUser,
+) {
+  if (users.length >= 2) {
+    return users[0] == singleUser ? users[1] : users[0];
+  } else {
+    return users[0];
+  }
+}
+
+bool isDMExistent(
+  List<ChatsRecord> chats,
+  DocumentReference ref,
+) {
+  for (var chat in chats) {
+    // Check if the users field exists and contains exactly 2 users
+    if (chat.users != null && chat.users.length == 2) {
+      // Check if the provided ref exists in the users list
+      if (chat.users.contains(ref)) {
+        return true;
+      }
+    }
+  }
+
+  // If no matching chat is found, return false
+  return false;
+}
+
+bool isMessageValid(String str) {
+  String trimmedStr = str.trim();
+
+  // Check if the trimmed string is empty
+  return trimmedStr.isNotEmpty;
+}
+
+List<DocumentReference> stringRefoPostDocRef(List<String> reflist) {
+  List<DocumentReference> documentReferences = [];
+
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  for (String i in reflist) {
+    DocumentReference documentReference = firestore.doc(i);
+    documentReferences.add(documentReference);
+  }
+  return documentReferences;
+}
+
+List<UserMessageDataStruct> userToMessageData(
+  List<DocumentReference> users,
+  DateTime currentTime,
+) {
+  return users.map((userRef) {
+    return UserMessageDataStruct(
+      userReference: userRef,
+      lastTimeOnline: currentTime,
+    );
+  }).toList();
+}
+
+List<UserMessageDataStruct> updateUserLatestTime(
+  DocumentReference userRef,
+  List<UserMessageDataStruct> oldUserMessageData,
+  DateTime currentTime,
+) {
+  return oldUserMessageData.map((userMessage) {
+    if (userMessage.userReference == userRef) {
+      // Update the lastTimeOnline for the matching user
+      return UserMessageDataStruct(
+        userReference: userMessage.userReference,
+        lastTimeOnline: currentTime,
+      );
+    }
+    // Return the unchanged object for others
+    return userMessage;
+  }).toList();
+}
+
+bool checkIfRead(
+  DateTime messageTime,
+  List<UserMessageDataStruct> latestUser,
+) {
+  return latestUser.any((userMessage) {
+    final lastTime = userMessage.lastTimeOnline;
+    return lastTime != null && lastTime.isAfter(messageTime);
+  });
+}

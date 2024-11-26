@@ -54,15 +54,15 @@ class GetrecommendationsCall {
     );
   }
 
-  static List? postids(dynamic response) => getJsonField(
+  static List<String>? postsrefs(dynamic response) => (getJsonField(
         response,
-        r'''$.post_ids''',
+        r'''$.posts''',
         true,
-      ) as List?;
-  static dynamic code(dynamic response) => getJsonField(
-        response,
-        r'''$.code''',
-      );
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
 }
 
 class ApiPagingParams {

@@ -526,7 +526,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                         letterSpacing: 0.0,
                       ),
                   hintText: FFLocalizations.of(context).getText(
-                    'n2d2x127' /* Username */,
+                    'spfz3b1a' /* Username */,
                   ),
                   hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
                         fontFamily: 'Montserrat',

@@ -1,6 +1,6 @@
 {
-    "name": "Surf V3",
-    "short_name": "Surf V3",
+    "name": "Surf",
+    "short_name": "Surf",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

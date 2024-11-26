@@ -5,8 +5,8 @@ import '../base_auth_user_provider.dart';
 
 export '../base_auth_user_provider.dart';
 
-class SurfV3FirebaseUser extends BaseAuthUser {
-  SurfV3FirebaseUser(this.user);
+class SurfFirebaseUser extends BaseAuthUser {
+  SurfFirebaseUser(this.user);
   User? user;
   @override
   bool get loggedIn => user != null;
@@ -59,17 +59,17 @@ class SurfV3FirebaseUser extends BaseAuthUser {
 
   static BaseAuthUser fromUserCredential(UserCredential userCredential) =>
       fromFirebaseUser(userCredential.user);
-  static BaseAuthUser fromFirebaseUser(User? user) => SurfV3FirebaseUser(user);
+  static BaseAuthUser fromFirebaseUser(User? user) => SurfFirebaseUser(user);
 }
 
-Stream<BaseAuthUser> surfV3FirebaseUserStream() => FirebaseAuth.instance
+Stream<BaseAuthUser> surfFirebaseUserStream() => FirebaseAuth.instance
         .authStateChanges()
         .debounce((user) => user == null && !loggedIn
             ? TimerStream(true, const Duration(seconds: 1))
             : Stream.value(user))
         .map<BaseAuthUser>(
       (user) {
-        currentUser = SurfV3FirebaseUser(user);
+        currentUser = SurfFirebaseUser(user);
         return currentUser!;
       },
     );

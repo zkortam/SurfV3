@@ -1,5 +1,4 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/components/custom_algorithm_widget.dart';
 import '/components/navigation_bar_widget.dart';
@@ -10,7 +9,6 @@ import '/flutter_flow/flutter_flow_swipeable_stack.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -36,16 +34,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => HomePageModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if (RootPageContext.isInactiveRootPage(context)) {
-        return;
-      }
-      _model.postIds = await GetrecommendationsCall.call(
-        userId: currentUserUid,
-      );
-    });
 
     animationsMap.addAll({
       'listViewOnPageLoadAnimation': AnimationInfo(
@@ -271,16 +259,16 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                     borderWidth: 1.0,
                                                     buttonSize: 40.0,
                                                     icon: Icon(
-                                                      Icons.send_rounded,
+                                                      Icons.circle_outlined,
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .primaryText,
                                                       size: 24.0,
                                                     ),
-                                                    onPressed: () {
-                                                      print(
-                                                          'IconButton pressed ...');
+                                                    onPressed: () async {
+                                                      context.pushNamed(
+                                                          'chatMain');
                                                     },
                                                   ),
                                                 ],
@@ -297,7 +285,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(5.0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              5.0, 10.0, 5.0, 10.0),
                           child: FutureBuilder<List<UsersRecord>>(
                             future: queryUsersRecordOnce(
                               queryBuilder: (usersRecord) => usersRecord.where(
@@ -471,7 +460,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                     ),
                                     padding: const EdgeInsets.fromLTRB(
                                       0,
-                                      10.0,
+                                      0,
                                       0,
                                       110.0,
                                     ),
@@ -543,7 +532,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         color: Colors.transparent,
                         child: NavigationBarWidget(
                           page: 1,
-                          tabIndex: 1,
+                          tabIndex: 0,
                         ),
                       ),
                     ),

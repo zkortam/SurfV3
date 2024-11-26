@@ -1,31 +1,33 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/create_group_chat_widget.dart';
+import '/components/error_bar_widget.dart';
+import '/components/info_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'user_selection_for_group_model.dart';
-export 'user_selection_for_group_model.dart';
+import 'user_selection_for_chat_model.dart';
+export 'user_selection_for_chat_model.dart';
 
-class UserSelectionForGroupWidget extends StatefulWidget {
-  const UserSelectionForGroupWidget({
+class UserSelectionForChatWidget extends StatefulWidget {
+  const UserSelectionForChatWidget({
     super.key,
-    required this.groupName,
-  });
+    bool? creatingGroup,
+  }) : creatingGroup = creatingGroup ?? false;
 
-  final String? groupName;
+  final bool creatingGroup;
 
   @override
-  State<UserSelectionForGroupWidget> createState() =>
-      _UserSelectionForGroupWidgetState();
+  State<UserSelectionForChatWidget> createState() =>
+      _UserSelectionForChatWidgetState();
 }
 
-class _UserSelectionForGroupWidgetState
-    extends State<UserSelectionForGroupWidget> {
-  late UserSelectionForGroupModel _model;
+class _UserSelectionForChatWidgetState
+    extends State<UserSelectionForChatWidget> {
+  late UserSelectionForChatModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -36,19 +38,7 @@ class _UserSelectionForGroupWidgetState
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => UserSelectionForGroupModel());
-
-    // On component load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.selectedUsers = (currentUserDocument?.groups.toList() ?? [])
-          .where((e) => e.name == widget.groupName)
-          .toList()
-          .first
-          .people
-          .toList()
-          .cast<DocumentReference>();
-      safeSetState(() {});
-    });
+    _model = createModel(context, () => UserSelectionForChatModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -122,7 +112,7 @@ class _UserSelectionForGroupWidgetState
                         children: [
                           Text(
                             FFLocalizations.of(context).getText(
-                              'xs92yqd5' /* Select Users */,
+                              'tgk9vc1g' /* Select People */,
                             ),
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
@@ -152,21 +142,124 @@ class _UserSelectionForGroupWidgetState
                           size: 24.0,
                         ),
                         onPressed: () async {
-                          await currentUserReference!.update({
-                            ...mapToFirestore(
-                              {
-                                'groups': getFollowerGroupListFirestoreData(
-                                  functions.updateGroupPeople(
-                                      widget.groupName!,
-                                      (currentUserDocument?.groups.toList() ??
-                                              [])
-                                          .toList(),
-                                      _model.selectedUsers.toList()),
-                                ),
+                          if (widget.creatingGroup) {
+                            await showModalBottomSheet(
+                              isScrollControlled: true,
+                              backgroundColor: Colors.transparent,
+                              enableDrag: false,
+                              context: context,
+                              builder: (context) {
+                                return Padding(
+                                  padding: MediaQuery.viewInsetsOf(context),
+                                  child: CreateGroupChatWidget(
+                                    users: _model.selectedUsers,
+                                  ),
+                                );
                               },
-                            ),
-                          });
-                          Navigator.pop(context);
+                            ).then((value) => safeSetState(() {}));
+                          } else {
+                            _model.out = await queryChatsRecordOnce(
+                              queryBuilder: (chatsRecord) => chatsRecord.where(
+                                'users',
+                                arrayContains: currentUserReference,
+                              ),
+                            );
+                            if (functions.isDMExistent(
+                                _model.out!.toList(),
+                                functions.returnOtherUser(
+                                    _model.selectedUsers.toList(),
+                                    currentUserReference!))) {
+                              Navigator.pop(context);
+                              await showModalBottomSheet(
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                enableDrag: false,
+                                context: context,
+                                builder: (context) {
+                                  return Padding(
+                                    padding: MediaQuery.viewInsetsOf(context),
+                                    child: ErrorBarWidget(
+                                      text: FFLocalizations.of(context).getText(
+                                        'r49t1i0r' /* Chat already exists */,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ).then((value) => safeSetState(() {}));
+                            } else {
+                              _model.addToSelectedUsers(currentUserReference!);
+                              safeSetState(() {});
+
+                              var chatsRecordReference =
+                                  ChatsRecord.collection.doc();
+                              await chatsRecordReference.set({
+                                ...createChatsRecordData(
+                                  lastTime: getCurrentTimestamp,
+                                  lastMessage: 'New Chat',
+                                ),
+                                ...mapToFirestore(
+                                  {
+                                    'users': _model.selectedUsers,
+                                    'userChatData':
+                                        getUserMessageDataListFirestoreData(
+                                      functions.userToMessageData(
+                                          _model.selectedUsers.toList(),
+                                          getCurrentTimestamp),
+                                    ),
+                                  },
+                                ),
+                              });
+                              _model.output = ChatsRecord.getDocumentFromData({
+                                ...createChatsRecordData(
+                                  lastTime: getCurrentTimestamp,
+                                  lastMessage: 'New Chat',
+                                ),
+                                ...mapToFirestore(
+                                  {
+                                    'users': _model.selectedUsers,
+                                    'userChatData':
+                                        getUserMessageDataListFirestoreData(
+                                      functions.userToMessageData(
+                                          _model.selectedUsers.toList(),
+                                          getCurrentTimestamp),
+                                    ),
+                                  },
+                                ),
+                              }, chatsRecordReference);
+
+                              context.goNamed(
+                                'singleChat',
+                                queryParameters: {
+                                  'chat': serializeParam(
+                                    _model.output,
+                                    ParamType.Document,
+                                  ),
+                                }.withoutNulls,
+                                extra: <String, dynamic>{
+                                  'chat': _model.output,
+                                },
+                              );
+
+                              await showModalBottomSheet(
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                enableDrag: false,
+                                context: context,
+                                builder: (context) {
+                                  return Padding(
+                                    padding: MediaQuery.viewInsetsOf(context),
+                                    child: InfoWidget(
+                                      text: FFLocalizations.of(context).getText(
+                                        '8h0m2ks1' /* Chat Created */,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ).then((value) => safeSetState(() {}));
+                            }
+                          }
+
+                          safeSetState(() {});
                         },
                       ),
                     ),
@@ -219,16 +312,38 @@ class _UserSelectionForGroupWidgetState
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          if (functions.userInList(
-                              _model.selectedUsers.toList(),
-                              listViewUsersRecord.reference)) {
-                            _model.removeFromSelectedUsers(
-                                listViewUsersRecord.reference);
-                            safeSetState(() {});
+                          if (widget.creatingGroup) {
+                            if (functions.userInList(
+                                _model.selectedUsers.toList(),
+                                listViewUsersRecord.reference)) {
+                              _model.removeFromSelectedUsers(
+                                  listViewUsersRecord.reference);
+                              safeSetState(() {});
+                            } else {
+                              _model.addToSelectedUsers(
+                                  listViewUsersRecord.reference);
+                              safeSetState(() {});
+                            }
                           } else {
-                            _model.addToSelectedUsers(
-                                listViewUsersRecord.reference);
-                            safeSetState(() {});
+                            if (functions.userInList(
+                                _model.selectedUsers.toList(),
+                                listViewUsersRecord.reference)) {
+                              _model.removeFromSelectedUsers(
+                                  listViewUsersRecord.reference);
+                              safeSetState(() {});
+                            } else {
+                              if (_model.selectedUsers.length == 1) {
+                                _model.selectedUsers = [];
+                                safeSetState(() {});
+                                _model.addToSelectedUsers(
+                                    listViewUsersRecord.reference);
+                                safeSetState(() {});
+                              } else {
+                                _model.addToSelectedUsers(
+                                    listViewUsersRecord.reference);
+                                safeSetState(() {});
+                              }
+                            }
                           }
                         },
                         child: Container(

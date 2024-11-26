@@ -257,57 +257,74 @@ class _SingleArticleWidgetState extends State<SingleArticleWidget> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Text(
-                                            valueOrDefault<String>(
-                                              widget.article?.title,
-                                              'Title',
-                                            ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Montserrat',
-                                                  fontSize: 22.0,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.bold,
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 10.0, 0.0, 20.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      20.0, 0.0, 20.0, 0.0),
+                                              child: Text(
+                                                valueOrDefault<String>(
+                                                  widget.article?.title,
+                                                  'Title',
                                                 ),
-                                          ),
-                                          InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              context.pushNamed(
-                                                'Profile',
-                                                queryParameters: {
-                                                  'userReference':
-                                                      serializeParam(
-                                                    widget.authorReference,
-                                                    ParamType.DocumentReference,
-                                                  ),
-                                                }.withoutNulls,
-                                              );
-                                            },
-                                            child: Text(
-                                              'by ${singleArticleUsersRecord.name}',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Montserrat',
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondaryText,
-                                                    fontSize: 16.0,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
+                                                textAlign: TextAlign.center,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Montserrat',
+                                                          fontSize: 20.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                            InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                context.pushNamed(
+                                                  'Profile',
+                                                  queryParameters: {
+                                                    'userReference':
+                                                        serializeParam(
+                                                      widget.authorReference,
+                                                      ParamType
+                                                          .DocumentReference,
+                                                    ),
+                                                  }.withoutNulls,
+                                                );
+                                              },
+                                              child: Text(
+                                                'by ${singleArticleUsersRecord.name}',
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Montserrat',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryText,
+                                                      fontSize: 16.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                       Padding(
                                         padding: const EdgeInsetsDirectional.fromSTEB(
@@ -353,6 +370,9 @@ class _SingleArticleWidgetState extends State<SingleArticleWidget> {
                                                     },
                                                   ).then((value) =>
                                                       safeSetState(() {}));
+
+                                                  _model.refresh = '0';
+                                                  safeSetState(() {});
                                                 },
                                                 child: Row(
                                                   mainAxisSize:
@@ -460,6 +480,7 @@ class _SingleArticleWidgetState extends State<SingleArticleWidget> {
                                                       });
                                                     }
 
+                                                    _model.refresh = '0';
                                                     safeSetState(() {});
                                                   },
                                                   child: Row(
@@ -556,7 +577,7 @@ class _SingleArticleWidgetState extends State<SingleArticleWidget> {
                         child: Align(
                           alignment: const AlignmentDirectional(-1.0, 0.0),
                           child: Padding(
-                            padding: const EdgeInsets.all(10.0),
+                            padding: const EdgeInsets.all(20.0),
                             child: SelectionArea(
                                 child: Text(
                               valueOrDefault<String>(

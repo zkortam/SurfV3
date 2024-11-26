@@ -137,8 +137,7 @@ class _LandingWidgetState extends State<LandingWidget>
                         child: Align(
                           alignment: const AlignmentDirectional(0.0, 0.0),
                           child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                32.0, 32.0, 32.0, 32.0),
+                            padding: const EdgeInsets.all(30.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -158,7 +157,7 @@ class _LandingWidgetState extends State<LandingWidget>
                                 ),
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 10.0, 0.0, 24.0),
+                                      0.0, 0.0, 0.0, 24.0),
                                   child: Text(
                                     FFLocalizations.of(context).getText(
                                       'zwri17jl' /* Please fill the information be... */,
@@ -168,6 +167,7 @@ class _LandingWidgetState extends State<LandingWidget>
                                         .labelLarge
                                         .override(
                                           fontFamily: 'Montserrat',
+                                          fontSize: 16.0,
                                           letterSpacing: 0.0,
                                         ),
                                   ),
@@ -560,7 +560,7 @@ class _LandingWidgetState extends State<LandingWidget>
                                         TextSpan(
                                           text: FFLocalizations.of(context)
                                               .getText(
-                                            'ukkpvyd4' /* Don't have an account?   */,
+                                            'ukkpvyd4' /* No Account?   */,
                                           ),
                                           style: const TextStyle(),
                                         ),

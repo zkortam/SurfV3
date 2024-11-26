@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_audio_player.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -44,7 +45,7 @@ class _CreateAudioWidgetState extends State<CreateAudioWidget>
     _model.textThreadFocusNode2 ??= FocusNode();
 
     animationsMap.addAll({
-      'containerOnPageLoadAnimation1': AnimationInfo(
+      'containerOnPageLoadAnimation': AnimationInfo(
         trigger: AnimationTrigger.onPageLoad,
         applyInitialState: true,
         effectsBuilder: () => [
@@ -57,73 +58,7 @@ class _CreateAudioWidgetState extends State<CreateAudioWidget>
           ),
         ],
       ),
-      'containerOnActionTriggerAnimation1': AnimationInfo(
-        trigger: AnimationTrigger.onActionTrigger,
-        applyInitialState: true,
-        effectsBuilder: () => [
-          FadeEffect(
-            curve: Curves.easeInOut,
-            delay: 0.0.ms,
-            duration: 1000.0.ms,
-            begin: 0.0,
-            end: 1.0,
-          ),
-          SaturateEffect(
-            curve: Curves.easeInOut,
-            delay: 0.0.ms,
-            duration: 3000.0.ms,
-            begin: 0.0,
-            end: 1.0,
-          ),
-        ],
-      ),
-      'containerOnPageLoadAnimation2': AnimationInfo(
-        trigger: AnimationTrigger.onPageLoad,
-        applyInitialState: true,
-        effectsBuilder: () => [
-          FadeEffect(
-            curve: Curves.easeInOut,
-            delay: 0.0.ms,
-            duration: 1000.0.ms,
-            begin: 0.0,
-            end: 1.0,
-          ),
-        ],
-      ),
-      'containerOnActionTriggerAnimation2': AnimationInfo(
-        trigger: AnimationTrigger.onActionTrigger,
-        applyInitialState: true,
-        effectsBuilder: () => [
-          FadeEffect(
-            curve: Curves.easeInOut,
-            delay: 0.0.ms,
-            duration: 1000.0.ms,
-            begin: 0.0,
-            end: 1.0,
-          ),
-          SaturateEffect(
-            curve: Curves.easeInOut,
-            delay: 0.0.ms,
-            duration: 3000.0.ms,
-            begin: 0.0,
-            end: 1.0,
-          ),
-        ],
-      ),
-      'containerOnPageLoadAnimation3': AnimationInfo(
-        trigger: AnimationTrigger.onPageLoad,
-        applyInitialState: true,
-        effectsBuilder: () => [
-          FadeEffect(
-            curve: Curves.easeInOut,
-            delay: 0.0.ms,
-            duration: 1000.0.ms,
-            begin: 0.0,
-            end: 1.0,
-          ),
-        ],
-      ),
-      'containerOnActionTriggerAnimation3': AnimationInfo(
+      'containerOnActionTriggerAnimation': AnimationInfo(
         trigger: AnimationTrigger.onActionTrigger,
         applyInitialState: true,
         effectsBuilder: () => [
@@ -272,105 +207,100 @@ class _CreateAudioWidgetState extends State<CreateAudioWidget>
               ),
             ),
           ),
-          Stack(
-            children: [
-              if (_model.uploadedFileUrl1 == '')
-                Padding(
-                  padding:
-                      const EdgeInsetsDirectional.fromSTEB(10.0, 20.0, 10.0, 0.0),
-                  child: InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      final selectedMedia =
-                          await selectMediaWithSourceBottomSheet(
-                        context: context,
-                        allowPhoto: true,
-                      );
-                      if (selectedMedia != null &&
-                          selectedMedia.every((m) =>
-                              validateFileFormat(m.storagePath, context))) {
-                        safeSetState(() => _model.isDataUploading1 = true);
-                        var selectedUploadedFiles = <FFUploadedFile>[];
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: InkWell(
+              splashColor: Colors.transparent,
+              focusColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onTap: () async {
+                final selectedMedia = await selectMediaWithSourceBottomSheet(
+                  context: context,
+                  maxWidth: 600.00,
+                  maxHeight: 400.00,
+                  imageQuality: 76,
+                  allowPhoto: true,
+                  includeBlurHash: true,
+                );
+                if (selectedMedia != null &&
+                    selectedMedia.every(
+                        (m) => validateFileFormat(m.storagePath, context))) {
+                  safeSetState(() => _model.isDataUploading1 = true);
+                  var selectedUploadedFiles = <FFUploadedFile>[];
 
-                        var downloadUrls = <String>[];
-                        try {
-                          selectedUploadedFiles = selectedMedia
-                              .map((m) => FFUploadedFile(
-                                    name: m.storagePath.split('/').last,
-                                    bytes: m.bytes,
-                                    height: m.dimensions?.height,
-                                    width: m.dimensions?.width,
-                                    blurHash: m.blurHash,
-                                  ))
-                              .toList();
+                  var downloadUrls = <String>[];
+                  try {
+                    selectedUploadedFiles = selectedMedia
+                        .map((m) => FFUploadedFile(
+                              name: m.storagePath.split('/').last,
+                              bytes: m.bytes,
+                              height: m.dimensions?.height,
+                              width: m.dimensions?.width,
+                              blurHash: m.blurHash,
+                            ))
+                        .toList();
 
-                          downloadUrls = (await Future.wait(
-                            selectedMedia.map(
-                              (m) async =>
-                                  await uploadData(m.storagePath, m.bytes),
-                            ),
-                          ))
-                              .where((u) => u != null)
-                              .map((u) => u!)
-                              .toList();
-                        } finally {
-                          _model.isDataUploading1 = false;
-                        }
-                        if (selectedUploadedFiles.length ==
-                                selectedMedia.length &&
-                            downloadUrls.length == selectedMedia.length) {
-                          safeSetState(() {
-                            _model.uploadedLocalFile1 =
-                                selectedUploadedFiles.first;
-                            _model.uploadedFileUrl1 = downloadUrls.first;
-                          });
-                        } else {
-                          safeSetState(() {});
-                          return;
-                        }
-                      }
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      height: 150.0,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        borderRadius: BorderRadius.circular(30.0),
-                        border: Border.all(
-                          color: FlutterFlowTheme.of(context).primary,
-                          width: 5.0,
-                        ),
+                    downloadUrls = (await Future.wait(
+                      selectedMedia.map(
+                        (m) async => await uploadData(m.storagePath, m.bytes),
                       ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            FFLocalizations.of(context).getText(
-                              'uvers77n' /* Upload Cover */,
-                            ),
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Montserrat',
-                                  fontSize: 15.0,
-                                  letterSpacing: 0.0,
-                                ),
-                          ),
-                        ],
+                    ))
+                        .where((u) => u != null)
+                        .map((u) => u!)
+                        .toList();
+                  } finally {
+                    _model.isDataUploading1 = false;
+                  }
+                  if (selectedUploadedFiles.length == selectedMedia.length &&
+                      downloadUrls.length == selectedMedia.length) {
+                    safeSetState(() {
+                      _model.uploadedLocalFile1 = selectedUploadedFiles.first;
+                      _model.uploadedFileUrl1 = downloadUrls.first;
+                    });
+                  } else {
+                    safeSetState(() {});
+                    return;
+                  }
+                }
+              },
+              child: Container(
+                width: double.infinity,
+                height: 120.0,
+                constraints: const BoxConstraints(
+                  maxWidth: 600.0,
+                  maxHeight: 120.0,
+                ),
+                decoration: BoxDecoration(
+                  color: (_model.uploadedLocalFile1.bytes?.isNotEmpty ?? false)
+                      ? FlutterFlowTheme.of(context).secondaryBackground
+                      : FlutterFlowTheme.of(context).primary,
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: Image.network(
+                      _model.uploadedFileUrl1,
+                    ).image,
+                  ),
+                  borderRadius: BorderRadius.circular(23.0),
+                ),
+                child: Stack(
+                  children: [
+                    Align(
+                      alignment: const AlignmentDirectional(-0.91, 0.76),
+                      child: Icon(
+                        Icons.file_upload_outlined,
+                        color: FlutterFlowTheme.of(context).secondaryText,
+                        size: 30.0,
                       ),
                     ),
-                  )
-                      .animateOnPageLoad(
-                          animationsMap['containerOnPageLoadAnimation1']!)
-                      .animateOnActionTrigger(
-                        animationsMap['containerOnActionTriggerAnimation1']!,
-                      ),
+                  ],
                 ),
-              if (_model.uploadedFileUrl1 != '')
+              ),
+            ),
+          ),
+          Stack(
+            children: [
+              if ((_model.uploadedLocalFile1.bytes?.isNotEmpty ?? false))
                 Padding(
                   padding:
                       const EdgeInsetsDirectional.fromSTEB(10.0, 20.0, 10.0, 0.0),
@@ -392,21 +322,17 @@ class _CreateAudioWidgetState extends State<CreateAudioWidget>
                     ),
                   )
                       .animateOnPageLoad(
-                          animationsMap['containerOnPageLoadAnimation2']!)
+                          animationsMap['containerOnPageLoadAnimation']!)
                       .animateOnActionTrigger(
-                        animationsMap['containerOnActionTriggerAnimation2']!,
+                        animationsMap['containerOnActionTriggerAnimation']!,
                       ),
                 ),
             ],
           ),
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(10.0, 5.0, 10.0, 20.0),
-            child: InkWell(
-              splashColor: Colors.transparent,
-              focusColor: Colors.transparent,
-              hoverColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              onTap: () async {
+            padding: const EdgeInsets.all(10.0),
+            child: FFButtonWidget(
+              onPressed: () async {
                 final selectedFiles = await selectFiles(
                   allowedExtensions: ['mp3'],
                   multiFile: false,
@@ -447,40 +373,24 @@ class _CreateAudioWidgetState extends State<CreateAudioWidget>
                   }
                 }
               },
-              child: Container(
+              text: FFLocalizations.of(context).getText(
+                '7u99cmgs' /* Upload Audio */,
+              ),
+              options: FFButtonOptions(
                 width: double.infinity,
                 height: 50.0,
-                decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).secondaryBackground,
-                  borderRadius: BorderRadius.circular(30.0),
-                  border: Border.all(
-                    color: FlutterFlowTheme.of(context).primary,
-                    width: 5.0,
-                  ),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      FFLocalizations.of(context).getText(
-                        'g92bjglc' /* Upload Audio */,
-                      ),
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Montserrat',
-                            fontSize: 15.0,
-                            letterSpacing: 0.0,
-                          ),
+                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                iconPadding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                color: FlutterFlowTheme.of(context).primary,
+                textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                      fontFamily: 'Montserrat',
+                      color: Colors.white,
+                      letterSpacing: 0.0,
                     ),
-                  ],
-                ),
+                elevation: 0.0,
+                borderRadius: BorderRadius.circular(30.0),
               ),
-            )
-                .animateOnPageLoad(
-                    animationsMap['containerOnPageLoadAnimation3']!)
-                .animateOnActionTrigger(
-                  animationsMap['containerOnActionTriggerAnimation3']!,
-                ),
+            ),
           ),
           Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
