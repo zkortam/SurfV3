@@ -218,13 +218,6 @@ int isSecure(String link) {
   return -1;
 }
 
-double? slidevaltopercent(InterestStruct interestslider) {
-  int scale = interestslider.slidermax - interestslider.slidermin;
-  interestslider.interestpercentage =
-      (interestslider.sliderval - interestslider.slidermin) / scale;
-  return interestslider.interestpercentage;
-}
-
 double votePercent(
   List<VotersStruct> voters,
   int targetVoteValue,
@@ -367,17 +360,31 @@ List<UserMessageDataStruct> updateUserLatestTime(
   List<UserMessageDataStruct> oldUserMessageData,
   DateTime currentTime,
 ) {
-  return oldUserMessageData.map((userMessage) {
+  bool userFound = false;
+
+  // Map through the list and update the user if found
+  List<UserMessageDataStruct> updatedList =
+      oldUserMessageData.map((userMessage) {
     if (userMessage.userReference == userRef) {
-      // Update the lastTimeOnline for the matching user
+      userFound = true; // Mark as found
+      // Replace with updated time
       return UserMessageDataStruct(
         userReference: userMessage.userReference,
         lastTimeOnline: currentTime,
       );
     }
-    // Return the unchanged object for others
     return userMessage;
   }).toList();
+
+  // If the user was not found, add it to the list
+  if (!userFound) {
+    updatedList.add(UserMessageDataStruct(
+      userReference: userRef,
+      lastTimeOnline: currentTime,
+    ));
+  }
+
+  return updatedList;
 }
 
 bool checkIfRead(

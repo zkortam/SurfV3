@@ -148,7 +148,7 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
                             await chatsRecordReference.set({
                               ...createChatsRecordData(
                                 image: _model.uploadedFileUrl,
-                                title: _model.uploadedFileUrl,
+                                title: _model.textController.text,
                                 lastTime: getCurrentTimestamp,
                                 lastMessage: 'New Group Chat',
                               ),
@@ -167,7 +167,7 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
                             _model.output = ChatsRecord.getDocumentFromData({
                               ...createChatsRecordData(
                                 image: _model.uploadedFileUrl,
-                                title: _model.uploadedFileUrl,
+                                title: _model.textController.text,
                                 lastTime: getCurrentTimestamp,
                                 lastMessage: 'New Group Chat',
                               ),
