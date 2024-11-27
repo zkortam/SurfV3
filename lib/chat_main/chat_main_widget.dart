@@ -375,26 +375,32 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.end,
                                           children: [
-                                            Text(
-                                              dateTimeFormat(
-                                                "relative",
-                                                listViewChatsRecord.lastTime!,
-                                                locale: FFLocalizations.of(
-                                                            context)
-                                                        .languageShortCode ??
-                                                    FFLocalizations.of(context)
-                                                        .languageCode,
+                                            Align(
+                                              alignment: const AlignmentDirectional(
+                                                  1.0, 0.0),
+                                              child: Text(
+                                                dateTimeFormat(
+                                                  "relative",
+                                                  listViewChatsRecord.lastTime!,
+                                                  locale: FFLocalizations.of(
+                                                              context)
+                                                          .languageShortCode ??
+                                                      FFLocalizations.of(
+                                                              context)
+                                                          .languageCode,
+                                                ),
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Montserrat',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryText,
+                                                      letterSpacing: 0.0,
+                                                    ),
                                               ),
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Montserrat',
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondaryText,
-                                                    letterSpacing: 0.0,
-                                                  ),
                                             ),
                                             Padding(
                                               padding: const EdgeInsetsDirectional
