@@ -100,12 +100,6 @@ class UsersRecord extends FirestoreRecord {
   bool get deviceType => _deviceType ?? false;
   bool hasDeviceType() => _deviceType != null;
 
-  // "postinteractions" field.
-  List<PostinteractionStruct>? _postinteractions;
-  List<PostinteractionStruct> get postinteractions =>
-      _postinteractions ?? const [];
-  bool hasPostinteractions() => _postinteractions != null;
-
   // "threadSettings" field.
   ThreadSettingsStruct? _threadSettings;
   ThreadSettingsStruct get threadSettings =>
@@ -153,6 +147,11 @@ class UsersRecord extends FirestoreRecord {
   List<DocumentReference> get blocked => _blocked ?? const [];
   bool hasBlocked() => _blocked != null;
 
+  // "userData" field.
+  UserDataStruct? _userData;
+  UserDataStruct get userData => _userData ?? UserDataStruct();
+  bool hasUserData() => _userData != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -171,10 +170,6 @@ class UsersRecord extends FirestoreRecord {
     _ipAddress = snapshotData['ip_address'] as String?;
     _dirFeedback = getDataList(snapshotData['dir_feedback']);
     _deviceType = snapshotData['device_type'] as bool?;
-    _postinteractions = getStructList(
-      snapshotData['postinteractions'],
-      PostinteractionStruct.fromMap,
-    );
     _threadSettings =
         ThreadSettingsStruct.maybeFromMap(snapshotData['threadSettings']);
     _followers = getDataList(snapshotData['followers']);
@@ -190,6 +185,7 @@ class UsersRecord extends FirestoreRecord {
     _userSettings =
         UserSettingsStruct.maybeFromMap(snapshotData['userSettings']);
     _blocked = getDataList(snapshotData['blocked']);
+    _userData = UserDataStruct.maybeFromMap(snapshotData['userData']);
   }
 
   static CollectionReference get collection =>
@@ -247,6 +243,7 @@ Map<String, dynamic> createUsersRecordData({
   int? vibe,
   DateTime? latestSnippetTime,
   UserSettingsStruct? userSettings,
+  UserDataStruct? userData,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -271,6 +268,7 @@ Map<String, dynamic> createUsersRecordData({
       'vibe': vibe,
       'latestSnippetTime': latestSnippetTime,
       'userSettings': UserSettingsStruct().toMap(),
+      'userData': UserDataStruct().toMap(),
     }.withoutNulls,
   );
 
@@ -283,6 +281,9 @@ Map<String, dynamic> createUsersRecordData({
 
   // Handle nested data for "userSettings" field.
   addUserSettingsStructData(firestoreData, userSettings, 'userSettings');
+
+  // Handle nested data for "userData" field.
+  addUserDataStructData(firestoreData, userData, 'userData');
 
   return firestoreData;
 }
@@ -310,7 +311,6 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.ipAddress == e2?.ipAddress &&
         listEquality.equals(e1?.dirFeedback, e2?.dirFeedback) &&
         e1?.deviceType == e2?.deviceType &&
-        listEquality.equals(e1?.postinteractions, e2?.postinteractions) &&
         e1?.threadSettings == e2?.threadSettings &&
         listEquality.equals(e1?.followers, e2?.followers) &&
         listEquality.equals(e1?.following, e2?.following) &&
@@ -319,7 +319,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.latestSnippetTime == e2?.latestSnippetTime &&
         listEquality.equals(e1?.groups, e2?.groups) &&
         e1?.userSettings == e2?.userSettings &&
-        listEquality.equals(e1?.blocked, e2?.blocked);
+        listEquality.equals(e1?.blocked, e2?.blocked) &&
+        e1?.userData == e2?.userData;
   }
 
   @override
@@ -341,7 +342,6 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.ipAddress,
         e?.dirFeedback,
         e?.deviceType,
-        e?.postinteractions,
         e?.threadSettings,
         e?.followers,
         e?.following,
@@ -350,7 +350,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.latestSnippetTime,
         e?.groups,
         e?.userSettings,
-        e?.blocked
+        e?.blocked,
+        e?.userData
       ]);
 
   @override
