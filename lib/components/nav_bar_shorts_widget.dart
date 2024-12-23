@@ -110,7 +110,7 @@ class _NavBarShortsWidgetState extends State<NavBarShortsWidget> {
                   'CreatePost',
                   queryParameters: {
                     'tabIndex': serializeParam(
-                      2,
+                      1,
                       ParamType.int,
                     ),
                   }.withoutNulls,

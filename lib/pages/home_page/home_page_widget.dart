@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/components/custom_algorithm_widget.dart';
 import '/components/navigation_bar_widget.dart';
@@ -8,10 +9,11 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_swipeable_stack.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'home_page_model.dart';
 export 'home_page_model.dart';
 
@@ -34,6 +36,31 @@ class _HomePageWidgetState extends State<HomePageWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => HomePageModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (RootPageContext.isInactiveRootPage(context)) {
+        return;
+      }
+      _model.aPIresult = await GetrecommendationsCall.call(
+        userId: currentUserUid,
+      );
+
+      if ((_model.aPIresult?.succeeded ?? true)) {
+        _model.postindex = 3;
+        _model.postrefs = functions
+            .postrefslist(GetrecommendationsCall.postsrefs(
+              (_model.aPIresult?.jsonBody ?? ''),
+            )!
+                .toList())
+            .toList()
+            .cast<DocumentReference>();
+        safeSetState(() {});
+      } else {
+        _model.postindex = 5;
+        safeSetState(() {});
+      }
+    });
 
     animationsMap.addAll({
       'listViewOnPageLoadAnimation': AnimationInfo(
@@ -64,7 +91,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -210,10 +240,15 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                           context: context,
                                                           builder: (context) {
                                                             return GestureDetector(
-                                                              onTap: () =>
-                                                                  FocusScope.of(
-                                                                          context)
-                                                                      .unfocus(),
+                                                              onTap: () {
+                                                                FocusScope.of(
+                                                                        context)
+                                                                    .unfocus();
+                                                                FocusManager
+                                                                    .instance
+                                                                    .primaryFocus
+                                                                    ?.unfocus();
+                                                              },
                                                               child: Padding(
                                                                 padding: MediaQuery
                                                                     .viewInsetsOf(
@@ -229,42 +264,35 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       },
                                                     ),
                                                   ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                5.0, 0.0),
-                                                    child:
-                                                        FlutterFlowIconButton(
-                                                      borderRadius: 20.0,
-                                                      borderWidth: 1.0,
-                                                      buttonSize: 40.0,
-                                                      icon: Icon(
-                                                        Icons
-                                                            .favorite_border_rounded,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
-                                                        size: 24.0,
-                                                      ),
-                                                      onPressed: () {
-                                                        print(
-                                                            'IconButton pressed ...');
-                                                      },
-                                                    ),
-                                                  ),
                                                   FlutterFlowIconButton(
                                                     borderRadius: 20.0,
                                                     borderWidth: 1.0,
                                                     buttonSize: 40.0,
                                                     icon: Icon(
-                                                      Icons.circle_outlined,
+                                                      Icons
+                                                          .favorite_border_rounded,
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .primaryText,
                                                       size: 24.0,
+                                                    ),
+                                                    onPressed: () async {
+                                                      context.pushNamed(
+                                                          'NotificationsPage');
+                                                    },
+                                                  ),
+                                                  FlutterFlowIconButton(
+                                                    borderRadius: 20.0,
+                                                    borderWidth: 1.0,
+                                                    buttonSize: 45.0,
+                                                    icon: Icon(
+                                                      Icons.play_arrow,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                      size: 26.0,
                                                     ),
                                                     onPressed: () async {
                                                       context.pushNamed(
@@ -435,9 +463,65 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             ),
                           ),
                         if (!valueOrDefault<bool>(
-                          currentUserDocument?.userSettings.isSwipeFeed,
-                          false,
-                        ))
+                              currentUserDocument?.userSettings.isSwipeFeed,
+                              false,
+                            ) &&
+                            (_model.postindex == 5))
+                          AuthUserStreamWidget(
+                            builder: (context) =>
+                                StreamBuilder<List<PostsRecord>>(
+                              stream: queryPostsRecord(
+                                queryBuilder: (postsRecord) => postsRecord
+                                    .where(
+                                      'isShort',
+                                      isEqualTo: false,
+                                    )
+                                    .orderBy('TimePosted', descending: true),
+                              ),
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                    child: SizedBox(
+                                      width: 40.0,
+                                      height: 40.0,
+                                      child: SpinKitFadingFour(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                        size: 40.0,
+                                      ),
+                                    ),
+                                  );
+                                }
+                                List<PostsRecord> noAlgorithmPostsRecordList =
+                                    snapshot.data!;
+
+                                return ListView.separated(
+                                  padding: EdgeInsets.zero,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: noAlgorithmPostsRecordList.length,
+                                  separatorBuilder: (_, __) =>
+                                      const SizedBox(height: 10.0),
+                                  itemBuilder: (context, noAlgorithmIndex) {
+                                    final noAlgorithmPostsRecord =
+                                        noAlgorithmPostsRecordList[
+                                            noAlgorithmIndex];
+                                    return PostWidget(
+                                      key: Key(
+                                          'Keybph_${noAlgorithmIndex}_of_${noAlgorithmPostsRecordList.length}'),
+                                      post: noAlgorithmPostsRecord,
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        if (!valueOrDefault<bool>(
+                              currentUserDocument?.userSettings.isSwipeFeed,
+                              false,
+                            ) &&
+                            (_model.postindex == 3))
                           Flexible(
                             child: Align(
                               alignment: const AlignmentDirectional(0.0, 0.0),
@@ -445,73 +529,61 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     5.0, 0.0, 5.0, 0.0),
                                 child: AuthUserStreamWidget(
-                                  builder: (context) => PagedListView<
-                                      DocumentSnapshot<Object?>?,
-                                      PostsRecord>.separated(
-                                    pagingController:
-                                        _model.setListViewController(
-                                      PostsRecord.collection
-                                          .where(
-                                            'isShort',
-                                            isEqualTo: false,
-                                          )
-                                          .orderBy('TimePosted',
-                                              descending: true),
-                                    ),
-                                    padding: const EdgeInsets.fromLTRB(
-                                      0,
-                                      0,
-                                      0,
-                                      110.0,
-                                    ),
-                                    primary: false,
-                                    shrinkWrap: true,
-                                    reverse: false,
-                                    scrollDirection: Axis.vertical,
-                                    separatorBuilder: (_, __) =>
-                                        const SizedBox(height: 10.0),
-                                    builderDelegate:
-                                        PagedChildBuilderDelegate<PostsRecord>(
-                                      // Customize what your widget looks like when it's loading the first page.
-                                      firstPageProgressIndicatorBuilder: (_) =>
-                                          Center(
-                                        child: SizedBox(
-                                          width: 40.0,
-                                          height: 40.0,
-                                          child: SpinKitFadingFour(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            size: 40.0,
-                                          ),
-                                        ),
-                                      ),
-                                      // Customize what your widget looks like when it's loading another page.
-                                      newPageProgressIndicatorBuilder: (_) =>
-                                          Center(
-                                        child: SizedBox(
-                                          width: 40.0,
-                                          height: 40.0,
-                                          child: SpinKitFadingFour(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            size: 40.0,
-                                          ),
-                                        ),
-                                      ),
+                                  builder: (context) => Builder(
+                                    builder: (context) {
+                                      final posts = _model.postrefs.toList();
 
-                                      itemBuilder: (context, _, listViewIndex) {
-                                        final listViewPostsRecord = _model
-                                            .listViewPagingController!
-                                            .itemList![listViewIndex];
-                                        return PostWidget(
-                                          key: Key(
-                                              'Key81y_${listViewIndex}_of_${_model.listViewPagingController!.itemList!.length}'),
-                                          post: listViewPostsRecord,
-                                        );
-                                      },
-                                    ),
-                                  ).animateOnPageLoad(animationsMap[
-                                      'listViewOnPageLoadAnimation']!),
+                                      return ListView.separated(
+                                        padding: const EdgeInsets.fromLTRB(
+                                          0,
+                                          0,
+                                          0,
+                                          110.0,
+                                        ),
+                                        primary: false,
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: posts.length,
+                                        separatorBuilder: (_, __) =>
+                                            const SizedBox(height: 10.0),
+                                        itemBuilder: (context, postsIndex) {
+                                          final postsItem = posts[postsIndex];
+                                          return StreamBuilder<PostsRecord>(
+                                            stream: PostsRecord.getDocument(
+                                                postsItem),
+                                            builder: (context, snapshot) {
+                                              // Customize what your widget looks like when it's loading.
+                                              if (!snapshot.hasData) {
+                                                return Center(
+                                                  child: SizedBox(
+                                                    width: 40.0,
+                                                    height: 40.0,
+                                                    child: SpinKitFadingFour(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                      size: 40.0,
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+
+                                              final postPostsRecord =
+                                                  snapshot.data!;
+
+                                              return PostWidget(
+                                                key: Key(
+                                                    'Key81y_${postsIndex}_of_${posts.length}'),
+                                                post: postPostsRecord,
+                                              );
+                                            },
+                                          );
+                                        },
+                                      ).animateOnPageLoad(animationsMap[
+                                          'listViewOnPageLoadAnimation']!);
+                                    },
+                                  ),
                                 ),
                               ),
                             ),

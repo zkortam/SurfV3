@@ -5,9 +5,9 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'date_of_birth_model.dart';
@@ -61,7 +61,10 @@ class _DateOfBirthWidgetState extends State<DateOfBirthWidget>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -225,8 +228,11 @@ class _DateOfBirthWidgetState extends State<DateOfBirthWidget>
                                         context: context,
                                         builder: (context) {
                                           return GestureDetector(
-                                            onTap: () => FocusScope.of(context)
-                                                .unfocus(),
+                                            onTap: () {
+                                              FocusScope.of(context).unfocus();
+                                              FocusManager.instance.primaryFocus
+                                                  ?.unfocus();
+                                            },
                                             child: Padding(
                                               padding: MediaQuery.viewInsetsOf(
                                                   context),

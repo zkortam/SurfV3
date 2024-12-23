@@ -78,7 +78,7 @@
 	<key>NSCameraUsageDescription</key>
     <string>In order to take a picture or video, this app requires permission to access the camera.</string>
 	<key>NSMicrophoneUsageDescription</key>
-    <string>In order to record audio for video, this app requires permission to access the microphone.</string>
+    <string>This app requires permissions to record audio.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
     <string>In order to upload data, this app requires permission to access the photo library.</string>
 	<key>NSFaceIDUsageDescription</key>

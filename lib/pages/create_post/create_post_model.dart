@@ -133,6 +133,15 @@ class CreatePostModel extends FlutterFlowModel<CreatePostWidget> {
   FocusNode? option4FocusNode;
   TextEditingController? option4TextController;
   String? Function(BuildContext, String?)? option4TextControllerValidator;
+  // State field(s) for CaptionSnippet widget.
+  FocusNode? captionSnippetFocusNode;
+  TextEditingController? captionSnippetTextController;
+  String? Function(BuildContext, String?)?
+      captionSnippetTextControllerValidator;
+  bool isDataUploading6 = false;
+  FFUploadedFile uploadedLocalFile6 =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl6 = '';
 
   @override
   void initState(BuildContext context) {}
@@ -163,5 +172,8 @@ class CreatePostModel extends FlutterFlowModel<CreatePostWidget> {
 
     option4FocusNode?.dispose();
     option4TextController?.dispose();
+
+    captionSnippetFocusNode?.dispose();
+    captionSnippetTextController?.dispose();
   }
 }

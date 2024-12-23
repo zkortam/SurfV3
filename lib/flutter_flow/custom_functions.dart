@@ -360,39 +360,92 @@ List<UserMessageDataStruct> updateUserLatestTime(
   List<UserMessageDataStruct> oldUserMessageData,
   DateTime currentTime,
 ) {
-  bool userFound = false;
+  // Initialize the index of the user to -1
+  int userIndex = -1;
 
-  // Map through the list and update the user if found
-  List<UserMessageDataStruct> updatedList =
-      oldUserMessageData.map((userMessage) {
-    if (userMessage.userReference == userRef) {
-      userFound = true; // Mark as found
-      // Replace with updated time
-      return UserMessageDataStruct(
-        userReference: userMessage.userReference,
-        lastTimeOnline: currentTime,
-      );
+  // Find the index of the user if they exist in the list
+  for (int i = 0; i < oldUserMessageData.length; i++) {
+    if (oldUserMessageData[i].userReference == userRef) {
+      userIndex = i;
+      break;
     }
-    return userMessage;
-  }).toList();
-
-  // If the user was not found, add it to the list
-  if (!userFound) {
-    updatedList.add(UserMessageDataStruct(
-      userReference: userRef,
-      lastTimeOnline: currentTime,
-    ));
   }
 
-  return updatedList;
+  // If the user is found, remove their existing data
+  if (userIndex != -1) {
+    oldUserMessageData.removeAt(userIndex);
+  }
+
+  // Add a new entry for the user with the current time
+  oldUserMessageData.add(UserMessageDataStruct(
+    userReference: userRef,
+    lastTimeOnline: currentTime,
+  ));
+
+  return oldUserMessageData;
 }
 
 bool checkIfRead(
   DateTime messageTime,
   List<UserMessageDataStruct> latestUser,
+  DocumentReference currentUser,
 ) {
+  if (latestUser.isEmpty) {
+    return false; // Assuming no users have read the message if the list is empty
+  }
+
   return latestUser.any((userMessage) {
     final lastTime = userMessage.lastTimeOnline;
-    return lastTime != null && lastTime.isAfter(messageTime);
+    // Check if the last time is after the message time and it's not the current user
+    return lastTime != null &&
+        lastTime.isAfter(messageTime) &&
+        userMessage.userReference != currentUser;
   });
+}
+
+List<PostsforalgoStruct> makePosts(
+  List<String> captions,
+  List<String> timestamps,
+  List<String> authors,
+  List<String>? isShorts,
+  List<String> isStealth,
+  List<String> medias,
+  List<String> shortVideos,
+  List<String> voterrefs,
+  List<String> votervalues,
+  List<String> hashtags,
+  int postcount,
+) {
+  List<PostsforalgoStruct> postlist = [];
+  for (var i = 0; i < postcount; i++) {
+    PostsforalgoStruct post = PostsforalgoStruct();
+    post.caption = captions[i];
+    post.timestamp = DateFormat("dd-MM-yyyy HH:mm:ss").parse(timestamps[i]);
+    //authors here
+    post.author = FirebaseFirestore.instance.doc(authors[i]);
+    post.isShort = (isShorts?[i]?.toLowerCase() == 'true') ? true : false;
+    post.isStealth = (isStealth[i].toLowerCase() == 'true') ? true : false;
+    post.media = medias[i];
+    post.shortVideo = shortVideos[i];
+    //Voters
+    for (var j = 0; j < voterrefs.length; j++) {
+      VotersStruct voter = VotersStruct();
+      voter.userReference = FirebaseFirestore.instance.doc(voterrefs[j]);
+      voter.voteValue = int.parse(votervalues[j]);
+    }
+
+    post.hashtags.add(hashtags[i]);
+    postlist.add(post);
+  }
+  return postlist;
+}
+
+List<DocumentReference> postrefslist(List<String> apiresult) {
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  List<DocumentReference> docRefs = [];
+  for (String id in apiresult) {
+    docRefs.add(firestore.doc(id));
+  }
+  return docRefs;
 }

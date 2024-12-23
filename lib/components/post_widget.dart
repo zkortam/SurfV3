@@ -15,6 +15,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -48,6 +49,13 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _model = createModel(context, () => PostModel());
+
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.voteValue = functions.voterInList(
+          widget.post!.voters.toList(), currentUserReference!);
+      safeSetState(() {});
+    });
 
     animationsMap.addAll({
       'containerOnActionTriggerAnimation1': AnimationInfo(
@@ -256,7 +264,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                           children: [
                             if (widget.post?.media.length == 1)
                               FlutterFlowMediaDisplay(
-                                path: widget.post!.media.first,
+                                path: widget.post!.media.firstOrNull!,
                                 imageBuilder: (path) => ClipRRect(
                                   borderRadius: BorderRadius.circular(10.0),
                                   child: Image.network(
@@ -1080,6 +1088,9 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                       child: CommentsWidget(
                                                         post: widget
                                                             .post?.reference,
+                                                        authorID:
+                                                            containerUsersRecord
+                                                                .reference,
                                                       ),
                                                     );
                                                   },
@@ -1172,6 +1183,38 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                               });
                                                           _model.voteValue = 0;
                                                           safeSetState(() {});
+
+                                                          firestoreBatch.update(
+                                                              currentUserReference!,
+                                                              createUsersRecordData(
+                                                                postInteractions:
+                                                                    createPostInteractionsStruct(
+                                                                  fieldValues: {
+                                                                    'liked':
+                                                                        FieldValue
+                                                                            .arrayRemove([
+                                                                      widget
+                                                                          .post
+                                                                          ?.reference
+                                                                    ]),
+                                                                  },
+                                                                  clearUnsetFields:
+                                                                      false,
+                                                                ),
+                                                              ));
+
+                                                          firestoreBatch.update(
+                                                              containerUsersRecord
+                                                                  .reference,
+                                                              {
+                                                                ...mapToFirestore(
+                                                                  {
+                                                                    'vibe': FieldValue
+                                                                        .increment(
+                                                                            -(1)),
+                                                                  },
+                                                                ),
+                                                              });
                                                         } else {
                                                           _model.voteValue = 1;
                                                           safeSetState(() {});
@@ -1233,6 +1276,32 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                     },
                                                                   ),
                                                                 });
+
+                                                            firestoreBatch.update(
+                                                                currentUserReference!,
+                                                                createUsersRecordData(
+                                                                  postInteractions:
+                                                                      createPostInteractionsStruct(
+                                                                    fieldValues: {
+                                                                      'liked':
+                                                                          FieldValue
+                                                                              .arrayUnion([
+                                                                        widget
+                                                                            .post
+                                                                            ?.reference
+                                                                      ]),
+                                                                      'disliked':
+                                                                          FieldValue
+                                                                              .arrayRemove([
+                                                                        widget
+                                                                            .post
+                                                                            ?.reference
+                                                                      ]),
+                                                                    },
+                                                                    clearUnsetFields:
+                                                                        false,
+                                                                  ),
+                                                                ));
                                                           } else {
                                                             firestoreBatch.update(
                                                                 widget.post!
@@ -1258,6 +1327,25 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                     },
                                                                   ),
                                                                 });
+
+                                                            firestoreBatch.update(
+                                                                currentUserReference!,
+                                                                createUsersRecordData(
+                                                                  postInteractions:
+                                                                      createPostInteractionsStruct(
+                                                                    fieldValues: {
+                                                                      'liked':
+                                                                          FieldValue
+                                                                              .arrayUnion([
+                                                                        widget
+                                                                            .post
+                                                                            ?.reference
+                                                                      ]),
+                                                                    },
+                                                                    clearUnsetFields:
+                                                                        false,
+                                                                  ),
+                                                                ));
                                                           }
                                                         }
                                                       } finally {
@@ -1355,21 +1443,65 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                 });
 
                                                             firestoreBatch.update(
-                                                                containerUsersRecord
-                                                                    .reference,
-                                                                {
-                                                                  ...mapToFirestore(
-                                                                    {
-                                                                      'vibe': FieldValue
-                                                                          .increment(
-                                                                              -(1)),
+                                                                currentUserReference!,
+                                                                createUsersRecordData(
+                                                                  postInteractions:
+                                                                      createPostInteractionsStruct(
+                                                                    fieldValues: {
+                                                                      'liked':
+                                                                          FieldValue
+                                                                              .arrayRemove([
+                                                                        widget
+                                                                            .post
+                                                                            ?.reference
+                                                                      ]),
                                                                     },
+                                                                    clearUnsetFields:
+                                                                        false,
                                                                   ),
-                                                                });
+                                                                ));
                                                           } else {
                                                             _model.voteValue =
                                                                 1;
                                                             safeSetState(() {});
+
+                                                            var notificationsRecordReference =
+                                                                NotificationsRecord
+                                                                    .collection
+                                                                    .doc();
+                                                            firestoreBatch.set(
+                                                                notificationsRecordReference,
+                                                                createNotificationsRecordData(
+                                                                  sourcePost:
+                                                                      widget
+                                                                          .post
+                                                                          ?.reference,
+                                                                  sourceUser:
+                                                                      currentUserReference,
+                                                                  targetUser:
+                                                                      containerUsersRecord
+                                                                          .reference,
+                                                                  time:
+                                                                      getCurrentTimestamp,
+                                                                  type: 'Like',
+                                                                ));
+                                                            _model.notification =
+                                                                NotificationsRecord
+                                                                    .getDocumentFromData(
+                                                                        createNotificationsRecordData(
+                                                                          sourcePost: widget
+                                                                              .post
+                                                                              ?.reference,
+                                                                          sourceUser:
+                                                                              currentUserReference,
+                                                                          targetUser:
+                                                                              containerUsersRecord.reference,
+                                                                          time:
+                                                                              getCurrentTimestamp,
+                                                                          type:
+                                                                              'Like',
+                                                                        ),
+                                                                        notificationsRecordReference);
                                                             if (functions
                                                                     .voterInList(
                                                                         widget
@@ -1422,11 +1554,52 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                   });
 
                                                               firestoreBatch.update(
+                                                                  currentUserReference!,
+                                                                  createUsersRecordData(
+                                                                    postInteractions:
+                                                                        createPostInteractionsStruct(
+                                                                      fieldValues: {
+                                                                        'liked':
+                                                                            FieldValue.arrayUnion([
+                                                                          widget
+                                                                              .post
+                                                                              ?.reference
+                                                                        ]),
+                                                                        'disliked':
+                                                                            FieldValue.arrayRemove([
+                                                                          widget
+                                                                              .post
+                                                                              ?.reference
+                                                                        ]),
+                                                                      },
+                                                                      clearUnsetFields:
+                                                                          false,
+                                                                    ),
+                                                                  ));
+
+                                                              firestoreBatch.update(
                                                                   containerUsersRecord
                                                                       .reference,
                                                                   {
                                                                     ...mapToFirestore(
                                                                       {
+                                                                        'notifications':
+                                                                            FieldValue.arrayUnion([
+                                                                          getNotificationFirestoreData(
+                                                                            createNotificationStruct(
+                                                                              type: 'Like',
+                                                                              time: getCurrentTimestamp,
+                                                                              clearUnsetFields: false,
+                                                                            ),
+                                                                            true,
+                                                                          )
+                                                                        ]),
+                                                                        'notificationsReferences':
+                                                                            FieldValue.arrayUnion([
+                                                                          _model
+                                                                              .notification
+                                                                              ?.reference
+                                                                        ]),
                                                                         'vibe':
                                                                             FieldValue.increment(2),
                                                                       },
@@ -1455,83 +1628,59 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                   });
 
                                                               firestoreBatch.update(
+                                                                  currentUserReference!,
+                                                                  createUsersRecordData(
+                                                                    postInteractions:
+                                                                        createPostInteractionsStruct(
+                                                                      fieldValues: {
+                                                                        'liked':
+                                                                            FieldValue.arrayUnion([
+                                                                          widget
+                                                                              .post
+                                                                              ?.reference
+                                                                        ]),
+                                                                      },
+                                                                      clearUnsetFields:
+                                                                          false,
+                                                                    ),
+                                                                  ));
+
+                                                              firestoreBatch.update(
                                                                   containerUsersRecord
                                                                       .reference,
                                                                   {
                                                                     ...mapToFirestore(
                                                                       {
+                                                                        'notifications':
+                                                                            FieldValue.arrayUnion([
+                                                                          getNotificationFirestoreData(
+                                                                            createNotificationStruct(
+                                                                              type: 'Like',
+                                                                              time: getCurrentTimestamp,
+                                                                              clearUnsetFields: false,
+                                                                            ),
+                                                                            true,
+                                                                          )
+                                                                        ]),
+                                                                        'notificationsReferences':
+                                                                            FieldValue.arrayUnion([
+                                                                          _model
+                                                                              .notification
+                                                                              ?.reference
+                                                                        ]),
                                                                         'vibe':
                                                                             FieldValue.increment(1),
                                                                       },
                                                                     ),
                                                                   });
                                                             }
-
-                                                            _model.animation =
-                                                                true;
-                                                            safeSetState(() {});
-                                                            await Future.delayed(
-                                                                const Duration(
-                                                                    milliseconds:
-                                                                        100));
-                                                            await Future.wait([
-                                                              Future(() async {
-                                                                if (animationsMap[
-                                                                        'containerOnActionTriggerAnimation1'] !=
-                                                                    null) {
-                                                                  await animationsMap[
-                                                                          'containerOnActionTriggerAnimation1']!
-                                                                      .controller
-                                                                      .forward(
-                                                                          from:
-                                                                              0.0)
-                                                                      .whenComplete(animationsMap[
-                                                                              'containerOnActionTriggerAnimation1']!
-                                                                          .controller
-                                                                          .reverse);
-                                                                }
-                                                              }),
-                                                              Future(() async {
-                                                                if (animationsMap[
-                                                                        'containerOnActionTriggerAnimation2'] !=
-                                                                    null) {
-                                                                  await animationsMap[
-                                                                          'containerOnActionTriggerAnimation2']!
-                                                                      .controller
-                                                                      .forward(
-                                                                          from:
-                                                                              0.0)
-                                                                      .whenComplete(animationsMap[
-                                                                              'containerOnActionTriggerAnimation2']!
-                                                                          .controller
-                                                                          .reverse);
-                                                                }
-                                                              }),
-                                                              Future(() async {
-                                                                if (animationsMap[
-                                                                        'iconOnActionTriggerAnimation1'] !=
-                                                                    null) {
-                                                                  await animationsMap[
-                                                                          'iconOnActionTriggerAnimation1']!
-                                                                      .controller
-                                                                      .forward(
-                                                                          from:
-                                                                              0.0)
-                                                                      .whenComplete(animationsMap[
-                                                                              'iconOnActionTriggerAnimation1']!
-                                                                          .controller
-                                                                          .reverse);
-                                                                }
-                                                              }),
-                                                            ]);
-                                                            _model.animation =
-                                                                false;
-                                                            safeSetState(() {});
                                                           }
                                                         } finally {
                                                           await firestoreBatch
                                                               .commit();
                                                         }
+
+                                                        safeSetState(() {});
                                                       },
                                                     ),
                                                   ),
@@ -1594,6 +1743,38 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                               });
                                                           _model.voteValue = 0;
                                                           safeSetState(() {});
+
+                                                          firestoreBatch.update(
+                                                              currentUserReference!,
+                                                              createUsersRecordData(
+                                                                postInteractions:
+                                                                    createPostInteractionsStruct(
+                                                                  fieldValues: {
+                                                                    'disliked':
+                                                                        FieldValue
+                                                                            .arrayRemove([
+                                                                      widget
+                                                                          .post
+                                                                          ?.reference
+                                                                    ]),
+                                                                  },
+                                                                  clearUnsetFields:
+                                                                      false,
+                                                                ),
+                                                              ));
+
+                                                          firestoreBatch.update(
+                                                              containerUsersRecord
+                                                                  .reference,
+                                                              {
+                                                                ...mapToFirestore(
+                                                                  {
+                                                                    'vibe': FieldValue
+                                                                        .increment(
+                                                                            1),
+                                                                  },
+                                                                ),
+                                                              });
                                                         } else {
                                                           _model.voteValue = -1;
                                                           safeSetState(() {});
@@ -1655,6 +1836,32 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                     },
                                                                   ),
                                                                 });
+
+                                                            firestoreBatch.update(
+                                                                currentUserReference!,
+                                                                createUsersRecordData(
+                                                                  postInteractions:
+                                                                      createPostInteractionsStruct(
+                                                                    fieldValues: {
+                                                                      'disliked':
+                                                                          FieldValue
+                                                                              .arrayUnion([
+                                                                        widget
+                                                                            .post
+                                                                            ?.reference
+                                                                      ]),
+                                                                      'liked':
+                                                                          FieldValue
+                                                                              .arrayRemove([
+                                                                        widget
+                                                                            .post
+                                                                            ?.reference
+                                                                      ]),
+                                                                    },
+                                                                    clearUnsetFields:
+                                                                        false,
+                                                                  ),
+                                                                ));
                                                           } else {
                                                             firestoreBatch.update(
                                                                 widget.post!
@@ -1680,6 +1887,25 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                     },
                                                                   ),
                                                                 });
+
+                                                            firestoreBatch.update(
+                                                                currentUserReference!,
+                                                                createUsersRecordData(
+                                                                  postInteractions:
+                                                                      createPostInteractionsStruct(
+                                                                    fieldValues: {
+                                                                      'disliked':
+                                                                          FieldValue
+                                                                              .arrayUnion([
+                                                                        widget
+                                                                            .post
+                                                                            ?.reference
+                                                                      ]),
+                                                                    },
+                                                                    clearUnsetFields:
+                                                                        false,
+                                                                  ),
+                                                                ));
                                                           }
                                                         }
                                                       } finally {
@@ -1744,17 +1970,23 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                               });
 
                                                           firestoreBatch.update(
-                                                              containerUsersRecord
-                                                                  .reference,
-                                                              {
-                                                                ...mapToFirestore(
-                                                                  {
-                                                                    'vibe': FieldValue
-                                                                        .increment(
-                                                                            -(1)),
+                                                              currentUserReference!,
+                                                              createUsersRecordData(
+                                                                postInteractions:
+                                                                    createPostInteractionsStruct(
+                                                                  fieldValues: {
+                                                                    'disliked':
+                                                                        FieldValue
+                                                                            .arrayRemove([
+                                                                      widget
+                                                                          .post
+                                                                          ?.reference
+                                                                    ]),
                                                                   },
+                                                                  clearUnsetFields:
+                                                                      false,
                                                                 ),
-                                                              });
+                                                              ));
                                                         } else {
                                                           _model.voteValue = -1;
                                                           safeSetState(() {});
@@ -1818,6 +2050,32 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                 });
 
                                                             firestoreBatch.update(
+                                                                currentUserReference!,
+                                                                createUsersRecordData(
+                                                                  postInteractions:
+                                                                      createPostInteractionsStruct(
+                                                                    fieldValues: {
+                                                                      'disliked':
+                                                                          FieldValue
+                                                                              .arrayUnion([
+                                                                        widget
+                                                                            .post
+                                                                            ?.reference
+                                                                      ]),
+                                                                      'liked':
+                                                                          FieldValue
+                                                                              .arrayRemove([
+                                                                        widget
+                                                                            .post
+                                                                            ?.reference
+                                                                      ]),
+                                                                    },
+                                                                    clearUnsetFields:
+                                                                        false,
+                                                                  ),
+                                                                ));
+
+                                                            firestoreBatch.update(
                                                                 containerUsersRecord
                                                                     .reference,
                                                                 {
@@ -1825,7 +2083,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                     {
                                                                       'vibe': FieldValue
                                                                           .increment(
-                                                                              2),
+                                                                              -(2)),
                                                                     },
                                                                   ),
                                                                 });
@@ -1856,6 +2114,25 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                 });
 
                                                             firestoreBatch.update(
+                                                                currentUserReference!,
+                                                                createUsersRecordData(
+                                                                  postInteractions:
+                                                                      createPostInteractionsStruct(
+                                                                    fieldValues: {
+                                                                      'disliked':
+                                                                          FieldValue
+                                                                              .arrayUnion([
+                                                                        widget
+                                                                            .post
+                                                                            ?.reference
+                                                                      ]),
+                                                                    },
+                                                                    clearUnsetFields:
+                                                                        false,
+                                                                  ),
+                                                                ));
+
+                                                            firestoreBatch.update(
                                                                 containerUsersRecord
                                                                     .reference,
                                                                 {
@@ -1863,72 +2140,11 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                     {
                                                                       'vibe': FieldValue
                                                                           .increment(
-                                                                              1),
+                                                                              -(1)),
                                                                     },
                                                                   ),
                                                                 });
                                                           }
-
-                                                          _model.animation =
-                                                              true;
-                                                          safeSetState(() {});
-                                                          await Future.delayed(
-                                                              const Duration(
-                                                                  milliseconds:
-                                                                      100));
-                                                          await Future.wait([
-                                                            Future(() async {
-                                                              if (animationsMap[
-                                                                      'iconOnActionTriggerAnimation2'] !=
-                                                                  null) {
-                                                                await animationsMap[
-                                                                        'iconOnActionTriggerAnimation2']!
-                                                                    .controller
-                                                                    .forward(
-                                                                        from:
-                                                                            0.0)
-                                                                    .whenComplete(animationsMap[
-                                                                            'iconOnActionTriggerAnimation2']!
-                                                                        .controller
-                                                                        .reverse);
-                                                              }
-                                                            }),
-                                                            Future(() async {
-                                                              if (animationsMap[
-                                                                      'containerOnActionTriggerAnimation3'] !=
-                                                                  null) {
-                                                                await animationsMap[
-                                                                        'containerOnActionTriggerAnimation3']!
-                                                                    .controller
-                                                                    .forward(
-                                                                        from:
-                                                                            0.0)
-                                                                    .whenComplete(animationsMap[
-                                                                            'containerOnActionTriggerAnimation3']!
-                                                                        .controller
-                                                                        .reverse);
-                                                              }
-                                                            }),
-                                                            Future(() async {
-                                                              if (animationsMap[
-                                                                      'containerOnActionTriggerAnimation4'] !=
-                                                                  null) {
-                                                                await animationsMap[
-                                                                        'containerOnActionTriggerAnimation4']!
-                                                                    .controller
-                                                                    .forward(
-                                                                        from:
-                                                                            0.0)
-                                                                    .whenComplete(animationsMap[
-                                                                            'containerOnActionTriggerAnimation4']!
-                                                                        .controller
-                                                                        .reverse);
-                                                              }
-                                                            }),
-                                                          ]);
-                                                          _model.animation =
-                                                              false;
-                                                          safeSetState(() {});
                                                         }
                                                       } finally {
                                                         await firestoreBatch

@@ -95,6 +95,41 @@ class PostsRecord extends FirestoreRecord {
   String get shortVideo => _shortVideo ?? '';
   bool hasShortVideo() => _shortVideo != null;
 
+  // "caption_embedding" field.
+  List<double>? _captionEmbedding;
+  List<double> get captionEmbedding => _captionEmbedding ?? const [];
+  bool hasCaptionEmbedding() => _captionEmbedding != null;
+
+  // "image_embedding" field.
+  List<double>? _imageEmbedding;
+  List<double> get imageEmbedding => _imageEmbedding ?? const [];
+  bool hasImageEmbedding() => _imageEmbedding != null;
+
+  // "informative_value" field.
+  double? _informativeValue;
+  double get informativeValue => _informativeValue ?? 0.0;
+  bool hasInformativeValue() => _informativeValue != null;
+
+  // "political_value" field.
+  double? _politicalValue;
+  double get politicalValue => _politicalValue ?? 0.0;
+  bool hasPoliticalValue() => _politicalValue != null;
+
+  // "toxic_value" field.
+  double? _toxicValue;
+  double get toxicValue => _toxicValue ?? 0.0;
+  bool hasToxicValue() => _toxicValue != null;
+
+  // "vulgar_value" field.
+  double? _vulgarValue;
+  double get vulgarValue => _vulgarValue ?? 0.0;
+  bool hasVulgarValue() => _vulgarValue != null;
+
+  // "shortDuration" field.
+  double? _shortDuration;
+  double get shortDuration => _shortDuration ?? 0.0;
+  bool hasShortDuration() => _shortDuration != null;
+
   void _initializeFields() {
     _timePosted = snapshotData['TimePosted'] as DateTime?;
     _caption = snapshotData['Caption'] as String?;
@@ -115,6 +150,13 @@ class PostsRecord extends FirestoreRecord {
     _comments = getDataList(snapshotData['comments']);
     _media = getDataList(snapshotData['media']);
     _shortVideo = snapshotData['ShortVideo'] as String?;
+    _captionEmbedding = getDataList(snapshotData['caption_embedding']);
+    _imageEmbedding = getDataList(snapshotData['image_embedding']);
+    _informativeValue = castToType<double>(snapshotData['informative_value']);
+    _politicalValue = castToType<double>(snapshotData['political_value']);
+    _toxicValue = castToType<double>(snapshotData['toxic_value']);
+    _vulgarValue = castToType<double>(snapshotData['vulgar_value']);
+    _shortDuration = castToType<double>(snapshotData['shortDuration']);
   }
 
   static CollectionReference get collection =>
@@ -162,6 +204,11 @@ Map<String, dynamic> createPostsRecordData({
   bool? isCommentsAllowed,
   String? postId,
   String? shortVideo,
+  double? informativeValue,
+  double? politicalValue,
+  double? toxicValue,
+  double? vulgarValue,
+  double? shortDuration,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -176,6 +223,11 @@ Map<String, dynamic> createPostsRecordData({
       'isCommentsAllowed': isCommentsAllowed,
       'post_id': postId,
       'ShortVideo': shortVideo,
+      'informative_value': informativeValue,
+      'political_value': politicalValue,
+      'toxic_value': toxicValue,
+      'vulgar_value': vulgarValue,
+      'shortDuration': shortDuration,
     }.withoutNulls,
   );
 
@@ -203,7 +255,14 @@ class PostsRecordDocumentEquality implements Equality<PostsRecord> {
         e1?.postId == e2?.postId &&
         listEquality.equals(e1?.comments, e2?.comments) &&
         listEquality.equals(e1?.media, e2?.media) &&
-        e1?.shortVideo == e2?.shortVideo;
+        e1?.shortVideo == e2?.shortVideo &&
+        listEquality.equals(e1?.captionEmbedding, e2?.captionEmbedding) &&
+        listEquality.equals(e1?.imageEmbedding, e2?.imageEmbedding) &&
+        e1?.informativeValue == e2?.informativeValue &&
+        e1?.politicalValue == e2?.politicalValue &&
+        e1?.toxicValue == e2?.toxicValue &&
+        e1?.vulgarValue == e2?.vulgarValue &&
+        e1?.shortDuration == e2?.shortDuration;
   }
 
   @override
@@ -223,7 +282,14 @@ class PostsRecordDocumentEquality implements Equality<PostsRecord> {
         e?.postId,
         e?.comments,
         e?.media,
-        e?.shortVideo
+        e?.shortVideo,
+        e?.captionEmbedding,
+        e?.imageEmbedding,
+        e?.informativeValue,
+        e?.politicalValue,
+        e?.toxicValue,
+        e?.vulgarValue,
+        e?.shortDuration
       ]);
 
   @override

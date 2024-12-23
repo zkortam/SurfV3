@@ -10,75 +10,81 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class ThreadInteractionsStruct extends FFFirebaseStruct {
   ThreadInteractionsStruct({
-    DocumentReference? liked,
-    DocumentReference? disliked,
-    DocumentReference? commentPositive,
-    DocumentReference? commentNegative,
-    DocumentReference? shared,
-    List<DocumentReference>? clickedLink,
+    List<DocumentReference>? liked,
+    List<DocumentReference>? disliked,
+    List<DocumentReference>? commentPositive,
+    List<DocumentReference>? commentNositive,
+    List<DocumentReference>? shared,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _liked = liked,
         _disliked = disliked,
         _commentPositive = commentPositive,
-        _commentNegative = commentNegative,
+        _commentNositive = commentNositive,
         _shared = shared,
-        _clickedLink = clickedLink,
         super(firestoreUtilData);
 
-  // "Liked" field.
-  DocumentReference? _liked;
-  DocumentReference? get liked => _liked;
-  set liked(DocumentReference? val) => _liked = val;
+  // "liked" field.
+  List<DocumentReference>? _liked;
+  List<DocumentReference> get liked => _liked ?? const [];
+  set liked(List<DocumentReference>? val) => _liked = val;
+
+  void updateLiked(Function(List<DocumentReference>) updateFn) {
+    updateFn(_liked ??= []);
+  }
 
   bool hasLiked() => _liked != null;
 
-  // "Disliked" field.
-  DocumentReference? _disliked;
-  DocumentReference? get disliked => _disliked;
-  set disliked(DocumentReference? val) => _disliked = val;
+  // "disliked" field.
+  List<DocumentReference>? _disliked;
+  List<DocumentReference> get disliked => _disliked ?? const [];
+  set disliked(List<DocumentReference>? val) => _disliked = val;
+
+  void updateDisliked(Function(List<DocumentReference>) updateFn) {
+    updateFn(_disliked ??= []);
+  }
 
   bool hasDisliked() => _disliked != null;
 
-  // "CommentPositive" field.
-  DocumentReference? _commentPositive;
-  DocumentReference? get commentPositive => _commentPositive;
-  set commentPositive(DocumentReference? val) => _commentPositive = val;
+  // "commentPositive" field.
+  List<DocumentReference>? _commentPositive;
+  List<DocumentReference> get commentPositive => _commentPositive ?? const [];
+  set commentPositive(List<DocumentReference>? val) => _commentPositive = val;
+
+  void updateCommentPositive(Function(List<DocumentReference>) updateFn) {
+    updateFn(_commentPositive ??= []);
+  }
 
   bool hasCommentPositive() => _commentPositive != null;
 
-  // "CommentNegative" field.
-  DocumentReference? _commentNegative;
-  DocumentReference? get commentNegative => _commentNegative;
-  set commentNegative(DocumentReference? val) => _commentNegative = val;
+  // "commentNositive" field.
+  List<DocumentReference>? _commentNositive;
+  List<DocumentReference> get commentNositive => _commentNositive ?? const [];
+  set commentNositive(List<DocumentReference>? val) => _commentNositive = val;
 
-  bool hasCommentNegative() => _commentNegative != null;
+  void updateCommentNositive(Function(List<DocumentReference>) updateFn) {
+    updateFn(_commentNositive ??= []);
+  }
+
+  bool hasCommentNositive() => _commentNositive != null;
 
   // "shared" field.
-  DocumentReference? _shared;
-  DocumentReference? get shared => _shared;
-  set shared(DocumentReference? val) => _shared = val;
+  List<DocumentReference>? _shared;
+  List<DocumentReference> get shared => _shared ?? const [];
+  set shared(List<DocumentReference>? val) => _shared = val;
+
+  void updateShared(Function(List<DocumentReference>) updateFn) {
+    updateFn(_shared ??= []);
+  }
 
   bool hasShared() => _shared != null;
 
-  // "clickedLink" field.
-  List<DocumentReference>? _clickedLink;
-  List<DocumentReference> get clickedLink => _clickedLink ?? const [];
-  set clickedLink(List<DocumentReference>? val) => _clickedLink = val;
-
-  void updateClickedLink(Function(List<DocumentReference>) updateFn) {
-    updateFn(_clickedLink ??= []);
-  }
-
-  bool hasClickedLink() => _clickedLink != null;
-
   static ThreadInteractionsStruct fromMap(Map<String, dynamic> data) =>
       ThreadInteractionsStruct(
-        liked: data['Liked'] as DocumentReference?,
-        disliked: data['Disliked'] as DocumentReference?,
-        commentPositive: data['CommentPositive'] as DocumentReference?,
-        commentNegative: data['CommentNegative'] as DocumentReference?,
-        shared: data['shared'] as DocumentReference?,
-        clickedLink: getDataList(data['clickedLink']),
+        liked: getDataList(data['liked']),
+        disliked: getDataList(data['disliked']),
+        commentPositive: getDataList(data['commentPositive']),
+        commentNositive: getDataList(data['commentNositive']),
+        shared: getDataList(data['shared']),
       );
 
   static ThreadInteractionsStruct? maybeFromMap(dynamic data) => data is Map
@@ -86,38 +92,37 @@ class ThreadInteractionsStruct extends FFFirebaseStruct {
       : null;
 
   Map<String, dynamic> toMap() => {
-        'Liked': _liked,
-        'Disliked': _disliked,
-        'CommentPositive': _commentPositive,
-        'CommentNegative': _commentNegative,
+        'liked': _liked,
+        'disliked': _disliked,
+        'commentPositive': _commentPositive,
+        'commentNositive': _commentNositive,
         'shared': _shared,
-        'clickedLink': _clickedLink,
       }.withoutNulls;
 
   @override
   Map<String, dynamic> toSerializableMap() => {
-        'Liked': serializeParam(
+        'liked': serializeParam(
           _liked,
           ParamType.DocumentReference,
+          isList: true,
         ),
-        'Disliked': serializeParam(
+        'disliked': serializeParam(
           _disliked,
           ParamType.DocumentReference,
+          isList: true,
         ),
-        'CommentPositive': serializeParam(
+        'commentPositive': serializeParam(
           _commentPositive,
           ParamType.DocumentReference,
+          isList: true,
         ),
-        'CommentNegative': serializeParam(
-          _commentNegative,
+        'commentNositive': serializeParam(
+          _commentNositive,
           ParamType.DocumentReference,
+          isList: true,
         ),
         'shared': serializeParam(
           _shared,
-          ParamType.DocumentReference,
-        ),
-        'clickedLink': serializeParam(
-          _clickedLink,
           ParamType.DocumentReference,
           isList: true,
         ),
@@ -126,38 +131,32 @@ class ThreadInteractionsStruct extends FFFirebaseStruct {
   static ThreadInteractionsStruct fromSerializableMap(
           Map<String, dynamic> data) =>
       ThreadInteractionsStruct(
-        liked: deserializeParam(
-          data['Liked'],
+        liked: deserializeParam<DocumentReference>(
+          data['liked'],
           ParamType.DocumentReference,
-          false,
+          true,
           collectionNamePath: ['Threads'],
         ),
-        disliked: deserializeParam(
-          data['Disliked'],
+        disliked: deserializeParam<DocumentReference>(
+          data['disliked'],
           ParamType.DocumentReference,
-          false,
+          true,
           collectionNamePath: ['Threads'],
         ),
-        commentPositive: deserializeParam(
-          data['CommentPositive'],
+        commentPositive: deserializeParam<DocumentReference>(
+          data['commentPositive'],
           ParamType.DocumentReference,
-          false,
+          true,
           collectionNamePath: ['Threads'],
         ),
-        commentNegative: deserializeParam(
-          data['CommentNegative'],
+        commentNositive: deserializeParam<DocumentReference>(
+          data['commentNositive'],
           ParamType.DocumentReference,
-          false,
+          true,
           collectionNamePath: ['Threads'],
         ),
-        shared: deserializeParam(
+        shared: deserializeParam<DocumentReference>(
           data['shared'],
-          ParamType.DocumentReference,
-          false,
-          collectionNamePath: ['Threads'],
-        ),
-        clickedLink: deserializeParam<DocumentReference>(
-          data['clickedLink'],
           ParamType.DocumentReference,
           true,
           collectionNamePath: ['Threads'],
@@ -171,36 +170,25 @@ class ThreadInteractionsStruct extends FFFirebaseStruct {
   bool operator ==(Object other) {
     const listEquality = ListEquality();
     return other is ThreadInteractionsStruct &&
-        liked == other.liked &&
-        disliked == other.disliked &&
-        commentPositive == other.commentPositive &&
-        commentNegative == other.commentNegative &&
-        shared == other.shared &&
-        listEquality.equals(clickedLink, other.clickedLink);
+        listEquality.equals(liked, other.liked) &&
+        listEquality.equals(disliked, other.disliked) &&
+        listEquality.equals(commentPositive, other.commentPositive) &&
+        listEquality.equals(commentNositive, other.commentNositive) &&
+        listEquality.equals(shared, other.shared);
   }
 
   @override
-  int get hashCode => const ListEquality().hash(
-      [liked, disliked, commentPositive, commentNegative, shared, clickedLink]);
+  int get hashCode => const ListEquality()
+      .hash([liked, disliked, commentPositive, commentNositive, shared]);
 }
 
 ThreadInteractionsStruct createThreadInteractionsStruct({
-  DocumentReference? liked,
-  DocumentReference? disliked,
-  DocumentReference? commentPositive,
-  DocumentReference? commentNegative,
-  DocumentReference? shared,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
   bool delete = false,
 }) =>
     ThreadInteractionsStruct(
-      liked: liked,
-      disliked: disliked,
-      commentPositive: commentPositive,
-      commentNegative: commentNegative,
-      shared: shared,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

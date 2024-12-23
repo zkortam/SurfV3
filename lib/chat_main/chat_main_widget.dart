@@ -40,7 +40,10 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -176,9 +179,13 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
                                                   context: context,
                                                   builder: (context) {
                                                     return GestureDetector(
-                                                      onTap: () =>
-                                                          FocusScope.of(context)
-                                                              .unfocus(),
+                                                      onTap: () {
+                                                        FocusScope.of(context)
+                                                            .unfocus();
+                                                        FocusManager.instance
+                                                            .primaryFocus
+                                                            ?.unfocus();
+                                                      },
                                                       child: Padding(
                                                         padding: MediaQuery
                                                             .viewInsetsOf(
@@ -412,7 +419,8 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
                                                           .lastTime!,
                                                       listViewChatsRecord
                                                           .userChatData
-                                                          .toList()))
+                                                          .toList(),
+                                                      currentUserReference!))
                                                     Icon(
                                                       Icons.circle_outlined,
                                                       color:
@@ -426,7 +434,8 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
                                                           .lastTime!,
                                                       listViewChatsRecord
                                                           .userChatData
-                                                          .toList()))
+                                                          .toList(),
+                                                      currentUserReference!))
                                                     Icon(
                                                       Icons.check_circle_sharp,
                                                       color:

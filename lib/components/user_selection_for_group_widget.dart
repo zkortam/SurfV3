@@ -43,7 +43,7 @@ class _UserSelectionForGroupWidgetState
       _model.selectedUsers = (currentUserDocument?.groups.toList() ?? [])
           .where((e) => e.name == widget.groupName)
           .toList()
-          .first
+          .firstOrNull!
           .people
           .toList()
           .cast<DocumentReference>();

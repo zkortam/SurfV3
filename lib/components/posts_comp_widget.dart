@@ -358,10 +358,19 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                         },
                       );
 
+                      await currentUserReference!.update(createUsersRecordData(
+                        postInteractions: createPostInteractionsStruct(
+                          fieldValues: {
+                            'shared': FieldValue.arrayUnion(
+                                [columnPostsRecord.reference]),
+                          },
+                          clearUnsetFields: false,
+                        ),
+                      ));
                       _model.currentPageLink = await generateCurrentPageLink(
                         context,
                         title: 'Post',
-                        imageUrl: columnPostsRecord.media.first,
+                        imageUrl: columnPostsRecord.media.firstOrNull,
                         description: columnPostsRecord.caption,
                         forceRedirect: true,
                       );
@@ -453,7 +462,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                     _model.currentPageLink = await generateCurrentPageLink(
                       context,
                       title: 'Post',
-                      imageUrl: columnPostsRecord.media.first,
+                      imageUrl: columnPostsRecord.media.firstOrNull,
                       description: columnPostsRecord.caption,
                       forceRedirect: true,
                     );

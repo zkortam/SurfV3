@@ -39,6 +39,7 @@ class _SnippetWidgetState extends State<SnippetWidget> {
 
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.soundPlayer?.stop();
       _model.soundPlayer ??= AudioPlayer();
       if (_model.soundPlayer!.playing) {
         await _model.soundPlayer!.stop();

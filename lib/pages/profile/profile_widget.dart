@@ -149,7 +149,10 @@ class _ProfileWidgetState extends State<ProfileWidget>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -609,10 +612,15 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                           context: context,
                                                           builder: (context) {
                                                             return GestureDetector(
-                                                              onTap: () =>
-                                                                  FocusScope.of(
-                                                                          context)
-                                                                      .unfocus(),
+                                                              onTap: () {
+                                                                FocusScope.of(
+                                                                        context)
+                                                                    .unfocus();
+                                                                FocusManager
+                                                                    .instance
+                                                                    .primaryFocus
+                                                                    ?.unfocus();
+                                                              },
                                                               child: Padding(
                                                                 padding: MediaQuery
                                                                     .viewInsetsOf(
@@ -734,10 +742,15 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                           context: context,
                                                           builder: (context) {
                                                             return GestureDetector(
-                                                              onTap: () =>
-                                                                  FocusScope.of(
-                                                                          context)
-                                                                      .unfocus(),
+                                                              onTap: () {
+                                                                FocusScope.of(
+                                                                        context)
+                                                                    .unfocus();
+                                                                FocusManager
+                                                                    .instance
+                                                                    .primaryFocus
+                                                                    ?.unfocus();
+                                                              },
                                                               child: Padding(
                                                                 padding: MediaQuery
                                                                     .viewInsetsOf(
@@ -967,8 +980,11 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                       context: context,
                                       builder: (context) {
                                         return GestureDetector(
-                                          onTap: () =>
-                                              FocusScope.of(context).unfocus(),
+                                          onTap: () {
+                                            FocusScope.of(context).unfocus();
+                                            FocusManager.instance.primaryFocus
+                                                ?.unfocus();
+                                          },
                                           child: Padding(
                                             padding: MediaQuery.viewInsetsOf(
                                                 context),
@@ -1029,6 +1045,37 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                         [])
                                                     .contains(widget
                                                         .userReference)) {
+                                                  var notificationsRecordReference =
+                                                      NotificationsRecord
+                                                          .collection
+                                                          .doc();
+                                                  firestoreBatch.set(
+                                                      notificationsRecordReference,
+                                                      createNotificationsRecordData(
+                                                        sourceUser:
+                                                            currentUserReference,
+                                                        targetUser:
+                                                            columnUsersRecord
+                                                                .reference,
+                                                        time:
+                                                            getCurrentTimestamp,
+                                                        type: 'Follow',
+                                                      ));
+                                                  _model.notification =
+                                                      NotificationsRecord
+                                                          .getDocumentFromData(
+                                                              createNotificationsRecordData(
+                                                                sourceUser:
+                                                                    currentUserReference,
+                                                                targetUser:
+                                                                    columnUsersRecord
+                                                                        .reference,
+                                                                time:
+                                                                    getCurrentTimestamp,
+                                                                type: 'Follow',
+                                                              ),
+                                                              notificationsRecordReference);
+
                                                   firestoreBatch.update(
                                                       columnUsersRecord
                                                           .reference,
@@ -1039,6 +1086,28 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                                 FieldValue
                                                                     .arrayUnion([
                                                               currentUserReference
+                                                            ]),
+                                                            'notifications':
+                                                                FieldValue
+                                                                    .arrayUnion([
+                                                              getNotificationFirestoreData(
+                                                                createNotificationStruct(
+                                                                  type:
+                                                                      'Follow',
+                                                                  time:
+                                                                      getCurrentTimestamp,
+                                                                  clearUnsetFields:
+                                                                      false,
+                                                                ),
+                                                                true,
+                                                              )
+                                                            ]),
+                                                            'notificationsReferences':
+                                                                FieldValue
+                                                                    .arrayUnion([
+                                                              _model
+                                                                  .notification
+                                                                  ?.reference
                                                             ]),
                                                           },
                                                         ),
@@ -1091,6 +1160,8 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                               } finally {
                                                 await firestoreBatch.commit();
                                               }
+
+                                              safeSetState(() {});
                                             },
                                             text: (currentUserDocument
                                                             ?.following
@@ -1321,7 +1392,11 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                                   'isShort',
                                                                   isEqualTo:
                                                                       false,
-                                                                ),
+                                                                )
+                                                                .orderBy(
+                                                                    'TimePosted',
+                                                                    descending:
+                                                                        true),
                                                   ),
                                                   builder: (context, snapshot) {
                                                     // Customize what your widget looks like when it's loading.
@@ -1405,7 +1480,8 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                             child:
                                                                 Image.network(
                                                               gridViewPostsRecord
-                                                                  .media.first,
+                                                                  .media
+                                                                  .firstOrNull!,
                                                               width: 200.0,
                                                               height: 200.0,
                                                               fit: BoxFit.cover,
@@ -1424,12 +1500,20 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                   stream: queryThreadsRecord(
                                                     queryBuilder:
                                                         (threadsRecord) =>
-                                                            threadsRecord.where(
-                                                      'Author',
-                                                      isEqualTo:
-                                                          columnUsersRecord
-                                                              .reference,
-                                                    ),
+                                                            threadsRecord
+                                                                .where(
+                                                                  'Author',
+                                                                  isEqualTo:
+                                                                      columnUsersRecord
+                                                                          .reference,
+                                                                  isNull: (columnUsersRecord
+                                                                          .reference) ==
+                                                                      null,
+                                                                )
+                                                                .orderBy(
+                                                                    'TimeStamp',
+                                                                    descending:
+                                                                        true),
                                                   ),
                                                   builder: (context, snapshot) {
                                                     // Customize what your widget looks like when it's loading.
@@ -1498,7 +1582,11 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                                   'isShort',
                                                                   isEqualTo:
                                                                       true,
-                                                                ),
+                                                                )
+                                                                .orderBy(
+                                                                    'TimePosted',
+                                                                    descending:
+                                                                        true),
                                                   ),
                                                   builder: (context, snapshot) {
                                                     // Customize what your widget looks like when it's loading.

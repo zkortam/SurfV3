@@ -21,6 +21,7 @@ class FlutterFlowSwipeableStack extends StatefulWidget {
     this.threshold,
     this.cardPadding,
     this.backCardOffset,
+    this.allowedSwipeDirection,
   });
 
   final Widget Function(BuildContext, int) itemBuilder;
@@ -38,6 +39,7 @@ class FlutterFlowSwipeableStack extends StatefulWidget {
   final double? threshold;
   final EdgeInsetsGeometry? cardPadding;
   final Offset? backCardOffset;
+  final AllowedSwipeDirection? allowedSwipeDirection;
 
   @override
   _FFSwipeableStackState createState() => _FFSwipeableStackState();
@@ -74,6 +76,9 @@ class _FFSwipeableStackState extends State<FlutterFlowSwipeableStack> {
           const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
       backCardOffset: widget.backCardOffset ?? const Offset(0, 40),
       numberOfCardsDisplayed: min(widget.cardDisplayCount, widget.itemCount),
+      allowedSwipeDirection: widget.allowedSwipeDirection == null
+          ? const AllowedSwipeDirection.all()
+          : widget.allowedSwipeDirection!,
     );
   }
 }

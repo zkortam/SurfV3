@@ -69,7 +69,10 @@ class _SingleArticleWidgetState extends State<SingleArticleWidget> {
         final singleArticleUsersRecord = snapshot.data!;
 
         return GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () {
+            FocusScope.of(context).unfocus();
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -352,10 +355,13 @@ class _SingleArticleWidgetState extends State<SingleArticleWidget> {
                                                     context: context,
                                                     builder: (context) {
                                                       return GestureDetector(
-                                                        onTap: () =>
-                                                            FocusScope.of(
-                                                                    context)
-                                                                .unfocus(),
+                                                        onTap: () {
+                                                          FocusScope.of(context)
+                                                              .unfocus();
+                                                          FocusManager.instance
+                                                              .primaryFocus
+                                                              ?.unfocus();
+                                                        },
                                                         child: Padding(
                                                           padding: MediaQuery
                                                               .viewInsetsOf(
@@ -364,6 +370,9 @@ class _SingleArticleWidgetState extends State<SingleArticleWidget> {
                                                             thread: widget
                                                                 .article
                                                                 ?.reference,
+                                                            authorID:
+                                                                singleArticleUsersRecord
+                                                                    .reference,
                                                           ),
                                                         ),
                                                       );

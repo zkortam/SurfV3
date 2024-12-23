@@ -15,16 +15,34 @@
       ]
     },
     {
+      "collectionGroup": "Threads",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isArticle",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "TimeStamp",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "posts",
       "queryScope": "COLLECTION",
       "fields": [
+        {
+          "fieldPath": "Author",
+          "order": "ASCENDING"
+        },
         {
           "fieldPath": "isShort",
           "order": "ASCENDING"
         },
         {
           "fieldPath": "TimePosted",
-          "order": "ASCENDING"
+          "order": "DESCENDING"
         }
       ]
     },
@@ -33,7 +51,7 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "isArticle",
+          "fieldPath": "Author",
           "order": "ASCENDING"
         },
         {
@@ -80,20 +98,6 @@
         },
         {
           "fieldPath": "TimeStamp",
-          "order": "DESCENDING"
-        }
-      ]
-    },
-    {
-      "collectionGroup": "posts",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "Author",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "TimePosted",
           "order": "DESCENDING"
         }
       ]

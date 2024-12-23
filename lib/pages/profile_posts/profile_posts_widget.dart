@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'profile_posts_model.dart';
 export 'profile_posts_model.dart';
 
@@ -33,9 +32,10 @@ class _ProfilePostsWidgetState extends State<ProfilePostsWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await Future.delayed(const Duration(milliseconds: 500));
       await _model.singlePostList?.animateTo(
         _model.singlePostList!.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 100),
+        duration: const Duration(milliseconds: 1000),
         curve: Curves.ease,
       );
     });
@@ -53,7 +53,10 @@ class _ProfilePostsWidgetState extends State<ProfilePostsWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -64,8 +67,8 @@ class _ProfilePostsWidgetState extends State<ProfilePostsWidget> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                FutureBuilder<List<PostsRecord>>(
-                  future: queryPostsRecordOnce(
+                StreamBuilder<List<PostsRecord>>(
+                  stream: queryPostsRecord(
                     queryBuilder: (postsRecord) => postsRecord
                         .where(
                           'Author',
@@ -74,6 +77,10 @@ class _ProfilePostsWidgetState extends State<ProfilePostsWidget> {
                         .where(
                           'TimePosted',
                           isGreaterThan: widget.post?.timePosted,
+                        )
+                        .where(
+                          'isShort',
+                          isEqualTo: false,
                         )
                         .orderBy('TimePosted', descending: true),
                   ),
@@ -103,8 +110,8 @@ class _ProfilePostsWidgetState extends State<ProfilePostsWidget> {
                         final listView1PostsRecord =
                             listView1PostsRecordList[listView1Index];
                         return Visibility(
-                          visible: widget.post?.postId !=
-                              listView1PostsRecord.postId,
+                          visible: widget.post?.reference !=
+                              listView1PostsRecord.reference,
                           child: PostWidget(
                             key: Key(
                                 'Keymf0_${listView1Index}_of_${listView1PostsRecordList.length}'),
@@ -131,10 +138,9 @@ class _ProfilePostsWidgetState extends State<ProfilePostsWidget> {
                     ),
                   ].divide(const SizedBox(height: 10.0)),
                 ),
-                PagedListView<DocumentSnapshot<Object?>?,
-                    PostsRecord>.separated(
-                  pagingController: _model.setListView2Controller(
-                    PostsRecord.collection
+                StreamBuilder<List<PostsRecord>>(
+                  stream: queryPostsRecord(
+                    queryBuilder: (postsRecord) => postsRecord
                         .where(
                           'Author',
                           isEqualTo: widget.post?.author,
@@ -143,51 +149,50 @@ class _ProfilePostsWidgetState extends State<ProfilePostsWidget> {
                           'TimePosted',
                           isLessThan: widget.post?.timePosted,
                         )
+                        .where(
+                          'isShort',
+                          isEqualTo: false,
+                        )
                         .orderBy('TimePosted', descending: true),
                   ),
-                  padding: EdgeInsets.zero,
-                  shrinkWrap: true,
-                  reverse: false,
-                  scrollDirection: Axis.vertical,
-                  separatorBuilder: (_, __) => const SizedBox(height: 10.0),
-                  builderDelegate: PagedChildBuilderDelegate<PostsRecord>(
-                    // Customize what your widget looks like when it's loading the first page.
-                    firstPageProgressIndicatorBuilder: (_) => Center(
-                      child: SizedBox(
-                        width: 40.0,
-                        height: 40.0,
-                        child: SpinKitFadingFour(
-                          color: FlutterFlowTheme.of(context).primary,
-                          size: 40.0,
-                        ),
-                      ),
-                    ),
-                    // Customize what your widget looks like when it's loading another page.
-                    newPageProgressIndicatorBuilder: (_) => Center(
-                      child: SizedBox(
-                        width: 40.0,
-                        height: 40.0,
-                        child: SpinKitFadingFour(
-                          color: FlutterFlowTheme.of(context).primary,
-                          size: 40.0,
-                        ),
-                      ),
-                    ),
-
-                    itemBuilder: (context, _, listView2Index) {
-                      final listView2PostsRecord = _model
-                          .listView2PagingController!.itemList![listView2Index];
-                      return Visibility(
-                        visible:
-                            widget.post?.postId != listView2PostsRecord.postId,
-                        child: PostWidget(
-                          key: Key(
-                              'Key39g_${listView2Index}_of_${_model.listView2PagingController!.itemList!.length}'),
-                          post: listView2PostsRecord,
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 40.0,
+                          height: 40.0,
+                          child: SpinKitFadingFour(
+                            color: FlutterFlowTheme.of(context).primary,
+                            size: 40.0,
+                          ),
                         ),
                       );
-                    },
-                  ),
+                    }
+                    List<PostsRecord> listView2PostsRecordList = snapshot.data!;
+
+                    return ListView.separated(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemCount: listView2PostsRecordList.length,
+                      separatorBuilder: (_, __) => const SizedBox(height: 10.0),
+                      itemBuilder: (context, listView2Index) {
+                        final listView2PostsRecord =
+                            listView2PostsRecordList[listView2Index];
+                        return Visibility(
+                          visible: widget.post?.reference !=
+                              listView2PostsRecord.reference,
+                          child: PostWidget(
+                            key: Key(
+                                'Key39g_${listView2Index}_of_${listView2PostsRecordList.length}'),
+                            post: listView2PostsRecord,
+                          ),
+                        );
+                      },
+                      controller: _model.listView2,
+                    );
+                  },
                 ),
               ].divide(const SizedBox(height: 10.0)),
             ),

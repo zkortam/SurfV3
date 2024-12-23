@@ -57,12 +57,16 @@ class UserDataStruct extends FFFirebaseStruct {
   bool hasThreadInteractions() => _threadInteractions != null;
 
   static UserDataStruct fromMap(Map<String, dynamic> data) => UserDataStruct(
-        postInteractions:
-            PostInteractionsStruct.maybeFromMap(data['postInteractions']),
-        shortInteractions:
-            ShortInteractionsStruct.maybeFromMap(data['shortInteractions']),
-        threadInteractions:
-            ThreadInteractionsStruct.maybeFromMap(data['threadInteractions']),
+        postInteractions: data['postInteractions'] is PostInteractionsStruct
+            ? data['postInteractions']
+            : PostInteractionsStruct.maybeFromMap(data['postInteractions']),
+        shortInteractions: data['shortInteractions'] is ShortInteractionsStruct
+            ? data['shortInteractions']
+            : ShortInteractionsStruct.maybeFromMap(data['shortInteractions']),
+        threadInteractions: data['threadInteractions']
+                is ThreadInteractionsStruct
+            ? data['threadInteractions']
+            : ThreadInteractionsStruct.maybeFromMap(data['threadInteractions']),
       );
 
   static UserDataStruct? maybeFromMap(dynamic data) =>

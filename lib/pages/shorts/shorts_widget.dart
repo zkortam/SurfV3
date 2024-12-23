@@ -1,10 +1,10 @@
 import '/backend/backend.dart';
+import '/components/loading_widget.dart';
 import '/components/nav_bar_shorts_widget.dart';
 import '/components/short_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'shorts_model.dart';
 export 'shorts_model.dart';
 
@@ -38,7 +38,10 @@ class _ShortsWidgetState extends State<ShortsWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -54,7 +57,7 @@ class _ShortsWidgetState extends State<ShortsWidget> {
                   children: [
                     Container(
                       width: double.infinity,
-                      height: MediaQuery.sizeOf(context).height * 0.94,
+                      height: MediaQuery.sizeOf(context).height * 0.95,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).secondaryBackground,
                       ),
@@ -65,20 +68,13 @@ class _ShortsWidgetState extends State<ShortsWidget> {
                                 'isShort',
                                 isEqualTo: true,
                               )
-                              .orderBy('TimePosted'),
+                              .orderBy('TimePosted', descending: true),
                         ),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
                           if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 40.0,
-                                height: 40.0,
-                                child: SpinKitFadingFour(
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  size: 40.0,
-                                ),
-                              ),
+                            return const Center(
+                              child: LoadingWidget(),
                             );
                           }
                           List<PostsRecord> pageViewPostsRecordList =
@@ -138,7 +134,7 @@ class _ShortsWidgetState extends State<ShortsWidget> {
                             child: Material(
                               color: Colors.transparent,
                               child: NavBarShortsWidget(
-                                page: 2,
+                                page: 1,
                               ),
                             ),
                           ),

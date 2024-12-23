@@ -18,6 +18,8 @@ export '/backend/firebase_dynamic_links/firebase_dynamic_links.dart'
 
 const kTransitionInfoKey = '__transition_info__';
 
+GlobalKey<NavigatorState> appNavigatorKey = GlobalKey<NavigatorState>();
+
 class AppStateNotifier extends ChangeNotifier {
   AppStateNotifier._();
 
@@ -75,6 +77,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
+      navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) => _RouteErrorBuilder(
         state: state,
         child: RootPageContext.wrap(
@@ -196,13 +199,33 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   'post',
                   ParamType.Document,
                 ),
+                postRef: params.getParam(
+                  'postRef',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['posts'],
+                ),
               ),
             ),
             FFRoute(
               name: 'SingleThread',
               path: 'singleThread',
               requireAuth: true,
-              builder: (context, params) => const SingleThreadWidget(),
+              asyncParams: {
+                'thread': getDoc(['Threads'], ThreadsRecord.fromSnapshot),
+              },
+              builder: (context, params) => SingleThreadWidget(
+                thread: params.getParam(
+                  'thread',
+                  ParamType.Document,
+                ),
+                threadRef: params.getParam(
+                  'threadRef',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['Threads'],
+                ),
+              ),
             ),
             FFRoute(
               name: 'Spaces',
@@ -345,6 +368,32 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 chat: params.getParam(
                   'chat',
                   ParamType.Document,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: 'NotificationsPage',
+              path: 'notificationsPage',
+              requireAuth: true,
+              builder: (context, params) => const NotificationsPageWidget(),
+            ),
+            FFRoute(
+              name: 'SingleShort',
+              path: 'singleShort',
+              requireAuth: true,
+              asyncParams: {
+                'short': getDoc(['posts'], PostsRecord.fromSnapshot),
+              },
+              builder: (context, params) => SingleShortWidget(
+                short: params.getParam(
+                  'short',
+                  ParamType.Document,
+                ),
+                shortReference: params.getParam(
+                  'shortReference',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['posts'],
                 ),
               ),
             )

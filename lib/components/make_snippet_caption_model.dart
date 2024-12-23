@@ -7,7 +7,7 @@ class MakeSnippetCaptionModel
     extends FlutterFlowModel<MakeSnippetCaptionWidget> {
   ///  Local state fields for this component.
 
-  String name = 'name';
+  String name = 'Everyone';
 
   Color color = const Color(0xff4b39ef);
 

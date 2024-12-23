@@ -12,16 +12,16 @@ class ShortInteractionsStruct extends FFFirebaseStruct {
     List<DocumentReference>? liked,
     List<DocumentReference>? disliked,
     List<DocumentReference>? commentNegative,
-    DocumentReference? commentPositive,
-    DocumentReference? shared,
     List<ViewerStruct>? viewedShorts,
+    List<DocumentReference>? commentPositive,
+    ShortSharedStruct? shared,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _liked = liked,
         _disliked = disliked,
         _commentNegative = commentNegative,
+        _viewedShorts = viewedShorts,
         _commentPositive = commentPositive,
         _shared = shared,
-        _viewedShorts = viewedShorts,
         super(firestoreUtilData);
 
   // "liked" field.
@@ -57,20 +57,6 @@ class ShortInteractionsStruct extends FFFirebaseStruct {
 
   bool hasCommentNegative() => _commentNegative != null;
 
-  // "commentPositive" field.
-  DocumentReference? _commentPositive;
-  DocumentReference? get commentPositive => _commentPositive;
-  set commentPositive(DocumentReference? val) => _commentPositive = val;
-
-  bool hasCommentPositive() => _commentPositive != null;
-
-  // "shared" field.
-  DocumentReference? _shared;
-  DocumentReference? get shared => _shared;
-  set shared(DocumentReference? val) => _shared = val;
-
-  bool hasShared() => _shared != null;
-
   // "ViewedShorts" field.
   List<ViewerStruct>? _viewedShorts;
   List<ViewerStruct> get viewedShorts => _viewedShorts ?? const [];
@@ -82,17 +68,41 @@ class ShortInteractionsStruct extends FFFirebaseStruct {
 
   bool hasViewedShorts() => _viewedShorts != null;
 
+  // "commentPositive" field.
+  List<DocumentReference>? _commentPositive;
+  List<DocumentReference> get commentPositive => _commentPositive ?? const [];
+  set commentPositive(List<DocumentReference>? val) => _commentPositive = val;
+
+  void updateCommentPositive(Function(List<DocumentReference>) updateFn) {
+    updateFn(_commentPositive ??= []);
+  }
+
+  bool hasCommentPositive() => _commentPositive != null;
+
+  // "shared" field.
+  ShortSharedStruct? _shared;
+  ShortSharedStruct get shared => _shared ?? ShortSharedStruct();
+  set shared(ShortSharedStruct? val) => _shared = val;
+
+  void updateShared(Function(ShortSharedStruct) updateFn) {
+    updateFn(_shared ??= ShortSharedStruct());
+  }
+
+  bool hasShared() => _shared != null;
+
   static ShortInteractionsStruct fromMap(Map<String, dynamic> data) =>
       ShortInteractionsStruct(
         liked: getDataList(data['liked']),
         disliked: getDataList(data['disliked']),
         commentNegative: getDataList(data['commentNegative']),
-        commentPositive: data['commentPositive'] as DocumentReference?,
-        shared: data['shared'] as DocumentReference?,
         viewedShorts: getStructList(
           data['ViewedShorts'],
           ViewerStruct.fromMap,
         ),
+        commentPositive: getDataList(data['commentPositive']),
+        shared: data['shared'] is ShortSharedStruct
+            ? data['shared']
+            : ShortSharedStruct.maybeFromMap(data['shared']),
       );
 
   static ShortInteractionsStruct? maybeFromMap(dynamic data) => data is Map
@@ -103,9 +113,9 @@ class ShortInteractionsStruct extends FFFirebaseStruct {
         'liked': _liked,
         'disliked': _disliked,
         'commentNegative': _commentNegative,
-        'commentPositive': _commentPositive,
-        'shared': _shared,
         'ViewedShorts': _viewedShorts?.map((e) => e.toMap()).toList(),
+        'commentPositive': _commentPositive,
+        'shared': _shared?.toMap(),
       }.withoutNulls;
 
   @override
@@ -125,18 +135,19 @@ class ShortInteractionsStruct extends FFFirebaseStruct {
           ParamType.DocumentReference,
           isList: true,
         ),
-        'commentPositive': serializeParam(
-          _commentPositive,
-          ParamType.DocumentReference,
-        ),
-        'shared': serializeParam(
-          _shared,
-          ParamType.DocumentReference,
-        ),
         'ViewedShorts': serializeParam(
           _viewedShorts,
           ParamType.DataStruct,
           isList: true,
+        ),
+        'commentPositive': serializeParam(
+          _commentPositive,
+          ParamType.DocumentReference,
+          isList: true,
+        ),
+        'shared': serializeParam(
+          _shared,
+          ParamType.DataStruct,
         ),
       }.withoutNulls;
 
@@ -161,23 +172,23 @@ class ShortInteractionsStruct extends FFFirebaseStruct {
           true,
           collectionNamePath: ['posts'],
         ),
-        commentPositive: deserializeParam(
-          data['commentPositive'],
-          ParamType.DocumentReference,
-          false,
-          collectionNamePath: ['posts'],
-        ),
-        shared: deserializeParam(
-          data['shared'],
-          ParamType.DocumentReference,
-          false,
-          collectionNamePath: ['posts'],
-        ),
         viewedShorts: deserializeStructParam<ViewerStruct>(
           data['ViewedShorts'],
           ParamType.DataStruct,
           true,
           structBuilder: ViewerStruct.fromSerializableMap,
+        ),
+        commentPositive: deserializeParam<DocumentReference>(
+          data['commentPositive'],
+          ParamType.DocumentReference,
+          true,
+          collectionNamePath: ['posts'],
+        ),
+        shared: deserializeStructParam(
+          data['shared'],
+          ParamType.DataStruct,
+          false,
+          structBuilder: ShortSharedStruct.fromSerializableMap,
         ),
       );
 
@@ -191,9 +202,9 @@ class ShortInteractionsStruct extends FFFirebaseStruct {
         listEquality.equals(liked, other.liked) &&
         listEquality.equals(disliked, other.disliked) &&
         listEquality.equals(commentNegative, other.commentNegative) &&
-        commentPositive == other.commentPositive &&
-        shared == other.shared &&
-        listEquality.equals(viewedShorts, other.viewedShorts);
+        listEquality.equals(viewedShorts, other.viewedShorts) &&
+        listEquality.equals(commentPositive, other.commentPositive) &&
+        shared == other.shared;
   }
 
   @override
@@ -201,23 +212,21 @@ class ShortInteractionsStruct extends FFFirebaseStruct {
         liked,
         disliked,
         commentNegative,
+        viewedShorts,
         commentPositive,
-        shared,
-        viewedShorts
+        shared
       ]);
 }
 
 ShortInteractionsStruct createShortInteractionsStruct({
-  DocumentReference? commentPositive,
-  DocumentReference? shared,
+  ShortSharedStruct? shared,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
   bool delete = false,
 }) =>
     ShortInteractionsStruct(
-      commentPositive: commentPositive,
-      shared: shared,
+      shared: shared ?? (clearUnsetFields ? ShortSharedStruct() : null),
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,
@@ -274,6 +283,14 @@ Map<String, dynamic> getShortInteractionsFirestoreData(
     return {};
   }
   final firestoreData = mapToFirestore(shortInteractions.toMap());
+
+  // Handle nested data for "shared" field.
+  addShortSharedStructData(
+    firestoreData,
+    shortInteractions.hasShared() ? shortInteractions.shared : null,
+    'shared',
+    forFieldValue,
+  );
 
   // Add any Firestore field values
   shortInteractions.firestoreUtilData.fieldValues

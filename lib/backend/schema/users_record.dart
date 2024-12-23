@@ -152,6 +152,35 @@ class UsersRecord extends FirestoreRecord {
   UserDataStruct get userData => _userData ?? UserDataStruct();
   bool hasUserData() => _userData != null;
 
+  // "postInteractions" field.
+  PostInteractionsStruct? _postInteractions;
+  PostInteractionsStruct get postInteractions =>
+      _postInteractions ?? PostInteractionsStruct();
+  bool hasPostInteractions() => _postInteractions != null;
+
+  // "threadInteractions" field.
+  ThreadInteractionsStruct? _threadInteractions;
+  ThreadInteractionsStruct get threadInteractions =>
+      _threadInteractions ?? ThreadInteractionsStruct();
+  bool hasThreadInteractions() => _threadInteractions != null;
+
+  // "shortInteractions" field.
+  ShortInteractionsStruct? _shortInteractions;
+  ShortInteractionsStruct get shortInteractions =>
+      _shortInteractions ?? ShortInteractionsStruct();
+  bool hasShortInteractions() => _shortInteractions != null;
+
+  // "notifications" field.
+  List<NotificationStruct>? _notifications;
+  List<NotificationStruct> get notifications => _notifications ?? const [];
+  bool hasNotifications() => _notifications != null;
+
+  // "notificationsReferences" field.
+  List<DocumentReference>? _notificationsReferences;
+  List<DocumentReference> get notificationsReferences =>
+      _notificationsReferences ?? const [];
+  bool hasNotificationsReferences() => _notificationsReferences != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -170,22 +199,49 @@ class UsersRecord extends FirestoreRecord {
     _ipAddress = snapshotData['ip_address'] as String?;
     _dirFeedback = getDataList(snapshotData['dir_feedback']);
     _deviceType = snapshotData['device_type'] as bool?;
-    _threadSettings =
-        ThreadSettingsStruct.maybeFromMap(snapshotData['threadSettings']);
+    _threadSettings = snapshotData['threadSettings'] is ThreadSettingsStruct
+        ? snapshotData['threadSettings']
+        : ThreadSettingsStruct.maybeFromMap(snapshotData['threadSettings']);
     _followers = getDataList(snapshotData['followers']);
     _following = getDataList(snapshotData['following']);
-    _algorithmPreferences = UserAlgorithmPreferencesStruct.maybeFromMap(
-        snapshotData['algorithmPreferences']);
+    _algorithmPreferences =
+        snapshotData['algorithmPreferences'] is UserAlgorithmPreferencesStruct
+            ? snapshotData['algorithmPreferences']
+            : UserAlgorithmPreferencesStruct.maybeFromMap(
+                snapshotData['algorithmPreferences']);
     _vibe = castToType<int>(snapshotData['vibe']);
     _latestSnippetTime = snapshotData['latestSnippetTime'] as DateTime?;
     _groups = getStructList(
       snapshotData['groups'],
       FollowerGroupStruct.fromMap,
     );
-    _userSettings =
-        UserSettingsStruct.maybeFromMap(snapshotData['userSettings']);
+    _userSettings = snapshotData['userSettings'] is UserSettingsStruct
+        ? snapshotData['userSettings']
+        : UserSettingsStruct.maybeFromMap(snapshotData['userSettings']);
     _blocked = getDataList(snapshotData['blocked']);
-    _userData = UserDataStruct.maybeFromMap(snapshotData['userData']);
+    _userData = snapshotData['userData'] is UserDataStruct
+        ? snapshotData['userData']
+        : UserDataStruct.maybeFromMap(snapshotData['userData']);
+    _postInteractions = snapshotData['postInteractions']
+            is PostInteractionsStruct
+        ? snapshotData['postInteractions']
+        : PostInteractionsStruct.maybeFromMap(snapshotData['postInteractions']);
+    _threadInteractions =
+        snapshotData['threadInteractions'] is ThreadInteractionsStruct
+            ? snapshotData['threadInteractions']
+            : ThreadInteractionsStruct.maybeFromMap(
+                snapshotData['threadInteractions']);
+    _shortInteractions =
+        snapshotData['shortInteractions'] is ShortInteractionsStruct
+            ? snapshotData['shortInteractions']
+            : ShortInteractionsStruct.maybeFromMap(
+                snapshotData['shortInteractions']);
+    _notifications = getStructList(
+      snapshotData['notifications'],
+      NotificationStruct.fromMap,
+    );
+    _notificationsReferences =
+        getDataList(snapshotData['notificationsReferences']);
   }
 
   static CollectionReference get collection =>
@@ -244,6 +300,9 @@ Map<String, dynamic> createUsersRecordData({
   DateTime? latestSnippetTime,
   UserSettingsStruct? userSettings,
   UserDataStruct? userData,
+  PostInteractionsStruct? postInteractions,
+  ThreadInteractionsStruct? threadInteractions,
+  ShortInteractionsStruct? shortInteractions,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -269,6 +328,9 @@ Map<String, dynamic> createUsersRecordData({
       'latestSnippetTime': latestSnippetTime,
       'userSettings': UserSettingsStruct().toMap(),
       'userData': UserDataStruct().toMap(),
+      'postInteractions': PostInteractionsStruct().toMap(),
+      'threadInteractions': ThreadInteractionsStruct().toMap(),
+      'shortInteractions': ShortInteractionsStruct().toMap(),
     }.withoutNulls,
   );
 
@@ -284,6 +346,18 @@ Map<String, dynamic> createUsersRecordData({
 
   // Handle nested data for "userData" field.
   addUserDataStructData(firestoreData, userData, 'userData');
+
+  // Handle nested data for "postInteractions" field.
+  addPostInteractionsStructData(
+      firestoreData, postInteractions, 'postInteractions');
+
+  // Handle nested data for "threadInteractions" field.
+  addThreadInteractionsStructData(
+      firestoreData, threadInteractions, 'threadInteractions');
+
+  // Handle nested data for "shortInteractions" field.
+  addShortInteractionsStructData(
+      firestoreData, shortInteractions, 'shortInteractions');
 
   return firestoreData;
 }
@@ -320,7 +394,13 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         listEquality.equals(e1?.groups, e2?.groups) &&
         e1?.userSettings == e2?.userSettings &&
         listEquality.equals(e1?.blocked, e2?.blocked) &&
-        e1?.userData == e2?.userData;
+        e1?.userData == e2?.userData &&
+        e1?.postInteractions == e2?.postInteractions &&
+        e1?.threadInteractions == e2?.threadInteractions &&
+        e1?.shortInteractions == e2?.shortInteractions &&
+        listEquality.equals(e1?.notifications, e2?.notifications) &&
+        listEquality.equals(
+            e1?.notificationsReferences, e2?.notificationsReferences);
   }
 
   @override
@@ -351,7 +431,12 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.groups,
         e?.userSettings,
         e?.blocked,
-        e?.userData
+        e?.userData,
+        e?.postInteractions,
+        e?.threadInteractions,
+        e?.shortInteractions,
+        e?.notifications,
+        e?.notificationsReferences
       ]);
 
   @override

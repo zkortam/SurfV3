@@ -35,6 +35,16 @@ class ChatMessagesRecord extends FirestoreRecord {
   String get image => _image ?? '';
   bool hasImage() => _image != null;
 
+  // "audio" field.
+  String? _audio;
+  String get audio => _audio ?? '';
+  bool hasAudio() => _audio != null;
+
+  // "file" field.
+  String? _file;
+  String get file => _file ?? '';
+  bool hasFile() => _file != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -42,6 +52,8 @@ class ChatMessagesRecord extends FirestoreRecord {
     _timeStamp = snapshotData['timeStamp'] as DateTime?;
     _authorID = snapshotData['authorID'] as DocumentReference?;
     _image = snapshotData['image'] as String?;
+    _audio = snapshotData['audio'] as String?;
+    _file = snapshotData['file'] as String?;
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -88,6 +100,8 @@ Map<String, dynamic> createChatMessagesRecordData({
   DateTime? timeStamp,
   DocumentReference? authorID,
   String? image,
+  String? audio,
+  String? file,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -95,6 +109,8 @@ Map<String, dynamic> createChatMessagesRecordData({
       'timeStamp': timeStamp,
       'authorID': authorID,
       'image': image,
+      'audio': audio,
+      'file': file,
     }.withoutNulls,
   );
 
@@ -110,12 +126,14 @@ class ChatMessagesRecordDocumentEquality
     return e1?.text == e2?.text &&
         e1?.timeStamp == e2?.timeStamp &&
         e1?.authorID == e2?.authorID &&
-        e1?.image == e2?.image;
+        e1?.image == e2?.image &&
+        e1?.audio == e2?.audio &&
+        e1?.file == e2?.file;
   }
 
   @override
-  int hash(ChatMessagesRecord? e) =>
-      const ListEquality().hash([e?.text, e?.timeStamp, e?.authorID, e?.image]);
+  int hash(ChatMessagesRecord? e) => const ListEquality()
+      .hash([e?.text, e?.timeStamp, e?.authorID, e?.image, e?.audio, e?.file]);
 
   @override
   bool isValidKey(Object? o) => o is ChatMessagesRecord;

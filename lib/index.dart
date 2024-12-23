@@ -20,7 +20,7 @@ export '/entry/single_thread/single_thread_widget.dart' show SingleThreadWidget;
 export '/pages/spaces/spaces_widget.dart' show SpacesWidget;
 export '/settings/enter_pin/enter_pin_widget.dart' show EnterPinWidget;
 export '/settings/settings/settings_widget.dart' show SettingsWidget;
-export '/entry/profile_posts/profile_posts_widget.dart' show ProfilePostsWidget;
+export '/pages/profile_posts/profile_posts_widget.dart' show ProfilePostsWidget;
 export '/pages/snippets/snippets_widget.dart' show SnippetsWidget;
 export '/settings/privacy/privacy_widget.dart' show PrivacyWidget;
 export '/settings/view_group/view_group_widget.dart' show ViewGroupWidget;
@@ -34,3 +34,6 @@ export '/entry/single_article/single_article_widget.dart'
     show SingleArticleWidget;
 export '/chat_main/chat_main_widget.dart' show ChatMainWidget;
 export '/single_chat/single_chat_widget.dart' show SingleChatWidget;
+export '/pages/notifications_page/notifications_page_widget.dart'
+    show NotificationsPageWidget;
+export '/entry/single_short/single_short_widget.dart' show SingleShortWidget;

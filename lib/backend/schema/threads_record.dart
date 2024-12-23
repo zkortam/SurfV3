@@ -110,7 +110,9 @@ class ThreadsRecord extends FirestoreRecord {
       VotersStruct.fromMap,
     );
     _hashtags = getDataList(snapshotData['Hashtags']);
-    _poll = PollStruct.maybeFromMap(snapshotData['Poll']);
+    _poll = snapshotData['Poll'] is PollStruct
+        ? snapshotData['Poll']
+        : PollStruct.maybeFromMap(snapshotData['Poll']);
     _audio = snapshotData['Audio'] as String?;
     _space = snapshotData['Space'] as String?;
     _isStealth = snapshotData['isStealth'] as bool?;
