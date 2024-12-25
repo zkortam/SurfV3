@@ -1,5 +1,5 @@
 // ignore_for_file: unnecessary_getters_setters
-
+import '/backend/algolia/serialization_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -107,6 +107,34 @@ class UserSettingsStruct extends FFFirebaseStruct {
           data['isSwipeFeed'],
           ParamType.bool,
           false,
+        ),
+      );
+
+  static UserSettingsStruct fromAlgoliaData(Map<String, dynamic> data) =>
+      UserSettingsStruct(
+        isPushNotif: convertAlgoliaParam(
+          data['isPushNotif'],
+          ParamType.bool,
+          false,
+        ),
+        isEmailNotif: convertAlgoliaParam(
+          data['isEmailNotif'],
+          ParamType.bool,
+          false,
+        ),
+        isSilent: convertAlgoliaParam(
+          data['isSilent'],
+          ParamType.bool,
+          false,
+        ),
+        isSwipeFeed: convertAlgoliaParam(
+          data['isSwipeFeed'],
+          ParamType.bool,
+          false,
+        ),
+        firestoreUtilData: const FirestoreUtilData(
+          clearUnsetFields: false,
+          create: true,
         ),
       );
 

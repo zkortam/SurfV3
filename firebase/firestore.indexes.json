@@ -1,15 +1,15 @@
 {
   "indexes": [
     {
-      "collectionGroup": "posts",
+      "collectionGroup": "users",
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "isShort",
-          "order": "ASCENDING"
+          "fieldPath": "followers",
+          "arrayConfig": "CONTAINS"
         },
         {
-          "fieldPath": "TimePosted",
+          "fieldPath": "latestSnippetTime",
           "order": "DESCENDING"
         }
       ]
@@ -24,7 +24,7 @@
         },
         {
           "fieldPath": "TimePosted",
-          "order": "ASCENDING"
+          "order": "DESCENDING"
         }
       ]
     },
@@ -34,6 +34,38 @@
       "fields": [
         {
           "fieldPath": "isArticle",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "TimeStamp",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "posts",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "Author",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isShort",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "TimePosted",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Threads",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "Author",
           "order": "ASCENDING"
         },
         {
@@ -80,20 +112,6 @@
         },
         {
           "fieldPath": "TimeStamp",
-          "order": "DESCENDING"
-        }
-      ]
-    },
-    {
-      "collectionGroup": "posts",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "Author",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "TimePosted",
           "order": "DESCENDING"
         }
       ]

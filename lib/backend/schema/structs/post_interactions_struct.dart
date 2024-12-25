@@ -1,5 +1,5 @@
 // ignore_for_file: unnecessary_getters_setters
-
+import '/backend/algolia/serialization_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -13,8 +13,8 @@ class PostInteractionsStruct extends FFFirebaseStruct {
     List<DocumentReference>? liked,
     List<DocumentReference>? disliked,
     List<DocumentReference>? commentNegative,
-    DocumentReference? commentPositive,
-    DocumentReference? shared,
+    List<DocumentReference>? commentPositive,
+    List<DocumentReference>? shared,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _liked = liked,
         _disliked = disliked,
@@ -57,16 +57,24 @@ class PostInteractionsStruct extends FFFirebaseStruct {
   bool hasCommentNegative() => _commentNegative != null;
 
   // "commentPositive" field.
-  DocumentReference? _commentPositive;
-  DocumentReference? get commentPositive => _commentPositive;
-  set commentPositive(DocumentReference? val) => _commentPositive = val;
+  List<DocumentReference>? _commentPositive;
+  List<DocumentReference> get commentPositive => _commentPositive ?? const [];
+  set commentPositive(List<DocumentReference>? val) => _commentPositive = val;
+
+  void updateCommentPositive(Function(List<DocumentReference>) updateFn) {
+    updateFn(_commentPositive ??= []);
+  }
 
   bool hasCommentPositive() => _commentPositive != null;
 
   // "shared" field.
-  DocumentReference? _shared;
-  DocumentReference? get shared => _shared;
-  set shared(DocumentReference? val) => _shared = val;
+  List<DocumentReference>? _shared;
+  List<DocumentReference> get shared => _shared ?? const [];
+  set shared(List<DocumentReference>? val) => _shared = val;
+
+  void updateShared(Function(List<DocumentReference>) updateFn) {
+    updateFn(_shared ??= []);
+  }
 
   bool hasShared() => _shared != null;
 
@@ -75,8 +83,8 @@ class PostInteractionsStruct extends FFFirebaseStruct {
         liked: getDataList(data['liked']),
         disliked: getDataList(data['disliked']),
         commentNegative: getDataList(data['commentNegative']),
-        commentPositive: data['commentPositive'] as DocumentReference?,
-        shared: data['shared'] as DocumentReference?,
+        commentPositive: getDataList(data['commentPositive']),
+        shared: getDataList(data['shared']),
       );
 
   static PostInteractionsStruct? maybeFromMap(dynamic data) => data is Map
@@ -111,10 +119,12 @@ class PostInteractionsStruct extends FFFirebaseStruct {
         'commentPositive': serializeParam(
           _commentPositive,
           ParamType.DocumentReference,
+          isList: true,
         ),
         'shared': serializeParam(
           _shared,
           ParamType.DocumentReference,
+          isList: true,
         ),
       }.withoutNulls;
 
@@ -139,17 +149,50 @@ class PostInteractionsStruct extends FFFirebaseStruct {
           true,
           collectionNamePath: ['posts'],
         ),
-        commentPositive: deserializeParam(
+        commentPositive: deserializeParam<DocumentReference>(
           data['commentPositive'],
           ParamType.DocumentReference,
-          false,
+          true,
           collectionNamePath: ['posts'],
         ),
-        shared: deserializeParam(
+        shared: deserializeParam<DocumentReference>(
           data['shared'],
           ParamType.DocumentReference,
-          false,
+          true,
           collectionNamePath: ['posts'],
+        ),
+      );
+
+  static PostInteractionsStruct fromAlgoliaData(Map<String, dynamic> data) =>
+      PostInteractionsStruct(
+        liked: convertAlgoliaParam<DocumentReference>(
+          data['liked'],
+          ParamType.DocumentReference,
+          true,
+        ),
+        disliked: convertAlgoliaParam<DocumentReference>(
+          data['disliked'],
+          ParamType.DocumentReference,
+          true,
+        ),
+        commentNegative: convertAlgoliaParam<DocumentReference>(
+          data['commentNegative'],
+          ParamType.DocumentReference,
+          true,
+        ),
+        commentPositive: convertAlgoliaParam<DocumentReference>(
+          data['commentPositive'],
+          ParamType.DocumentReference,
+          true,
+        ),
+        shared: convertAlgoliaParam<DocumentReference>(
+          data['shared'],
+          ParamType.DocumentReference,
+          true,
+        ),
+        firestoreUtilData: const FirestoreUtilData(
+          clearUnsetFields: false,
+          create: true,
         ),
       );
 
@@ -163,8 +206,8 @@ class PostInteractionsStruct extends FFFirebaseStruct {
         listEquality.equals(liked, other.liked) &&
         listEquality.equals(disliked, other.disliked) &&
         listEquality.equals(commentNegative, other.commentNegative) &&
-        commentPositive == other.commentPositive &&
-        shared == other.shared;
+        listEquality.equals(commentPositive, other.commentPositive) &&
+        listEquality.equals(shared, other.shared);
   }
 
   @override
@@ -173,16 +216,12 @@ class PostInteractionsStruct extends FFFirebaseStruct {
 }
 
 PostInteractionsStruct createPostInteractionsStruct({
-  DocumentReference? commentPositive,
-  DocumentReference? shared,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
   bool delete = false,
 }) =>
     PostInteractionsStruct(
-      commentPositive: commentPositive,
-      shared: shared,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

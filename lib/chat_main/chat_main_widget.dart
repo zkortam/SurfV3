@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/create_chat_widget.dart';
+import '/components/user_chat_search_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -40,7 +41,10 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -145,7 +149,32 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
                                                 size: 24.0,
                                               ),
                                               onPressed: () async {
-                                                context.safePop();
+                                                await showModalBottomSheet(
+                                                  isScrollControlled: true,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  enableDrag: false,
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return GestureDetector(
+                                                      onTap: () {
+                                                        FocusScope.of(context)
+                                                            .unfocus();
+                                                        FocusManager.instance
+                                                            .primaryFocus
+                                                            ?.unfocus();
+                                                      },
+                                                      child: Padding(
+                                                        padding: MediaQuery
+                                                            .viewInsetsOf(
+                                                                context),
+                                                        child:
+                                                            const UserChatSearchWidget(),
+                                                      ),
+                                                    );
+                                                  },
+                                                ).then((value) =>
+                                                    safeSetState(() {}));
                                               },
                                             ),
                                           ),
@@ -176,9 +205,13 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
                                                   context: context,
                                                   builder: (context) {
                                                     return GestureDetector(
-                                                      onTap: () =>
-                                                          FocusScope.of(context)
-                                                              .unfocus(),
+                                                      onTap: () {
+                                                        FocusScope.of(context)
+                                                            .unfocus();
+                                                        FocusManager.instance
+                                                            .primaryFocus
+                                                            ?.unfocus();
+                                                      },
                                                       child: Padding(
                                                         padding: MediaQuery
                                                             .viewInsetsOf(
@@ -375,38 +408,46 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.end,
                                           children: [
-                                            Text(
-                                              dateTimeFormat(
-                                                "relative",
-                                                listViewChatsRecord.lastTime!,
-                                                locale: FFLocalizations.of(
-                                                            context)
-                                                        .languageShortCode ??
-                                                    FFLocalizations.of(context)
-                                                        .languageCode,
+                                            Align(
+                                              alignment: const AlignmentDirectional(
+                                                  1.0, 0.0),
+                                              child: Text(
+                                                dateTimeFormat(
+                                                  "relative",
+                                                  listViewChatsRecord.lastTime!,
+                                                  locale: FFLocalizations.of(
+                                                              context)
+                                                          .languageShortCode ??
+                                                      FFLocalizations.of(
+                                                              context)
+                                                          .languageCode,
+                                                ),
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Montserrat',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryText,
+                                                      letterSpacing: 0.0,
+                                                    ),
                                               ),
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Montserrat',
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondaryText,
-                                                    letterSpacing: 0.0,
-                                                  ),
                                             ),
                                             Padding(
                                               padding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 5.0, 0.0, 0.0),
                                               child: Stack(
                                                 children: [
-                                                  if (!functions.checkIfRead(
-                                                      listViewChatsRecord
-                                                          .lastTime!,
-                                                      listViewChatsRecord
-                                                          .userChatData
-                                                          .toList()))
+                                                  if (!functions
+                                                      .checkIfReadOther(
+                                                          listViewChatsRecord
+                                                              .lastTime!,
+                                                          listViewChatsRecord
+                                                              .userChatData
+                                                              .toList(),
+                                                          currentUserReference!))
                                                     Icon(
                                                       Icons.circle_outlined,
                                                       color:
@@ -415,12 +456,13 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
                                                               .primaryText,
                                                       size: 16.0,
                                                     ),
-                                                  if (functions.checkIfRead(
+                                                  if (functions.checkIfReadUser(
                                                       listViewChatsRecord
                                                           .lastTime!,
                                                       listViewChatsRecord
                                                           .userChatData
-                                                          .toList()))
+                                                          .toList(),
+                                                      currentUserReference!))
                                                     Icon(
                                                       Icons.check_circle_sharp,
                                                       color:

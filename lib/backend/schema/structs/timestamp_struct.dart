@@ -1,5 +1,5 @@
 // ignore_for_file: unnecessary_getters_setters
-
+import '/backend/algolia/serialization_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -46,6 +46,19 @@ class TimestampStruct extends FFFirebaseStruct {
           data['timestamp'],
           ParamType.DateTime,
           false,
+        ),
+      );
+
+  static TimestampStruct fromAlgoliaData(Map<String, dynamic> data) =>
+      TimestampStruct(
+        timestamp: convertAlgoliaParam(
+          data['timestamp'],
+          ParamType.DateTime,
+          false,
+        ),
+        firestoreUtilData: const FirestoreUtilData(
+          clearUnsetFields: false,
+          create: true,
         ),
       );
 

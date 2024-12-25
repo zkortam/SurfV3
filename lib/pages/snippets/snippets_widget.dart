@@ -1,9 +1,9 @@
 import '/backend/backend.dart';
+import '/components/loading_widget.dart';
 import '/components/snippet_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'snippets_model.dart';
 export 'snippets_model.dart';
 
@@ -42,7 +42,10 @@ class _SnippetsWidgetState extends State<SnippetsWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -72,15 +75,8 @@ class _SnippetsWidgetState extends State<SnippetsWidget> {
             builder: (context, snapshot) {
               // Customize what your widget looks like when it's loading.
               if (!snapshot.hasData) {
-                return Center(
-                  child: SizedBox(
-                    width: 40.0,
-                    height: 40.0,
-                    child: SpinKitFadingFour(
-                      color: FlutterFlowTheme.of(context).primary,
-                      size: 40.0,
-                    ),
-                  ),
+                return const Center(
+                  child: LoadingWidget(),
                 );
               }
               List<SnippetsRecord> pageViewSnippetsRecordList = snapshot.data!;

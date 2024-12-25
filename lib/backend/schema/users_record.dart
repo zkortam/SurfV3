@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import '/backend/algolia/serialization_util.dart';
+import '/backend/algolia/algolia_manager.dart';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -152,6 +154,35 @@ class UsersRecord extends FirestoreRecord {
   UserDataStruct get userData => _userData ?? UserDataStruct();
   bool hasUserData() => _userData != null;
 
+  // "postInteractions" field.
+  PostInteractionsStruct? _postInteractions;
+  PostInteractionsStruct get postInteractions =>
+      _postInteractions ?? PostInteractionsStruct();
+  bool hasPostInteractions() => _postInteractions != null;
+
+  // "threadInteractions" field.
+  ThreadInteractionsStruct? _threadInteractions;
+  ThreadInteractionsStruct get threadInteractions =>
+      _threadInteractions ?? ThreadInteractionsStruct();
+  bool hasThreadInteractions() => _threadInteractions != null;
+
+  // "shortInteractions" field.
+  ShortInteractionsStruct? _shortInteractions;
+  ShortInteractionsStruct get shortInteractions =>
+      _shortInteractions ?? ShortInteractionsStruct();
+  bool hasShortInteractions() => _shortInteractions != null;
+
+  // "notifications" field.
+  List<NotificationStruct>? _notifications;
+  List<NotificationStruct> get notifications => _notifications ?? const [];
+  bool hasNotifications() => _notifications != null;
+
+  // "notificationsReferences" field.
+  List<DocumentReference>? _notificationsReferences;
+  List<DocumentReference> get notificationsReferences =>
+      _notificationsReferences ?? const [];
+  bool hasNotificationsReferences() => _notificationsReferences != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -170,22 +201,49 @@ class UsersRecord extends FirestoreRecord {
     _ipAddress = snapshotData['ip_address'] as String?;
     _dirFeedback = getDataList(snapshotData['dir_feedback']);
     _deviceType = snapshotData['device_type'] as bool?;
-    _threadSettings =
-        ThreadSettingsStruct.maybeFromMap(snapshotData['threadSettings']);
+    _threadSettings = snapshotData['threadSettings'] is ThreadSettingsStruct
+        ? snapshotData['threadSettings']
+        : ThreadSettingsStruct.maybeFromMap(snapshotData['threadSettings']);
     _followers = getDataList(snapshotData['followers']);
     _following = getDataList(snapshotData['following']);
-    _algorithmPreferences = UserAlgorithmPreferencesStruct.maybeFromMap(
-        snapshotData['algorithmPreferences']);
+    _algorithmPreferences =
+        snapshotData['algorithmPreferences'] is UserAlgorithmPreferencesStruct
+            ? snapshotData['algorithmPreferences']
+            : UserAlgorithmPreferencesStruct.maybeFromMap(
+                snapshotData['algorithmPreferences']);
     _vibe = castToType<int>(snapshotData['vibe']);
     _latestSnippetTime = snapshotData['latestSnippetTime'] as DateTime?;
     _groups = getStructList(
       snapshotData['groups'],
       FollowerGroupStruct.fromMap,
     );
-    _userSettings =
-        UserSettingsStruct.maybeFromMap(snapshotData['userSettings']);
+    _userSettings = snapshotData['userSettings'] is UserSettingsStruct
+        ? snapshotData['userSettings']
+        : UserSettingsStruct.maybeFromMap(snapshotData['userSettings']);
     _blocked = getDataList(snapshotData['blocked']);
-    _userData = UserDataStruct.maybeFromMap(snapshotData['userData']);
+    _userData = snapshotData['userData'] is UserDataStruct
+        ? snapshotData['userData']
+        : UserDataStruct.maybeFromMap(snapshotData['userData']);
+    _postInteractions = snapshotData['postInteractions']
+            is PostInteractionsStruct
+        ? snapshotData['postInteractions']
+        : PostInteractionsStruct.maybeFromMap(snapshotData['postInteractions']);
+    _threadInteractions =
+        snapshotData['threadInteractions'] is ThreadInteractionsStruct
+            ? snapshotData['threadInteractions']
+            : ThreadInteractionsStruct.maybeFromMap(
+                snapshotData['threadInteractions']);
+    _shortInteractions =
+        snapshotData['shortInteractions'] is ShortInteractionsStruct
+            ? snapshotData['shortInteractions']
+            : ShortInteractionsStruct.maybeFromMap(
+                snapshotData['shortInteractions']);
+    _notifications = getStructList(
+      snapshotData['notifications'],
+      NotificationStruct.fromMap,
+    );
+    _notificationsReferences =
+        getDataList(snapshotData['notificationsReferences']);
   }
 
   static CollectionReference get collection =>
@@ -207,6 +265,128 @@ class UsersRecord extends FirestoreRecord {
     DocumentReference reference,
   ) =>
       UsersRecord._(reference, mapFromFirestore(data));
+
+  static UsersRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) =>
+      UsersRecord.getDocumentFromData(
+        {
+          'email': snapshot.data['email'],
+          'display_name': snapshot.data['display_name'],
+          'uid': snapshot.data['uid'],
+          'created_time': convertAlgoliaParam(
+            snapshot.data['created_time'],
+            ParamType.DateTime,
+            false,
+          ),
+          'phone_number': snapshot.data['phone_number'],
+          'name': snapshot.data['name'],
+          'photo_url': snapshot.data['photo_url'],
+          'banner': snapshot.data['banner'],
+          'bio': snapshot.data['bio'],
+          'pin': snapshot.data['pin'],
+          'isBiometric': snapshot.data['isBiometric'],
+          'isAnon': snapshot.data['isAnon'],
+          'dob': convertAlgoliaParam(
+            snapshot.data['dob'],
+            ParamType.DateTime,
+            false,
+          ),
+          'isStealth': snapshot.data['isStealth'],
+          'ip_address': snapshot.data['ip_address'],
+          'dir_feedback': safeGet(
+            () => snapshot.data['dir_feedback'].toList(),
+          ),
+          'device_type': snapshot.data['device_type'],
+          'threadSettings': ThreadSettingsStruct.fromAlgoliaData(
+                  snapshot.data['threadSettings'] ?? {})
+              .toMap(),
+          'followers': safeGet(
+            () => convertAlgoliaParam<DocumentReference>(
+              snapshot.data['followers'],
+              ParamType.DocumentReference,
+              true,
+            ).toList(),
+          ),
+          'following': safeGet(
+            () => convertAlgoliaParam<DocumentReference>(
+              snapshot.data['following'],
+              ParamType.DocumentReference,
+              true,
+            ).toList(),
+          ),
+          'algorithmPreferences':
+              UserAlgorithmPreferencesStruct.fromAlgoliaData(
+                      snapshot.data['algorithmPreferences'] ?? {})
+                  .toMap(),
+          'vibe': convertAlgoliaParam(
+            snapshot.data['vibe'],
+            ParamType.int,
+            false,
+          ),
+          'latestSnippetTime': convertAlgoliaParam(
+            snapshot.data['latestSnippetTime'],
+            ParamType.DateTime,
+            false,
+          ),
+          'groups': safeGet(
+            () => (snapshot.data['groups'] as Iterable)
+                .map((d) => FollowerGroupStruct.fromAlgoliaData(d).toMap())
+                .toList(),
+          ),
+          'userSettings': UserSettingsStruct.fromAlgoliaData(
+                  snapshot.data['userSettings'] ?? {})
+              .toMap(),
+          'blocked': safeGet(
+            () => convertAlgoliaParam<DocumentReference>(
+              snapshot.data['blocked'],
+              ParamType.DocumentReference,
+              true,
+            ).toList(),
+          ),
+          'userData':
+              UserDataStruct.fromAlgoliaData(snapshot.data['userData'] ?? {})
+                  .toMap(),
+          'postInteractions': PostInteractionsStruct.fromAlgoliaData(
+                  snapshot.data['postInteractions'] ?? {})
+              .toMap(),
+          'threadInteractions': ThreadInteractionsStruct.fromAlgoliaData(
+                  snapshot.data['threadInteractions'] ?? {})
+              .toMap(),
+          'shortInteractions': ShortInteractionsStruct.fromAlgoliaData(
+                  snapshot.data['shortInteractions'] ?? {})
+              .toMap(),
+          'notifications': safeGet(
+            () => (snapshot.data['notifications'] as Iterable)
+                .map((d) => NotificationStruct.fromAlgoliaData(d).toMap())
+                .toList(),
+          ),
+          'notificationsReferences': safeGet(
+            () => convertAlgoliaParam<DocumentReference>(
+              snapshot.data['notificationsReferences'],
+              ParamType.DocumentReference,
+              true,
+            ).toList(),
+          ),
+        },
+        UsersRecord.collection.doc(snapshot.objectID),
+      );
+
+  static Future<List<UsersRecord>> search({
+    String? term,
+    FutureOr<LatLng>? location,
+    int? maxResults,
+    double? searchRadiusMeters,
+    bool useCache = false,
+  }) =>
+      FFAlgoliaManager.instance
+          .algoliaQuery(
+            index: 'users',
+            term: term,
+            maxResults: maxResults,
+            location: location,
+            searchRadiusMeters: searchRadiusMeters,
+            useCache: useCache,
+          )
+          .then((r) => r.map(fromAlgolia).toList());
 
   @override
   String toString() =>
@@ -244,6 +424,9 @@ Map<String, dynamic> createUsersRecordData({
   DateTime? latestSnippetTime,
   UserSettingsStruct? userSettings,
   UserDataStruct? userData,
+  PostInteractionsStruct? postInteractions,
+  ThreadInteractionsStruct? threadInteractions,
+  ShortInteractionsStruct? shortInteractions,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -269,6 +452,9 @@ Map<String, dynamic> createUsersRecordData({
       'latestSnippetTime': latestSnippetTime,
       'userSettings': UserSettingsStruct().toMap(),
       'userData': UserDataStruct().toMap(),
+      'postInteractions': PostInteractionsStruct().toMap(),
+      'threadInteractions': ThreadInteractionsStruct().toMap(),
+      'shortInteractions': ShortInteractionsStruct().toMap(),
     }.withoutNulls,
   );
 
@@ -284,6 +470,18 @@ Map<String, dynamic> createUsersRecordData({
 
   // Handle nested data for "userData" field.
   addUserDataStructData(firestoreData, userData, 'userData');
+
+  // Handle nested data for "postInteractions" field.
+  addPostInteractionsStructData(
+      firestoreData, postInteractions, 'postInteractions');
+
+  // Handle nested data for "threadInteractions" field.
+  addThreadInteractionsStructData(
+      firestoreData, threadInteractions, 'threadInteractions');
+
+  // Handle nested data for "shortInteractions" field.
+  addShortInteractionsStructData(
+      firestoreData, shortInteractions, 'shortInteractions');
 
   return firestoreData;
 }
@@ -320,7 +518,13 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         listEquality.equals(e1?.groups, e2?.groups) &&
         e1?.userSettings == e2?.userSettings &&
         listEquality.equals(e1?.blocked, e2?.blocked) &&
-        e1?.userData == e2?.userData;
+        e1?.userData == e2?.userData &&
+        e1?.postInteractions == e2?.postInteractions &&
+        e1?.threadInteractions == e2?.threadInteractions &&
+        e1?.shortInteractions == e2?.shortInteractions &&
+        listEquality.equals(e1?.notifications, e2?.notifications) &&
+        listEquality.equals(
+            e1?.notificationsReferences, e2?.notificationsReferences);
   }
 
   @override
@@ -351,7 +555,12 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.groups,
         e?.userSettings,
         e?.blocked,
-        e?.userData
+        e?.userData,
+        e?.postInteractions,
+        e?.threadInteractions,
+        e?.shortInteractions,
+        e?.notifications,
+        e?.notificationsReferences
       ]);
 
   @override

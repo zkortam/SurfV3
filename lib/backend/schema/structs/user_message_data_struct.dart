@@ -1,5 +1,5 @@
 // ignore_for_file: unnecessary_getters_setters
-
+import '/backend/algolia/serialization_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -68,6 +68,24 @@ class UserMessageDataStruct extends FFFirebaseStruct {
           data['lastTimeOnline'],
           ParamType.DateTime,
           false,
+        ),
+      );
+
+  static UserMessageDataStruct fromAlgoliaData(Map<String, dynamic> data) =>
+      UserMessageDataStruct(
+        userReference: convertAlgoliaParam(
+          data['userReference'],
+          ParamType.DocumentReference,
+          false,
+        ),
+        lastTimeOnline: convertAlgoliaParam(
+          data['lastTimeOnline'],
+          ParamType.DateTime,
+          false,
+        ),
+        firestoreUtilData: const FirestoreUtilData(
+          clearUnsetFields: false,
+          create: true,
         ),
       );
 

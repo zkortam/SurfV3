@@ -12,10 +12,12 @@ export 'single_post_model.dart';
 class SinglePostWidget extends StatefulWidget {
   const SinglePostWidget({
     super.key,
-    required this.post,
+    this.post,
+    this.postRef,
   });
 
   final PostsRecord? post;
+  final DocumentReference? postRef;
 
   @override
   State<SinglePostWidget> createState() => _SinglePostWidgetState();
@@ -36,7 +38,7 @@ class _SinglePostWidgetState extends State<SinglePostWidget> {
       _model.currentPageLink = await generateCurrentPageLink(
         context,
         title: 'Post',
-        imageUrl: widget.post?.media.first,
+        imageUrl: widget.post?.media.firstOrNull,
         description: widget.post?.caption,
         forceRedirect: true,
       );
@@ -55,7 +57,10 @@ class _SinglePostWidgetState extends State<SinglePostWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -132,17 +137,51 @@ class _SinglePostWidgetState extends State<SinglePostWidget> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
-                  child: wrapWithModel(
-                    model: _model.postModel1,
-                    updateCallback: () => safeSetState(() {}),
-                    child: PostWidget(
-                      post: widget.post!,
+                if (widget.postRef != null)
+                  Padding(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
+                    child: StreamBuilder<PostsRecord>(
+                      stream: PostsRecord.getDocument(widget.postRef!),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 40.0,
+                              height: 40.0,
+                              child: SpinKitFadingFour(
+                                color: FlutterFlowTheme.of(context).primary,
+                                size: 40.0,
+                              ),
+                            ),
+                          );
+                        }
+
+                        final postPostsRecord = snapshot.data!;
+
+                        return wrapWithModel(
+                          model: _model.postModel1,
+                          updateCallback: () => safeSetState(() {}),
+                          child: PostWidget(
+                            post: postPostsRecord,
+                          ),
+                        );
+                      },
                     ),
                   ),
-                ),
+                if (widget.postRef == null)
+                  Padding(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
+                    child: wrapWithModel(
+                      model: _model.postModel2,
+                      updateCallback: () => safeSetState(() {}),
+                      child: PostWidget(
+                        post: widget.post!,
+                      ),
+                    ),
+                  ),
                 Padding(
                   padding:
                       const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),

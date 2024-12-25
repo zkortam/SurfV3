@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import '/backend/algolia/serialization_util.dart';
+import '/backend/algolia/algolia_manager.dart';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -110,7 +112,9 @@ class ThreadsRecord extends FirestoreRecord {
       VotersStruct.fromMap,
     );
     _hashtags = getDataList(snapshotData['Hashtags']);
-    _poll = PollStruct.maybeFromMap(snapshotData['Poll']);
+    _poll = snapshotData['Poll'] is PollStruct
+        ? snapshotData['Poll']
+        : PollStruct.maybeFromMap(snapshotData['Poll']);
     _audio = snapshotData['Audio'] as String?;
     _space = snapshotData['Space'] as String?;
     _isStealth = snapshotData['isStealth'] as bool?;
@@ -143,6 +147,69 @@ class ThreadsRecord extends FirestoreRecord {
     DocumentReference reference,
   ) =>
       ThreadsRecord._(reference, mapFromFirestore(data));
+
+  static ThreadsRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) =>
+      ThreadsRecord.getDocumentFromData(
+        {
+          'TimeStamp': convertAlgoliaParam(
+            snapshot.data['TimeStamp'],
+            ParamType.DateTime,
+            false,
+          ),
+          'Author': convertAlgoliaParam(
+            snapshot.data['Author'],
+            ParamType.DocumentReference,
+            false,
+          ),
+          'Title': snapshot.data['Title'],
+          'Text': snapshot.data['Text'],
+          'Votes': safeGet(
+            () => (snapshot.data['Votes'] as Iterable)
+                .map((d) => VotersStruct.fromAlgoliaData(d).toMap())
+                .toList(),
+          ),
+          'Hashtags': safeGet(
+            () => snapshot.data['Hashtags'].toList(),
+          ),
+          'Poll':
+              PollStruct.fromAlgoliaData(snapshot.data['Poll'] ?? {}).toMap(),
+          'Audio': snapshot.data['Audio'],
+          'Space': snapshot.data['Space'],
+          'isStealth': snapshot.data['isStealth'],
+          'isPrivate': snapshot.data['isPrivate'],
+          'isCommentsAllowed': snapshot.data['isCommentsAllowed'],
+          'summary': snapshot.data['summary'],
+          'Link': snapshot.data['Link'],
+          'comments': safeGet(
+            () => convertAlgoliaParam<DocumentReference>(
+              snapshot.data['comments'],
+              ParamType.DocumentReference,
+              true,
+            ).toList(),
+          ),
+          'isArticle': snapshot.data['isArticle'],
+          'image': snapshot.data['image'],
+        },
+        ThreadsRecord.collection.doc(snapshot.objectID),
+      );
+
+  static Future<List<ThreadsRecord>> search({
+    String? term,
+    FutureOr<LatLng>? location,
+    int? maxResults,
+    double? searchRadiusMeters,
+    bool useCache = false,
+  }) =>
+      FFAlgoliaManager.instance
+          .algoliaQuery(
+            index: 'Threads',
+            term: term,
+            maxResults: maxResults,
+            location: location,
+            searchRadiusMeters: searchRadiusMeters,
+            useCache: useCache,
+          )
+          .then((r) => r.map(fromAlgolia).toList());
 
   @override
   String toString() =>

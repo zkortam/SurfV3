@@ -1,5 +1,5 @@
 // ignore_for_file: unnecessary_getters_setters
-
+import '/backend/algolia/serialization_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -141,6 +141,40 @@ class UserAlgorithmPreferencesStruct extends FFFirebaseStruct {
           data['relevance'],
           ParamType.double,
           false,
+        ),
+      );
+
+  static UserAlgorithmPreferencesStruct fromAlgoliaData(
+          Map<String, dynamic> data) =>
+      UserAlgorithmPreferencesStruct(
+        vulgarity: convertAlgoliaParam(
+          data['vulgarity'],
+          ParamType.double,
+          false,
+        ),
+        politicalView: convertAlgoliaParam(
+          data['politicalView'],
+          ParamType.double,
+          false,
+        ),
+        informativeness: convertAlgoliaParam(
+          data['informativeness'],
+          ParamType.double,
+          false,
+        ),
+        toxicity: convertAlgoliaParam(
+          data['toxicity'],
+          ParamType.double,
+          false,
+        ),
+        relevance: convertAlgoliaParam(
+          data['relevance'],
+          ParamType.double,
+          false,
+        ),
+        firestoreUtilData: const FirestoreUtilData(
+          clearUnsetFields: false,
+          create: true,
         ),
       );
 

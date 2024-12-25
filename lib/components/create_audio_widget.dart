@@ -207,97 +207,99 @@ class _CreateAudioWidgetState extends State<CreateAudioWidget>
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: InkWell(
-              splashColor: Colors.transparent,
-              focusColor: Colors.transparent,
-              hoverColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              onTap: () async {
-                final selectedMedia = await selectMediaWithSourceBottomSheet(
-                  context: context,
-                  maxWidth: 600.00,
-                  maxHeight: 400.00,
-                  imageQuality: 76,
-                  allowPhoto: true,
-                  includeBlurHash: true,
-                );
-                if (selectedMedia != null &&
-                    selectedMedia.every(
-                        (m) => validateFileFormat(m.storagePath, context))) {
-                  safeSetState(() => _model.isDataUploading1 = true);
-                  var selectedUploadedFiles = <FFUploadedFile>[];
+          if ((_model.uploadedLocalFile1.bytes?.isEmpty ?? true))
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: InkWell(
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () async {
+                  final selectedMedia = await selectMediaWithSourceBottomSheet(
+                    context: context,
+                    maxWidth: 600.00,
+                    maxHeight: 400.00,
+                    imageQuality: 76,
+                    allowPhoto: true,
+                    includeBlurHash: true,
+                  );
+                  if (selectedMedia != null &&
+                      selectedMedia.every(
+                          (m) => validateFileFormat(m.storagePath, context))) {
+                    safeSetState(() => _model.isDataUploading1 = true);
+                    var selectedUploadedFiles = <FFUploadedFile>[];
 
-                  var downloadUrls = <String>[];
-                  try {
-                    selectedUploadedFiles = selectedMedia
-                        .map((m) => FFUploadedFile(
-                              name: m.storagePath.split('/').last,
-                              bytes: m.bytes,
-                              height: m.dimensions?.height,
-                              width: m.dimensions?.width,
-                              blurHash: m.blurHash,
-                            ))
-                        .toList();
+                    var downloadUrls = <String>[];
+                    try {
+                      selectedUploadedFiles = selectedMedia
+                          .map((m) => FFUploadedFile(
+                                name: m.storagePath.split('/').last,
+                                bytes: m.bytes,
+                                height: m.dimensions?.height,
+                                width: m.dimensions?.width,
+                                blurHash: m.blurHash,
+                              ))
+                          .toList();
 
-                    downloadUrls = (await Future.wait(
-                      selectedMedia.map(
-                        (m) async => await uploadData(m.storagePath, m.bytes),
-                      ),
-                    ))
-                        .where((u) => u != null)
-                        .map((u) => u!)
-                        .toList();
-                  } finally {
-                    _model.isDataUploading1 = false;
+                      downloadUrls = (await Future.wait(
+                        selectedMedia.map(
+                          (m) async => await uploadData(m.storagePath, m.bytes),
+                        ),
+                      ))
+                          .where((u) => u != null)
+                          .map((u) => u!)
+                          .toList();
+                    } finally {
+                      _model.isDataUploading1 = false;
+                    }
+                    if (selectedUploadedFiles.length == selectedMedia.length &&
+                        downloadUrls.length == selectedMedia.length) {
+                      safeSetState(() {
+                        _model.uploadedLocalFile1 = selectedUploadedFiles.first;
+                        _model.uploadedFileUrl1 = downloadUrls.first;
+                      });
+                    } else {
+                      safeSetState(() {});
+                      return;
+                    }
                   }
-                  if (selectedUploadedFiles.length == selectedMedia.length &&
-                      downloadUrls.length == selectedMedia.length) {
-                    safeSetState(() {
-                      _model.uploadedLocalFile1 = selectedUploadedFiles.first;
-                      _model.uploadedFileUrl1 = downloadUrls.first;
-                    });
-                  } else {
-                    safeSetState(() {});
-                    return;
-                  }
-                }
-              },
-              child: Container(
-                width: double.infinity,
-                height: 120.0,
-                constraints: const BoxConstraints(
-                  maxWidth: 600.0,
-                  maxHeight: 120.0,
-                ),
-                decoration: BoxDecoration(
-                  color: (_model.uploadedLocalFile1.bytes?.isNotEmpty ?? false)
-                      ? FlutterFlowTheme.of(context).secondaryBackground
-                      : FlutterFlowTheme.of(context).primary,
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: Image.network(
-                      _model.uploadedFileUrl1,
-                    ).image,
+                },
+                child: Container(
+                  width: double.infinity,
+                  height: 120.0,
+                  constraints: const BoxConstraints(
+                    maxWidth: 600.0,
+                    maxHeight: 120.0,
                   ),
-                  borderRadius: BorderRadius.circular(23.0),
-                ),
-                child: Stack(
-                  children: [
-                    Align(
-                      alignment: const AlignmentDirectional(-0.91, 0.76),
-                      child: Icon(
-                        Icons.file_upload_outlined,
-                        color: FlutterFlowTheme.of(context).secondaryText,
-                        size: 30.0,
-                      ),
+                  decoration: BoxDecoration(
+                    color: (_model.uploadedLocalFile1.bytes?.isNotEmpty ??
+                                false)
+                        ? FlutterFlowTheme.of(context).secondaryBackground
+                        : FlutterFlowTheme.of(context).primary,
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: Image.network(
+                        _model.uploadedFileUrl1,
+                      ).image,
                     ),
-                  ],
+                    borderRadius: BorderRadius.circular(23.0),
+                  ),
+                  child: Stack(
+                    children: [
+                      Align(
+                        alignment: const AlignmentDirectional(-0.91, 0.76),
+                        child: Icon(
+                          Icons.file_upload_outlined,
+                          color: FlutterFlowTheme.of(context).secondaryText,
+                          size: 30.0,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
           Stack(
             children: [
               if ((_model.uploadedLocalFile1.bytes?.isNotEmpty ?? false))

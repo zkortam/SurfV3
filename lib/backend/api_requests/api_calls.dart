@@ -35,6 +35,7 @@ class GetipaddrCall {
 class GetrecommendationsCall {
   static Future<ApiCallResponse> call({
     String? userId = '0',
+    String? collection = '',
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'getrecommendations',
@@ -44,6 +45,7 @@ class GetrecommendationsCall {
       headers: {},
       params: {
         'user_id': userId,
+        'collection': collection,
       },
       returnBody: true,
       encodeBodyUtf8: false,

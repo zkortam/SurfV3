@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import '/backend/algolia/serialization_util.dart';
+import '/backend/algolia/algolia_manager.dart';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -89,6 +91,59 @@ class CommentsRecord extends FirestoreRecord {
     DocumentReference reference,
   ) =>
       CommentsRecord._(reference, mapFromFirestore(data));
+
+  static CommentsRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) =>
+      CommentsRecord.getDocumentFromData(
+        {
+          'TimeStamp': convertAlgoliaParam(
+            snapshot.data['TimeStamp'],
+            ParamType.DateTime,
+            false,
+          ),
+          'PostReference': convertAlgoliaParam(
+            snapshot.data['PostReference'],
+            ParamType.DocumentReference,
+            false,
+          ),
+          'ThreadReference': convertAlgoliaParam(
+            snapshot.data['ThreadReference'],
+            ParamType.DocumentReference,
+            false,
+          ),
+          'Author': convertAlgoliaParam(
+            snapshot.data['Author'],
+            ParamType.DocumentReference,
+            false,
+          ),
+          'text': snapshot.data['text'],
+          'image': snapshot.data['image'],
+          'Votes': safeGet(
+            () => (snapshot.data['Votes'] as Iterable)
+                .map((d) => VotersStruct.fromAlgoliaData(d).toMap())
+                .toList(),
+          ),
+          'isStealth': snapshot.data['isStealth'],
+        },
+        CommentsRecord.collection.doc(snapshot.objectID),
+      );
+
+  static Future<List<CommentsRecord>> search({
+    String? term,
+    FutureOr<LatLng>? location,
+    int? maxResults,
+    double? searchRadiusMeters,
+    bool useCache = false,
+  }) =>
+      FFAlgoliaManager.instance
+          .algoliaQuery(
+            index: 'Comments',
+            term: term,
+            maxResults: maxResults,
+            location: location,
+            searchRadiusMeters: searchRadiusMeters,
+            useCache: useCache,
+          )
+          .then((r) => r.map(fromAlgolia).toList());
 
   @override
   String toString() =>

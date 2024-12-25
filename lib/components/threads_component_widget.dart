@@ -271,121 +271,109 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                           ),
                     ),
                   ),
-                  if (!widget.thread!.poll.isPoll)
-                    Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              10.0, 5.0, 10.0, 5.0),
-                          child: ClipRRect(
-                            child: Container(
-                              width: 450.0,
-                              constraints: const BoxConstraints(
-                                minHeight: 30.0,
-                                maxHeight: 300.0,
-                              ),
-                              decoration: const BoxDecoration(),
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Flexible(
-                                      child: SelectionArea(
-                                          child: Text(
-                                        valueOrDefault<String>(
-                                          widget.thread?.text,
-                                          'Text',
-                                        ),
-                                        maxLines: 6,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Montserrat',
-                                              letterSpacing: 0.0,
-                                            ),
-                                      )),
+                  Flexible(
+                    child: Container(
+                      constraints: const BoxConstraints(
+                        maxHeight: 200.0,
+                      ),
+                      decoration: const BoxDecoration(),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (!widget.thread!.poll.isPoll)
+                              Flexible(
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      10.0, 0.0, 10.0, 5.0),
+                                  child: SelectionArea(
+                                      child: Text(
+                                    valueOrDefault<String>(
+                                      widget.thread?.text,
+                                      'Text',
+                                    ).maybeHandleOverflow(
+                                      maxChars: 2000,
+                                      replacement: '…',
                                     ),
-                                  ],
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Montserrat',
+                                          letterSpacing: 0.0,
+                                        ),
+                                  )),
                                 ),
                               ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  if (widget.thread?.summary != null &&
+                      widget.thread?.summary != '')
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
+                      child: Container(
+                        width: double.infinity,
+                        constraints: const BoxConstraints(
+                          maxHeight: 80.0,
+                        ),
+                        decoration: BoxDecoration(
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          borderRadius: BorderRadius.circular(22.0),
+                          border: Border.all(
+                            color: FlutterFlowTheme.of(context).alternate,
+                            width: 3.0,
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              10.0, 7.0, 10.0, 7.0),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  FFLocalizations.of(context).getText(
+                                    'rq0mycy1' /* Summary */,
+                                  ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Montserrat',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        fontSize: 13.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                ),
+                                Flexible(
+                                  child: Text(
+                                    valueOrDefault<String>(
+                                      widget.thread?.summary,
+                                      'text',
+                                    ),
+                                    maxLines: 4,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Montserrat',
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          fontSize: 12.0,
+                                          letterSpacing: 0.0,
+                                        ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
-                        if (widget.thread?.summary != null &&
-                            widget.thread?.summary != '')
-                          Flexible(
-                            child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  5.0, 5.0, 5.0, 0.0),
-                              child: Container(
-                                width: double.infinity,
-                                constraints: const BoxConstraints(
-                                  maxHeight: 80.0,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  borderRadius: BorderRadius.circular(22.0),
-                                  border: Border.all(
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    width: 3.0,
-                                  ),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      10.0, 7.0, 10.0, 7.0),
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          FFLocalizations.of(context).getText(
-                                            'nsm3owiy' /* Summary */,
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Montserrat',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                fontSize: 13.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                        ),
-                                        Flexible(
-                                          child: Text(
-                                            valueOrDefault<String>(
-                                              widget.thread?.summary,
-                                              'text',
-                                            ),
-                                            maxLines: 2,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Montserrat',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
-                                                  fontSize: 12.0,
-                                                  letterSpacing: 0.0,
-                                                ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                      ],
+                      ),
                     ),
                   if (widget.thread?.poll.isPoll ?? true)
                     Column(
@@ -446,7 +434,8 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                       children: [
                                         Text(
                                           valueOrDefault<String>(
-                                            widget.thread?.poll.options[0],
+                                            widget.thread?.poll.options
+                                                .elementAtOrNull(0),
                                             'Option',
                                           ),
                                           style: FlutterFlowTheme.of(context)
@@ -506,7 +495,8 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                       children: [
                                         Text(
                                           valueOrDefault<String>(
-                                            widget.thread?.poll.options[1],
+                                            widget.thread?.poll.options
+                                                .elementAtOrNull(1),
                                             'Option',
                                           ),
                                           style: FlutterFlowTheme.of(context)
@@ -521,7 +511,8 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                   ),
                                 ),
                                 if (valueOrDefault<String>(
-                                      widget.thread?.poll.options[2],
+                                      widget.thread?.poll.options
+                                          .elementAtOrNull(2),
                                       'Option',
                                     ) !=
                                     ' ')
@@ -572,7 +563,8 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                         children: [
                                           Text(
                                             valueOrDefault<String>(
-                                              widget.thread?.poll.options[2],
+                                              widget.thread?.poll.options
+                                                  .elementAtOrNull(2),
                                               'Option',
                                             ),
                                             style: FlutterFlowTheme.of(context)
@@ -587,7 +579,8 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                     ),
                                   ),
                                 if (valueOrDefault<String>(
-                                      widget.thread?.poll.options[3],
+                                      widget.thread?.poll.options
+                                          .elementAtOrNull(3),
                                       'Option',
                                     ) !=
                                     ' ')
@@ -638,7 +631,8 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                         children: [
                                           Text(
                                             valueOrDefault<String>(
-                                              widget.thread?.poll.options[3],
+                                              widget.thread?.poll.options
+                                                  .elementAtOrNull(3),
                                               'Option',
                                             ),
                                             style: FlutterFlowTheme.of(context)
@@ -684,7 +678,8 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                         LinearPercentIndicator(
                                           percent: valueOrDefault<double>(
                                             functions.votePercent(
-                                                widget.thread!.votes.toList(),
+                                                widget.thread!.poll.voters
+                                                    .toList(),
                                                 1),
                                             0.0,
                                           ),
@@ -720,7 +715,9 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                     Text(
                                                       valueOrDefault<String>(
                                                         widget.thread?.poll
-                                                            .options[0],
+                                                            .options
+                                                            .elementAtOrNull(
+                                                                0),
                                                         'Option',
                                                       ),
                                                       style: FlutterFlowTheme
@@ -758,17 +755,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                   ],
                                                 ),
                                                 Text(
-                                                  '${valueOrDefault<String>(
-                                                    functions
-                                                        .roundAndMultiply(
-                                                            functions.votePercent(
-                                                                widget.thread!
-                                                                    .votes
-                                                                    .toList(),
-                                                                1))
-                                                        .toString(),
-                                                    '0',
-                                                  )}%',
+                                                  '${functions.roundAndMultiply(functions.votePercent(widget.thread!.poll.voters.toList(), 1)).toString()}%',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
@@ -807,7 +794,8 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                         LinearPercentIndicator(
                                           percent: valueOrDefault<double>(
                                             functions.votePercent(
-                                                widget.thread!.votes.toList(),
+                                                widget.thread!.poll.voters
+                                                    .toList(),
                                                 2),
                                             0.0,
                                           ),
@@ -843,7 +831,9 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                     Text(
                                                       valueOrDefault<String>(
                                                         widget.thread?.poll
-                                                            .options[1],
+                                                            .options
+                                                            .elementAtOrNull(
+                                                                1),
                                                         'Option',
                                                       ),
                                                       style: FlutterFlowTheme
@@ -881,17 +871,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                   ],
                                                 ),
                                                 Text(
-                                                  '${valueOrDefault<String>(
-                                                    functions
-                                                        .roundAndMultiply(
-                                                            functions.votePercent(
-                                                                widget.thread!
-                                                                    .votes
-                                                                    .toList(),
-                                                                2))
-                                                        .toString(),
-                                                    '0',
-                                                  )}%',
+                                                  '${functions.roundAndMultiply(functions.votePercent(widget.thread!.poll.voters.toList(), 2)).toString()}%',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
@@ -911,7 +891,8 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                   ),
                                 ),
                                 if (valueOrDefault<String>(
-                                      widget.thread?.poll.options[2],
+                                      widget.thread?.poll.options
+                                          .elementAtOrNull(2),
                                       'Option',
                                     ) !=
                                     ' ')
@@ -936,7 +917,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                           LinearPercentIndicator(
                                             percent: valueOrDefault<double>(
                                               functions.votePercent(
-                                                  widget.thread!.votes
+                                                  widget.thread!.poll.voters
                                                       .toList(),
                                                   3),
                                               0.0,
@@ -973,7 +954,9 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                       Text(
                                                         valueOrDefault<String>(
                                                           widget.thread?.poll
-                                                              .options[2],
+                                                              .options
+                                                              .elementAtOrNull(
+                                                                  2),
                                                           'Option',
                                                         ),
                                                         style:
@@ -1013,18 +996,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                     ],
                                                   ),
                                                   Text(
-                                                    '${valueOrDefault<String>(
-                                                      functions
-                                                          .roundAndMultiply(
-                                                              functions.votePercent(
-                                                                  widget
-                                                                      .thread!
-                                                                      .votes
-                                                                      .toList(),
-                                                                  3))
-                                                          .toString(),
-                                                      '0',
-                                                    )}%',
+                                                    '${functions.roundAndMultiply(functions.votePercent(widget.thread!.poll.voters.toList(), 3)).toString()}%',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
@@ -1044,7 +1016,8 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                     ),
                                   ),
                                 if (valueOrDefault<String>(
-                                      widget.thread?.poll.options[3],
+                                      widget.thread?.poll.options
+                                          .elementAtOrNull(3),
                                       'Option',
                                     ) !=
                                     ' ')
@@ -1069,7 +1042,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                           LinearPercentIndicator(
                                             percent: valueOrDefault<double>(
                                               functions.votePercent(
-                                                  widget.thread!.votes
+                                                  widget.thread!.poll.voters
                                                       .toList(),
                                                   4),
                                               0.0,
@@ -1106,7 +1079,9 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                       Text(
                                                         valueOrDefault<String>(
                                                           widget.thread?.poll
-                                                              .options[3],
+                                                              .options
+                                                              .elementAtOrNull(
+                                                                  3),
                                                           'Option',
                                                         ),
                                                         style:
@@ -1146,18 +1121,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                     ],
                                                   ),
                                                   Text(
-                                                    '${valueOrDefault<String>(
-                                                      functions
-                                                          .roundAndMultiply(
-                                                              functions.votePercent(
-                                                                  widget
-                                                                      .thread!
-                                                                      .votes
-                                                                      .toList(),
-                                                                  4))
-                                                          .toString(),
-                                                      '0',
-                                                    )}%',
+                                                    '${functions.roundAndMultiply(functions.votePercent(widget.thread!.poll.voters.toList(), 4)).toString()}%',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
@@ -1688,19 +1652,45 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                         size: 30.0,
                                       ),
                                       onPressed: () async {
+                                        var notificationsRecordReference =
+                                            NotificationsRecord.collection
+                                                .doc();
+                                        await notificationsRecordReference
+                                            .set(createNotificationsRecordData(
+                                          sourceThread:
+                                              widget.thread?.reference,
+                                          sourceUser: currentUserReference,
+                                          targetUser:
+                                              containerUsersRecord.reference,
+                                          time: getCurrentTimestamp,
+                                          type: 'Like',
+                                        ));
+                                        _model.notification = NotificationsRecord
+                                            .getDocumentFromData(
+                                                createNotificationsRecordData(
+                                                  sourceThread:
+                                                      widget.thread?.reference,
+                                                  sourceUser:
+                                                      currentUserReference,
+                                                  targetUser:
+                                                      containerUsersRecord
+                                                          .reference,
+                                                  time: getCurrentTimestamp,
+                                                  type: 'Like',
+                                                ),
+                                                notificationsRecordReference);
                                         if (functions
                                                 .voterInList(
                                                     widget.thread!.votes
                                                         .toList(),
                                                     currentUserReference!)
                                                 .toString() ==
-                                            '1') {
+                                            '-1') {
                                           await widget.thread!.reference
                                               .update({
                                             ...mapToFirestore(
                                               {
-                                                'Votes':
-                                                    FieldValue.arrayRemove([
+                                                'Votes': FieldValue.arrayUnion([
                                                   getVotersFirestoreData(
                                                     createVotersStruct(
                                                       userReference:
@@ -1714,75 +1704,96 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                               },
                                             ),
                                           });
-                                        } else {
-                                          if (functions
-                                                  .voterInList(
-                                                      widget.thread!.votes
-                                                          .toList(),
-                                                      currentUserReference!)
-                                                  .toString() ==
-                                              '-1') {
-                                            await widget.thread!.reference
-                                                .update({
-                                              ...mapToFirestore(
-                                                {
-                                                  'Votes':
-                                                      FieldValue.arrayUnion([
-                                                    getVotersFirestoreData(
-                                                      createVotersStruct(
-                                                        userReference:
-                                                            currentUserReference,
-                                                        voteValue: 1,
-                                                        clearUnsetFields: false,
-                                                      ),
-                                                      true,
-                                                    )
-                                                  ]),
-                                                },
-                                              ),
-                                            });
 
-                                            await widget.thread!.reference
-                                                .update({
-                                              ...mapToFirestore(
-                                                {
-                                                  'Votes':
-                                                      FieldValue.arrayRemove([
-                                                    getVotersFirestoreData(
-                                                      createVotersStruct(
-                                                        userReference:
-                                                            currentUserReference,
-                                                        voteValue: -1,
-                                                        clearUnsetFields: false,
-                                                      ),
-                                                      true,
-                                                    )
-                                                  ]),
-                                                },
-                                              ),
-                                            });
-                                          } else {
-                                            await widget.thread!.reference
-                                                .update({
-                                              ...mapToFirestore(
-                                                {
-                                                  'Votes':
-                                                      FieldValue.arrayUnion([
-                                                    getVotersFirestoreData(
-                                                      createVotersStruct(
-                                                        userReference:
-                                                            currentUserReference,
-                                                        voteValue: 1,
-                                                        clearUnsetFields: false,
-                                                      ),
-                                                      true,
-                                                    )
-                                                  ]),
-                                                },
-                                              ),
-                                            });
-                                          }
+                                          await widget.thread!.reference
+                                              .update({
+                                            ...mapToFirestore(
+                                              {
+                                                'Votes':
+                                                    FieldValue.arrayRemove([
+                                                  getVotersFirestoreData(
+                                                    createVotersStruct(
+                                                      userReference:
+                                                          currentUserReference,
+                                                      voteValue: -1,
+                                                      clearUnsetFields: false,
+                                                    ),
+                                                    true,
+                                                  )
+                                                ]),
+                                              },
+                                            ),
+                                          });
+
+                                          await containerUsersRecord.reference
+                                              .update({
+                                            ...mapToFirestore(
+                                              {
+                                                'vibe': FieldValue.increment(2),
+                                                'notifications':
+                                                    FieldValue.arrayUnion([
+                                                  getNotificationFirestoreData(
+                                                    createNotificationStruct(
+                                                      type: 'Like',
+                                                      time: getCurrentTimestamp,
+                                                      clearUnsetFields: false,
+                                                    ),
+                                                    true,
+                                                  )
+                                                ]),
+                                                'notificationsReferences':
+                                                    FieldValue.arrayUnion([
+                                                  _model.notification?.reference
+                                                ]),
+                                              },
+                                            ),
+                                          });
+                                        } else {
+                                          await widget.thread!.reference
+                                              .update({
+                                            ...mapToFirestore(
+                                              {
+                                                'Votes': FieldValue.arrayUnion([
+                                                  getVotersFirestoreData(
+                                                    createVotersStruct(
+                                                      userReference:
+                                                          currentUserReference,
+                                                      voteValue: 1,
+                                                      clearUnsetFields: false,
+                                                    ),
+                                                    true,
+                                                  )
+                                                ]),
+                                              },
+                                            ),
+                                          });
+
+                                          await containerUsersRecord.reference
+                                              .update({
+                                            ...mapToFirestore(
+                                              {
+                                                'vibe': FieldValue.increment(1),
+                                                'notifications':
+                                                    FieldValue.arrayUnion([
+                                                  getNotificationFirestoreData(
+                                                    createNotificationStruct(
+                                                      type: 'Like',
+                                                      time: getCurrentTimestamp,
+                                                      clearUnsetFields: false,
+                                                    ),
+                                                    true,
+                                                  )
+                                                ]),
+                                                'notificationsReferences':
+                                                    FieldValue.arrayUnion([
+                                                  _model.notification?.reference
+                                                ]),
+                                              },
+                                            ),
+                                          });
                                         }
+
+                                        safeSetState(() {});
                                       },
                                     ),
                                   ),
@@ -1846,101 +1857,45 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                     },
                                                   ),
                                                 });
+
+                                            firestoreBatch.update(
+                                                currentUserReference!,
+                                                createUsersRecordData(
+                                                  threadInteractions:
+                                                      createThreadInteractionsStruct(
+                                                    fieldValues: {
+                                                      'liked': FieldValue
+                                                          .arrayRemove([
+                                                        widget
+                                                            .thread?.reference
+                                                      ]),
+                                                    },
+                                                    clearUnsetFields: false,
+                                                  ),
+                                                ));
+                                          }
+                                          if (containerUsersRecord
+                                                  .threadInteractions.disliked
+                                                  .contains(widget
+                                                      .thread?.reference) ==
+                                              true) {
+                                            firestoreBatch.update(
+                                                currentUserReference!,
+                                                createUsersRecordData(
+                                                  threadInteractions:
+                                                      createThreadInteractionsStruct(
+                                                    fieldValues: {
+                                                      'disliked': FieldValue
+                                                          .arrayRemove([
+                                                        widget
+                                                            .thread?.reference
+                                                      ]),
+                                                    },
+                                                    clearUnsetFields: false,
+                                                  ),
+                                                ));
                                           } else {
-                                            if (functions
-                                                    .voterInList(
-                                                        widget.thread!.votes
-                                                            .toList(),
-                                                        currentUserReference!)
-                                                    .toString() ==
-                                                '-1') {
-                                              firestoreBatch.update(
-                                                  widget.thread!.reference, {
-                                                ...mapToFirestore(
-                                                  {
-                                                    'Votes':
-                                                        FieldValue.arrayUnion([
-                                                      getVotersFirestoreData(
-                                                        createVotersStruct(
-                                                          userReference:
-                                                              currentUserReference,
-                                                          voteValue: 1,
-                                                          clearUnsetFields:
-                                                              false,
-                                                        ),
-                                                        true,
-                                                      )
-                                                    ]),
-                                                  },
-                                                ),
-                                              });
-
-                                              firestoreBatch.update(
-                                                  widget.thread!.reference, {
-                                                ...mapToFirestore(
-                                                  {
-                                                    'Votes':
-                                                        FieldValue.arrayRemove([
-                                                      getVotersFirestoreData(
-                                                        createVotersStruct(
-                                                          userReference:
-                                                              currentUserReference,
-                                                          voteValue: -1,
-                                                          clearUnsetFields:
-                                                              false,
-                                                        ),
-                                                        true,
-                                                      )
-                                                    ]),
-                                                  },
-                                                ),
-                                              });
-
-                                              firestoreBatch.update(
-                                                  containerUsersRecord
-                                                      .reference,
-                                                  {
-                                                    ...mapToFirestore(
-                                                      {
-                                                        'vibe': FieldValue
-                                                            .increment(2),
-                                                      },
-                                                    ),
-                                                  });
-                                            } else {
-                                              firestoreBatch.update(
-                                                  widget.thread!.reference, {
-                                                ...mapToFirestore(
-                                                  {
-                                                    'Votes':
-                                                        FieldValue.arrayUnion([
-                                                      getVotersFirestoreData(
-                                                        createVotersStruct(
-                                                          userReference:
-                                                              currentUserReference,
-                                                          voteValue: 1,
-                                                          clearUnsetFields:
-                                                              false,
-                                                        ),
-                                                        true,
-                                                      )
-                                                    ]),
-                                                  },
-                                                ),
-                                              });
-
-                                              firestoreBatch.update(
-                                                  containerUsersRecord
-                                                      .reference,
-                                                  {
-                                                    ...mapToFirestore(
-                                                      {
-                                                        'vibe': FieldValue
-                                                            .increment(1),
-                                                      },
-                                                    ),
-                                                  });
-                                            }
+                                            return;
                                           }
                                         } finally {
                                           await firestoreBatch.commit();
@@ -1971,101 +1926,32 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                         size: 30.0,
                                       ),
                                       onPressed: () async {
-                                        if (functions
-                                                .voterInList(
-                                                    widget.thread!.votes
-                                                        .toList(),
-                                                    currentUserReference!)
-                                                .toString() ==
-                                            '-1') {
-                                          await widget.thread!.reference
-                                              .update({
-                                            ...mapToFirestore(
-                                              {
-                                                'Votes':
-                                                    FieldValue.arrayRemove([
-                                                  getVotersFirestoreData(
-                                                    createVotersStruct(
-                                                      userReference:
-                                                          currentUserReference,
-                                                      voteValue: -1,
-                                                      clearUnsetFields: false,
-                                                    ),
-                                                    true,
-                                                  )
-                                                ]),
-                                              },
-                                            ),
-                                          });
-                                        } else {
-                                          if (functions
-                                                  .voterInList(
-                                                      widget.thread!.votes
-                                                          .toList(),
-                                                      currentUserReference!)
-                                                  .toString() ==
-                                              '1') {
-                                            await widget.thread!.reference
-                                                .update({
-                                              ...mapToFirestore(
-                                                {
-                                                  'Votes':
-                                                      FieldValue.arrayUnion([
-                                                    getVotersFirestoreData(
-                                                      createVotersStruct(
-                                                        userReference:
-                                                            currentUserReference,
-                                                        voteValue: -1,
-                                                        clearUnsetFields: false,
-                                                      ),
-                                                      true,
-                                                    )
-                                                  ]),
-                                                },
-                                              ),
-                                            });
+                                        await widget.thread!.reference.update({
+                                          ...mapToFirestore(
+                                            {
+                                              'Votes': FieldValue.arrayRemove([
+                                                getVotersFirestoreData(
+                                                  createVotersStruct(
+                                                    userReference:
+                                                        currentUserReference,
+                                                    voteValue: -1,
+                                                    clearUnsetFields: false,
+                                                  ),
+                                                  true,
+                                                )
+                                              ]),
+                                            },
+                                          ),
+                                        });
 
-                                            await widget.thread!.reference
-                                                .update({
-                                              ...mapToFirestore(
-                                                {
-                                                  'Votes':
-                                                      FieldValue.arrayRemove([
-                                                    getVotersFirestoreData(
-                                                      createVotersStruct(
-                                                        userReference:
-                                                            currentUserReference,
-                                                        voteValue: 1,
-                                                        clearUnsetFields: false,
-                                                      ),
-                                                      true,
-                                                    )
-                                                  ]),
-                                                },
-                                              ),
-                                            });
-                                          } else {
-                                            await widget.thread!.reference
-                                                .update({
-                                              ...mapToFirestore(
-                                                {
-                                                  'Votes':
-                                                      FieldValue.arrayUnion([
-                                                    getVotersFirestoreData(
-                                                      createVotersStruct(
-                                                        userReference:
-                                                            currentUserReference,
-                                                        voteValue: -1,
-                                                        clearUnsetFields: false,
-                                                      ),
-                                                      true,
-                                                    )
-                                                  ]),
-                                                },
-                                              ),
-                                            });
-                                          }
-                                        }
+                                        await containerUsersRecord.reference
+                                            .update({
+                                          ...mapToFirestore(
+                                            {
+                                              'vibe': FieldValue.increment(1),
+                                            },
+                                          ),
+                                        });
                                       },
                                     ),
                                   ),
@@ -2097,13 +1983,13 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                           .toList(),
                                                       currentUserReference!)
                                                   .toString() ==
-                                              '-1') {
+                                              '1') {
                                             firestoreBatch.update(
                                                 widget.thread!.reference, {
                                               ...mapToFirestore(
                                                 {
                                                   'Votes':
-                                                      FieldValue.arrayRemove([
+                                                      FieldValue.arrayUnion([
                                                     getVotersFirestoreData(
                                                       createVotersStruct(
                                                         userReference:
@@ -2117,77 +2003,131 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                 },
                                               ),
                                             });
-                                          } else {
-                                            if (functions
-                                                    .voterInList(
-                                                        widget.thread!.votes
-                                                            .toList(),
-                                                        currentUserReference!)
-                                                    .toString() ==
-                                                '1') {
-                                              firestoreBatch.update(
-                                                  widget.thread!.reference, {
-                                                ...mapToFirestore(
-                                                  {
-                                                    'Votes':
-                                                        FieldValue.arrayUnion([
-                                                      getVotersFirestoreData(
-                                                        createVotersStruct(
-                                                          userReference:
-                                                              currentUserReference,
-                                                          voteValue: -1,
-                                                          clearUnsetFields:
-                                                              false,
-                                                        ),
-                                                        true,
-                                                      )
-                                                    ]),
-                                                  },
-                                                ),
-                                              });
 
-                                              firestoreBatch.update(
-                                                  widget.thread!.reference, {
-                                                ...mapToFirestore(
-                                                  {
-                                                    'Votes':
-                                                        FieldValue.arrayRemove([
-                                                      getVotersFirestoreData(
-                                                        createVotersStruct(
-                                                          userReference:
-                                                              currentUserReference,
-                                                          voteValue: 1,
-                                                          clearUnsetFields:
-                                                              false,
-                                                        ),
-                                                        true,
-                                                      )
-                                                    ]),
-                                                  },
-                                                ),
-                                              });
-                                            } else {
-                                              firestoreBatch.update(
-                                                  widget.thread!.reference, {
-                                                ...mapToFirestore(
-                                                  {
-                                                    'Votes':
-                                                        FieldValue.arrayUnion([
-                                                      getVotersFirestoreData(
-                                                        createVotersStruct(
-                                                          userReference:
-                                                              currentUserReference,
-                                                          voteValue: -1,
-                                                          clearUnsetFields:
-                                                              false,
-                                                        ),
-                                                        true,
-                                                      )
-                                                    ]),
-                                                  },
-                                                ),
-                                              });
-                                            }
+                                            firestoreBatch.update(
+                                                widget.thread!.reference, {
+                                              ...mapToFirestore(
+                                                {
+                                                  'Votes':
+                                                      FieldValue.arrayRemove([
+                                                    getVotersFirestoreData(
+                                                      createVotersStruct(
+                                                        userReference:
+                                                            currentUserReference,
+                                                        voteValue: 1,
+                                                        clearUnsetFields: false,
+                                                      ),
+                                                      true,
+                                                    )
+                                                  ]),
+                                                },
+                                              ),
+                                            });
+
+                                            firestoreBatch.update(
+                                                currentUserReference!,
+                                                createUsersRecordData(
+                                                  threadInteractions:
+                                                      createThreadInteractionsStruct(
+                                                    fieldValues: {
+                                                      'disliked': FieldValue
+                                                          .arrayRemove([
+                                                        widget
+                                                            .thread?.reference
+                                                      ]),
+                                                      'liked': FieldValue
+                                                          .arrayRemove([
+                                                        widget
+                                                            .thread?.reference
+                                                      ]),
+                                                    },
+                                                    clearUnsetFields: false,
+                                                  ),
+                                                ));
+
+                                            firestoreBatch.update(
+                                                containerUsersRecord.reference,
+                                                {
+                                                  ...mapToFirestore(
+                                                    {
+                                                      'vibe':
+                                                          FieldValue.increment(
+                                                              -(2)),
+                                                    },
+                                                  ),
+                                                });
+                                          } else {
+                                            firestoreBatch.update(
+                                                widget.thread!.reference, {
+                                              ...mapToFirestore(
+                                                {
+                                                  'Votes':
+                                                      FieldValue.arrayUnion([
+                                                    getVotersFirestoreData(
+                                                      createVotersStruct(
+                                                        userReference:
+                                                            currentUserReference,
+                                                        voteValue: -1,
+                                                        clearUnsetFields: false,
+                                                      ),
+                                                      true,
+                                                    )
+                                                  ]),
+                                                },
+                                              ),
+                                            });
+
+                                            firestoreBatch.update(
+                                                currentUserReference!,
+                                                createUsersRecordData(
+                                                  threadInteractions:
+                                                      createThreadInteractionsStruct(
+                                                    fieldValues: {
+                                                      'disliked': FieldValue
+                                                          .arrayUnion([
+                                                        widget
+                                                            .thread?.reference
+                                                      ]),
+                                                    },
+                                                    clearUnsetFields: false,
+                                                  ),
+                                                ));
+
+                                            firestoreBatch.update(
+                                                containerUsersRecord.reference,
+                                                {
+                                                  ...mapToFirestore(
+                                                    {
+                                                      'vibe':
+                                                          FieldValue.increment(
+                                                              -(1)),
+                                                    },
+                                                  ),
+                                                });
+                                          }
+
+                                          if (containerUsersRecord
+                                                  .threadInteractions.liked
+                                                  .contains(widget
+                                                      .thread?.reference) ==
+                                              true) {
+                                            firestoreBatch.update(
+                                                containerUsersRecord.reference,
+                                                createUsersRecordData(
+                                                  threadInteractions:
+                                                      createThreadInteractionsStruct(
+                                                    fieldValues: {
+                                                      'liked': FieldValue
+                                                          .arrayRemove([
+                                                        widget
+                                                            .thread?.reference
+                                                      ]),
+                                                    },
+                                                    clearUnsetFields: false,
+                                                  ),
+                                                ));
+                                          } else {
+                                            return;
                                           }
                                         } finally {
                                           await firestoreBatch.commit();
@@ -2206,7 +2146,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                   borderWidth: 1.0,
                                   buttonSize: 45.0,
                                   icon: Icon(
-                                    Icons.comment_outlined,
+                                    Icons.message_rounded,
                                     color: FlutterFlowTheme.of(context)
                                         .primaryText,
                                     size: 30.0,
@@ -2222,6 +2162,8 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                               MediaQuery.viewInsetsOf(context),
                                           child: CommentsWidget(
                                             thread: widget.thread?.reference,
+                                            authorID:
+                                                containerUsersRecord.reference,
                                           ),
                                         );
                                       },

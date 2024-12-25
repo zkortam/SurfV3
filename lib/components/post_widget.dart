@@ -15,6 +15,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -25,9 +26,11 @@ class PostWidget extends StatefulWidget {
   const PostWidget({
     super.key,
     required this.post,
-  });
+    bool? isLike,
+  }) : isLike = isLike ?? true;
 
   final PostsRecord? post;
+  final bool isLike;
 
   @override
   State<PostWidget> createState() => _PostWidgetState();
@@ -48,6 +51,13 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _model = createModel(context, () => PostModel());
+
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.voteValue = functions.voterInList(
+          widget.post!.voters.toList(), currentUserReference!);
+      safeSetState(() {});
+    });
 
     animationsMap.addAll({
       'containerOnActionTriggerAnimation1': AnimationInfo(
@@ -210,7 +220,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
             focusColor: Colors.transparent,
             hoverColor: Colors.transparent,
             highlightColor: Colors.transparent,
-            onDoubleTap: () async {
+            onTap: () async {
               if (_model.isinfoshowing) {
                 _model.isinfoshowing = false;
                 safeSetState(() {});
@@ -218,6 +228,21 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                 _model.isinfoshowing = true;
                 safeSetState(() {});
               }
+            },
+            onDoubleTap: () async {
+              await showModalBottomSheet(
+                isScrollControlled: true,
+                backgroundColor: Colors.transparent,
+                context: context,
+                builder: (context) {
+                  return Padding(
+                    padding: MediaQuery.viewInsetsOf(context),
+                    child: CommentsWidget(
+                      post: widget.post?.reference,
+                    ),
+                  );
+                },
+              ).then((value) => safeSetState(() {}));
             },
             onLongPress: () async {
               await showModalBottomSheet(
@@ -256,7 +281,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                           children: [
                             if (widget.post?.media.length == 1)
                               FlutterFlowMediaDisplay(
-                                path: widget.post!.media.first,
+                                path: widget.post!.media.firstOrNull!,
                                 imageBuilder: (path) => ClipRRect(
                                   borderRadius: BorderRadius.circular(10.0),
                                   child: Image.network(
@@ -765,12 +790,16 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                           5.0,
                                                                           0.0),
                                                               child: Text(
-                                                                functions
-                                                                    .calculateNetVotes(widget
-                                                                        .post!
-                                                                        .voters
-                                                                        .toList())
-                                                                    .toString(),
+                                                                valueOrDefault<
+                                                                    String>(
+                                                                  functions
+                                                                      .calculateNetVotes(widget
+                                                                          .post!
+                                                                          .voters
+                                                                          .toList())
+                                                                      .toString(),
+                                                                  '0',
+                                                                ),
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMedium
@@ -1080,6 +1109,9 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                       child: CommentsWidget(
                                                         post: widget
                                                             .post?.reference,
+                                                        authorID:
+                                                            containerUsersRecord
+                                                                .reference,
                                                       ),
                                                     );
                                                   },
@@ -1112,201 +1144,23 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                         ),
                                       ],
                                     ),
-                                    Flexible(
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          Flexible(
-                                            child: Stack(
-                                              children: [
-                                                if (_model.voteValue == 1)
-                                                  FlutterFlowIconButton(
-                                                    borderRadius: 20.0,
-                                                    borderWidth: 1.0,
-                                                    buttonSize: 50.0,
-                                                    icon: const Icon(
-                                                      Icons.thumb_up,
-                                                      color: Colors.white,
-                                                      size: 30.0,
-                                                    ),
-                                                    onPressed: () async {
-                                                      final firestoreBatch =
-                                                          FirebaseFirestore
-                                                              .instance
-                                                              .batch();
-                                                      try {
-                                                        if (functions
-                                                                .voterInList(
-                                                                    widget
-                                                                        .post!
-                                                                        .voters
-                                                                        .toList(),
-                                                                    currentUserReference!)
-                                                                .toString() ==
-                                                            '1') {
-                                                          firestoreBatch.update(
-                                                              widget.post!
-                                                                  .reference,
-                                                              {
-                                                                ...mapToFirestore(
-                                                                  {
-                                                                    'Voters':
-                                                                        FieldValue
-                                                                            .arrayRemove([
-                                                                      getVotersFirestoreData(
-                                                                        createVotersStruct(
-                                                                          userReference:
-                                                                              currentUserReference,
-                                                                          voteValue:
-                                                                              1,
-                                                                          clearUnsetFields:
-                                                                              false,
-                                                                        ),
-                                                                        true,
-                                                                      )
-                                                                    ]),
-                                                                  },
-                                                                ),
-                                                              });
-                                                          _model.voteValue = 0;
-                                                          safeSetState(() {});
-                                                        } else {
-                                                          _model.voteValue = 1;
-                                                          safeSetState(() {});
-                                                          if (functions
-                                                                  .voterInList(
-                                                                      widget
-                                                                          .post!
-                                                                          .voters
-                                                                          .toList(),
-                                                                      currentUserReference!)
-                                                                  .toString() ==
-                                                              '-1') {
-                                                            firestoreBatch.update(
-                                                                widget.post!
-                                                                    .reference,
-                                                                {
-                                                                  ...mapToFirestore(
-                                                                    {
-                                                                      'Voters':
-                                                                          FieldValue
-                                                                              .arrayUnion([
-                                                                        getVotersFirestoreData(
-                                                                          createVotersStruct(
-                                                                            userReference:
-                                                                                currentUserReference,
-                                                                            voteValue:
-                                                                                1,
-                                                                            clearUnsetFields:
-                                                                                false,
-                                                                          ),
-                                                                          true,
-                                                                        )
-                                                                      ]),
-                                                                    },
-                                                                  ),
-                                                                });
-
-                                                            firestoreBatch.update(
-                                                                widget.post!
-                                                                    .reference,
-                                                                {
-                                                                  ...mapToFirestore(
-                                                                    {
-                                                                      'Voters':
-                                                                          FieldValue
-                                                                              .arrayRemove([
-                                                                        getVotersFirestoreData(
-                                                                          createVotersStruct(
-                                                                            userReference:
-                                                                                currentUserReference,
-                                                                            voteValue:
-                                                                                -1,
-                                                                            clearUnsetFields:
-                                                                                false,
-                                                                          ),
-                                                                          true,
-                                                                        )
-                                                                      ]),
-                                                                    },
-                                                                  ),
-                                                                });
-                                                          } else {
-                                                            firestoreBatch.update(
-                                                                widget.post!
-                                                                    .reference,
-                                                                {
-                                                                  ...mapToFirestore(
-                                                                    {
-                                                                      'Voters':
-                                                                          FieldValue
-                                                                              .arrayUnion([
-                                                                        getVotersFirestoreData(
-                                                                          createVotersStruct(
-                                                                            userReference:
-                                                                                currentUserReference,
-                                                                            voteValue:
-                                                                                1,
-                                                                            clearUnsetFields:
-                                                                                false,
-                                                                          ),
-                                                                          true,
-                                                                        )
-                                                                      ]),
-                                                                    },
-                                                                  ),
-                                                                });
-                                                          }
-                                                        }
-                                                      } finally {
-                                                        await firestoreBatch
-                                                            .commit();
-                                                      }
-                                                    },
-                                                  ),
-                                                if (_model.voteValue != 1)
-                                                  InkWell(
-                                                    splashColor:
-                                                        Colors.transparent,
-                                                    focusColor:
-                                                        Colors.transparent,
-                                                    hoverColor:
-                                                        Colors.transparent,
-                                                    highlightColor:
-                                                        Colors.transparent,
-                                                    onLongPress: () async {
-                                                      await showModalBottomSheet(
-                                                        isScrollControlled:
-                                                            true,
-                                                        backgroundColor:
-                                                            Colors.transparent,
-                                                        context: context,
-                                                        builder: (context) {
-                                                          return Padding(
-                                                            padding: MediaQuery
-                                                                .viewInsetsOf(
-                                                                    context),
-                                                            child:
-                                                                PostUsersLikedClickWidget(
-                                                              voters: widget
-                                                                  .post!.voters,
-                                                            ),
-                                                          );
-                                                        },
-                                                      ).then((value) =>
-                                                          safeSetState(() {}));
-                                                    },
-                                                    child:
-                                                        FlutterFlowIconButton(
-                                                      borderColor:
-                                                          Colors.transparent,
+                                    if (widget.isLike)
+                                      Flexible(
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            Flexible(
+                                              child: Stack(
+                                                children: [
+                                                  if (_model.voteValue == 1)
+                                                    FlutterFlowIconButton(
                                                       borderRadius: 20.0,
                                                       borderWidth: 1.0,
                                                       buttonSize: 50.0,
                                                       icon: const Icon(
-                                                        Icons.thumb_up_outlined,
+                                                        Icons.thumb_up,
                                                         color: Colors.white,
                                                         size: 30.0,
                                                       ),
@@ -1325,10 +1179,6 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                       currentUserReference!)
                                                                   .toString() ==
                                                               '1') {
-                                                            _model.voteValue =
-                                                                0;
-                                                            safeSetState(() {});
-
                                                             firestoreBatch.update(
                                                                 widget.post!
                                                                     .reference,
@@ -1353,6 +1203,28 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                     },
                                                                   ),
                                                                 });
+                                                            _model.voteValue =
+                                                                0;
+                                                            safeSetState(() {});
+
+                                                            firestoreBatch.update(
+                                                                currentUserReference!,
+                                                                createUsersRecordData(
+                                                                  postInteractions:
+                                                                      createPostInteractionsStruct(
+                                                                    fieldValues: {
+                                                                      'liked':
+                                                                          FieldValue
+                                                                              .arrayRemove([
+                                                                        widget
+                                                                            .post
+                                                                            ?.reference
+                                                                      ]),
+                                                                    },
+                                                                    clearUnsetFields:
+                                                                        false,
+                                                                  ),
+                                                                ));
 
                                                             firestoreBatch.update(
                                                                 containerUsersRecord
@@ -1422,16 +1294,28 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                   });
 
                                                               firestoreBatch.update(
-                                                                  containerUsersRecord
-                                                                      .reference,
-                                                                  {
-                                                                    ...mapToFirestore(
-                                                                      {
-                                                                        'vibe':
-                                                                            FieldValue.increment(2),
+                                                                  currentUserReference!,
+                                                                  createUsersRecordData(
+                                                                    postInteractions:
+                                                                        createPostInteractionsStruct(
+                                                                      fieldValues: {
+                                                                        'liked':
+                                                                            FieldValue.arrayUnion([
+                                                                          widget
+                                                                              .post
+                                                                              ?.reference
+                                                                        ]),
+                                                                        'disliked':
+                                                                            FieldValue.arrayRemove([
+                                                                          widget
+                                                                              .post
+                                                                              ?.reference
+                                                                        ]),
                                                                       },
+                                                                      clearUnsetFields:
+                                                                          false,
                                                                     ),
-                                                                  });
+                                                                  ));
                                                             } else {
                                                               firestoreBatch.update(
                                                                   widget.post!
@@ -1455,78 +1339,23 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                   });
 
                                                               firestoreBatch.update(
-                                                                  containerUsersRecord
-                                                                      .reference,
-                                                                  {
-                                                                    ...mapToFirestore(
-                                                                      {
-                                                                        'vibe':
-                                                                            FieldValue.increment(1),
+                                                                  currentUserReference!,
+                                                                  createUsersRecordData(
+                                                                    postInteractions:
+                                                                        createPostInteractionsStruct(
+                                                                      fieldValues: {
+                                                                        'liked':
+                                                                            FieldValue.arrayUnion([
+                                                                          widget
+                                                                              .post
+                                                                              ?.reference
+                                                                        ]),
                                                                       },
+                                                                      clearUnsetFields:
+                                                                          false,
                                                                     ),
-                                                                  });
+                                                                  ));
                                                             }
-
-                                                            _model.animation =
-                                                                true;
-                                                            safeSetState(() {});
-                                                            await Future.delayed(
-                                                                const Duration(
-                                                                    milliseconds:
-                                                                        100));
-                                                            await Future.wait([
-                                                              Future(() async {
-                                                                if (animationsMap[
-                                                                        'containerOnActionTriggerAnimation1'] !=
-                                                                    null) {
-                                                                  await animationsMap[
-                                                                          'containerOnActionTriggerAnimation1']!
-                                                                      .controller
-                                                                      .forward(
-                                                                          from:
-                                                                              0.0)
-                                                                      .whenComplete(animationsMap[
-                                                                              'containerOnActionTriggerAnimation1']!
-                                                                          .controller
-                                                                          .reverse);
-                                                                }
-                                                              }),
-                                                              Future(() async {
-                                                                if (animationsMap[
-                                                                        'containerOnActionTriggerAnimation2'] !=
-                                                                    null) {
-                                                                  await animationsMap[
-                                                                          'containerOnActionTriggerAnimation2']!
-                                                                      .controller
-                                                                      .forward(
-                                                                          from:
-                                                                              0.0)
-                                                                      .whenComplete(animationsMap[
-                                                                              'containerOnActionTriggerAnimation2']!
-                                                                          .controller
-                                                                          .reverse);
-                                                                }
-                                                              }),
-                                                              Future(() async {
-                                                                if (animationsMap[
-                                                                        'iconOnActionTriggerAnimation1'] !=
-                                                                    null) {
-                                                                  await animationsMap[
-                                                                          'iconOnActionTriggerAnimation1']!
-                                                                      .controller
-                                                                      .forward(
-                                                                          from:
-                                                                              0.0)
-                                                                      .whenComplete(animationsMap[
-                                                                              'iconOnActionTriggerAnimation1']!
-                                                                          .controller
-                                                                          .reverse);
-                                                                }
-                                                              }),
-                                                            ]);
-                                                            _model.animation =
-                                                                false;
-                                                            safeSetState(() {});
                                                           }
                                                         } finally {
                                                           await firestoreBatch
@@ -1534,230 +1363,354 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                         }
                                                       },
                                                     ),
-                                                  ),
-                                              ],
-                                            ),
-                                          ),
-                                          Flexible(
-                                            child: Stack(
-                                              children: [
-                                                if (_model.voteValue == -1)
-                                                  FlutterFlowIconButton(
-                                                    borderColor:
-                                                        Colors.transparent,
-                                                    borderRadius: 20.0,
-                                                    borderWidth: 1.0,
-                                                    buttonSize: 50.0,
-                                                    icon: const Icon(
-                                                      Icons.thumb_down,
-                                                      color: Colors.white,
-                                                      size: 30.0,
-                                                    ),
-                                                    onPressed: () async {
-                                                      final firestoreBatch =
-                                                          FirebaseFirestore
-                                                              .instance
-                                                              .batch();
-                                                      try {
-                                                        if (functions
-                                                                .voterInList(
+                                                  if (_model.voteValue != 1)
+                                                    InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onLongPress: () async {
+                                                        await showModalBottomSheet(
+                                                          isScrollControlled:
+                                                              true,
+                                                          backgroundColor:
+                                                              Colors
+                                                                  .transparent,
+                                                          context: context,
+                                                          builder: (context) {
+                                                            return Padding(
+                                                              padding: MediaQuery
+                                                                  .viewInsetsOf(
+                                                                      context),
+                                                              child:
+                                                                  PostUsersLikedClickWidget(
+                                                                voters: widget
+                                                                    .post!
+                                                                    .voters,
+                                                              ),
+                                                            );
+                                                          },
+                                                        ).then((value) =>
+                                                            safeSetState(
+                                                                () {}));
+                                                      },
+                                                      child:
+                                                          FlutterFlowIconButton(
+                                                        borderColor:
+                                                            Colors.transparent,
+                                                        borderRadius: 20.0,
+                                                        borderWidth: 1.0,
+                                                        buttonSize: 50.0,
+                                                        icon: const Icon(
+                                                          Icons
+                                                              .thumb_up_outlined,
+                                                          color: Colors.white,
+                                                          size: 30.0,
+                                                        ),
+                                                        onPressed: () async {
+                                                          final firestoreBatch =
+                                                              FirebaseFirestore
+                                                                  .instance
+                                                                  .batch();
+                                                          try {
+                                                            if (functions
+                                                                    .voterInList(
+                                                                        widget
+                                                                            .post!
+                                                                            .voters
+                                                                            .toList(),
+                                                                        currentUserReference!)
+                                                                    .toString() ==
+                                                                '1') {
+                                                              _model.voteValue =
+                                                                  0;
+                                                              safeSetState(
+                                                                  () {});
+
+                                                              firestoreBatch.update(
+                                                                  widget.post!
+                                                                      .reference,
+                                                                  {
+                                                                    ...mapToFirestore(
+                                                                      {
+                                                                        'Voters':
+                                                                            FieldValue.arrayRemove([
+                                                                          getVotersFirestoreData(
+                                                                            createVotersStruct(
+                                                                              userReference: currentUserReference,
+                                                                              voteValue: 1,
+                                                                              clearUnsetFields: false,
+                                                                            ),
+                                                                            true,
+                                                                          )
+                                                                        ]),
+                                                                      },
+                                                                    ),
+                                                                  });
+
+                                                              firestoreBatch.update(
+                                                                  currentUserReference!,
+                                                                  createUsersRecordData(
+                                                                    postInteractions:
+                                                                        createPostInteractionsStruct(
+                                                                      fieldValues: {
+                                                                        'liked':
+                                                                            FieldValue.arrayRemove([
+                                                                          widget
+                                                                              .post
+                                                                              ?.reference
+                                                                        ]),
+                                                                      },
+                                                                      clearUnsetFields:
+                                                                          false,
+                                                                    ),
+                                                                  ));
+                                                            } else {
+                                                              _model.voteValue =
+                                                                  1;
+                                                              safeSetState(
+                                                                  () {});
+
+                                                              var notificationsRecordReference =
+                                                                  NotificationsRecord
+                                                                      .collection
+                                                                      .doc();
+                                                              firestoreBatch.set(
+                                                                  notificationsRecordReference,
+                                                                  createNotificationsRecordData(
+                                                                    sourcePost:
+                                                                        widget
+                                                                            .post
+                                                                            ?.reference,
+                                                                    sourceUser:
+                                                                        currentUserReference,
+                                                                    targetUser:
+                                                                        containerUsersRecord
+                                                                            .reference,
+                                                                    time:
+                                                                        getCurrentTimestamp,
+                                                                    type:
+                                                                        'Like',
+                                                                  ));
+                                                              _model.notification =
+                                                                  NotificationsRecord
+                                                                      .getDocumentFromData(
+                                                                          createNotificationsRecordData(
+                                                                            sourcePost:
+                                                                                widget.post?.reference,
+                                                                            sourceUser:
+                                                                                currentUserReference,
+                                                                            targetUser:
+                                                                                containerUsersRecord.reference,
+                                                                            time:
+                                                                                getCurrentTimestamp,
+                                                                            type:
+                                                                                'Like',
+                                                                          ),
+                                                                          notificationsRecordReference);
+                                                              if (functions
+                                                                      .voterInList(
+                                                                          widget
+                                                                              .post!
+                                                                              .voters
+                                                                              .toList(),
+                                                                          currentUserReference!)
+                                                                      .toString() ==
+                                                                  '-1') {
+                                                                firestoreBatch.update(
                                                                     widget
                                                                         .post!
-                                                                        .voters
-                                                                        .toList(),
-                                                                    currentUserReference!)
-                                                                .toString() ==
-                                                            '-1') {
-                                                          firestoreBatch.update(
-                                                              widget.post!
-                                                                  .reference,
-                                                              {
-                                                                ...mapToFirestore(
-                                                                  {
-                                                                    'Voters':
-                                                                        FieldValue
-                                                                            .arrayRemove([
-                                                                      getVotersFirestoreData(
-                                                                        createVotersStruct(
-                                                                          userReference:
-                                                                              currentUserReference,
-                                                                          voteValue:
-                                                                              -1,
-                                                                          clearUnsetFields:
-                                                                              false,
-                                                                        ),
-                                                                        true,
-                                                                      )
-                                                                    ]),
-                                                                  },
-                                                                ),
-                                                              });
-                                                          _model.voteValue = 0;
-                                                          safeSetState(() {});
-                                                        } else {
-                                                          _model.voteValue = -1;
-                                                          safeSetState(() {});
-                                                          if (functions
-                                                                  .voterInList(
-                                                                      widget
-                                                                          .post!
-                                                                          .voters
-                                                                          .toList(),
-                                                                      currentUserReference!)
-                                                                  .toString() ==
-                                                              '1') {
-                                                            firestoreBatch.update(
-                                                                widget.post!
-                                                                    .reference,
-                                                                {
-                                                                  ...mapToFirestore(
+                                                                        .reference,
                                                                     {
-                                                                      'Voters':
-                                                                          FieldValue
-                                                                              .arrayUnion([
-                                                                        getVotersFirestoreData(
-                                                                          createVotersStruct(
-                                                                            userReference:
-                                                                                currentUserReference,
-                                                                            voteValue:
-                                                                                -1,
-                                                                            clearUnsetFields:
-                                                                                false,
-                                                                          ),
-                                                                          true,
-                                                                        )
-                                                                      ]),
-                                                                    },
-                                                                  ),
-                                                                });
+                                                                      ...mapToFirestore(
+                                                                        {
+                                                                          'Voters':
+                                                                              FieldValue.arrayUnion([
+                                                                            getVotersFirestoreData(
+                                                                              createVotersStruct(
+                                                                                userReference: currentUserReference,
+                                                                                voteValue: 1,
+                                                                                clearUnsetFields: false,
+                                                                              ),
+                                                                              true,
+                                                                            )
+                                                                          ]),
+                                                                        },
+                                                                      ),
+                                                                    });
 
-                                                            firestoreBatch.update(
-                                                                widget.post!
-                                                                    .reference,
-                                                                {
-                                                                  ...mapToFirestore(
+                                                                firestoreBatch.update(
+                                                                    widget
+                                                                        .post!
+                                                                        .reference,
                                                                     {
-                                                                      'Voters':
-                                                                          FieldValue
-                                                                              .arrayRemove([
-                                                                        getVotersFirestoreData(
-                                                                          createVotersStruct(
-                                                                            userReference:
-                                                                                currentUserReference,
-                                                                            voteValue:
-                                                                                1,
-                                                                            clearUnsetFields:
-                                                                                false,
-                                                                          ),
-                                                                          true,
-                                                                        )
-                                                                      ]),
-                                                                    },
-                                                                  ),
-                                                                });
-                                                          } else {
-                                                            firestoreBatch.update(
-                                                                widget.post!
-                                                                    .reference,
-                                                                {
-                                                                  ...mapToFirestore(
+                                                                      ...mapToFirestore(
+                                                                        {
+                                                                          'Voters':
+                                                                              FieldValue.arrayRemove([
+                                                                            getVotersFirestoreData(
+                                                                              createVotersStruct(
+                                                                                userReference: currentUserReference,
+                                                                                voteValue: -1,
+                                                                                clearUnsetFields: false,
+                                                                              ),
+                                                                              true,
+                                                                            )
+                                                                          ]),
+                                                                        },
+                                                                      ),
+                                                                    });
+
+                                                                firestoreBatch.update(
+                                                                    currentUserReference!,
+                                                                    createUsersRecordData(
+                                                                      postInteractions:
+                                                                          createPostInteractionsStruct(
+                                                                        fieldValues: {
+                                                                          'liked':
+                                                                              FieldValue.arrayUnion([
+                                                                            widget.post?.reference
+                                                                          ]),
+                                                                          'disliked':
+                                                                              FieldValue.arrayRemove([
+                                                                            widget.post?.reference
+                                                                          ]),
+                                                                        },
+                                                                        clearUnsetFields:
+                                                                            false,
+                                                                      ),
+                                                                    ));
+
+                                                                firestoreBatch.update(
+                                                                    containerUsersRecord
+                                                                        .reference,
                                                                     {
-                                                                      'Voters':
-                                                                          FieldValue
-                                                                              .arrayUnion([
-                                                                        getVotersFirestoreData(
-                                                                          createVotersStruct(
-                                                                            userReference:
-                                                                                currentUserReference,
-                                                                            voteValue:
-                                                                                -1,
-                                                                            clearUnsetFields:
-                                                                                false,
-                                                                          ),
-                                                                          true,
-                                                                        )
-                                                                      ]),
-                                                                    },
-                                                                  ),
-                                                                });
+                                                                      ...mapToFirestore(
+                                                                        {
+                                                                          'notifications':
+                                                                              FieldValue.arrayUnion([
+                                                                            getNotificationFirestoreData(
+                                                                              createNotificationStruct(
+                                                                                type: 'Like',
+                                                                                time: getCurrentTimestamp,
+                                                                                clearUnsetFields: false,
+                                                                              ),
+                                                                              true,
+                                                                            )
+                                                                          ]),
+                                                                          'notificationsReferences':
+                                                                              FieldValue.arrayUnion([
+                                                                            _model.notification?.reference
+                                                                          ]),
+                                                                          'vibe':
+                                                                              FieldValue.increment(2),
+                                                                        },
+                                                                      ),
+                                                                    });
+                                                              } else {
+                                                                firestoreBatch.update(
+                                                                    widget
+                                                                        .post!
+                                                                        .reference,
+                                                                    {
+                                                                      ...mapToFirestore(
+                                                                        {
+                                                                          'Voters':
+                                                                              FieldValue.arrayUnion([
+                                                                            getVotersFirestoreData(
+                                                                              createVotersStruct(
+                                                                                userReference: currentUserReference,
+                                                                                voteValue: 1,
+                                                                                clearUnsetFields: false,
+                                                                              ),
+                                                                              true,
+                                                                            )
+                                                                          ]),
+                                                                        },
+                                                                      ),
+                                                                    });
+
+                                                                firestoreBatch.update(
+                                                                    currentUserReference!,
+                                                                    createUsersRecordData(
+                                                                      postInteractions:
+                                                                          createPostInteractionsStruct(
+                                                                        fieldValues: {
+                                                                          'liked':
+                                                                              FieldValue.arrayUnion([
+                                                                            widget.post?.reference
+                                                                          ]),
+                                                                        },
+                                                                        clearUnsetFields:
+                                                                            false,
+                                                                      ),
+                                                                    ));
+
+                                                                firestoreBatch.update(
+                                                                    containerUsersRecord
+                                                                        .reference,
+                                                                    {
+                                                                      ...mapToFirestore(
+                                                                        {
+                                                                          'notifications':
+                                                                              FieldValue.arrayUnion([
+                                                                            getNotificationFirestoreData(
+                                                                              createNotificationStruct(
+                                                                                type: 'Like',
+                                                                                time: getCurrentTimestamp,
+                                                                                clearUnsetFields: false,
+                                                                              ),
+                                                                              true,
+                                                                            )
+                                                                          ]),
+                                                                          'notificationsReferences':
+                                                                              FieldValue.arrayUnion([
+                                                                            _model.notification?.reference
+                                                                          ]),
+                                                                          'vibe':
+                                                                              FieldValue.increment(1),
+                                                                        },
+                                                                      ),
+                                                                    });
+                                                              }
+                                                            }
+                                                          } finally {
+                                                            await firestoreBatch
+                                                                .commit();
                                                           }
-                                                        }
-                                                      } finally {
-                                                        await firestoreBatch
-                                                            .commit();
-                                                      }
-                                                    },
-                                                  ),
-                                                if (_model.voteValue != -1)
-                                                  FlutterFlowIconButton(
-                                                    borderColor:
-                                                        Colors.transparent,
-                                                    borderRadius: 20.0,
-                                                    borderWidth: 1.0,
-                                                    buttonSize: 50.0,
-                                                    icon: const Icon(
-                                                      Icons.thumb_down_outlined,
-                                                      color: Colors.white,
-                                                      size: 30.0,
+
+                                                          safeSetState(() {});
+                                                        },
+                                                      ),
                                                     ),
-                                                    onPressed: () async {
-                                                      final firestoreBatch =
-                                                          FirebaseFirestore
-                                                              .instance
-                                                              .batch();
-                                                      try {
-                                                        if (functions
-                                                                .voterInList(
-                                                                    widget
-                                                                        .post!
-                                                                        .voters
-                                                                        .toList(),
-                                                                    currentUserReference!)
-                                                                .toString() ==
-                                                            '-1') {
-                                                          _model.voteValue = 0;
-                                                          safeSetState(() {});
-
-                                                          firestoreBatch.update(
-                                                              widget.post!
-                                                                  .reference,
-                                                              {
-                                                                ...mapToFirestore(
-                                                                  {
-                                                                    'Voters':
-                                                                        FieldValue
-                                                                            .arrayRemove([
-                                                                      getVotersFirestoreData(
-                                                                        createVotersStruct(
-                                                                          userReference:
-                                                                              currentUserReference,
-                                                                          voteValue:
-                                                                              -1,
-                                                                          clearUnsetFields:
-                                                                              false,
-                                                                        ),
-                                                                        true,
-                                                                      )
-                                                                    ]),
-                                                                  },
-                                                                ),
-                                                              });
-
-                                                          firestoreBatch.update(
-                                                              containerUsersRecord
-                                                                  .reference,
-                                                              {
-                                                                ...mapToFirestore(
-                                                                  {
-                                                                    'vibe': FieldValue
-                                                                        .increment(
-                                                                            -(1)),
-                                                                  },
-                                                                ),
-                                                              });
-                                                        } else {
-                                                          _model.voteValue = -1;
-                                                          safeSetState(() {});
+                                                ],
+                                              ),
+                                            ),
+                                            Flexible(
+                                              child: Stack(
+                                                children: [
+                                                  if (_model.voteValue == -1)
+                                                    FlutterFlowIconButton(
+                                                      borderColor:
+                                                          Colors.transparent,
+                                                      borderRadius: 20.0,
+                                                      borderWidth: 1.0,
+                                                      buttonSize: 50.0,
+                                                      icon: const Icon(
+                                                        Icons.thumb_down,
+                                                        color: Colors.white,
+                                                        size: 30.0,
+                                                      ),
+                                                      onPressed: () async {
+                                                        final firestoreBatch =
+                                                            FirebaseFirestore
+                                                                .instance
+                                                                .batch();
+                                                        try {
                                                           if (functions
                                                                   .voterInList(
                                                                       widget
@@ -1766,32 +1719,7 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                           .toList(),
                                                                       currentUserReference!)
                                                                   .toString() ==
-                                                              '1') {
-                                                            firestoreBatch.update(
-                                                                widget.post!
-                                                                    .reference,
-                                                                {
-                                                                  ...mapToFirestore(
-                                                                    {
-                                                                      'Voters':
-                                                                          FieldValue
-                                                                              .arrayUnion([
-                                                                        getVotersFirestoreData(
-                                                                          createVotersStruct(
-                                                                            userReference:
-                                                                                currentUserReference,
-                                                                            voteValue:
-                                                                                -1,
-                                                                            clearUnsetFields:
-                                                                                false,
-                                                                          ),
-                                                                          true,
-                                                                        )
-                                                                      ]),
-                                                                    },
-                                                                  ),
-                                                                });
-
+                                                              '-1') {
                                                             firestoreBatch.update(
                                                                 widget.post!
                                                                     .reference,
@@ -1806,44 +1734,6 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                             userReference:
                                                                                 currentUserReference,
                                                                             voteValue:
-                                                                                1,
-                                                                            clearUnsetFields:
-                                                                                false,
-                                                                          ),
-                                                                          true,
-                                                                        )
-                                                                      ]),
-                                                                    },
-                                                                  ),
-                                                                });
-
-                                                            firestoreBatch.update(
-                                                                containerUsersRecord
-                                                                    .reference,
-                                                                {
-                                                                  ...mapToFirestore(
-                                                                    {
-                                                                      'vibe': FieldValue
-                                                                          .increment(
-                                                                              2),
-                                                                    },
-                                                                  ),
-                                                                });
-                                                          } else {
-                                                            firestoreBatch.update(
-                                                                widget.post!
-                                                                    .reference,
-                                                                {
-                                                                  ...mapToFirestore(
-                                                                    {
-                                                                      'Voters':
-                                                                          FieldValue
-                                                                              .arrayUnion([
-                                                                        getVotersFirestoreData(
-                                                                          createVotersStruct(
-                                                                            userReference:
-                                                                                currentUserReference,
-                                                                            voteValue:
                                                                                 -1,
                                                                             clearUnsetFields:
                                                                                 false,
@@ -1854,6 +1744,28 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                     },
                                                                   ),
                                                                 });
+                                                            _model.voteValue =
+                                                                0;
+                                                            safeSetState(() {});
+
+                                                            firestoreBatch.update(
+                                                                currentUserReference!,
+                                                                createUsersRecordData(
+                                                                  postInteractions:
+                                                                      createPostInteractionsStruct(
+                                                                    fieldValues: {
+                                                                      'disliked':
+                                                                          FieldValue
+                                                                              .arrayRemove([
+                                                                        widget
+                                                                            .post
+                                                                            ?.reference
+                                                                      ]),
+                                                                    },
+                                                                    clearUnsetFields:
+                                                                        false,
+                                                                  ),
+                                                                ));
 
                                                             firestoreBatch.update(
                                                                 containerUsersRecord
@@ -1867,81 +1779,361 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                                     },
                                                                   ),
                                                                 });
-                                                          }
+                                                          } else {
+                                                            _model.voteValue =
+                                                                -1;
+                                                            safeSetState(() {});
+                                                            if (functions
+                                                                    .voterInList(
+                                                                        widget
+                                                                            .post!
+                                                                            .voters
+                                                                            .toList(),
+                                                                        currentUserReference!)
+                                                                    .toString() ==
+                                                                '1') {
+                                                              firestoreBatch.update(
+                                                                  widget.post!
+                                                                      .reference,
+                                                                  {
+                                                                    ...mapToFirestore(
+                                                                      {
+                                                                        'Voters':
+                                                                            FieldValue.arrayUnion([
+                                                                          getVotersFirestoreData(
+                                                                            createVotersStruct(
+                                                                              userReference: currentUserReference,
+                                                                              voteValue: -1,
+                                                                              clearUnsetFields: false,
+                                                                            ),
+                                                                            true,
+                                                                          )
+                                                                        ]),
+                                                                      },
+                                                                    ),
+                                                                  });
 
-                                                          _model.animation =
-                                                              true;
-                                                          safeSetState(() {});
-                                                          await Future.delayed(
-                                                              const Duration(
-                                                                  milliseconds:
-                                                                      100));
-                                                          await Future.wait([
-                                                            Future(() async {
-                                                              if (animationsMap[
-                                                                      'iconOnActionTriggerAnimation2'] !=
-                                                                  null) {
-                                                                await animationsMap[
-                                                                        'iconOnActionTriggerAnimation2']!
-                                                                    .controller
-                                                                    .forward(
-                                                                        from:
-                                                                            0.0)
-                                                                    .whenComplete(animationsMap[
-                                                                            'iconOnActionTriggerAnimation2']!
-                                                                        .controller
-                                                                        .reverse);
-                                                              }
-                                                            }),
-                                                            Future(() async {
-                                                              if (animationsMap[
-                                                                      'containerOnActionTriggerAnimation3'] !=
-                                                                  null) {
-                                                                await animationsMap[
-                                                                        'containerOnActionTriggerAnimation3']!
-                                                                    .controller
-                                                                    .forward(
-                                                                        from:
-                                                                            0.0)
-                                                                    .whenComplete(animationsMap[
-                                                                            'containerOnActionTriggerAnimation3']!
-                                                                        .controller
-                                                                        .reverse);
-                                                              }
-                                                            }),
-                                                            Future(() async {
-                                                              if (animationsMap[
-                                                                      'containerOnActionTriggerAnimation4'] !=
-                                                                  null) {
-                                                                await animationsMap[
-                                                                        'containerOnActionTriggerAnimation4']!
-                                                                    .controller
-                                                                    .forward(
-                                                                        from:
-                                                                            0.0)
-                                                                    .whenComplete(animationsMap[
-                                                                            'containerOnActionTriggerAnimation4']!
-                                                                        .controller
-                                                                        .reverse);
-                                                              }
-                                                            }),
-                                                          ]);
-                                                          _model.animation =
-                                                              false;
-                                                          safeSetState(() {});
+                                                              firestoreBatch.update(
+                                                                  widget.post!
+                                                                      .reference,
+                                                                  {
+                                                                    ...mapToFirestore(
+                                                                      {
+                                                                        'Voters':
+                                                                            FieldValue.arrayRemove([
+                                                                          getVotersFirestoreData(
+                                                                            createVotersStruct(
+                                                                              userReference: currentUserReference,
+                                                                              voteValue: 1,
+                                                                              clearUnsetFields: false,
+                                                                            ),
+                                                                            true,
+                                                                          )
+                                                                        ]),
+                                                                      },
+                                                                    ),
+                                                                  });
+
+                                                              firestoreBatch.update(
+                                                                  currentUserReference!,
+                                                                  createUsersRecordData(
+                                                                    postInteractions:
+                                                                        createPostInteractionsStruct(
+                                                                      fieldValues: {
+                                                                        'disliked':
+                                                                            FieldValue.arrayUnion([
+                                                                          widget
+                                                                              .post
+                                                                              ?.reference
+                                                                        ]),
+                                                                        'liked':
+                                                                            FieldValue.arrayRemove([
+                                                                          widget
+                                                                              .post
+                                                                              ?.reference
+                                                                        ]),
+                                                                      },
+                                                                      clearUnsetFields:
+                                                                          false,
+                                                                    ),
+                                                                  ));
+                                                            } else {
+                                                              firestoreBatch.update(
+                                                                  widget.post!
+                                                                      .reference,
+                                                                  {
+                                                                    ...mapToFirestore(
+                                                                      {
+                                                                        'Voters':
+                                                                            FieldValue.arrayUnion([
+                                                                          getVotersFirestoreData(
+                                                                            createVotersStruct(
+                                                                              userReference: currentUserReference,
+                                                                              voteValue: -1,
+                                                                              clearUnsetFields: false,
+                                                                            ),
+                                                                            true,
+                                                                          )
+                                                                        ]),
+                                                                      },
+                                                                    ),
+                                                                  });
+
+                                                              firestoreBatch.update(
+                                                                  currentUserReference!,
+                                                                  createUsersRecordData(
+                                                                    postInteractions:
+                                                                        createPostInteractionsStruct(
+                                                                      fieldValues: {
+                                                                        'disliked':
+                                                                            FieldValue.arrayUnion([
+                                                                          widget
+                                                                              .post
+                                                                              ?.reference
+                                                                        ]),
+                                                                      },
+                                                                      clearUnsetFields:
+                                                                          false,
+                                                                    ),
+                                                                  ));
+                                                            }
+                                                          }
+                                                        } finally {
+                                                          await firestoreBatch
+                                                              .commit();
                                                         }
-                                                      } finally {
-                                                        await firestoreBatch
-                                                            .commit();
-                                                      }
-                                                    },
-                                                  ),
-                                              ],
+                                                      },
+                                                    ),
+                                                  if (_model.voteValue != -1)
+                                                    FlutterFlowIconButton(
+                                                      borderColor:
+                                                          Colors.transparent,
+                                                      borderRadius: 20.0,
+                                                      borderWidth: 1.0,
+                                                      buttonSize: 50.0,
+                                                      icon: const Icon(
+                                                        Icons
+                                                            .thumb_down_outlined,
+                                                        color: Colors.white,
+                                                        size: 30.0,
+                                                      ),
+                                                      onPressed: () async {
+                                                        final firestoreBatch =
+                                                            FirebaseFirestore
+                                                                .instance
+                                                                .batch();
+                                                        try {
+                                                          if (functions
+                                                                  .voterInList(
+                                                                      widget
+                                                                          .post!
+                                                                          .voters
+                                                                          .toList(),
+                                                                      currentUserReference!)
+                                                                  .toString() ==
+                                                              '-1') {
+                                                            _model.voteValue =
+                                                                0;
+                                                            safeSetState(() {});
+
+                                                            firestoreBatch.update(
+                                                                widget.post!
+                                                                    .reference,
+                                                                {
+                                                                  ...mapToFirestore(
+                                                                    {
+                                                                      'Voters':
+                                                                          FieldValue
+                                                                              .arrayRemove([
+                                                                        getVotersFirestoreData(
+                                                                          createVotersStruct(
+                                                                            userReference:
+                                                                                currentUserReference,
+                                                                            voteValue:
+                                                                                -1,
+                                                                            clearUnsetFields:
+                                                                                false,
+                                                                          ),
+                                                                          true,
+                                                                        )
+                                                                      ]),
+                                                                    },
+                                                                  ),
+                                                                });
+
+                                                            firestoreBatch.update(
+                                                                currentUserReference!,
+                                                                createUsersRecordData(
+                                                                  postInteractions:
+                                                                      createPostInteractionsStruct(
+                                                                    fieldValues: {
+                                                                      'disliked':
+                                                                          FieldValue
+                                                                              .arrayRemove([
+                                                                        widget
+                                                                            .post
+                                                                            ?.reference
+                                                                      ]),
+                                                                    },
+                                                                    clearUnsetFields:
+                                                                        false,
+                                                                  ),
+                                                                ));
+                                                          } else {
+                                                            _model.voteValue =
+                                                                -1;
+                                                            safeSetState(() {});
+                                                            if (functions
+                                                                    .voterInList(
+                                                                        widget
+                                                                            .post!
+                                                                            .voters
+                                                                            .toList(),
+                                                                        currentUserReference!)
+                                                                    .toString() ==
+                                                                '1') {
+                                                              firestoreBatch.update(
+                                                                  widget.post!
+                                                                      .reference,
+                                                                  {
+                                                                    ...mapToFirestore(
+                                                                      {
+                                                                        'Voters':
+                                                                            FieldValue.arrayUnion([
+                                                                          getVotersFirestoreData(
+                                                                            createVotersStruct(
+                                                                              userReference: currentUserReference,
+                                                                              voteValue: -1,
+                                                                              clearUnsetFields: false,
+                                                                            ),
+                                                                            true,
+                                                                          )
+                                                                        ]),
+                                                                      },
+                                                                    ),
+                                                                  });
+
+                                                              firestoreBatch.update(
+                                                                  widget.post!
+                                                                      .reference,
+                                                                  {
+                                                                    ...mapToFirestore(
+                                                                      {
+                                                                        'Voters':
+                                                                            FieldValue.arrayRemove([
+                                                                          getVotersFirestoreData(
+                                                                            createVotersStruct(
+                                                                              userReference: currentUserReference,
+                                                                              voteValue: 1,
+                                                                              clearUnsetFields: false,
+                                                                            ),
+                                                                            true,
+                                                                          )
+                                                                        ]),
+                                                                      },
+                                                                    ),
+                                                                  });
+
+                                                              firestoreBatch.update(
+                                                                  currentUserReference!,
+                                                                  createUsersRecordData(
+                                                                    postInteractions:
+                                                                        createPostInteractionsStruct(
+                                                                      fieldValues: {
+                                                                        'disliked':
+                                                                            FieldValue.arrayUnion([
+                                                                          widget
+                                                                              .post
+                                                                              ?.reference
+                                                                        ]),
+                                                                        'liked':
+                                                                            FieldValue.arrayRemove([
+                                                                          widget
+                                                                              .post
+                                                                              ?.reference
+                                                                        ]),
+                                                                      },
+                                                                      clearUnsetFields:
+                                                                          false,
+                                                                    ),
+                                                                  ));
+
+                                                              firestoreBatch.update(
+                                                                  containerUsersRecord
+                                                                      .reference,
+                                                                  {
+                                                                    ...mapToFirestore(
+                                                                      {
+                                                                        'vibe':
+                                                                            FieldValue.increment(-(2)),
+                                                                      },
+                                                                    ),
+                                                                  });
+                                                            } else {
+                                                              firestoreBatch.update(
+                                                                  widget.post!
+                                                                      .reference,
+                                                                  {
+                                                                    ...mapToFirestore(
+                                                                      {
+                                                                        'Voters':
+                                                                            FieldValue.arrayUnion([
+                                                                          getVotersFirestoreData(
+                                                                            createVotersStruct(
+                                                                              userReference: currentUserReference,
+                                                                              voteValue: -1,
+                                                                              clearUnsetFields: false,
+                                                                            ),
+                                                                            true,
+                                                                          )
+                                                                        ]),
+                                                                      },
+                                                                    ),
+                                                                  });
+
+                                                              firestoreBatch.update(
+                                                                  currentUserReference!,
+                                                                  createUsersRecordData(
+                                                                    postInteractions:
+                                                                        createPostInteractionsStruct(
+                                                                      fieldValues: {
+                                                                        'disliked':
+                                                                            FieldValue.arrayUnion([
+                                                                          widget
+                                                                              .post
+                                                                              ?.reference
+                                                                        ]),
+                                                                      },
+                                                                      clearUnsetFields:
+                                                                          false,
+                                                                    ),
+                                                                  ));
+
+                                                              firestoreBatch.update(
+                                                                  containerUsersRecord
+                                                                      .reference,
+                                                                  {
+                                                                    ...mapToFirestore(
+                                                                      {
+                                                                        'vibe':
+                                                                            FieldValue.increment(-(1)),
+                                                                      },
+                                                                    ),
+                                                                  });
+                                                            }
+                                                          }
+                                                        } finally {
+                                                          await firestoreBatch
+                                                              .commit();
+                                                        }
+                                                      },
+                                                    ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
                                   ],
                                 ),
                               ),
