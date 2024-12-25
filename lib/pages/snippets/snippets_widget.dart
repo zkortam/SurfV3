@@ -52,16 +52,18 @@ class _SnippetsWidgetState extends State<SnippetsWidget> {
         body: SafeArea(
           top: true,
           child: StreamBuilder<List<SnippetsRecord>>(
-            stream: querySnippetsRecord(
-              queryBuilder: (snippetsRecord) => snippetsRecord
-                  .where(
-                    'author',
-                    isEqualTo: widget.author,
-                  )
-                  .where(
-                    'timeCloses',
-                    isGreaterThan: getCurrentTimestamp,
-                  ),
+            stream: FFAppState().snippets(
+              requestFn: () => querySnippetsRecord(
+                queryBuilder: (snippetsRecord) => snippetsRecord
+                    .where(
+                      'author',
+                      isEqualTo: widget.author,
+                    )
+                    .where(
+                      'timeCloses',
+                      isGreaterThan: getCurrentTimestamp,
+                    ),
+              ),
             )..listen((snapshot) {
                 List<SnippetsRecord> pageViewSnippetsRecordList = snapshot;
                 if (_model.pageViewPreviousSnapshot != null &&

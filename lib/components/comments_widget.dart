@@ -140,10 +140,12 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                   padding:
                       const EdgeInsetsDirectional.fromSTEB(15.0, 10.0, 15.0, 0.0),
                   child: StreamBuilder<List<CommentsRecord>>(
-                    stream: queryCommentsRecord(
-                      queryBuilder: (commentsRecord) => commentsRecord.where(
-                        'PostReference',
-                        isEqualTo: widget.post,
+                    stream: FFAppState().comments(
+                      requestFn: () => queryCommentsRecord(
+                        queryBuilder: (commentsRecord) => commentsRecord.where(
+                          'PostReference',
+                          isEqualTo: widget.post,
+                        ),
                       ),
                     ),
                     builder: (context, snapshot) {

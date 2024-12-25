@@ -3,6 +3,7 @@ import '/components/comments_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'notification_comp_model.dart';
@@ -49,7 +50,7 @@ class _NotificationCompWidgetState extends State<NotificationCompWidget> {
     return Visibility(
       visible: widget.notification?.type != 'Like',
       child: Padding(
-        padding: const EdgeInsets.all(5.0),
+        padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
         child: Container(
           width: double.infinity,
           height: 70.0,
@@ -105,8 +106,10 @@ class _NotificationCompWidgetState extends State<NotificationCompWidget> {
                           decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                           ),
-                          child: Image.network(
-                            rowUsersRecord.photoUrl,
+                          child: CachedNetworkImage(
+                            fadeInDuration: const Duration(milliseconds: 500),
+                            fadeOutDuration: const Duration(milliseconds: 500),
+                            imageUrl: rowUsersRecord.photoUrl,
                             fit: BoxFit.cover,
                           ),
                         ),

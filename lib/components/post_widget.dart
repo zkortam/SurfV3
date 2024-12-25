@@ -339,8 +339,12 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           10.0),
-                                                  child: Image.network(
-                                                    path,
+                                                  child: CachedNetworkImage(
+                                                    fadeInDuration: const Duration(
+                                                        milliseconds: 500),
+                                                    fadeOutDuration: const Duration(
+                                                        milliseconds: 500),
+                                                    imageUrl: path,
                                                     width: double.infinity,
                                                     height: double.infinity,
                                                     fit: BoxFit.cover,

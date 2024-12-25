@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'chat_main_model.dart';
@@ -242,13 +243,15 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: StreamBuilder<List<ChatsRecord>>(
-                    stream: queryChatsRecord(
-                      queryBuilder: (chatsRecord) => chatsRecord
-                          .where(
-                            'users',
-                            arrayContains: currentUserReference,
-                          )
-                          .orderBy('lastTime', descending: true),
+                    stream: FFAppState().chatsMain(
+                      requestFn: () => queryChatsRecord(
+                        queryBuilder: (chatsRecord) => chatsRecord
+                            .where(
+                              'users',
+                              arrayContains: currentUserReference,
+                            )
+                            .orderBy('lastTime', descending: true),
+                      ),
                     ),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
@@ -344,8 +347,12 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
                                               decoration: const BoxDecoration(
                                                 shape: BoxShape.circle,
                                               ),
-                                              child: Image.network(
-                                                listViewChatsRecord
+                                              child: CachedNetworkImage(
+                                                fadeInDuration:
+                                                    const Duration(milliseconds: 500),
+                                                fadeOutDuration:
+                                                    const Duration(milliseconds: 500),
+                                                imageUrl: listViewChatsRecord
                                                             .users.length >
                                                         2
                                                     ? listViewChatsRecord.image

@@ -503,18 +503,20 @@ class _HomePageWidgetState extends State<HomePageWidget>
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               5.0, 10.0, 5.0, 0.0),
                           child: FutureBuilder<List<UsersRecord>>(
-                            future: queryUsersRecordOnce(
-                              queryBuilder: (usersRecord) => usersRecord
-                                  .where(
-                                    'latestSnippetTime',
-                                    isGreaterThan: getCurrentTimestamp,
-                                  )
-                                  .where(
-                                    'followers',
-                                    arrayContains: currentUserReference,
-                                  )
-                                  .orderBy('latestSnippetTime',
-                                      descending: true),
+                            future: FFAppState().snippetsHome(
+                              requestFn: () => queryUsersRecordOnce(
+                                queryBuilder: (usersRecord) => usersRecord
+                                    .where(
+                                      'latestSnippetTime',
+                                      isGreaterThan: getCurrentTimestamp,
+                                    )
+                                    .where(
+                                      'followers',
+                                      arrayContains: currentUserReference,
+                                    )
+                                    .orderBy('latestSnippetTime',
+                                        descending: true),
+                              ),
                             ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
@@ -600,14 +602,17 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                   height: 550.0,
                                   decoration: const BoxDecoration(),
                                   child: FutureBuilder<List<PostsRecord>>(
-                                    future: queryPostsRecordOnce(
-                                      queryBuilder: (postsRecord) => postsRecord
-                                          .where(
-                                            'isShort',
-                                            isEqualTo: false,
-                                          )
-                                          .orderBy('TimePosted',
-                                              descending: true),
+                                    future: FFAppState().swipeAbleHome(
+                                      requestFn: () => queryPostsRecordOnce(
+                                        queryBuilder: (postsRecord) =>
+                                            postsRecord
+                                                .where(
+                                                  'isShort',
+                                                  isEqualTo: false,
+                                                )
+                                                .orderBy('TimePosted',
+                                                    descending: true),
+                                      ),
                                     ),
                                     builder: (context, snapshot) {
                                       // Customize what your widget looks like when it's loading.
@@ -1041,14 +1046,17 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 child: AuthUserStreamWidget(
                                   builder: (context) =>
                                       StreamBuilder<List<PostsRecord>>(
-                                    stream: queryPostsRecord(
-                                      queryBuilder: (postsRecord) => postsRecord
-                                          .where(
-                                            'isShort',
-                                            isEqualTo: false,
-                                          )
-                                          .orderBy('TimePosted',
-                                              descending: true),
+                                    stream: FFAppState().homePostNoAlgo(
+                                      requestFn: () => queryPostsRecord(
+                                        queryBuilder: (postsRecord) =>
+                                            postsRecord
+                                                .where(
+                                                  'isShort',
+                                                  isEqualTo: false,
+                                                )
+                                                .orderBy('TimePosted',
+                                                    descending: true),
+                                      ),
                                     ),
                                     builder: (context, snapshot) {
                                       // Customize what your widget looks like when it's loading.

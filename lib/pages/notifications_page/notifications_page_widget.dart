@@ -347,7 +347,10 @@ class _NotificationsPageWidgetState extends State<NotificationsPageWidget> {
                         itemBuilder: (context, notifsIndex) {
                           final notifsItem = notifs[notifsIndex];
                           return StreamBuilder<NotificationsRecord>(
-                            stream: NotificationsRecord.getDocument(notifsItem),
+                            stream: FFAppState().notifications(
+                              requestFn: () =>
+                                  NotificationsRecord.getDocument(notifsItem),
+                            ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
                               if (!snapshot.hasData) {
