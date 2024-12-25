@@ -755,17 +755,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                   ],
                                                 ),
                                                 Text(
-                                                  '${valueOrDefault<String>(
-                                                    functions
-                                                        .roundAndMultiply(
-                                                            functions.votePercent(
-                                                                widget.thread!
-                                                                    .poll.voters
-                                                                    .toList(),
-                                                                1))
-                                                        .toString(),
-                                                    '0',
-                                                  )}%',
+                                                  '${functions.roundAndMultiply(functions.votePercent(widget.thread!.poll.voters.toList(), 1)).toString()}%',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
@@ -881,17 +871,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                   ],
                                                 ),
                                                 Text(
-                                                  '${valueOrDefault<String>(
-                                                    functions
-                                                        .roundAndMultiply(
-                                                            functions.votePercent(
-                                                                widget.thread!
-                                                                    .poll.voters
-                                                                    .toList(),
-                                                                2))
-                                                        .toString(),
-                                                    '0',
-                                                  )}%',
+                                                  '${functions.roundAndMultiply(functions.votePercent(widget.thread!.poll.voters.toList(), 2)).toString()}%',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
@@ -1016,19 +996,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                     ],
                                                   ),
                                                   Text(
-                                                    '${valueOrDefault<String>(
-                                                      functions
-                                                          .roundAndMultiply(
-                                                              functions.votePercent(
-                                                                  widget
-                                                                      .thread!
-                                                                      .poll
-                                                                      .voters
-                                                                      .toList(),
-                                                                  3))
-                                                          .toString(),
-                                                      '0',
-                                                    )}%',
+                                                    '${functions.roundAndMultiply(functions.votePercent(widget.thread!.poll.voters.toList(), 3)).toString()}%',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
@@ -1153,19 +1121,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                                     ],
                                                   ),
                                                   Text(
-                                                    '${valueOrDefault<String>(
-                                                      functions
-                                                          .roundAndMultiply(
-                                                              functions.votePercent(
-                                                                  widget
-                                                                      .thread!
-                                                                      .poll
-                                                                      .voters
-                                                                      .toList(),
-                                                                  4))
-                                                          .toString(),
-                                                      '0',
-                                                    )}%',
+                                                    '${functions.roundAndMultiply(functions.votePercent(widget.thread!.poll.voters.toList(), 4)).toString()}%',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium

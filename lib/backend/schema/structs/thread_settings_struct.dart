@@ -1,5 +1,5 @@
 // ignore_for_file: unnecessary_getters_setters
-
+import '/backend/algolia/serialization_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -107,6 +107,34 @@ class ThreadSettingsStruct extends FFFirebaseStruct {
           data['isPrivate'],
           ParamType.bool,
           false,
+        ),
+      );
+
+  static ThreadSettingsStruct fromAlgoliaData(Map<String, dynamic> data) =>
+      ThreadSettingsStruct(
+        isStealth: convertAlgoliaParam(
+          data['isStealth'],
+          ParamType.bool,
+          false,
+        ),
+        isAutoBeautification: convertAlgoliaParam(
+          data['isAutoBeautification'],
+          ParamType.bool,
+          false,
+        ),
+        isComments: convertAlgoliaParam(
+          data['isComments'],
+          ParamType.bool,
+          false,
+        ),
+        isPrivate: convertAlgoliaParam(
+          data['isPrivate'],
+          ParamType.bool,
+          false,
+        ),
+        firestoreUtilData: const FirestoreUtilData(
+          clearUnsetFields: false,
+          create: true,
         ),
       );
 

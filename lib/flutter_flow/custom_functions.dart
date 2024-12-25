@@ -26,6 +26,26 @@ bool modder(
   }
 }
 
+bool checkIfReadUser(
+  DateTime messageTime,
+  List<UserMessageDataStruct> users,
+  DocumentReference currentUser,
+) {
+  List<UserMessageDataStruct> otherUsers = users
+      .where((userMessage) => userMessage.userReference != currentUser)
+      .toList();
+
+  // Check if any of the other users have a lastTimeOnline after messageTime
+  for (final userMessage in otherUsers) {
+    if (userMessage.lastTimeOnline != null &&
+        userMessage.lastTimeOnline!.isAfter(messageTime)) {
+      return true; // Found a user with lastTimeOnline > messageTime
+    }
+  }
+
+  return false; // No other users with lastTimeOnline > messageTime
+}
+
 bool dateThirteenYearsAgo(
   DateTime now,
   DateTime userInputDate,
@@ -222,26 +242,20 @@ double votePercent(
   List<VotersStruct> voters,
   int targetVoteValue,
 ) {
-  // Handle null or empty voters list
-  if (voters == null || voters.isEmpty) {
+  if (voters.isEmpty) {
     return 0.0; // Return 0.0 for safety
   }
 
   // Count instances of targetVoteValue in the voters list
-  int count = 0;
-  for (final voter in voters) {
-    if (voter.voteValue == targetVoteValue) {
-      count++;
-    }
-  }
+  int count =
+      voters.where((voter) => voter.voteValue == targetVoteValue).length;
 
-  // Calculate the percentage and return
-  return count / voters.length;
+  // Calculate the percentage, multiply by 100, and round
+  return (count / voters.length);
 }
 
 int roundAndMultiply(double value) {
-  int roundedValue = value.round();
-  return roundedValue * 100;
+  return (value * 100).round();
 }
 
 DocumentReference idToReference(String postID) {
@@ -385,22 +399,31 @@ List<UserMessageDataStruct> updateUserLatestTime(
   return oldUserMessageData;
 }
 
-bool checkIfRead(
+bool checkIfReadOther(
   DateTime messageTime,
-  List<UserMessageDataStruct> latestUser,
+  List<UserMessageDataStruct> users,
   DocumentReference currentUser,
 ) {
-  if (latestUser.isEmpty) {
-    return false; // Assuming no users have read the message if the list is empty
+  UserMessageDataStruct? latestUserInstance = users
+      .where((userMessage) => userMessage.userReference == currentUser)
+      .reduce((latest, current) {
+    DateTime? latestTime = latest.lastTimeOnline;
+    DateTime? currentTime = current.lastTimeOnline;
+
+    // Handle null cases safely
+    if (latestTime == null) return current;
+    if (currentTime == null) return latest;
+    return latestTime.isAfter(currentTime) ? latest : current;
+  });
+
+  // Check if a valid instance was found and its lastTimeOnline is after messageTime
+  if (latestUserInstance != null &&
+      latestUserInstance.lastTimeOnline != null &&
+      latestUserInstance.lastTimeOnline!.isAfter(messageTime)) {
+    return true;
   }
 
-  return latestUser.any((userMessage) {
-    final lastTime = userMessage.lastTimeOnline;
-    // Check if the last time is after the message time and it's not the current user
-    return lastTime != null &&
-        lastTime.isAfter(messageTime) &&
-        userMessage.userReference != currentUser;
-  });
+  return false;
 }
 
 List<PostsforalgoStruct> makePosts(
@@ -448,4 +471,29 @@ List<DocumentReference> postrefslist(List<String> apiresult) {
     docRefs.add(firestore.doc(id));
   }
   return docRefs;
+}
+
+List<DocumentReference> singleUsersToList(
+  DocumentReference user1,
+  DocumentReference user2,
+) {
+  return [user1, user2];
+}
+
+ChatsRecord? getMatchingChat(
+  List<ChatsRecord> chats,
+  DocumentReference ref,
+) {
+  for (var chat in chats) {
+    // Check if the users field exists and contains exactly 2 users
+    if (chat.users != null && chat.users.length == 2) {
+      // Check if the provided ref exists in the users list
+      if (chat.users.contains(ref)) {
+        return chat; // Return the chat's reference if it matches
+      }
+    }
+  }
+
+  // If no matching chat is found, return null
+  return null;
 }

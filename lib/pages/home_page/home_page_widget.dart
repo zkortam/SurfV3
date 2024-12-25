@@ -44,6 +44,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
       }
       _model.aPIresult = await GetrecommendationsCall.call(
         userId: currentUserUid,
+        collection: 'posts',
       );
 
       if ((_model.aPIresult?.succeeded ?? true)) {
@@ -76,7 +77,41 @@ class _HomePageWidgetState extends State<HomePageWidget>
           ),
         ],
       ),
+      'containerOnActionTriggerAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 1.ms),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 500.0.ms,
+            begin: const Offset(-100.0, 0.0),
+            end: const Offset(-50.0, 0.0),
+          ),
+        ],
+      ),
+      'containerOnActionTriggerAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 1.ms),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 500.0.ms,
+            begin: const Offset(100.0, 0.0),
+            end: const Offset(50.0, 0.0),
+          ),
+        ],
+      ),
     });
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
+      this,
+    );
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -223,6 +258,40 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       borderWidth: 1.0,
                                                       buttonSize: 40.0,
                                                       icon: Icon(
+                                                        Icons.search_outlined,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                        size: 24.0,
+                                                      ),
+                                                      onPressed: () async {
+                                                        context.pushNamed(
+                                                          'Search',
+                                                          queryParameters: {
+                                                            'tabIndex':
+                                                                serializeParam(
+                                                              0,
+                                                              ParamType.int,
+                                                            ),
+                                                          }.withoutNulls,
+                                                        );
+                                                      },
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                5.0, 0.0),
+                                                    child:
+                                                        FlutterFlowIconButton(
+                                                      borderColor:
+                                                          Colors.transparent,
+                                                      borderRadius: 20.0,
+                                                      borderWidth: 1.0,
+                                                      buttonSize: 40.0,
+                                                      icon: Icon(
                                                         Icons.hexagon_outlined,
                                                         color:
                                                             FlutterFlowTheme.of(
@@ -264,23 +333,141 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       },
                                                     ),
                                                   ),
-                                                  FlutterFlowIconButton(
-                                                    borderRadius: 20.0,
-                                                    borderWidth: 1.0,
-                                                    buttonSize: 40.0,
-                                                    icon: Icon(
-                                                      Icons
-                                                          .favorite_border_rounded,
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
-                                                      size: 24.0,
-                                                    ),
-                                                    onPressed: () async {
+                                                  InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
                                                       context.pushNamed(
                                                           'NotificationsPage');
                                                     },
+                                                    child: SizedBox(
+                                                      width: 40.0,
+                                                      height: 40.0,
+                                                      child: Stack(
+                                                        children: [
+                                                          if ((currentUserDocument
+                                                                          ?.notifications
+                                                                          .toList() ??
+                                                                      []).isNotEmpty)
+                                                            AuthUserStreamWidget(
+                                                              builder:
+                                                                  (context) =>
+                                                                      Stack(
+                                                                children: [
+                                                                  FlutterFlowIconButton(
+                                                                    borderColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    borderRadius:
+                                                                        20.0,
+                                                                    borderWidth:
+                                                                        1.0,
+                                                                    buttonSize:
+                                                                        40.0,
+                                                                    icon: Icon(
+                                                                      Icons
+                                                                          .notifications_rounded,
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryText,
+                                                                      size:
+                                                                          24.0,
+                                                                    ),
+                                                                    onPressed:
+                                                                        () {
+                                                                      print(
+                                                                          'NotifFull pressed ...');
+                                                                    },
+                                                                  ),
+                                                                  Padding(
+                                                                    padding: const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            5.0,
+                                                                            5.0,
+                                                                            0.0),
+                                                                    child: Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .end,
+                                                                      children: [
+                                                                        Container(
+                                                                          width:
+                                                                              17.0,
+                                                                          height:
+                                                                              17.0,
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).error,
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(20.0),
+                                                                          ),
+                                                                          child:
+                                                                              Align(
+                                                                            alignment:
+                                                                                const AlignmentDirectional(0.0, 0.0),
+                                                                            child:
+                                                                                Text(
+                                                                              valueOrDefault<String>(
+                                                                                (currentUserDocument?.notifications.toList() ?? []).length.toString(),
+                                                                                '0',
+                                                                              ),
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: 'Montserrat',
+                                                                                    fontSize: 10.0,
+                                                                                    letterSpacing: 0.0,
+                                                                                  ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          if ((currentUserDocument
+                                                                          ?.notifications
+                                                                          .toList() ??
+                                                                      []).isEmpty)
+                                                            AuthUserStreamWidget(
+                                                              builder: (context) =>
+                                                                  FlutterFlowIconButton(
+                                                                borderColor: Colors
+                                                                    .transparent,
+                                                                borderRadius:
+                                                                    20.0,
+                                                                borderWidth:
+                                                                    1.0,
+                                                                buttonSize:
+                                                                    40.0,
+                                                                icon: Icon(
+                                                                  Icons
+                                                                      .notifications_none_rounded,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
+                                                                  size: 24.0,
+                                                                ),
+                                                                onPressed: () {
+                                                                  print(
+                                                                      'EmptyNotif pressed ...');
+                                                                },
+                                                              ),
+                                                            ),
+                                                        ],
+                                                      ),
+                                                    ),
                                                   ),
                                                   FlutterFlowIconButton(
                                                     borderRadius: 20.0,
@@ -314,13 +501,20 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         ),
                         Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
-                              5.0, 10.0, 5.0, 10.0),
+                              5.0, 10.0, 5.0, 0.0),
                           child: FutureBuilder<List<UsersRecord>>(
                             future: queryUsersRecordOnce(
-                              queryBuilder: (usersRecord) => usersRecord.where(
-                                'latestSnippetTime',
-                                isGreaterThan: getCurrentTimestamp,
-                              ),
+                              queryBuilder: (usersRecord) => usersRecord
+                                  .where(
+                                    'latestSnippetTime',
+                                    isGreaterThan: getCurrentTimestamp,
+                                  )
+                                  .where(
+                                    'followers',
+                                    arrayContains: currentUserReference,
+                                  )
+                                  .orderBy('latestSnippetTime',
+                                      descending: true),
                             ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
@@ -337,15 +531,17 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                   ),
                                 );
                               }
-                              List<UsersRecord> rowUsersRecordList =
+                              List<UsersRecord> snippetsBarUsersRecordList =
                                   snapshot.data!;
 
                               return Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: List.generate(
-                                    rowUsersRecordList.length, (rowIndex) {
-                                  final rowUsersRecord =
-                                      rowUsersRecordList[rowIndex];
+                                    snippetsBarUsersRecordList.length,
+                                    (snippetsBarIndex) {
+                                  final snippetsBarUsersRecord =
+                                      snippetsBarUsersRecordList[
+                                          snippetsBarIndex];
                                   return InkWell(
                                     splashColor: Colors.transparent,
                                     focusColor: Colors.transparent,
@@ -356,7 +552,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         'Snippets',
                                         queryParameters: {
                                           'author': serializeParam(
-                                            rowUsersRecord.reference,
+                                            snippetsBarUsersRecord.reference,
                                             ParamType.DocumentReference,
                                           ),
                                         }.withoutNulls,
@@ -381,7 +577,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                             shape: BoxShape.circle,
                                           ),
                                           child: Image.network(
-                                            rowUsersRecord.photoUrl,
+                                            snippetsBarUsersRecord.photoUrl,
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -393,201 +589,584 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             },
                           ),
                         ),
-                        if (currentUserDocument?.userSettings.isSwipeFeed ??
-                            true)
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 10.0, 0.0, 0.0),
-                            child: AuthUserStreamWidget(
-                              builder: (context) => Container(
-                                width: 500.0,
-                                height: 550.0,
-                                decoration: const BoxDecoration(),
-                                child: FutureBuilder<List<PostsRecord>>(
-                                  future: queryPostsRecordOnce(
-                                    queryBuilder: (postsRecord) => postsRecord
-                                        .where(
-                                          'isShort',
-                                          isEqualTo: false,
-                                        )
-                                        .orderBy('TimePosted',
-                                            descending: true),
-                                  ),
-                                  builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
-                                    if (!snapshot.hasData) {
-                                      return Center(
-                                        child: SizedBox(
-                                          width: 40.0,
-                                          height: 40.0,
-                                          child: SpinKitFadingFour(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            size: 40.0,
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                    List<PostsRecord>
-                                        swipeableStackPostsRecordList =
-                                        snapshot.data!;
-
-                                    return FlutterFlowSwipeableStack(
-                                      onSwipeFn: (index) {},
-                                      onLeftSwipe: (index) {},
-                                      onRightSwipe: (index) {},
-                                      onUpSwipe: (index) {},
-                                      onDownSwipe: (index) {},
-                                      itemBuilder:
-                                          (context, swipeableStackIndex) {
-                                        final swipeableStackPostsRecord =
-                                            swipeableStackPostsRecordList[
-                                                swipeableStackIndex];
-                                        return PostWidget(
-                                          key: Key(
-                                              'Keyg9y_${swipeableStackIndex}_of_${swipeableStackPostsRecordList.length}'),
-                                          post: swipeableStackPostsRecord,
-                                        );
-                                      },
-                                      itemCount:
-                                          swipeableStackPostsRecordList.length,
-                                      controller:
-                                          _model.swipeableStackController,
-                                      loop: false,
-                                      cardDisplayCount: 3,
-                                      scale: 0.9,
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        if (!valueOrDefault<bool>(
-                              currentUserDocument?.userSettings.isSwipeFeed,
-                              false,
-                            ) &&
-                            (_model.postindex == 5))
-                          AuthUserStreamWidget(
-                            builder: (context) =>
-                                StreamBuilder<List<PostsRecord>>(
-                              stream: queryPostsRecord(
-                                queryBuilder: (postsRecord) => postsRecord
-                                    .where(
-                                      'isShort',
-                                      isEqualTo: false,
-                                    )
-                                    .orderBy('TimePosted', descending: true),
-                              ),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 40.0,
-                                      height: 40.0,
-                                      child: SpinKitFadingFour(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        size: 40.0,
-                                      ),
+                        Stack(
+                          children: [
+                            if (currentUserDocument
+                                    ?.userSettings.isSwipeFeed ??
+                                true)
+                              AuthUserStreamWidget(
+                                builder: (context) => Container(
+                                  width: 500.0,
+                                  height: 550.0,
+                                  decoration: const BoxDecoration(),
+                                  child: FutureBuilder<List<PostsRecord>>(
+                                    future: queryPostsRecordOnce(
+                                      queryBuilder: (postsRecord) => postsRecord
+                                          .where(
+                                            'isShort',
+                                            isEqualTo: false,
+                                          )
+                                          .orderBy('TimePosted',
+                                              descending: true),
                                     ),
-                                  );
-                                }
-                                List<PostsRecord> noAlgorithmPostsRecordList =
-                                    snapshot.data!;
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 40.0,
+                                            height: 40.0,
+                                            child: SpinKitFadingFour(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              size: 40.0,
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                      List<PostsRecord>
+                                          swipeableStackPostsRecordList =
+                                          snapshot.data!;
 
-                                return ListView.separated(
-                                  padding: EdgeInsets.zero,
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: noAlgorithmPostsRecordList.length,
-                                  separatorBuilder: (_, __) =>
-                                      const SizedBox(height: 10.0),
-                                  itemBuilder: (context, noAlgorithmIndex) {
-                                    final noAlgorithmPostsRecord =
-                                        noAlgorithmPostsRecordList[
-                                            noAlgorithmIndex];
-                                    return PostWidget(
-                                      key: Key(
-                                          'Keybph_${noAlgorithmIndex}_of_${noAlgorithmPostsRecordList.length}'),
-                                      post: noAlgorithmPostsRecord,
-                                    );
-                                  },
-                                );
-                              },
-                            ),
-                          ),
-                        if (!valueOrDefault<bool>(
-                              currentUserDocument?.userSettings.isSwipeFeed,
-                              false,
-                            ) &&
-                            (_model.postindex == 3))
-                          Flexible(
-                            child: Align(
-                              alignment: const AlignmentDirectional(0.0, 0.0),
-                              child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    5.0, 0.0, 5.0, 0.0),
-                                child: AuthUserStreamWidget(
-                                  builder: (context) => Builder(
-                                    builder: (context) {
-                                      final posts = _model.postrefs.toList();
-
-                                      return ListView.separated(
-                                        padding: const EdgeInsets.fromLTRB(
-                                          0,
-                                          0,
-                                          0,
-                                          110.0,
-                                        ),
-                                        primary: false,
-                                        shrinkWrap: true,
-                                        scrollDirection: Axis.vertical,
-                                        itemCount: posts.length,
-                                        separatorBuilder: (_, __) =>
-                                            const SizedBox(height: 10.0),
-                                        itemBuilder: (context, postsIndex) {
-                                          final postsItem = posts[postsIndex];
-                                          return StreamBuilder<PostsRecord>(
-                                            stream: PostsRecord.getDocument(
-                                                postsItem),
-                                            builder: (context, snapshot) {
-                                              // Customize what your widget looks like when it's loading.
-                                              if (!snapshot.hasData) {
-                                                return Center(
-                                                  child: SizedBox(
-                                                    width: 40.0,
-                                                    height: 40.0,
-                                                    child: SpinKitFadingFour(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      size: 40.0,
+                                      return FlutterFlowSwipeableStack(
+                                        onSwipeFn: (index) {},
+                                        onLeftSwipe: (index) async {
+                                          final swipeableStackPostsRecord =
+                                              swipeableStackPostsRecordList[
+                                                  index];
+                                          final firestoreBatch =
+                                              FirebaseFirestore.instance
+                                                  .batch();
+                                          try {
+                                            if (functions
+                                                    .voterInList(
+                                                        swipeableStackPostsRecord
+                                                            .voters
+                                                            .toList(),
+                                                        currentUserReference!)
+                                                    .toString() ==
+                                                '-1') {
+                                              firestoreBatch.update(
+                                                  swipeableStackPostsRecord
+                                                      .reference,
+                                                  {
+                                                    ...mapToFirestore(
+                                                      {
+                                                        'Voters': FieldValue
+                                                            .arrayRemove([
+                                                          getVotersFirestoreData(
+                                                            createVotersStruct(
+                                                              userReference:
+                                                                  currentUserReference,
+                                                              voteValue: -1,
+                                                              clearUnsetFields:
+                                                                  false,
+                                                            ),
+                                                            true,
+                                                          )
+                                                        ]),
+                                                      },
                                                     ),
-                                                  ),
-                                                );
+                                                  });
+
+                                              firestoreBatch.update(
+                                                  currentUserReference!,
+                                                  createUsersRecordData(
+                                                    postInteractions:
+                                                        createPostInteractionsStruct(
+                                                      fieldValues: {
+                                                        'disliked': FieldValue
+                                                            .arrayRemove([
+                                                          swipeableStackPostsRecord
+                                                              .reference
+                                                        ]),
+                                                      },
+                                                      clearUnsetFields: false,
+                                                    ),
+                                                  ));
+                                            } else {
+                                              if (animationsMap[
+                                                      'containerOnActionTriggerAnimation1'] !=
+                                                  null) {
+                                                await animationsMap[
+                                                        'containerOnActionTriggerAnimation1']!
+                                                    .controller
+                                                    .forward(from: 0.0)
+                                                    .whenComplete(animationsMap[
+                                                            'containerOnActionTriggerAnimation1']!
+                                                        .controller
+                                                        .reverse);
                                               }
+                                              if (functions
+                                                      .voterInList(
+                                                          swipeableStackPostsRecord
+                                                              .voters
+                                                              .toList(),
+                                                          currentUserReference!)
+                                                      .toString() ==
+                                                  '1') {
+                                                firestoreBatch.update(
+                                                    swipeableStackPostsRecord
+                                                        .reference,
+                                                    {
+                                                      ...mapToFirestore(
+                                                        {
+                                                          'Voters': FieldValue
+                                                              .arrayUnion([
+                                                            getVotersFirestoreData(
+                                                              createVotersStruct(
+                                                                userReference:
+                                                                    currentUserReference,
+                                                                voteValue: -1,
+                                                                clearUnsetFields:
+                                                                    false,
+                                                              ),
+                                                              true,
+                                                            )
+                                                          ]),
+                                                        },
+                                                      ),
+                                                    });
 
-                                              final postPostsRecord =
-                                                  snapshot.data!;
+                                                firestoreBatch.update(
+                                                    swipeableStackPostsRecord
+                                                        .reference,
+                                                    {
+                                                      ...mapToFirestore(
+                                                        {
+                                                          'Voters': FieldValue
+                                                              .arrayRemove([
+                                                            getVotersFirestoreData(
+                                                              createVotersStruct(
+                                                                userReference:
+                                                                    currentUserReference,
+                                                                voteValue: 1,
+                                                                clearUnsetFields:
+                                                                    false,
+                                                              ),
+                                                              true,
+                                                            )
+                                                          ]),
+                                                        },
+                                                      ),
+                                                    });
 
-                                              return PostWidget(
-                                                key: Key(
-                                                    'Key81y_${postsIndex}_of_${posts.length}'),
-                                                post: postPostsRecord,
-                                              );
-                                            },
+                                                firestoreBatch.update(
+                                                    currentUserReference!,
+                                                    createUsersRecordData(
+                                                      postInteractions:
+                                                          createPostInteractionsStruct(
+                                                        fieldValues: {
+                                                          'liked': FieldValue
+                                                              .arrayRemove([
+                                                            swipeableStackPostsRecord
+                                                                .reference
+                                                          ]),
+                                                          'disliked': FieldValue
+                                                              .arrayUnion([
+                                                            swipeableStackPostsRecord
+                                                                .reference
+                                                          ]),
+                                                        },
+                                                        clearUnsetFields: false,
+                                                      ),
+                                                    ));
+                                              } else {
+                                                firestoreBatch.update(
+                                                    swipeableStackPostsRecord
+                                                        .reference,
+                                                    {
+                                                      ...mapToFirestore(
+                                                        {
+                                                          'Voters': FieldValue
+                                                              .arrayUnion([
+                                                            getVotersFirestoreData(
+                                                              createVotersStruct(
+                                                                userReference:
+                                                                    currentUserReference,
+                                                                voteValue: -1,
+                                                                clearUnsetFields:
+                                                                    false,
+                                                              ),
+                                                              true,
+                                                            )
+                                                          ]),
+                                                        },
+                                                      ),
+                                                    });
+
+                                                firestoreBatch.update(
+                                                    currentUserReference!,
+                                                    createUsersRecordData(
+                                                      postInteractions:
+                                                          createPostInteractionsStruct(
+                                                        fieldValues: {
+                                                          'disliked': FieldValue
+                                                              .arrayUnion([
+                                                            swipeableStackPostsRecord
+                                                                .reference
+                                                          ]),
+                                                        },
+                                                        clearUnsetFields: false,
+                                                      ),
+                                                    ));
+                                              }
+                                            }
+                                          } finally {
+                                            await firestoreBatch.commit();
+                                          }
+                                        },
+                                        onRightSwipe: (index) async {
+                                          final swipeableStackPostsRecord =
+                                              swipeableStackPostsRecordList[
+                                                  index];
+                                          final firestoreBatch =
+                                              FirebaseFirestore.instance
+                                                  .batch();
+                                          try {
+                                            if (functions
+                                                    .voterInList(
+                                                        swipeableStackPostsRecord
+                                                            .voters
+                                                            .toList(),
+                                                        currentUserReference!)
+                                                    .toString() ==
+                                                '1') {
+                                              firestoreBatch.update(
+                                                  swipeableStackPostsRecord
+                                                      .reference,
+                                                  {
+                                                    ...mapToFirestore(
+                                                      {
+                                                        'Voters': FieldValue
+                                                            .arrayRemove([
+                                                          getVotersFirestoreData(
+                                                            createVotersStruct(
+                                                              userReference:
+                                                                  currentUserReference,
+                                                              voteValue: 1,
+                                                              clearUnsetFields:
+                                                                  false,
+                                                            ),
+                                                            true,
+                                                          )
+                                                        ]),
+                                                      },
+                                                    ),
+                                                  });
+
+                                              firestoreBatch.update(
+                                                  currentUserReference!,
+                                                  createUsersRecordData(
+                                                    postInteractions:
+                                                        createPostInteractionsStruct(
+                                                      fieldValues: {
+                                                        'liked': FieldValue
+                                                            .arrayRemove([
+                                                          swipeableStackPostsRecord
+                                                              .reference
+                                                        ]),
+                                                      },
+                                                      clearUnsetFields: false,
+                                                    ),
+                                                  ));
+                                            } else {
+                                              if (animationsMap[
+                                                      'containerOnActionTriggerAnimation2'] !=
+                                                  null) {
+                                                await animationsMap[
+                                                        'containerOnActionTriggerAnimation2']!
+                                                    .controller
+                                                    .forward(from: 0.0)
+                                                    .whenComplete(animationsMap[
+                                                            'containerOnActionTriggerAnimation2']!
+                                                        .controller
+                                                        .reverse);
+                                              }
+                                              if (functions
+                                                      .voterInList(
+                                                          swipeableStackPostsRecord
+                                                              .voters
+                                                              .toList(),
+                                                          currentUserReference!)
+                                                      .toString() ==
+                                                  '-1') {
+                                                firestoreBatch.update(
+                                                    swipeableStackPostsRecord
+                                                        .reference,
+                                                    {
+                                                      ...mapToFirestore(
+                                                        {
+                                                          'Voters': FieldValue
+                                                              .arrayUnion([
+                                                            getVotersFirestoreData(
+                                                              createVotersStruct(
+                                                                userReference:
+                                                                    currentUserReference,
+                                                                voteValue: 1,
+                                                                clearUnsetFields:
+                                                                    false,
+                                                              ),
+                                                              true,
+                                                            )
+                                                          ]),
+                                                        },
+                                                      ),
+                                                    });
+
+                                                firestoreBatch.update(
+                                                    swipeableStackPostsRecord
+                                                        .reference,
+                                                    {
+                                                      ...mapToFirestore(
+                                                        {
+                                                          'Voters': FieldValue
+                                                              .arrayRemove([
+                                                            getVotersFirestoreData(
+                                                              createVotersStruct(
+                                                                userReference:
+                                                                    currentUserReference,
+                                                                voteValue: -1,
+                                                                clearUnsetFields:
+                                                                    false,
+                                                              ),
+                                                              true,
+                                                            )
+                                                          ]),
+                                                        },
+                                                      ),
+                                                    });
+
+                                                firestoreBatch.update(
+                                                    currentUserReference!,
+                                                    createUsersRecordData(
+                                                      postInteractions:
+                                                          createPostInteractionsStruct(
+                                                        fieldValues: {
+                                                          'liked': FieldValue
+                                                              .arrayUnion([
+                                                            swipeableStackPostsRecord
+                                                                .reference
+                                                          ]),
+                                                          'disliked': FieldValue
+                                                              .arrayRemove([
+                                                            swipeableStackPostsRecord
+                                                                .reference
+                                                          ]),
+                                                        },
+                                                        clearUnsetFields: false,
+                                                      ),
+                                                    ));
+                                              } else {
+                                                firestoreBatch.update(
+                                                    swipeableStackPostsRecord
+                                                        .reference,
+                                                    {
+                                                      ...mapToFirestore(
+                                                        {
+                                                          'Voters': FieldValue
+                                                              .arrayUnion([
+                                                            getVotersFirestoreData(
+                                                              createVotersStruct(
+                                                                userReference:
+                                                                    currentUserReference,
+                                                                voteValue: 1,
+                                                                clearUnsetFields:
+                                                                    false,
+                                                              ),
+                                                              true,
+                                                            )
+                                                          ]),
+                                                        },
+                                                      ),
+                                                    });
+
+                                                firestoreBatch.update(
+                                                    currentUserReference!,
+                                                    createUsersRecordData(
+                                                      postInteractions:
+                                                          createPostInteractionsStruct(
+                                                        fieldValues: {
+                                                          'liked': FieldValue
+                                                              .arrayUnion([
+                                                            swipeableStackPostsRecord
+                                                                .reference
+                                                          ]),
+                                                        },
+                                                        clearUnsetFields: false,
+                                                      ),
+                                                    ));
+                                              }
+                                            }
+                                          } finally {
+                                            await firestoreBatch.commit();
+                                          }
+                                        },
+                                        onUpSwipe: (index) {},
+                                        onDownSwipe: (index) {},
+                                        itemBuilder:
+                                            (context, swipeableStackIndex) {
+                                          final swipeableStackPostsRecord =
+                                              swipeableStackPostsRecordList[
+                                                  swipeableStackIndex];
+                                          return PostWidget(
+                                            key: Key(
+                                                'Keyg9y_${swipeableStackIndex}_of_${swipeableStackPostsRecordList.length}'),
+                                            post: swipeableStackPostsRecord,
+                                            isLike: false,
                                           );
                                         },
-                                      ).animateOnPageLoad(animationsMap[
-                                          'listViewOnPageLoadAnimation']!);
+                                        itemCount: swipeableStackPostsRecordList
+                                            .length,
+                                        controller:
+                                            _model.swipeableStackController,
+                                        loop: false,
+                                        cardDisplayCount: 3,
+                                        scale: 0.934,
+                                      );
                                     },
                                   ),
                                 ),
                               ),
-                            ),
-                          ),
+                            if (!valueOrDefault<bool>(
+                                  currentUserDocument
+                                      ?.userSettings.isSwipeFeed,
+                                  false,
+                                ) &&
+                                (_model.postindex != 3))
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 10.0, 0.0, 0.0),
+                                child: AuthUserStreamWidget(
+                                  builder: (context) =>
+                                      StreamBuilder<List<PostsRecord>>(
+                                    stream: queryPostsRecord(
+                                      queryBuilder: (postsRecord) => postsRecord
+                                          .where(
+                                            'isShort',
+                                            isEqualTo: false,
+                                          )
+                                          .orderBy('TimePosted',
+                                              descending: true),
+                                    ),
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 40.0,
+                                            height: 40.0,
+                                            child: SpinKitFadingFour(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              size: 40.0,
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                      List<PostsRecord>
+                                          noAlgorithmPostsRecordList =
+                                          snapshot.data!;
+
+                                      return ListView.separated(
+                                        padding: EdgeInsets.zero,
+                                        primary: false,
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        itemCount:
+                                            noAlgorithmPostsRecordList.length,
+                                        separatorBuilder: (_, __) =>
+                                            const SizedBox(height: 10.0),
+                                        itemBuilder:
+                                            (context, noAlgorithmIndex) {
+                                          final noAlgorithmPostsRecord =
+                                              noAlgorithmPostsRecordList[
+                                                  noAlgorithmIndex];
+                                          return PostWidget(
+                                            key: Key(
+                                                'Keybph_${noAlgorithmIndex}_of_${noAlgorithmPostsRecordList.length}'),
+                                            post: noAlgorithmPostsRecord,
+                                          );
+                                        },
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                            if (!valueOrDefault<bool>(
+                                  currentUserDocument
+                                      ?.userSettings.isSwipeFeed,
+                                  false,
+                                ) &&
+                                (_model.postindex == 3))
+                              Align(
+                                alignment: const AlignmentDirectional(0.0, 0.0),
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      5.0, 10.0, 5.0, 0.0),
+                                  child: AuthUserStreamWidget(
+                                    builder: (context) => Builder(
+                                      builder: (context) {
+                                        final posts = _model.postrefs.toList();
+
+                                        return ListView.separated(
+                                          padding: const EdgeInsets.fromLTRB(
+                                            0,
+                                            0,
+                                            0,
+                                            110.0,
+                                          ),
+                                          primary: false,
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.vertical,
+                                          itemCount: posts.length,
+                                          separatorBuilder: (_, __) =>
+                                              const SizedBox(height: 10.0),
+                                          itemBuilder: (context, postsIndex) {
+                                            final postsItem = posts[postsIndex];
+                                            return StreamBuilder<PostsRecord>(
+                                              stream: PostsRecord.getDocument(
+                                                  postsItem),
+                                              builder: (context, snapshot) {
+                                                // Customize what your widget looks like when it's loading.
+                                                if (!snapshot.hasData) {
+                                                  return Center(
+                                                    child: SizedBox(
+                                                      width: 40.0,
+                                                      height: 40.0,
+                                                      child: SpinKitFadingFour(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        size: 40.0,
+                                                      ),
+                                                    ),
+                                                  );
+                                                }
+
+                                                final postPostsRecord =
+                                                    snapshot.data!;
+
+                                                return PostWidget(
+                                                  key: Key(
+                                                      'Key81y_${postsIndex}_of_${posts.length}'),
+                                                  post: postPostsRecord,
+                                                );
+                                              },
+                                            );
+                                          },
+                                        ).animateOnPageLoad(animationsMap[
+                                            'listViewOnPageLoadAnimation']!);
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -608,6 +1187,54 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         ),
                       ),
                     ),
+                  ),
+                ),
+                Align(
+                  alignment: const AlignmentDirectional(-1.0, 0.0),
+                  child: Container(
+                    width: 100.0,
+                    height: 700.0,
+                    decoration: BoxDecoration(
+                      color: const Color(0x49D01C27),
+                      boxShadow: const [
+                        BoxShadow(
+                          blurRadius: 7.0,
+                          color: Color(0x2DD01C27),
+                          offset: Offset(
+                            0.0,
+                            2.0,
+                          ),
+                          spreadRadius: 20.0,
+                        )
+                      ],
+                      borderRadius: BorderRadius.circular(70.0),
+                    ),
+                  ).animateOnActionTrigger(
+                    animationsMap['containerOnActionTriggerAnimation1']!,
+                  ),
+                ),
+                Align(
+                  alignment: const AlignmentDirectional(1.0, 0.0),
+                  child: Container(
+                    width: 100.0,
+                    height: 700.0,
+                    decoration: BoxDecoration(
+                      color: const Color(0x4A1B9E62),
+                      boxShadow: const [
+                        BoxShadow(
+                          blurRadius: 7.0,
+                          color: Color(0x4A1B9E62),
+                          offset: Offset(
+                            0.0,
+                            2.0,
+                          ),
+                          spreadRadius: 20.0,
+                        )
+                      ],
+                      borderRadius: BorderRadius.circular(70.0),
+                    ),
+                  ).animateOnActionTrigger(
+                    animationsMap['containerOnActionTriggerAnimation2']!,
                   ),
                 ),
               ],

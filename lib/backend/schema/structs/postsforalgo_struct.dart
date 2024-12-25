@@ -1,5 +1,5 @@
 // ignore_for_file: unnecessary_getters_setters
-
+import '/backend/algolia/serialization_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -221,6 +221,60 @@ class PostsforalgoStruct extends FFFirebaseStruct {
           data['hashtags'],
           ParamType.String,
           true,
+        ),
+      );
+
+  static PostsforalgoStruct fromAlgoliaData(Map<String, dynamic> data) =>
+      PostsforalgoStruct(
+        caption: convertAlgoliaParam(
+          data['caption'],
+          ParamType.String,
+          false,
+        ),
+        timestamp: convertAlgoliaParam(
+          data['timestamp'],
+          ParamType.DateTime,
+          false,
+        ),
+        author: convertAlgoliaParam(
+          data['author'],
+          ParamType.DocumentReference,
+          false,
+        ),
+        isShort: convertAlgoliaParam(
+          data['isShort'],
+          ParamType.bool,
+          false,
+        ),
+        isStealth: convertAlgoliaParam(
+          data['isStealth'],
+          ParamType.bool,
+          false,
+        ),
+        media: convertAlgoliaParam(
+          data['media'],
+          ParamType.String,
+          false,
+        ),
+        shortVideo: convertAlgoliaParam(
+          data['shortVideo'],
+          ParamType.String,
+          false,
+        ),
+        voters: convertAlgoliaParam(
+          data['voters'],
+          ParamType.DataStruct,
+          false,
+          structBuilder: VotersStruct.fromAlgoliaData,
+        ),
+        hashtags: convertAlgoliaParam<String>(
+          data['hashtags'],
+          ParamType.String,
+          true,
+        ),
+        firestoreUtilData: const FirestoreUtilData(
+          clearUnsetFields: false,
+          create: true,
         ),
       );
 

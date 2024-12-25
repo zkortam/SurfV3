@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import '/backend/algolia/serialization_util.dart';
+import '/backend/algolia/algolia_manager.dart';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -82,6 +84,58 @@ class ChatsRecord extends FirestoreRecord {
     DocumentReference reference,
   ) =>
       ChatsRecord._(reference, mapFromFirestore(data));
+
+  static ChatsRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) =>
+      ChatsRecord.getDocumentFromData(
+        {
+          'users': safeGet(
+            () => convertAlgoliaParam<DocumentReference>(
+              snapshot.data['users'],
+              ParamType.DocumentReference,
+              true,
+            ).toList(),
+          ),
+          'image': snapshot.data['image'],
+          'title': snapshot.data['title'],
+          'chats': safeGet(
+            () => convertAlgoliaParam<DocumentReference>(
+              snapshot.data['chats'],
+              ParamType.DocumentReference,
+              true,
+            ).toList(),
+          ),
+          'lastTime': convertAlgoliaParam(
+            snapshot.data['lastTime'],
+            ParamType.DateTime,
+            false,
+          ),
+          'lastMessage': snapshot.data['lastMessage'],
+          'userChatData': safeGet(
+            () => (snapshot.data['userChatData'] as Iterable)
+                .map((d) => UserMessageDataStruct.fromAlgoliaData(d).toMap())
+                .toList(),
+          ),
+        },
+        ChatsRecord.collection.doc(snapshot.objectID),
+      );
+
+  static Future<List<ChatsRecord>> search({
+    String? term,
+    FutureOr<LatLng>? location,
+    int? maxResults,
+    double? searchRadiusMeters,
+    bool useCache = false,
+  }) =>
+      FFAlgoliaManager.instance
+          .algoliaQuery(
+            index: 'chats',
+            term: term,
+            maxResults: maxResults,
+            location: location,
+            searchRadiusMeters: searchRadiusMeters,
+            useCache: useCache,
+          )
+          .then((r) => r.map(fromAlgolia).toList());
 
   @override
   String toString() =>

@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import '/backend/algolia/serialization_util.dart';
+import '/backend/algolia/algolia_manager.dart';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -178,6 +180,114 @@ class PostsRecord extends FirestoreRecord {
     DocumentReference reference,
   ) =>
       PostsRecord._(reference, mapFromFirestore(data));
+
+  static PostsRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) =>
+      PostsRecord.getDocumentFromData(
+        {
+          'TimePosted': convertAlgoliaParam(
+            snapshot.data['TimePosted'],
+            ParamType.DateTime,
+            false,
+          ),
+          'Caption': snapshot.data['Caption'],
+          'Author': convertAlgoliaParam(
+            snapshot.data['Author'],
+            ParamType.DocumentReference,
+            false,
+          ),
+          'Voters': safeGet(
+            () => (snapshot.data['Voters'] as Iterable)
+                .map((d) => VotersStruct.fromAlgoliaData(d).toMap())
+                .toList(),
+          ),
+          'SpoilerClickers': safeGet(
+            () => convertAlgoliaParam<DocumentReference>(
+              snapshot.data['SpoilerClickers'],
+              ParamType.DocumentReference,
+              true,
+            ).toList(),
+          ),
+          'isShort': snapshot.data['isShort'],
+          'isExpanded': snapshot.data['isExpanded'],
+          'isSpoiler': snapshot.data['isSpoiler'],
+          'isStealth': snapshot.data['isStealth'],
+          'isPrivate': snapshot.data['isPrivate'],
+          'isCommentsAllowed': snapshot.data['isCommentsAllowed'],
+          'hashtags': safeGet(
+            () => snapshot.data['hashtags'].toList(),
+          ),
+          'post_id': snapshot.data['post_id'],
+          'comments': safeGet(
+            () => convertAlgoliaParam<DocumentReference>(
+              snapshot.data['comments'],
+              ParamType.DocumentReference,
+              true,
+            ).toList(),
+          ),
+          'media': safeGet(
+            () => snapshot.data['media'].toList(),
+          ),
+          'ShortVideo': snapshot.data['ShortVideo'],
+          'caption_embedding': safeGet(
+            () => convertAlgoliaParam<double>(
+              snapshot.data['caption_embedding'],
+              ParamType.double,
+              true,
+            ).toList(),
+          ),
+          'image_embedding': safeGet(
+            () => convertAlgoliaParam<double>(
+              snapshot.data['image_embedding'],
+              ParamType.double,
+              true,
+            ).toList(),
+          ),
+          'informative_value': convertAlgoliaParam(
+            snapshot.data['informative_value'],
+            ParamType.double,
+            false,
+          ),
+          'political_value': convertAlgoliaParam(
+            snapshot.data['political_value'],
+            ParamType.double,
+            false,
+          ),
+          'toxic_value': convertAlgoliaParam(
+            snapshot.data['toxic_value'],
+            ParamType.double,
+            false,
+          ),
+          'vulgar_value': convertAlgoliaParam(
+            snapshot.data['vulgar_value'],
+            ParamType.double,
+            false,
+          ),
+          'shortDuration': convertAlgoliaParam(
+            snapshot.data['shortDuration'],
+            ParamType.double,
+            false,
+          ),
+        },
+        PostsRecord.collection.doc(snapshot.objectID),
+      );
+
+  static Future<List<PostsRecord>> search({
+    String? term,
+    FutureOr<LatLng>? location,
+    int? maxResults,
+    double? searchRadiusMeters,
+    bool useCache = false,
+  }) =>
+      FFAlgoliaManager.instance
+          .algoliaQuery(
+            index: 'posts',
+            term: term,
+            maxResults: maxResults,
+            location: location,
+            searchRadiusMeters: searchRadiusMeters,
+            useCache: useCache,
+          )
+          .then((r) => r.map(fromAlgolia).toList());
 
   @override
   String toString() =>

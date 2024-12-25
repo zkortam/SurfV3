@@ -20,6 +20,7 @@ import '/flutter_flow/upload_data.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -67,13 +68,13 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
 
     _model.textController2 ??= TextEditingController();
     _model.textFieldFocusNode2 ??= FocusNode();
-
+    _model.textFieldFocusNode2!.addListener(() => safeSetState(() {}));
     _model.titleThreadsTextController ??= TextEditingController();
     _model.titleThreadsFocusNode ??= FocusNode();
-
+    _model.titleThreadsFocusNode!.addListener(() => safeSetState(() {}));
     _model.textThreadTextController ??= TextEditingController();
     _model.textThreadFocusNode ??= FocusNode();
-
+    _model.textThreadFocusNode!.addListener(() => safeSetState(() {}));
     _model.titleTextController1 ??= TextEditingController();
     _model.titleFocusNode1 ??= FocusNode();
 
@@ -291,344 +292,440 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 10.0, 0.0, 10.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            5.0, 0.0, 0.0, 0.0),
-                                        child: AuthUserStreamWidget(
-                                          builder: (context) =>
-                                              FlutterFlowIconButton(
-                                            borderColor: _model.isStealth ||
-                                                    valueOrDefault<bool>(
-                                                        currentUserDocument
-                                                            ?.isStealth,
-                                                        false)
-                                                ? FlutterFlowTheme.of(context)
-                                                    .success
-                                                : FlutterFlowTheme.of(context)
-                                                    .primaryText,
-                                            borderRadius: 20.0,
-                                            borderWidth: 2.0,
-                                            buttonSize: 40.0,
-                                            icon: FaIcon(
-                                              FontAwesomeIcons.userSecret,
-                                              color: _model.isStealth ||
-                                                      valueOrDefault<bool>(
-                                                          currentUserDocument
-                                                              ?.isStealth,
-                                                          false)
-                                                  ? FlutterFlowTheme.of(context)
-                                                      .success
-                                                  : FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              size: 20.0,
-                                            ),
-                                            onPressed: () async {
-                                              if (_model.isStealth) {
-                                                _model.isStealth = false;
-                                                safeSetState(() {});
-                                              } else {
-                                                _model.isStealth = true;
-                                                safeSetState(() {});
-                                              }
-                                            },
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            5.0, 0.0, 0.0, 0.0),
-                                        child: FlutterFlowIconButton(
-                                          borderColor: _model.isSpoiler
-                                              ? FlutterFlowTheme.of(context)
-                                                  .success
-                                              : FlutterFlowTheme.of(context)
-                                                  .primaryText,
-                                          borderRadius: 20.0,
-                                          borderWidth: 2.0,
-                                          buttonSize: 40.0,
-                                          icon: FaIcon(
-                                            FontAwesomeIcons.ghost,
-                                            color: _model.isSpoiler
-                                                ? FlutterFlowTheme.of(context)
-                                                    .success
-                                                : FlutterFlowTheme.of(context)
-                                                    .primaryText,
-                                            size: 20.0,
-                                          ),
-                                          onPressed: () async {
-                                            if (_model.isSpoiler) {
-                                              _model.isSpoiler = false;
-                                              safeSetState(() {});
-                                            } else {
-                                              _model.isSpoiler = true;
-                                              safeSetState(() {});
-                                            }
-                                          },
-                                        ),
-                                      ),
-                                      Stack(
-                                        children: [
-                                          if ((_model.textController1.text !=
-                                                      '') &&
-                                              (_model.media.isNotEmpty))
-                                            Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(5.0, 0.0, 0.0, 0.0),
-                                              child: FFButtonWidget(
-                                                onPressed: () async {
-                                                  if (((_model.media
-                                                              .isNotEmpty) !=
-                                                          null) &&
-                                                      (_model.textController1
-                                                                  .text !=
-                                                              '')) {
-                                                    await PostsRecord.collection
-                                                        .doc()
-                                                        .set({
-                                                      ...createPostsRecordData(
-                                                        timePosted:
-                                                            getCurrentTimestamp,
-                                                        caption: functions
-                                                            .refineThreadText(_model
-                                                                .textController1
-                                                                .text),
-                                                        author:
-                                                            currentUserReference,
-                                                        isShort: false,
-                                                        isStealth: valueOrDefault<
-                                                                    bool>(
-                                                                currentUserDocument
-                                                                    ?.isStealth,
-                                                                false) ||
-                                                            _model.isStealth,
-                                                        isSpoiler:
-                                                            _model.isSpoiler,
-                                                      ),
-                                                      ...mapToFirestore(
-                                                        {
-                                                          'media': _model.media,
-                                                          'hashtags': functions
-                                                              .collecthashtags(
-                                                                  _model
-                                                                      .textController1
-                                                                      .text),
-                                                        },
-                                                      ),
-                                                    });
-
-                                                    context.goNamed('HomePage');
-                                                  } else {
-                                                    if (functions
-                                                            .stringLength(_model
-                                                                .textController1
-                                                                .text)
-                                                            .toString() ==
-                                                        '0') {
-                                                      await showModalBottomSheet(
-                                                        isScrollControlled:
-                                                            true,
-                                                        backgroundColor:
-                                                            Colors.transparent,
-                                                        enableDrag: false,
-                                                        context: context,
-                                                        builder: (context) {
-                                                          return GestureDetector(
-                                                            onTap: () {
-                                                              FocusScope.of(
-                                                                      context)
-                                                                  .unfocus();
-                                                              FocusManager
-                                                                  .instance
-                                                                  .primaryFocus
-                                                                  ?.unfocus();
-                                                            },
-                                                            child: Padding(
-                                                              padding: MediaQuery
-                                                                  .viewInsetsOf(
-                                                                      context),
-                                                              child:
-                                                                  const ErrorBarWidget(
-                                                                text:
-                                                                    'Enter a Caption',
-                                                              ),
-                                                            ),
-                                                          );
-                                                        },
-                                                      ).then((value) =>
-                                                          safeSetState(() {}));
-                                                    } else {
-                                                      await showModalBottomSheet(
-                                                        isScrollControlled:
-                                                            true,
-                                                        backgroundColor:
-                                                            Colors.transparent,
-                                                        enableDrag: false,
-                                                        context: context,
-                                                        builder: (context) {
-                                                          return GestureDetector(
-                                                            onTap: () {
-                                                              FocusScope.of(
-                                                                      context)
-                                                                  .unfocus();
-                                                              FocusManager
-                                                                  .instance
-                                                                  .primaryFocus
-                                                                  ?.unfocus();
-                                                            },
-                                                            child: Padding(
-                                                              padding: MediaQuery
-                                                                  .viewInsetsOf(
-                                                                      context),
-                                                              child:
-                                                                  const ErrorBarWidget(
-                                                                text:
-                                                                    'Add an Image',
-                                                              ),
-                                                            ),
-                                                          );
-                                                        },
-                                                      ).then((value) =>
-                                                          safeSetState(() {}));
-                                                    }
-                                                  }
-                                                },
-                                                text:
-                                                    FFLocalizations.of(context)
-                                                        .getText(
-                                                  'ejpkoqr9' /* Post */,
-                                                ),
-                                                icon: Icon(
-                                                  Icons.check_circle,
-                                                  color: ((_model.media
-                                                                  .isNotEmpty) !=
-                                                              null) &&
-                                                          (_model.textController1
-                                                                      .text !=
-                                                                  '')
-                                                      ? Colors.white
-                                                      : FlutterFlowTheme.of(
-                                                              context)
-                                                          .primaryText,
-                                                  size: 15.0,
-                                                ),
-                                                options: FFButtonOptions(
-                                                  height: 40.0,
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          24.0, 0.0, 24.0, 0.0),
-                                                  iconPadding:
-                                                      const EdgeInsetsDirectional
-                                                          .fromSTEB(0.0, 0.0,
-                                                              5.0, 0.0),
-                                                  color: ((_model.media
-                                                                  .isNotEmpty) !=
-                                                              null) &&
-                                                          (_model.textController1
-                                                                      .text !=
-                                                                  '')
-                                                      ? FlutterFlowTheme.of(
-                                                              context)
-                                                          .primary
-                                                      : FlutterFlowTheme.of(
-                                                              context)
-                                                          .secondaryText,
-                                                  textStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .titleSmall
-                                                          .override(
-                                                            fontFamily:
-                                                                'Montserrat',
-                                                            color: Colors.white,
-                                                            letterSpacing: 0.0,
-                                                          ),
-                                                  borderSide: const BorderSide(
-                                                    color: Colors.transparent,
-                                                    width: 1.0,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          24.0),
-                                                ),
-                                                showLoadingIndicator: false,
-                                              ),
-                                            ),
-                                          if ((_model.textController1.text ==
-                                                      '') ||
-                                              (_model.media.isEmpty))
-                                            Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(5.0, 0.0, 0.0, 0.0),
-                                              child: FFButtonWidget(
-                                                onPressed: () {
-                                                  print(
-                                                      'CaptionUnset pressed ...');
-                                                },
-                                                text:
-                                                    FFLocalizations.of(context)
-                                                        .getText(
-                                                  '185qny7q' /* Post */,
-                                                ),
-                                                icon: const Icon(
-                                                  Icons.not_interested,
-                                                  size: 15.0,
-                                                ),
-                                                options: FFButtonOptions(
-                                                  height: 40.0,
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          24.0, 0.0, 24.0, 0.0),
-                                                  iconAlignment:
-                                                      IconAlignment.end,
-                                                  iconPadding:
-                                                      const EdgeInsetsDirectional
-                                                          .fromSTEB(0.0, 0.0,
-                                                              5.0, 0.0),
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .alternate,
-                                                  textStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .titleSmall
-                                                          .override(
-                                                            fontFamily:
-                                                                'Montserrat',
-                                                            color: Colors.white,
-                                                            letterSpacing: 0.0,
-                                                          ),
-                                                  borderSide: const BorderSide(
-                                                    color: Colors.transparent,
-                                                    width: 1.0,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          24.0),
-                                                ),
-                                                showLoadingIndicator: false,
-                                              ),
-                                            ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
                                 Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
+                                            borderRadius:
+                                                BorderRadius.circular(30.0),
+                                          ),
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 3.0, 3.0, 3.0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                FlutterFlowIconButton(
+                                                  borderColor:
+                                                      Colors.transparent,
+                                                  borderRadius: 20.0,
+                                                  borderWidth: 0.0,
+                                                  buttonSize: 40.0,
+                                                  icon: Icon(
+                                                    Icons.arrow_back_rounded,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryText,
+                                                    size: 20.0,
+                                                  ),
+                                                  onPressed: () async {
+                                                    if (_model.isArticle) {
+                                                      _model.isArticle = false;
+                                                      safeSetState(() {});
+                                                    } else {
+                                                      _model.isArticle = true;
+                                                      safeSetState(() {});
+                                                    }
+                                                  },
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          5.0, 0.0, 0.0, 0.0),
+                                                  child: AuthUserStreamWidget(
+                                                    builder: (context) =>
+                                                        FlutterFlowIconButton(
+                                                      borderRadius: 20.0,
+                                                      borderWidth: 0.0,
+                                                      buttonSize: 40.0,
+                                                      icon: FaIcon(
+                                                        FontAwesomeIcons
+                                                            .userSecret,
+                                                        color: _model
+                                                                    .isStealth ||
+                                                                valueOrDefault<
+                                                                        bool>(
+                                                                    currentUserDocument
+                                                                        ?.isStealth,
+                                                                    false)
+                                                            ? FlutterFlowTheme
+                                                                    .of(context)
+                                                                .success
+                                                            : FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryText,
+                                                        size: 20.0,
+                                                      ),
+                                                      onPressed: () async {
+                                                        if (_model.isStealth) {
+                                                          _model.isStealth =
+                                                              false;
+                                                          safeSetState(() {});
+                                                        } else {
+                                                          _model.isStealth =
+                                                              true;
+                                                          safeSetState(() {});
+                                                        }
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          5.0, 0.0, 0.0, 0.0),
+                                                  child: FlutterFlowIconButton(
+                                                    borderRadius: 20.0,
+                                                    borderWidth: 0.0,
+                                                    buttonSize: 40.0,
+                                                    icon: FaIcon(
+                                                      FontAwesomeIcons.ghost,
+                                                      color: _model.isSpoiler
+                                                          ? FlutterFlowTheme.of(
+                                                                  context)
+                                                              .success
+                                                          : FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                      size: 20.0,
+                                                    ),
+                                                    onPressed: () async {
+                                                      if (_model.isSpoiler) {
+                                                        _model.isSpoiler =
+                                                            false;
+                                                        safeSetState(() {});
+                                                      } else {
+                                                        _model.isSpoiler = true;
+                                                        safeSetState(() {});
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                                Stack(
+                                                  children: [
+                                                    if ((_model.textController1
+                                                                    .text !=
+                                                                '') &&
+                                                        (_model.media.isNotEmpty))
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    5.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        child: FFButtonWidget(
+                                                          onPressed: () async {
+                                                            if (((_model.media
+                                                                        .isNotEmpty) !=
+                                                                    null) &&
+                                                                (_model.textController1
+                                                                            .text !=
+                                                                        '')) {
+                                                              await PostsRecord
+                                                                  .collection
+                                                                  .doc()
+                                                                  .set({
+                                                                ...createPostsRecordData(
+                                                                  timePosted:
+                                                                      getCurrentTimestamp,
+                                                                  caption: functions
+                                                                      .refineThreadText(_model
+                                                                          .textController1
+                                                                          .text),
+                                                                  author:
+                                                                      currentUserReference,
+                                                                  isShort:
+                                                                      false,
+                                                                  isStealth: valueOrDefault<
+                                                                              bool>(
+                                                                          currentUserDocument
+                                                                              ?.isStealth,
+                                                                          false) ||
+                                                                      _model
+                                                                          .isStealth,
+                                                                  isSpoiler: _model
+                                                                      .isSpoiler,
+                                                                ),
+                                                                ...mapToFirestore(
+                                                                  {
+                                                                    'media': _model
+                                                                        .media,
+                                                                    'hashtags':
+                                                                        functions.collecthashtags(_model
+                                                                            .textController1
+                                                                            .text),
+                                                                  },
+                                                                ),
+                                                              });
+
+                                                              context.goNamed(
+                                                                  'HomePage');
+                                                            } else {
+                                                              if (functions
+                                                                      .stringLength(_model
+                                                                          .textController1
+                                                                          .text)
+                                                                      .toString() ==
+                                                                  '0') {
+                                                                await showModalBottomSheet(
+                                                                  isScrollControlled:
+                                                                      true,
+                                                                  backgroundColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  enableDrag:
+                                                                      false,
+                                                                  context:
+                                                                      context,
+                                                                  builder:
+                                                                      (context) {
+                                                                    return GestureDetector(
+                                                                      onTap:
+                                                                          () {
+                                                                        FocusScope.of(context)
+                                                                            .unfocus();
+                                                                        FocusManager
+                                                                            .instance
+                                                                            .primaryFocus
+                                                                            ?.unfocus();
+                                                                      },
+                                                                      child:
+                                                                          Padding(
+                                                                        padding:
+                                                                            MediaQuery.viewInsetsOf(context),
+                                                                        child:
+                                                                            const ErrorBarWidget(
+                                                                          text:
+                                                                              'Enter a Caption',
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  },
+                                                                ).then((value) =>
+                                                                    safeSetState(
+                                                                        () {}));
+                                                              } else {
+                                                                await showModalBottomSheet(
+                                                                  isScrollControlled:
+                                                                      true,
+                                                                  backgroundColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  enableDrag:
+                                                                      false,
+                                                                  context:
+                                                                      context,
+                                                                  builder:
+                                                                      (context) {
+                                                                    return GestureDetector(
+                                                                      onTap:
+                                                                          () {
+                                                                        FocusScope.of(context)
+                                                                            .unfocus();
+                                                                        FocusManager
+                                                                            .instance
+                                                                            .primaryFocus
+                                                                            ?.unfocus();
+                                                                      },
+                                                                      child:
+                                                                          Padding(
+                                                                        padding:
+                                                                            MediaQuery.viewInsetsOf(context),
+                                                                        child:
+                                                                            const ErrorBarWidget(
+                                                                          text:
+                                                                              'Add an Image',
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  },
+                                                                ).then((value) =>
+                                                                    safeSetState(
+                                                                        () {}));
+                                                              }
+                                                            }
+                                                          },
+                                                          text: FFLocalizations
+                                                                  .of(context)
+                                                              .getText(
+                                                            'ejpkoqr9' /* Post */,
+                                                          ),
+                                                          icon: Icon(
+                                                            Icons.check_circle,
+                                                            color: ((_model.media
+                                                                            .isNotEmpty) !=
+                                                                        null) &&
+                                                                    (_model.textController1.text !=
+                                                                            '')
+                                                                ? Colors.white
+                                                                : FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
+                                                            size: 15.0,
+                                                          ),
+                                                          options:
+                                                              FFButtonOptions(
+                                                            height: 40.0,
+                                                            padding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        24.0,
+                                                                        0.0,
+                                                                        24.0,
+                                                                        0.0),
+                                                            iconPadding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        0.0,
+                                                                        5.0,
+                                                                        0.0),
+                                                            color: ((_model.media
+                                                                            .isNotEmpty) !=
+                                                                        null) &&
+                                                                    (_model.textController1.text !=
+                                                                            '')
+                                                                ? FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary
+                                                                : FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryText,
+                                                            textStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Montserrat',
+                                                                      color: Colors
+                                                                          .white,
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                    ),
+                                                            borderSide:
+                                                                const BorderSide(
+                                                              color: Colors
+                                                                  .transparent,
+                                                              width: 1.0,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        24.0),
+                                                          ),
+                                                          showLoadingIndicator:
+                                                              false,
+                                                        ),
+                                                      ),
+                                                    if ((_model.textController1
+                                                                    .text ==
+                                                                '') ||
+                                                        (_model.media.isEmpty))
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    5.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        child: FFButtonWidget(
+                                                          onPressed: () {
+                                                            print(
+                                                                'CaptionUnset pressed ...');
+                                                          },
+                                                          text: FFLocalizations
+                                                                  .of(context)
+                                                              .getText(
+                                                            '185qny7q' /* Post */,
+                                                          ),
+                                                          icon: const Icon(
+                                                            Icons
+                                                                .not_interested,
+                                                            size: 15.0,
+                                                          ),
+                                                          options:
+                                                              FFButtonOptions(
+                                                            height: 40.0,
+                                                            padding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        24.0,
+                                                                        0.0,
+                                                                        24.0,
+                                                                        0.0),
+                                                            iconAlignment:
+                                                                IconAlignment
+                                                                    .end,
+                                                            iconPadding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        0.0,
+                                                                        5.0,
+                                                                        0.0),
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .alternate,
+                                                            textStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Montserrat',
+                                                                      color: Colors
+                                                                          .white,
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                    ),
+                                                            borderSide:
+                                                                const BorderSide(
+                                                              color: Colors
+                                                                  .transparent,
+                                                              width: 1.0,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        24.0),
+                                                          ),
+                                                          showLoadingIndicator:
+                                                              false,
+                                                        ),
+                                                      ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                     Padding(
                                       padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 20.0, 0.0, 10.0),
                                       child: TextFormField(
                                         controller: _model.textController1,
                                         focusNode: _model.textFieldFocusNode1,
+                                        onChanged: (_) => EasyDebounce.debounce(
+                                          '_model.textController1',
+                                          const Duration(milliseconds: 100),
+                                          () => safeSetState(() {}),
+                                        ),
                                         autofocus: false,
                                         textInputAction: TextInputAction.done,
                                         obscureText: false,
@@ -1600,6 +1697,12 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                             controller: _model.textController2,
                                             focusNode:
                                                 _model.textFieldFocusNode2,
+                                            onChanged: (_) =>
+                                                EasyDebounce.debounce(
+                                              '_model.textController2',
+                                              const Duration(milliseconds: 100),
+                                              () => safeSetState(() {}),
+                                            ),
                                             autofocus: false,
                                             textInputAction:
                                                 TextInputAction.done,
@@ -1997,27 +2100,6 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            5.0, 0.0, 0.0, 0.0),
-                                        child: FlutterFlowIconButton(
-                                          borderColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .primaryText,
-                                          borderRadius: 20.0,
-                                          borderWidth: 2.0,
-                                          buttonSize: 40.0,
-                                          icon: Icon(
-                                            Icons.arrow_back_outlined,
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                            size: 20.0,
-                                          ),
-                                          onPressed: () async {
-                                            context.safePop();
-                                          },
-                                        ),
-                                      ),
                                       Flexible(
                                         child: Padding(
                                           padding:
@@ -2043,7 +2125,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                   child: Padding(
                                                     padding:
                                                         const EdgeInsetsDirectional
-                                                            .fromSTEB(10.0, 0.0,
+                                                            .fromSTEB(5.0, 0.0,
                                                                 0.0, 0.0),
                                                     child: Row(
                                                       mainAxisSize:
@@ -2052,6 +2134,35 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                           MainAxisAlignment
                                                               .spaceEvenly,
                                                       children: [
+                                                        FlutterFlowIconButton(
+                                                          borderColor: Colors
+                                                              .transparent,
+                                                          borderRadius: 20.0,
+                                                          borderWidth: 0.0,
+                                                          buttonSize: 40.0,
+                                                          icon: Icon(
+                                                            Icons
+                                                                .arrow_back_rounded,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondaryText,
+                                                            size: 20.0,
+                                                          ),
+                                                          onPressed: () async {
+                                                            if (_model
+                                                                .isArticle) {
+                                                              _model.isArticle =
+                                                                  false;
+                                                              safeSetState(
+                                                                  () {});
+                                                            } else {
+                                                              _model.isArticle =
+                                                                  true;
+                                                              safeSetState(
+                                                                  () {});
+                                                            }
+                                                          },
+                                                        ),
                                                         if (!_model.isPoll)
                                                           FlutterFlowIconButton(
                                                             borderColor: Colors
@@ -2567,7 +2678,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                       text: FFLocalizations.of(
                                                               context)
                                                           .getText(
-                                                        'ujzhuu82' /* Post */,
+                                                        'ujzhuu82' /*  */,
                                                       ),
                                                       icon: const Icon(
                                                         Icons.not_interested,
@@ -2578,16 +2689,16 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                                         padding:
                                                             const EdgeInsetsDirectional
                                                                 .fromSTEB(
-                                                                    24.0,
+                                                                    20.0,
                                                                     0.0,
-                                                                    24.0,
+                                                                    16.0,
                                                                     0.0),
                                                         iconPadding:
                                                             const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     0.0,
-                                                                    5.0,
+                                                                    0.0,
                                                                     0.0),
                                                         color:
                                                             const Color(0x004B39EF),
@@ -3149,6 +3260,11 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                     controller:
                                         _model.titleThreadsTextController,
                                     focusNode: _model.titleThreadsFocusNode,
+                                    onChanged: (_) => EasyDebounce.debounce(
+                                      '_model.titleThreadsTextController',
+                                      const Duration(milliseconds: 2000),
+                                      () => safeSetState(() {}),
+                                    ),
                                     autofocus: false,
                                     textCapitalization: TextCapitalization.none,
                                     textInputAction: TextInputAction.next,
@@ -4330,7 +4446,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                             children: [
                               Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
-                                    5.0, 0.0, 0.0, 10.0),
+                                    20.0, 0.0, 0.0, 10.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:

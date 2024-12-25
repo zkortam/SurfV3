@@ -45,6 +45,16 @@ class ChatMessagesRecord extends FirestoreRecord {
   String get file => _file ?? '';
   bool hasFile() => _file != null;
 
+  // "post" field.
+  DocumentReference? _post;
+  DocumentReference? get post => _post;
+  bool hasPost() => _post != null;
+
+  // "thread" field.
+  DocumentReference? _thread;
+  DocumentReference? get thread => _thread;
+  bool hasThread() => _thread != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -54,6 +64,8 @@ class ChatMessagesRecord extends FirestoreRecord {
     _image = snapshotData['image'] as String?;
     _audio = snapshotData['audio'] as String?;
     _file = snapshotData['file'] as String?;
+    _post = snapshotData['post'] as DocumentReference?;
+    _thread = snapshotData['thread'] as DocumentReference?;
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -102,6 +114,8 @@ Map<String, dynamic> createChatMessagesRecordData({
   String? image,
   String? audio,
   String? file,
+  DocumentReference? post,
+  DocumentReference? thread,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -111,6 +125,8 @@ Map<String, dynamic> createChatMessagesRecordData({
       'image': image,
       'audio': audio,
       'file': file,
+      'post': post,
+      'thread': thread,
     }.withoutNulls,
   );
 
@@ -128,12 +144,22 @@ class ChatMessagesRecordDocumentEquality
         e1?.authorID == e2?.authorID &&
         e1?.image == e2?.image &&
         e1?.audio == e2?.audio &&
-        e1?.file == e2?.file;
+        e1?.file == e2?.file &&
+        e1?.post == e2?.post &&
+        e1?.thread == e2?.thread;
   }
 
   @override
-  int hash(ChatMessagesRecord? e) => const ListEquality()
-      .hash([e?.text, e?.timeStamp, e?.authorID, e?.image, e?.audio, e?.file]);
+  int hash(ChatMessagesRecord? e) => const ListEquality().hash([
+        e?.text,
+        e?.timeStamp,
+        e?.authorID,
+        e?.image,
+        e?.audio,
+        e?.file,
+        e?.post,
+        e?.thread
+      ]);
 
   @override
   bool isValidKey(Object? o) => o is ChatMessagesRecord;

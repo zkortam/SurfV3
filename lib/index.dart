@@ -37,3 +37,4 @@ export '/single_chat/single_chat_widget.dart' show SingleChatWidget;
 export '/pages/notifications_page/notifications_page_widget.dart'
     show NotificationsPageWidget;
 export '/entry/single_short/single_short_widget.dart' show SingleShortWidget;
+export '/pages/search/search_widget.dart' show SearchWidget;

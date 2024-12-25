@@ -1,5 +1,5 @@
 // ignore_for_file: unnecessary_getters_setters
-
+import '/backend/algolia/serialization_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -100,6 +100,29 @@ class PollStruct extends FFFirebaseStruct {
           ParamType.DataStruct,
           true,
           structBuilder: VotersStruct.fromSerializableMap,
+        ),
+      );
+
+  static PollStruct fromAlgoliaData(Map<String, dynamic> data) => PollStruct(
+        isPoll: convertAlgoliaParam(
+          data['isPoll'],
+          ParamType.bool,
+          false,
+        ),
+        options: convertAlgoliaParam<String>(
+          data['options'],
+          ParamType.String,
+          true,
+        ),
+        voters: convertAlgoliaParam<VotersStruct>(
+          data['voters'],
+          ParamType.DataStruct,
+          true,
+          structBuilder: VotersStruct.fromAlgoliaData,
+        ),
+        firestoreUtilData: const FirestoreUtilData(
+          clearUnsetFields: false,
+          create: true,
         ),
       );
 

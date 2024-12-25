@@ -6,11 +6,13 @@ import '/components/navigation_bar_widget.dart';
 import '/components/threads_component_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_button_tabbar.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_video_player.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -231,6 +233,8 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                 },
                                               ),
                                             });
+                                            _model.refresh = 1;
+                                            safeSetState(() {});
                                           },
                                           child: Container(
                                             width: 45.0,
@@ -286,6 +290,8 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                 },
                                               ),
                                             });
+                                            _model.refresh = 1;
+                                            safeSetState(() {});
                                           },
                                           child: Container(
                                             width: 45.0,
@@ -353,39 +359,153 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                       ),
                                     ),
                                   Flexible(
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0,
-                                          0.0,
-                                          valueOrDefault<double>(
-                                            _model.userRefState ==
-                                                    currentUserReference
-                                                ? 40.0
-                                                : 0.0,
-                                            0.0,
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          FFLocalizations.of(context).getText(
+                                            '8279ubd6' /* Profile */,
                                           ),
-                                          0.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            FFLocalizations.of(context).getText(
-                                              '8279ubd6' /* Profile */,
-                                            ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Montserrat',
-                                                  fontSize: 16.0,
-                                                  letterSpacing: 0.0,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Montserrat',
+                                                fontSize: 16.0,
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
+                                      ],
                                     ),
                                   ),
+                                  if (_model.userRefState !=
+                                      currentUserReference)
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 5.0, 0.0),
+                                      child: FlutterFlowIconButton(
+                                        borderRadius: 40.0,
+                                        buttonSize: 45.0,
+                                        fillColor: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                        icon: Icon(
+                                          Icons.play_arrow,
+                                          color:
+                                              FlutterFlowTheme.of(context).info,
+                                          size: 24.0,
+                                        ),
+                                        onPressed: () async {
+                                          _model.out =
+                                              await queryChatsRecordOnce(
+                                            queryBuilder: (chatsRecord) =>
+                                                chatsRecord.where(
+                                              'users',
+                                              arrayContains:
+                                                  currentUserReference,
+                                            ),
+                                          );
+                                          if (functions.isDMExistent(
+                                              _model.out!.toList(),
+                                              columnUsersRecord.reference)) {
+                                            context.pushNamed(
+                                              'singleChat',
+                                              queryParameters: {
+                                                'chat': serializeParam(
+                                                  functions.getMatchingChat(
+                                                      _model.out!.toList(),
+                                                      columnUsersRecord
+                                                          .reference),
+                                                  ParamType.Document,
+                                                ),
+                                              }.withoutNulls,
+                                              extra: <String, dynamic>{
+                                                'chat':
+                                                    functions.getMatchingChat(
+                                                        _model.out!.toList(),
+                                                        columnUsersRecord
+                                                            .reference),
+                                              },
+                                            );
+                                          } else {
+                                            var chatsRecordReference =
+                                                ChatsRecord.collection.doc();
+                                            await chatsRecordReference.set({
+                                              ...createChatsRecordData(
+                                                lastTime: getCurrentTimestamp,
+                                                lastMessage: 'New Chat',
+                                              ),
+                                              ...mapToFirestore(
+                                                {
+                                                  'users': functions
+                                                      .singleUsersToList(
+                                                          currentUserReference!,
+                                                          columnUsersRecord
+                                                              .reference),
+                                                  'userChatData': [
+                                                    getUserMessageDataFirestoreData(
+                                                      createUserMessageDataStruct(
+                                                        userReference:
+                                                            currentUserReference,
+                                                        lastTimeOnline:
+                                                            getCurrentTimestamp,
+                                                        clearUnsetFields: false,
+                                                        create: true,
+                                                      ),
+                                                      true,
+                                                    )
+                                                  ],
+                                                },
+                                              ),
+                                            });
+                                            _model.newChat = ChatsRecord
+                                                .getDocumentFromData({
+                                              ...createChatsRecordData(
+                                                lastTime: getCurrentTimestamp,
+                                                lastMessage: 'New Chat',
+                                              ),
+                                              ...mapToFirestore(
+                                                {
+                                                  'users': functions
+                                                      .singleUsersToList(
+                                                          currentUserReference!,
+                                                          columnUsersRecord
+                                                              .reference),
+                                                  'userChatData': [
+                                                    getUserMessageDataFirestoreData(
+                                                      createUserMessageDataStruct(
+                                                        userReference:
+                                                            currentUserReference,
+                                                        lastTimeOnline:
+                                                            getCurrentTimestamp,
+                                                        clearUnsetFields: false,
+                                                        create: true,
+                                                      ),
+                                                      true,
+                                                    )
+                                                  ],
+                                                },
+                                              ),
+                                            }, chatsRecordReference);
+
+                                            context.goNamed(
+                                              'singleChat',
+                                              queryParameters: {
+                                                'chat': serializeParam(
+                                                  _model.newChat,
+                                                  ParamType.Document,
+                                                ),
+                                              }.withoutNulls,
+                                              extra: <String, dynamic>{
+                                                'chat': _model.newChat,
+                                              },
+                                            );
+                                          }
+
+                                          safeSetState(() {});
+                                        },
+                                      ),
+                                    ),
                                 ],
                               ),
                             ).animateOnPageLoad(animationsMap[

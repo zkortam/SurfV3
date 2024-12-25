@@ -32,9 +32,13 @@ class _ProfilePostsWidgetState extends State<ProfilePostsWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await Future.delayed(const Duration(milliseconds: 500));
       await _model.singlePostList?.animateTo(
         _model.singlePostList!.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 1000),
+        curve: Curves.ease,
+      );
+      await _model.singlePostList?.animateTo(
+        0,
         duration: const Duration(milliseconds: 1000),
         curve: Curves.ease,
       );

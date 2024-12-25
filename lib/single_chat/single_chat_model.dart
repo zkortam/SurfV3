@@ -43,10 +43,10 @@ class SingleChatModel extends FlutterFlowModel<SingleChatWidget> {
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
-  AudioRecorder? audioRecorder;
   String? recording;
   FFUploadedFile recordedFileBytes =
       FFUploadedFile(bytes: Uint8List.fromList([]));
+  AudioRecorder? audioRecorder;
   // Stores action output result for [Backend Call - Create Document] action in IconButton widget.
   ChatMessagesRecord? output;
 

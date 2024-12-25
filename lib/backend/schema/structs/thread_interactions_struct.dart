@@ -1,5 +1,5 @@
 // ignore_for_file: unnecessary_getters_setters
-
+import '/backend/algolia/serialization_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -160,6 +160,39 @@ class ThreadInteractionsStruct extends FFFirebaseStruct {
           ParamType.DocumentReference,
           true,
           collectionNamePath: ['Threads'],
+        ),
+      );
+
+  static ThreadInteractionsStruct fromAlgoliaData(Map<String, dynamic> data) =>
+      ThreadInteractionsStruct(
+        liked: convertAlgoliaParam<DocumentReference>(
+          data['liked'],
+          ParamType.DocumentReference,
+          true,
+        ),
+        disliked: convertAlgoliaParam<DocumentReference>(
+          data['disliked'],
+          ParamType.DocumentReference,
+          true,
+        ),
+        commentPositive: convertAlgoliaParam<DocumentReference>(
+          data['commentPositive'],
+          ParamType.DocumentReference,
+          true,
+        ),
+        commentNositive: convertAlgoliaParam<DocumentReference>(
+          data['commentNositive'],
+          ParamType.DocumentReference,
+          true,
+        ),
+        shared: convertAlgoliaParam<DocumentReference>(
+          data['shared'],
+          ParamType.DocumentReference,
+          true,
+        ),
+        firestoreUtilData: const FirestoreUtilData(
+          clearUnsetFields: false,
+          create: true,
         ),
       );
 

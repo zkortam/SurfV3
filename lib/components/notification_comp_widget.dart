@@ -48,143 +48,156 @@ class _NotificationCompWidgetState extends State<NotificationCompWidget> {
   Widget build(BuildContext context) {
     return Visibility(
       visible: widget.notification?.type != 'Like',
-      child: Container(
-        width: double.infinity,
-        height: 60.0,
-        decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).secondaryBackground,
-          borderRadius: BorderRadius.circular(50.0),
-          border: Border.all(
-            color: () {
-              if (widget.notification?.type == 'Comment') {
-                return FlutterFlowTheme.of(context).secondaryText;
-              } else if (widget.notification?.type == 'Follow') {
-                return FlutterFlowTheme.of(context).primary;
-              } else {
-                return FlutterFlowTheme.of(context).alternate;
-              }
-            }(),
-            width: 3.0,
+      child: Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: Container(
+          width: double.infinity,
+          height: 70.0,
+          decoration: BoxDecoration(
+            color: FlutterFlowTheme.of(context).secondaryBackground,
+            borderRadius: BorderRadius.circular(50.0),
+            border: Border.all(
+              color: () {
+                if (widget.notification?.type == 'Comment') {
+                  return FlutterFlowTheme.of(context).alternate;
+                } else if (widget.notification?.type == 'Follow') {
+                  return const Color(0x764B39EF);
+                } else {
+                  return FlutterFlowTheme.of(context).alternate;
+                }
+              }(),
+              width: 3.0,
+            ),
           ),
-        ),
-        child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
-          child: FutureBuilder<UsersRecord>(
-            future:
-                UsersRecord.getDocumentOnce(widget.notification!.sourceUser!),
-            builder: (context, snapshot) {
-              // Customize what your widget looks like when it's loading.
-              if (!snapshot.hasData) {
-                return Center(
-                  child: SizedBox(
-                    width: 40.0,
-                    height: 40.0,
-                    child: SpinKitFadingFour(
-                      color: FlutterFlowTheme.of(context).primary,
-                      size: 40.0,
-                    ),
-                  ),
-                );
-              }
-
-              final rowUsersRecord = snapshot.data!;
-
-              return Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Container(
-                        width: 45.0,
-                        height: 45.0,
-                        clipBehavior: Clip.antiAlias,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                        ),
-                        child: Image.network(
-                          rowUsersRecord.photoUrl,
-                          fit: BoxFit.cover,
-                        ),
+          child: Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
+            child: FutureBuilder<UsersRecord>(
+              future: UsersRecord.getDocumentOnce(
+                  widget.notification!.sourceUser!),
+              builder: (context, snapshot) {
+                // Customize what your widget looks like when it's loading.
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: SizedBox(
+                      width: 40.0,
+                      height: 40.0,
+                      child: SpinKitFadingFour(
+                        color: FlutterFlowTheme.of(context).primary,
+                        size: 40.0,
                       ),
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
-                        child: Text(
-                          '${rowUsersRecord.displayName}${() {
-                            if (widget.notification?.type == 'Comment') {
-                              return '${(widget.notification?.type == 'Comment').toString()}${widget.notification?.contentType}';
-                            } else if (widget.notification?.type == 'Follow') {
-                              return 'Followed you';
-                            } else {
-                              return '';
-                            }
-                          }()}',
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Montserrat',
-                                    fontSize: 16.0,
-                                    letterSpacing: 0.0,
-                                  ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  FlutterFlowIconButton(
-                    borderRadius: 50.0,
-                    buttonSize: 45.0,
-                    fillColor: FlutterFlowTheme.of(context).primary,
-                    icon: Icon(
-                      Icons.arrow_forward_rounded,
-                      color: FlutterFlowTheme.of(context).info,
-                      size: 24.0,
                     ),
-                    onPressed: () async {
-                      if (widget.notification?.type == 'Follow') {
-                        context.pushNamed(
-                          'Profile',
-                          queryParameters: {
-                            'userReference': serializeParam(
-                              widget.notification?.sourceUser,
-                              ParamType.DocumentReference,
-                            ),
-                          }.withoutNulls,
-                        );
-                      } else {
-                        if (widget.notification?.type == 'Comment') {
-                          if (widget.notification?.contentType == 'Post') {
-                            context.pushNamed(
-                              'SinglePost',
-                              queryParameters: {
-                                'postRef': serializeParam(
-                                  widget.notification?.sourcePost,
-                                  ParamType.DocumentReference,
+                  );
+                }
+
+                final rowUsersRecord = snapshot.data!;
+
+                return Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Container(
+                          width: 50.0,
+                          height: 50.0,
+                          clipBehavior: Clip.antiAlias,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                          ),
+                          child: Image.network(
+                            rowUsersRecord.photoUrl,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              10.0, 0.0, 0.0, 0.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                rowUsersRecord.displayName,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Montserrat',
+                                      fontSize: 15.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                              Text(
+                                () {
+                                  if (widget.notification?.type == 'Comment') {
+                                    return 'Commented on your ${widget.notification?.contentType}';
+                                  } else if (widget.notification?.type ==
+                                      'Follow') {
+                                    return 'Followed you';
+                                  } else {
+                                    return '';
+                                  }
+                                }(),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Montserrat',
+                                      fontSize: 14.0,
+                                      letterSpacing: 0.0,
+                                    ),
+                              ),
+                              Text(
+                                dateTimeFormat(
+                                  "relative",
+                                  widget.notification!.time!,
+                                  locale:
+                                      FFLocalizations.of(context).languageCode,
                                 ),
-                              }.withoutNulls,
-                            );
-
-                            await showModalBottomSheet(
-                              isScrollControlled: true,
-                              backgroundColor: Colors.transparent,
-                              enableDrag: false,
-                              context: context,
-                              builder: (context) {
-                                return Padding(
-                                  padding: MediaQuery.viewInsetsOf(context),
-                                  child: CommentsWidget(
-                                    post: widget.notification?.sourcePost,
-                                  ),
-                                );
-                              },
-                            ).then((value) => safeSetState(() {}));
-                          } else {
-                            if (widget.notification?.contentType == 'Thread') {
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Montserrat',
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      fontSize: 12.0,
+                                      letterSpacing: 0.0,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    FlutterFlowIconButton(
+                      borderRadius: 50.0,
+                      buttonSize: 50.0,
+                      fillColor: FlutterFlowTheme.of(context).primary,
+                      icon: Icon(
+                        Icons.arrow_forward_rounded,
+                        color: FlutterFlowTheme.of(context).info,
+                        size: 24.0,
+                      ),
+                      onPressed: () async {
+                        if (widget.notification?.type == 'Follow') {
+                          context.pushNamed(
+                            'Profile',
+                            queryParameters: {
+                              'userReference': serializeParam(
+                                widget.notification?.sourceUser,
+                                ParamType.DocumentReference,
+                              ),
+                            }.withoutNulls,
+                          );
+                        } else {
+                          if (widget.notification?.type == 'Comment') {
+                            if (widget.notification?.contentType == 'Post') {
                               context.pushNamed(
-                                'SingleThread',
+                                'SinglePost',
                                 queryParameters: {
-                                  'threadRef': serializeParam(
-                                    widget.notification?.sourceThread,
+                                  'postRef': serializeParam(
+                                    widget.notification?.sourcePost,
                                     ParamType.DocumentReference,
                                   ),
                                 }.withoutNulls,
@@ -199,20 +212,19 @@ class _NotificationCompWidgetState extends State<NotificationCompWidget> {
                                   return Padding(
                                     padding: MediaQuery.viewInsetsOf(context),
                                     child: CommentsWidget(
-                                      thread:
-                                          widget.notification?.sourceThread,
+                                      post: widget.notification?.sourcePost,
                                     ),
                                   );
                                 },
                               ).then((value) => safeSetState(() {}));
                             } else {
                               if (widget.notification?.contentType ==
-                                  'Short') {
+                                  'Thread') {
                                 context.pushNamed(
-                                  'SingleShort',
+                                  'SingleThread',
                                   queryParameters: {
-                                    'shortReference': serializeParam(
-                                      widget.notification?.sourcePost,
+                                    'threadRef': serializeParam(
+                                      widget.notification?.sourceThread,
                                       ParamType.DocumentReference,
                                     ),
                                   }.withoutNulls,
@@ -227,25 +239,56 @@ class _NotificationCompWidgetState extends State<NotificationCompWidget> {
                                     return Padding(
                                       padding: MediaQuery.viewInsetsOf(context),
                                       child: CommentsWidget(
-                                        post: widget.notification?.sourcePost,
+                                        thread:
+                                            widget.notification?.sourceThread,
                                       ),
                                     );
                                   },
                                 ).then((value) => safeSetState(() {}));
                               } else {
-                                return;
+                                if (widget.notification?.contentType ==
+                                    'Short') {
+                                  context.pushNamed(
+                                    'SingleShort',
+                                    queryParameters: {
+                                      'shortReference': serializeParam(
+                                        widget.notification?.sourcePost,
+                                        ParamType.DocumentReference,
+                                      ),
+                                    }.withoutNulls,
+                                  );
+
+                                  await showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    backgroundColor: Colors.transparent,
+                                    enableDrag: false,
+                                    context: context,
+                                    builder: (context) {
+                                      return Padding(
+                                        padding:
+                                            MediaQuery.viewInsetsOf(context),
+                                        child: CommentsWidget(
+                                          post:
+                                              widget.notification?.sourcePost,
+                                        ),
+                                      );
+                                    },
+                                  ).then((value) => safeSetState(() {}));
+                                } else {
+                                  return;
+                                }
                               }
                             }
+                          } else {
+                            return;
                           }
-                        } else {
-                          return;
                         }
-                      }
-                    },
-                  ),
-                ],
-              );
-            },
+                      },
+                    ),
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),

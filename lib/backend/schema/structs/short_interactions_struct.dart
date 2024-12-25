@@ -1,5 +1,5 @@
 // ignore_for_file: unnecessary_getters_setters
-
+import '/backend/algolia/serialization_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -189,6 +189,46 @@ class ShortInteractionsStruct extends FFFirebaseStruct {
           ParamType.DataStruct,
           false,
           structBuilder: ShortSharedStruct.fromSerializableMap,
+        ),
+      );
+
+  static ShortInteractionsStruct fromAlgoliaData(Map<String, dynamic> data) =>
+      ShortInteractionsStruct(
+        liked: convertAlgoliaParam<DocumentReference>(
+          data['liked'],
+          ParamType.DocumentReference,
+          true,
+        ),
+        disliked: convertAlgoliaParam<DocumentReference>(
+          data['disliked'],
+          ParamType.DocumentReference,
+          true,
+        ),
+        commentNegative: convertAlgoliaParam<DocumentReference>(
+          data['commentNegative'],
+          ParamType.DocumentReference,
+          true,
+        ),
+        viewedShorts: convertAlgoliaParam<ViewerStruct>(
+          data['ViewedShorts'],
+          ParamType.DataStruct,
+          true,
+          structBuilder: ViewerStruct.fromAlgoliaData,
+        ),
+        commentPositive: convertAlgoliaParam<DocumentReference>(
+          data['commentPositive'],
+          ParamType.DocumentReference,
+          true,
+        ),
+        shared: convertAlgoliaParam(
+          data['shared'],
+          ParamType.DataStruct,
+          false,
+          structBuilder: ShortSharedStruct.fromAlgoliaData,
+        ),
+        firestoreUtilData: const FirestoreUtilData(
+          clearUnsetFields: false,
+          create: true,
         ),
       );
 

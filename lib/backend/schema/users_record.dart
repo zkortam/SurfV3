@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import '/backend/algolia/serialization_util.dart';
+import '/backend/algolia/algolia_manager.dart';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -263,6 +265,128 @@ class UsersRecord extends FirestoreRecord {
     DocumentReference reference,
   ) =>
       UsersRecord._(reference, mapFromFirestore(data));
+
+  static UsersRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) =>
+      UsersRecord.getDocumentFromData(
+        {
+          'email': snapshot.data['email'],
+          'display_name': snapshot.data['display_name'],
+          'uid': snapshot.data['uid'],
+          'created_time': convertAlgoliaParam(
+            snapshot.data['created_time'],
+            ParamType.DateTime,
+            false,
+          ),
+          'phone_number': snapshot.data['phone_number'],
+          'name': snapshot.data['name'],
+          'photo_url': snapshot.data['photo_url'],
+          'banner': snapshot.data['banner'],
+          'bio': snapshot.data['bio'],
+          'pin': snapshot.data['pin'],
+          'isBiometric': snapshot.data['isBiometric'],
+          'isAnon': snapshot.data['isAnon'],
+          'dob': convertAlgoliaParam(
+            snapshot.data['dob'],
+            ParamType.DateTime,
+            false,
+          ),
+          'isStealth': snapshot.data['isStealth'],
+          'ip_address': snapshot.data['ip_address'],
+          'dir_feedback': safeGet(
+            () => snapshot.data['dir_feedback'].toList(),
+          ),
+          'device_type': snapshot.data['device_type'],
+          'threadSettings': ThreadSettingsStruct.fromAlgoliaData(
+                  snapshot.data['threadSettings'] ?? {})
+              .toMap(),
+          'followers': safeGet(
+            () => convertAlgoliaParam<DocumentReference>(
+              snapshot.data['followers'],
+              ParamType.DocumentReference,
+              true,
+            ).toList(),
+          ),
+          'following': safeGet(
+            () => convertAlgoliaParam<DocumentReference>(
+              snapshot.data['following'],
+              ParamType.DocumentReference,
+              true,
+            ).toList(),
+          ),
+          'algorithmPreferences':
+              UserAlgorithmPreferencesStruct.fromAlgoliaData(
+                      snapshot.data['algorithmPreferences'] ?? {})
+                  .toMap(),
+          'vibe': convertAlgoliaParam(
+            snapshot.data['vibe'],
+            ParamType.int,
+            false,
+          ),
+          'latestSnippetTime': convertAlgoliaParam(
+            snapshot.data['latestSnippetTime'],
+            ParamType.DateTime,
+            false,
+          ),
+          'groups': safeGet(
+            () => (snapshot.data['groups'] as Iterable)
+                .map((d) => FollowerGroupStruct.fromAlgoliaData(d).toMap())
+                .toList(),
+          ),
+          'userSettings': UserSettingsStruct.fromAlgoliaData(
+                  snapshot.data['userSettings'] ?? {})
+              .toMap(),
+          'blocked': safeGet(
+            () => convertAlgoliaParam<DocumentReference>(
+              snapshot.data['blocked'],
+              ParamType.DocumentReference,
+              true,
+            ).toList(),
+          ),
+          'userData':
+              UserDataStruct.fromAlgoliaData(snapshot.data['userData'] ?? {})
+                  .toMap(),
+          'postInteractions': PostInteractionsStruct.fromAlgoliaData(
+                  snapshot.data['postInteractions'] ?? {})
+              .toMap(),
+          'threadInteractions': ThreadInteractionsStruct.fromAlgoliaData(
+                  snapshot.data['threadInteractions'] ?? {})
+              .toMap(),
+          'shortInteractions': ShortInteractionsStruct.fromAlgoliaData(
+                  snapshot.data['shortInteractions'] ?? {})
+              .toMap(),
+          'notifications': safeGet(
+            () => (snapshot.data['notifications'] as Iterable)
+                .map((d) => NotificationStruct.fromAlgoliaData(d).toMap())
+                .toList(),
+          ),
+          'notificationsReferences': safeGet(
+            () => convertAlgoliaParam<DocumentReference>(
+              snapshot.data['notificationsReferences'],
+              ParamType.DocumentReference,
+              true,
+            ).toList(),
+          ),
+        },
+        UsersRecord.collection.doc(snapshot.objectID),
+      );
+
+  static Future<List<UsersRecord>> search({
+    String? term,
+    FutureOr<LatLng>? location,
+    int? maxResults,
+    double? searchRadiusMeters,
+    bool useCache = false,
+  }) =>
+      FFAlgoliaManager.instance
+          .algoliaQuery(
+            index: 'users',
+            term: term,
+            maxResults: maxResults,
+            location: location,
+            searchRadiusMeters: searchRadiusMeters,
+            useCache: useCache,
+          )
+          .then((r) => r.map(fromAlgolia).toList());
 
   @override
   String toString() =>

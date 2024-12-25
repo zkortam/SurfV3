@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import '/backend/algolia/serialization_util.dart';
+import '/backend/algolia/algolia_manager.dart';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -79,6 +81,46 @@ class MusicRecord extends FirestoreRecord {
     DocumentReference reference,
   ) =>
       MusicRecord._(reference, mapFromFirestore(data));
+
+  static MusicRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) =>
+      MusicRecord.getDocumentFromData(
+        {
+          'name': snapshot.data['name'],
+          'author': convertAlgoliaParam(
+            snapshot.data['author'],
+            ParamType.DocumentReference,
+            false,
+          ),
+          'audio': snapshot.data['audio'],
+          'cover': snapshot.data['cover'],
+          'category': snapshot.data['category'],
+          'time': convertAlgoliaParam(
+            snapshot.data['time'],
+            ParamType.DateTime,
+            false,
+          ),
+          'authorRealName': snapshot.data['authorRealName'],
+        },
+        MusicRecord.collection.doc(snapshot.objectID),
+      );
+
+  static Future<List<MusicRecord>> search({
+    String? term,
+    FutureOr<LatLng>? location,
+    int? maxResults,
+    double? searchRadiusMeters,
+    bool useCache = false,
+  }) =>
+      FFAlgoliaManager.instance
+          .algoliaQuery(
+            index: 'music',
+            term: term,
+            maxResults: maxResults,
+            location: location,
+            searchRadiusMeters: searchRadiusMeters,
+            useCache: useCache,
+          )
+          .then((r) => r.map(fromAlgolia).toList());
 
   @override
   String toString() =>

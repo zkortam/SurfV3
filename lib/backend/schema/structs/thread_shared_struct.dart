@@ -1,5 +1,5 @@
 // ignore_for_file: unnecessary_getters_setters
-
+import '/backend/algolia/serialization_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -99,6 +99,30 @@ class ThreadSharedStruct extends FFFirebaseStruct {
           ParamType.DataStruct,
           false,
           structBuilder: ThreadSharedStruct.fromSerializableMap,
+        ),
+      );
+
+  static ThreadSharedStruct fromAlgoliaData(Map<String, dynamic> data) =>
+      ThreadSharedStruct(
+        threadRef: convertAlgoliaParam(
+          data['threadRef'],
+          ParamType.DocumentReference,
+          false,
+        ),
+        count: convertAlgoliaParam(
+          data['count'],
+          ParamType.int,
+          false,
+        ),
+        shared: convertAlgoliaParam(
+          data['shared'],
+          ParamType.DataStruct,
+          false,
+          structBuilder: ThreadSharedStruct.fromAlgoliaData,
+        ),
+        firestoreUtilData: const FirestoreUtilData(
+          clearUnsetFields: false,
+          create: true,
         ),
       );
 

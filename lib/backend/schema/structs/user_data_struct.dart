@@ -1,5 +1,5 @@
 // ignore_for_file: unnecessary_getters_setters
-
+import '/backend/algolia/serialization_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -113,6 +113,32 @@ class UserDataStruct extends FFFirebaseStruct {
           ParamType.DataStruct,
           false,
           structBuilder: ThreadInteractionsStruct.fromSerializableMap,
+        ),
+      );
+
+  static UserDataStruct fromAlgoliaData(Map<String, dynamic> data) =>
+      UserDataStruct(
+        postInteractions: convertAlgoliaParam(
+          data['postInteractions'],
+          ParamType.DataStruct,
+          false,
+          structBuilder: PostInteractionsStruct.fromAlgoliaData,
+        ),
+        shortInteractions: convertAlgoliaParam(
+          data['shortInteractions'],
+          ParamType.DataStruct,
+          false,
+          structBuilder: ShortInteractionsStruct.fromAlgoliaData,
+        ),
+        threadInteractions: convertAlgoliaParam(
+          data['threadInteractions'],
+          ParamType.DataStruct,
+          false,
+          structBuilder: ThreadInteractionsStruct.fromAlgoliaData,
+        ),
+        firestoreUtilData: const FirestoreUtilData(
+          clearUnsetFields: false,
+          create: true,
         ),
       );
 

@@ -396,6 +396,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   collectionNamePath: ['posts'],
                 ),
               ),
+            ),
+            FFRoute(
+              name: 'Search',
+              path: 'search',
+              requireAuth: true,
+              builder: (context, params) => SearchWidget(
+                tabIndex: params.getParam(
+                  'tabIndex',
+                  ParamType.int,
+                ),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),

@@ -328,7 +328,7 @@ class _NotificationsPageWidgetState extends State<NotificationsPageWidget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(5.0, 10.0, 5.0, 0.0),
                 child: AuthUserStreamWidget(
                   builder: (context) => Builder(
                     builder: (context) {
@@ -338,11 +338,12 @@ class _NotificationsPageWidgetState extends State<NotificationsPageWidget> {
                               [])
                           .toList();
 
-                      return ListView.builder(
+                      return ListView.separated(
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         itemCount: notifs.length,
+                        separatorBuilder: (_, __) => const SizedBox(height: 0.0),
                         itemBuilder: (context, notifsIndex) {
                           final notifsItem = notifs[notifsIndex];
                           return StreamBuilder<NotificationsRecord>(

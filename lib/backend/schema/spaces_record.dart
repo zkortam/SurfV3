@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import '/backend/algolia/serialization_util.dart';
+import '/backend/algolia/algolia_manager.dart';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -61,6 +63,41 @@ class SpacesRecord extends FirestoreRecord {
     DocumentReference reference,
   ) =>
       SpacesRecord._(reference, mapFromFirestore(data));
+
+  static SpacesRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) =>
+      SpacesRecord.getDocumentFromData(
+        {
+          'name': snapshot.data['name'],
+          'rules': snapshot.data['rules'],
+          'banner': snapshot.data['banner'],
+          'threads': safeGet(
+            () => convertAlgoliaParam<DocumentReference>(
+              snapshot.data['threads'],
+              ParamType.DocumentReference,
+              true,
+            ).toList(),
+          ),
+        },
+        SpacesRecord.collection.doc(snapshot.objectID),
+      );
+
+  static Future<List<SpacesRecord>> search({
+    String? term,
+    FutureOr<LatLng>? location,
+    int? maxResults,
+    double? searchRadiusMeters,
+    bool useCache = false,
+  }) =>
+      FFAlgoliaManager.instance
+          .algoliaQuery(
+            index: 'spaces',
+            term: term,
+            maxResults: maxResults,
+            location: location,
+            searchRadiusMeters: searchRadiusMeters,
+            useCache: useCache,
+          )
+          .then((r) => r.map(fromAlgolia).toList());
 
   @override
   String toString() =>

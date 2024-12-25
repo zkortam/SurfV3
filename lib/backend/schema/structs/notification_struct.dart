@@ -1,5 +1,5 @@
 // ignore_for_file: unnecessary_getters_setters
-
+import '/backend/algolia/serialization_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -67,6 +67,24 @@ class NotificationStruct extends FFFirebaseStruct {
           data['time'],
           ParamType.DateTime,
           false,
+        ),
+      );
+
+  static NotificationStruct fromAlgoliaData(Map<String, dynamic> data) =>
+      NotificationStruct(
+        type: convertAlgoliaParam(
+          data['type'],
+          ParamType.String,
+          false,
+        ),
+        time: convertAlgoliaParam(
+          data['time'],
+          ParamType.DateTime,
+          false,
+        ),
+        firestoreUtilData: const FirestoreUtilData(
+          clearUnsetFields: false,
+          create: true,
         ),
       );
 

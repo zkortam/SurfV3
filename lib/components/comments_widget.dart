@@ -984,8 +984,10 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                     _model.emailTextController?.clear();
                                   });
                                   if (widget.authorID != null) {
+                                    var notificationsRecordReference =
+                                        NotificationsRecord.collection.doc();
                                     firestoreBatch.set(
-                                        NotificationsRecord.collection.doc(),
+                                        notificationsRecordReference,
                                         createNotificationsRecordData(
                                           sourcePost: widget.post,
                                           sourceThread: widget.thread,
@@ -999,12 +1001,25 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                               ? 'Post'
                                               : 'Thread',
                                         ));
+                                    _model.notification =
+                                        NotificationsRecord.getDocumentFromData(
+                                            createNotificationsRecordData(
+                                              sourcePost: widget.post,
+                                              sourceThread: widget.thread,
+                                              sourceComment:
+                                                  _model.comment?.reference,
+                                              sourceUser: currentUserReference,
+                                              targetUser: widget.authorID,
+                                              time: getCurrentTimestamp,
+                                              type: 'Comment',
+                                              contentType: widget.post != null
+                                                  ? 'Post'
+                                                  : 'Thread',
+                                            ),
+                                            notificationsRecordReference);
+                                    shouldSetState = true;
 
-                                    firestoreBatch
-                                        .update(currentUserReference!, {
-                                      ...createUsersRecordData(
-                                        email: '',
-                                      ),
+                                    firestoreBatch.update(widget.authorID!, {
                                       ...mapToFirestore(
                                         {
                                           'notifications':
@@ -1017,6 +1032,10 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                               ),
                                               true,
                                             )
+                                          ]),
+                                          'notificationsReferences':
+                                              FieldValue.arrayUnion([
+                                            _model.notification?.reference
                                           ]),
                                         },
                                       ),

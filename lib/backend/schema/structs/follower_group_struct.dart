@@ -1,5 +1,5 @@
 // ignore_for_file: unnecessary_getters_setters
-
+import '/backend/algolia/serialization_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -95,6 +95,29 @@ class FollowerGroupStruct extends FFFirebaseStruct {
           ParamType.DocumentReference,
           true,
           collectionNamePath: ['users'],
+        ),
+      );
+
+  static FollowerGroupStruct fromAlgoliaData(Map<String, dynamic> data) =>
+      FollowerGroupStruct(
+        name: convertAlgoliaParam(
+          data['name'],
+          ParamType.String,
+          false,
+        ),
+        color: convertAlgoliaParam(
+          data['color'],
+          ParamType.Color,
+          false,
+        ),
+        people: convertAlgoliaParam<DocumentReference>(
+          data['people'],
+          ParamType.DocumentReference,
+          true,
+        ),
+        firestoreUtilData: const FirestoreUtilData(
+          clearUnsetFields: false,
+          create: true,
         ),
       );
 
