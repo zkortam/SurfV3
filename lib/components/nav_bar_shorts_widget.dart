@@ -67,9 +67,7 @@ class _NavBarShortsWidgetState extends State<NavBarShortsWidget> {
                 buttonSize: 50.0,
                 icon: Icon(
                   Icons.home,
-                  color: widget.page == 1
-                      ? FlutterFlowTheme.of(context).primaryText
-                      : FlutterFlowTheme.of(context).secondaryText,
+                  color: FlutterFlowTheme.of(context).secondaryText,
                   size: 30.0,
                 ),
                 onPressed: () async {
@@ -88,9 +86,7 @@ class _NavBarShortsWidgetState extends State<NavBarShortsWidget> {
                 buttonSize: 50.0,
                 icon: Icon(
                   Icons.movie_rounded,
-                  color: widget.page == 2
-                      ? FlutterFlowTheme.of(context).primaryText
-                      : FlutterFlowTheme.of(context).secondaryText,
+                  color: FlutterFlowTheme.of(context).primaryText,
                   size: 25.0,
                 ),
                 onPressed: () async {
@@ -172,9 +168,7 @@ class _NavBarShortsWidgetState extends State<NavBarShortsWidget> {
                 buttonSize: 50.0,
                 icon: Icon(
                   Icons.gesture_rounded,
-                  color: widget.page == 3
-                      ? FlutterFlowTheme.of(context).primaryText
-                      : FlutterFlowTheme.of(context).secondaryText,
+                  color: FlutterFlowTheme.of(context).secondaryText,
                   size: 30.0,
                 ),
                 onPressed: () async {

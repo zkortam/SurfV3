@@ -97,21 +97,6 @@ class FFAppState extends ChangeNotifier {
   void clearHomePostNoAlgoCacheKey(String? uniqueKey) =>
       _homePostNoAlgoManager.clearRequest(uniqueKey);
 
-  final _notificationsManager = StreamRequestManager<NotificationsRecord>();
-  Stream<NotificationsRecord> notifications({
-    String? uniqueQueryKey,
-    bool? overrideCache,
-    required Stream<NotificationsRecord> Function() requestFn,
-  }) =>
-      _notificationsManager.performRequest(
-        uniqueQueryKey: uniqueQueryKey,
-        overrideCache: overrideCache,
-        requestFn: requestFn,
-      );
-  void clearNotificationsCache() => _notificationsManager.clear();
-  void clearNotificationsCacheKey(String? uniqueKey) =>
-      _notificationsManager.clearRequest(uniqueKey);
-
   final _commentsManager = StreamRequestManager<List<CommentsRecord>>();
   Stream<List<CommentsRecord>> comments({
     String? uniqueQueryKey,

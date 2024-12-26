@@ -142,10 +142,12 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                   child: StreamBuilder<List<CommentsRecord>>(
                     stream: FFAppState().comments(
                       requestFn: () => queryCommentsRecord(
-                        queryBuilder: (commentsRecord) => commentsRecord.where(
-                          'PostReference',
-                          isEqualTo: widget.post,
-                        ),
+                        queryBuilder: (commentsRecord) => commentsRecord
+                            .where(
+                              'PostReference',
+                              isEqualTo: widget.post,
+                            )
+                            .orderBy('TimeStamp', descending: true),
                       ),
                     ),
                     builder: (context, snapshot) {
@@ -1042,6 +1044,25 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                         },
                                       ),
                                     });
+                                    if (widget.post != null) {
+                                      firestoreBatch.update(widget.post!, {
+                                        ...mapToFirestore(
+                                          {
+                                            'comments': FieldValue.arrayUnion(
+                                                [_model.comment?.reference]),
+                                          },
+                                        ),
+                                      });
+                                    } else {
+                                      firestoreBatch.update(widget.thread!, {
+                                        ...mapToFirestore(
+                                          {
+                                            'comments': FieldValue.arrayUnion(
+                                                [_model.comment?.reference]),
+                                          },
+                                        ),
+                                      });
+                                    }
                                   } else {
                                     if (shouldSetState) safeSetState(() {});
                                     return;

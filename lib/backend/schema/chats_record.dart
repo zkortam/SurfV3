@@ -52,6 +52,11 @@ class ChatsRecord extends FirestoreRecord {
   List<UserMessageDataStruct> get userChatData => _userChatData ?? const [];
   bool hasUserChatData() => _userChatData != null;
 
+  // "lastUser" field.
+  DocumentReference? _lastUser;
+  DocumentReference? get lastUser => _lastUser;
+  bool hasLastUser() => _lastUser != null;
+
   void _initializeFields() {
     _users = getDataList(snapshotData['users']);
     _image = snapshotData['image'] as String?;
@@ -63,6 +68,7 @@ class ChatsRecord extends FirestoreRecord {
       snapshotData['userChatData'],
       UserMessageDataStruct.fromMap,
     );
+    _lastUser = snapshotData['lastUser'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
@@ -115,6 +121,11 @@ class ChatsRecord extends FirestoreRecord {
                 .map((d) => UserMessageDataStruct.fromAlgoliaData(d).toMap())
                 .toList(),
           ),
+          'lastUser': convertAlgoliaParam(
+            snapshot.data['lastUser'],
+            ParamType.DocumentReference,
+            false,
+          ),
         },
         ChatsRecord.collection.doc(snapshot.objectID),
       );
@@ -155,6 +166,7 @@ Map<String, dynamic> createChatsRecordData({
   String? title,
   DateTime? lastTime,
   String? lastMessage,
+  DocumentReference? lastUser,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -162,6 +174,7 @@ Map<String, dynamic> createChatsRecordData({
       'title': title,
       'lastTime': lastTime,
       'lastMessage': lastMessage,
+      'lastUser': lastUser,
     }.withoutNulls,
   );
 
@@ -180,7 +193,8 @@ class ChatsRecordDocumentEquality implements Equality<ChatsRecord> {
         listEquality.equals(e1?.chats, e2?.chats) &&
         e1?.lastTime == e2?.lastTime &&
         e1?.lastMessage == e2?.lastMessage &&
-        listEquality.equals(e1?.userChatData, e2?.userChatData);
+        listEquality.equals(e1?.userChatData, e2?.userChatData) &&
+        e1?.lastUser == e2?.lastUser;
   }
 
   @override
@@ -191,7 +205,8 @@ class ChatsRecordDocumentEquality implements Equality<ChatsRecord> {
         e?.chats,
         e?.lastTime,
         e?.lastMessage,
-        e?.userChatData
+        e?.userChatData,
+        e?.lastUser
       ]);
 
   @override

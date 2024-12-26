@@ -203,11 +203,11 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
           if (!snapshot.hasData) {
             return Center(
               child: SizedBox(
-                width: 40.0,
-                height: 40.0,
-                child: SpinKitFadingFour(
-                  color: FlutterFlowTheme.of(context).primary,
-                  size: 40.0,
+                width: 30.0,
+                height: 30.0,
+                child: SpinKitPulse(
+                  color: FlutterFlowTheme.of(context).primaryBackground,
+                  size: 30.0,
                 ),
               ),
             );

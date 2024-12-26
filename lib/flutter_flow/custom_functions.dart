@@ -497,3 +497,61 @@ ChatsRecord? getMatchingChat(
   // If no matching chat is found, return null
   return null;
 }
+
+int numberOfUnreadChats(
+  List<ChatsRecord> chats,
+  DocumentReference userRef,
+) {
+  int unreadCount = 0;
+
+  for (var singleChat in chats) {
+    try {
+      // Ensure singleChat and its properties are not null
+      if (singleChat == null || singleChat.lastUser == null) {
+        continue;
+      }
+
+      // Check if the last message sender is not the current user
+      if (singleChat.lastUser != userRef) {
+        // Retrieve the userChatData for this chat, ensure it's a valid list
+        List<dynamic> userChatData = singleChat.userChatData ?? [];
+        DateTime? lastUserTime;
+
+        // Find the lastTimeOnline for the current user safely
+        for (var userData in userChatData) {
+          if (userData is Map &&
+              userData['userReference'] == userRef &&
+              userData['lastTimeOnline'] is DateTime) {
+            lastUserTime = userData['lastTimeOnline'] as DateTime?;
+            break;
+          }
+        }
+
+        // Compare lastTimeOnline with the lastMessage time, if available
+        if (lastUserTime == null ||
+            (singleChat.lastTime != null &&
+                lastUserTime.isBefore(singleChat.lastTime!))) {
+          unreadCount += 1;
+        }
+      }
+    } catch (e) {
+      // Log or handle exceptions for safety (optional)
+      debugPrint('Error processing chat: $e');
+    }
+  }
+
+  return unreadCount;
+}
+
+List<int> smartAlgorithm(String input) {
+  // Retain only digits, commas, and brackets using a regular expression
+  String sanitizedInput = input.replaceAll(RegExp(r'[^\d,\[\]\-]'), '');
+
+  // Remove brackets and split by commas
+  return sanitizedInput
+      .replaceAll('[', '')
+      .replaceAll(']', '')
+      .split(',')
+      .map((e) => int.parse(e.trim()))
+      .toList();
+}

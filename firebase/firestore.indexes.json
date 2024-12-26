@@ -79,6 +79,20 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
+          "fieldPath": "PostReference",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "TimeStamp",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Comments",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
           "fieldPath": "ThreadReference",
           "order": "ASCENDING"
         },
