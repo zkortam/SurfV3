@@ -1,8 +1,10 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/upload_data.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -140,10 +142,14 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                   padding:
                       const EdgeInsetsDirectional.fromSTEB(15.0, 10.0, 15.0, 0.0),
                   child: StreamBuilder<List<CommentsRecord>>(
-                    stream: queryCommentsRecord(
-                      queryBuilder: (commentsRecord) => commentsRecord.where(
-                        'PostReference',
-                        isEqualTo: widget.post,
+                    stream: FFAppState().comments(
+                      requestFn: () => queryCommentsRecord(
+                        queryBuilder: (commentsRecord) => commentsRecord
+                            .where(
+                              'PostReference',
+                              isEqualTo: widget.post,
+                            )
+                            .orderBy('TimeStamp', descending: true),
                       ),
                     ),
                     builder: (context, snapshot) {
@@ -186,6 +192,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Flexible(
                                   child: StreamBuilder<UsersRecord>(
@@ -340,6 +347,32 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                                               ),
                                                         ),
                                                       ),
+                                                      if (listViewPostCommentsRecord
+                                                                  .image !=
+                                                              '')
+                                                        Container(
+                                                          width: 200.0,
+                                                          height: 125.0,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary,
+                                                            image:
+                                                                DecorationImage(
+                                                              fit: BoxFit.cover,
+                                                              image:
+                                                                  Image.network(
+                                                                listViewPostCommentsRecord
+                                                                    .image,
+                                                              ).image,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20.0),
+                                                          ),
+                                                        ),
                                                     ],
                                                   ),
                                                 ),
@@ -523,6 +556,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Flexible(
                                   child: StreamBuilder<UsersRecord>(
@@ -677,6 +711,32 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                                               ),
                                                         ),
                                                       ),
+                                                      if (listViewThreadCommentsRecord
+                                                                  .image !=
+                                                              '')
+                                                        Container(
+                                                          width: 200.0,
+                                                          height: 125.0,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary,
+                                                            image:
+                                                                DecorationImage(
+                                                              fit: BoxFit.cover,
+                                                              image:
+                                                                  Image.network(
+                                                                listViewThreadCommentsRecord
+                                                                    .image,
+                                                              ).image,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20.0),
+                                                          ),
+                                                        ),
                                                     ],
                                                   ),
                                                 ),
@@ -821,153 +881,32 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                       width: double.infinity,
                       constraints: const BoxConstraints(
                         minHeight: 55.0,
-                        maxHeight: 150.0,
+                        maxHeight: 300.0,
                       ),
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        color: FlutterFlowTheme.of(context).primaryBackground,
                         borderRadius: BorderRadius.circular(30.0),
                         border: Border.all(
                           color: FlutterFlowTheme.of(context).alternate,
                           width: 3.0,
                         ),
                       ),
-                      child: Row(
+                      child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: SizedBox(
-                                width: double.infinity,
-                                child: TextFormField(
-                                  controller: _model.emailTextController,
-                                  focusNode: _model.emailFocusNode,
-                                  onFieldSubmitted: (_) async {
-                                    await CommentsRecord.collection
-                                        .doc()
-                                        .set(createCommentsRecordData(
-                                          timeStamp: getCurrentTimestamp,
-                                          postReference: widget.post,
-                                          threadReference: widget.thread,
-                                          author: currentUserReference,
-                                          text: _model.emailTextController.text,
-                                          isStealth: valueOrDefault<bool>(
-                                              currentUserDocument?.isStealth,
-                                              false),
-                                        ));
-                                    safeSetState(() {
-                                      _model.emailTextController?.clear();
-                                    });
-                                  },
-                                  autofocus: false,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    labelStyle: FlutterFlowTheme.of(context)
-                                        .labelLarge
-                                        .override(
-                                          fontFamily: 'Montserrat',
-                                          letterSpacing: 0.0,
-                                        ),
-                                    hintText:
-                                        FFLocalizations.of(context).getText(
-                                      'w4lw53yt' /* Comment */,
-                                    ),
-                                    hintStyle: FlutterFlowTheme.of(context)
-                                        .bodyLarge
-                                        .override(
-                                          fontFamily: 'Montserrat',
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                          fontSize: 14.0,
-                                          letterSpacing: 0.0,
-                                        ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(30.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(30.0),
-                                    ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .alternate,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(30.0),
-                                    ),
-                                    focusedErrorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .alternate,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(30.0),
-                                    ),
-                                    filled: true,
-                                    fillColor: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
-                                    contentPadding: const EdgeInsets.all(10.0),
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyLarge
-                                      .override(
-                                        fontFamily: 'Montserrat',
-                                        fontSize: 14.0,
-                                        letterSpacing: 0.0,
-                                      ),
-                                  maxLines: 3,
-                                  minLines: 1,
-                                  validator: _model.emailTextControllerValidator
-                                      .asValidator(context),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 5.0, 0.0),
-                            child: FlutterFlowIconButton(
-                              borderColor: Colors.transparent,
-                              borderRadius: 30.0,
-                              buttonSize: 45.0,
-                              fillColor: FlutterFlowTheme.of(context).primary,
-                              icon: Icon(
-                                Icons.check_circle,
-                                color: FlutterFlowTheme.of(context).info,
-                                size: 20.0,
-                              ),
-                              onPressed: () async {
-                                var shouldSetState = false;
-                                final firestoreBatch =
-                                    FirebaseFirestore.instance.batch();
-                                try {
-                                  var commentsRecordReference =
-                                      CommentsRecord.collection.doc();
-                                  firestoreBatch.set(
-                                      commentsRecordReference,
-                                      createCommentsRecordData(
-                                        timeStamp: getCurrentTimestamp,
-                                        postReference: widget.post,
-                                        threadReference: widget.thread,
-                                        author: currentUserReference,
-                                        text: _model.emailTextController.text,
-                                        isStealth: valueOrDefault<bool>(
-                                            currentUserDocument?.isStealth,
-                                            false),
-                                      ));
-                                  _model.comment =
-                                      CommentsRecord.getDocumentFromData(
-                                          createCommentsRecordData(
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Expanded(
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  child: TextFormField(
+                                    controller: _model.emailTextController,
+                                    focusNode: _model.emailFocusNode,
+                                    onFieldSubmitted: (_) async {
+                                      await CommentsRecord.collection
+                                          .doc()
+                                          .set(createCommentsRecordData(
                                             timeStamp: getCurrentTimestamp,
                                             postReference: widget.post,
                                             threadReference: widget.thread,
@@ -977,81 +916,323 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                             isStealth: valueOrDefault<bool>(
                                                 currentUserDocument?.isStealth,
                                                 false),
+                                          ));
+                                      safeSetState(() {
+                                        _model.emailTextController?.clear();
+                                      });
+                                    },
+                                    autofocus: false,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      labelStyle: FlutterFlowTheme.of(context)
+                                          .labelLarge
+                                          .override(
+                                            fontFamily: 'Montserrat',
+                                            letterSpacing: 0.0,
                                           ),
-                                          commentsRecordReference);
-                                  shouldSetState = true;
-                                  safeSetState(() {
-                                    _model.emailTextController?.clear();
-                                  });
-                                  if (widget.authorID != null) {
-                                    var notificationsRecordReference =
-                                        NotificationsRecord.collection.doc();
-                                    firestoreBatch.set(
-                                        notificationsRecordReference,
-                                        createNotificationsRecordData(
-                                          sourcePost: widget.post,
-                                          sourceThread: widget.thread,
-                                          sourceComment:
-                                              _model.comment?.reference,
-                                          sourceUser: currentUserReference,
-                                          targetUser: widget.authorID,
-                                          time: getCurrentTimestamp,
-                                          type: 'Comment',
-                                          contentType: widget.post != null
-                                              ? 'Post'
-                                              : 'Thread',
-                                        ));
-                                    _model.notification =
-                                        NotificationsRecord.getDocumentFromData(
-                                            createNotificationsRecordData(
-                                              sourcePost: widget.post,
-                                              sourceThread: widget.thread,
-                                              sourceComment:
-                                                  _model.comment?.reference,
-                                              sourceUser: currentUserReference,
-                                              targetUser: widget.authorID,
-                                              time: getCurrentTimestamp,
-                                              type: 'Comment',
-                                              contentType: widget.post != null
-                                                  ? 'Post'
-                                                  : 'Thread',
-                                            ),
-                                            notificationsRecordReference);
-                                    shouldSetState = true;
-
-                                    firestoreBatch.update(widget.authorID!, {
-                                      ...mapToFirestore(
-                                        {
-                                          'notifications':
-                                              FieldValue.arrayUnion([
-                                            getNotificationFirestoreData(
-                                              createNotificationStruct(
-                                                type: 'Comment',
-                                                time: getCurrentTimestamp,
-                                                clearUnsetFields: false,
-                                              ),
-                                              true,
-                                            )
-                                          ]),
-                                          'notificationsReferences':
-                                              FieldValue.arrayUnion([
-                                            _model.notification?.reference
-                                          ]),
-                                        },
+                                      hintText:
+                                          FFLocalizations.of(context).getText(
+                                        'w4lw53yt' /* Comment */,
                                       ),
-                                    });
-                                  } else {
-                                    if (shouldSetState) safeSetState(() {});
-                                    return;
-                                  }
-                                } finally {
-                                  await firestoreBatch.commit();
-                                }
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .override(
+                                            fontFamily: 'Montserrat',
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            fontSize: 14.0,
+                                            letterSpacing: 0.0,
+                                          ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryBackground,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(30.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(30.0),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .alternate,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(30.0),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .alternate,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(30.0),
+                                      ),
+                                      filled: true,
+                                      fillColor: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
+                                      contentPadding: const EdgeInsets.all(10.0),
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .override(
+                                          fontFamily: 'Montserrat',
+                                          fontSize: 14.0,
+                                          letterSpacing: 0.0,
+                                        ),
+                                    maxLines: 3,
+                                    minLines: 1,
+                                    validator: _model
+                                        .emailTextControllerValidator
+                                        .asValidator(context),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 5.0, 0.0),
+                                child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    final selectedMedia =
+                                        await selectMediaWithSourceBottomSheet(
+                                      context: context,
+                                      allowPhoto: true,
+                                    );
+                                    if (selectedMedia != null &&
+                                        selectedMedia.every((m) =>
+                                            validateFileFormat(
+                                                m.storagePath, context))) {
+                                      safeSetState(
+                                          () => _model.isDataUploading = true);
+                                      var selectedUploadedFiles =
+                                          <FFUploadedFile>[];
 
-                                if (shouldSetState) safeSetState(() {});
-                              },
-                            ),
+                                      var downloadUrls = <String>[];
+                                      try {
+                                        selectedUploadedFiles = selectedMedia
+                                            .map((m) => FFUploadedFile(
+                                                  name: m.storagePath
+                                                      .split('/')
+                                                      .last,
+                                                  bytes: m.bytes,
+                                                  height: m.dimensions?.height,
+                                                  width: m.dimensions?.width,
+                                                  blurHash: m.blurHash,
+                                                ))
+                                            .toList();
+
+                                        downloadUrls = (await Future.wait(
+                                          selectedMedia.map(
+                                            (m) async => await uploadData(
+                                                m.storagePath, m.bytes),
+                                          ),
+                                        ))
+                                            .where((u) => u != null)
+                                            .map((u) => u!)
+                                            .toList();
+                                      } finally {
+                                        _model.isDataUploading = false;
+                                      }
+                                      if (selectedUploadedFiles.length ==
+                                              selectedMedia.length &&
+                                          downloadUrls.length ==
+                                              selectedMedia.length) {
+                                        safeSetState(() {
+                                          _model.uploadedLocalFile =
+                                              selectedUploadedFiles.first;
+                                          _model.uploadedFileUrl =
+                                              downloadUrls.first;
+                                        });
+                                      } else {
+                                        safeSetState(() {});
+                                        return;
+                                      }
+                                    }
+                                  },
+                                  child: Icon(
+                                    Icons.add_rounded,
+                                    color: _model.isDataUploading ||
+                                            (_model.uploadedFileUrl != '')
+                                        ? FlutterFlowTheme.of(context).primary
+                                        : FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                    size: 23.0,
+                                  ),
+                                ),
+                              ),
+                              FlutterFlowIconButton(
+                                borderColor: Colors.transparent,
+                                borderRadius: 30.0,
+                                buttonSize: 45.0,
+                                fillColor: FlutterFlowTheme.of(context).primary,
+                                icon: Icon(
+                                  Icons.send_rounded,
+                                  color: FlutterFlowTheme.of(context).info,
+                                  size: 20.0,
+                                ),
+                                onPressed: () async {
+                                  var shouldSetState = false;
+                                  final firestoreBatch =
+                                      FirebaseFirestore.instance.batch();
+                                  try {
+                                    var commentsRecordReference =
+                                        CommentsRecord.collection.doc();
+                                    firestoreBatch.set(
+                                        commentsRecordReference,
+                                        createCommentsRecordData(
+                                          timeStamp: getCurrentTimestamp,
+                                          postReference: widget.post,
+                                          threadReference: widget.thread,
+                                          author: currentUserReference,
+                                          text: _model.emailTextController.text,
+                                          isStealth: valueOrDefault<bool>(
+                                              currentUserDocument?.isStealth,
+                                              false),
+                                        ));
+                                    _model.comment =
+                                        CommentsRecord.getDocumentFromData(
+                                            createCommentsRecordData(
+                                              timeStamp: getCurrentTimestamp,
+                                              postReference: widget.post,
+                                              threadReference: widget.thread,
+                                              author: currentUserReference,
+                                              text: _model
+                                                  .emailTextController.text,
+                                              isStealth: valueOrDefault<bool>(
+                                                  currentUserDocument
+                                                      ?.isStealth,
+                                                  false),
+                                            ),
+                                            commentsRecordReference);
+                                    shouldSetState = true;
+                                    safeSetState(() {
+                                      _model.emailTextController?.clear();
+                                    });
+                                    if (widget.authorID !=
+                                        currentUserReference) {
+                                      var notificationsRecordReference =
+                                          NotificationsRecord.collection.doc();
+                                      firestoreBatch.set(
+                                          notificationsRecordReference,
+                                          createNotificationsRecordData(
+                                            sourcePost: widget.post,
+                                            sourceThread: widget.thread,
+                                            sourceComment:
+                                                _model.comment?.reference,
+                                            sourceUser: currentUserReference,
+                                            targetUser: widget.authorID,
+                                            time: getCurrentTimestamp,
+                                            type: 'Comment',
+                                            contentType: widget.post != null
+                                                ? 'Post'
+                                                : 'Thread',
+                                          ));
+                                      _model.notification = NotificationsRecord
+                                          .getDocumentFromData(
+                                              createNotificationsRecordData(
+                                                sourcePost: widget.post,
+                                                sourceThread: widget.thread,
+                                                sourceComment:
+                                                    _model.comment?.reference,
+                                                sourceUser:
+                                                    currentUserReference,
+                                                targetUser: widget.authorID,
+                                                time: getCurrentTimestamp,
+                                                type: 'Comment',
+                                                contentType:
+                                                    widget.post != null
+                                                        ? 'Post'
+                                                        : 'Thread',
+                                              ),
+                                              notificationsRecordReference);
+                                      shouldSetState = true;
+
+                                      firestoreBatch.update(widget.authorID!, {
+                                        ...mapToFirestore(
+                                          {
+                                            'notifications':
+                                                FieldValue.arrayUnion([
+                                              getNotificationFirestoreData(
+                                                createNotificationStruct(
+                                                  type: 'Comment',
+                                                  time: getCurrentTimestamp,
+                                                  clearUnsetFields: false,
+                                                ),
+                                                true,
+                                              )
+                                            ]),
+                                            'notificationsReferences':
+                                                FieldValue.arrayUnion([
+                                              _model.notification?.reference
+                                            ]),
+                                          },
+                                        ),
+                                      });
+                                      if (widget.post != null) {
+                                        firestoreBatch.update(widget.post!, {
+                                          ...mapToFirestore(
+                                            {
+                                              'comments': FieldValue.arrayUnion(
+                                                  [_model.comment?.reference]),
+                                            },
+                                          ),
+                                        });
+                                      } else {
+                                        firestoreBatch.update(widget.thread!, {
+                                          ...mapToFirestore(
+                                            {
+                                              'comments': FieldValue.arrayUnion(
+                                                  [_model.comment?.reference]),
+                                            },
+                                          ),
+                                        });
+                                      }
+                                    } else {
+                                      if (shouldSetState) safeSetState(() {});
+                                      return;
+                                    }
+                                  } finally {
+                                    await firestoreBatch.commit();
+                                  }
+
+                                  if (shouldSetState) safeSetState(() {});
+                                },
+                              ),
+                            ],
                           ),
+                          if (_model.uploadedFileUrl != '')
+                            Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Container(
+                                width: double.infinity,
+                                height: 200.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: Image.network(
+                                      _model.uploadedFileUrl,
+                                    ).image,
+                                  ),
+                                  borderRadius: BorderRadius.circular(25.0),
+                                ),
+                              ),
+                            ),
                         ],
                       ),
                     ),

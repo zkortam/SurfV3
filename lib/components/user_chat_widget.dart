@@ -187,7 +187,7 @@ class _UserChatWidgetState extends State<UserChatWidget> {
           Padding(
             padding: EdgeInsetsDirectional.fromSTEB(
                 5.0,
-                0.0,
+                5.0,
                 0.0,
                 valueOrDefault<double>(
                   (widget.message?.audio != null &&
@@ -211,31 +211,35 @@ class _UserChatWidgetState extends State<UserChatWidget> {
                   ),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(7.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
-                        child: Text(
-                          valueOrDefault<String>(
-                            widget.message?.text,
-                            'Text',
+                      Align(
+                        alignment: const AlignmentDirectional(-1.0, 0.0),
+                        child: Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              5.0, 0.0, 5.0, 0.0),
+                          child: Text(
+                            valueOrDefault<String>(
+                              widget.message?.text,
+                              'Text',
+                            ),
+                            maxLines: 6,
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Montserrat',
+                                  letterSpacing: 0.0,
+                                ),
                           ),
-                          maxLines: 6,
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Montserrat',
-                                    letterSpacing: 0.0,
-                                  ),
                         ),
                       ),
                       Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 7.0, 0.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
@@ -337,7 +341,7 @@ class _UserChatWidgetState extends State<UserChatWidget> {
           ),
         if (widget.message?.file != null && widget.message?.file != '')
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 0.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 0.0, 0.0),
             child: InkWell(
               splashColor: Colors.transparent,
               focusColor: Colors.transparent,
@@ -383,7 +387,7 @@ class _UserChatWidgetState extends State<UserChatWidget> {
                         ),
                         Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 5.0, 0.0),
+                              0.0, 0.0, 7.0, 0.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [

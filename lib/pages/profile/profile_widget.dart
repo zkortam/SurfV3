@@ -12,6 +12,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_video_player.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -379,12 +380,42 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                       ],
                                     ),
                                   ),
+                                  if (_model.userRefState ==
+                                      currentUserReference)
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 5.0, 0.0),
+                                      child: FlutterFlowIconButton(
+                                        borderRadius: 40.0,
+                                        buttonSize: 45.0,
+                                        fillColor: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                        icon: Icon(
+                                          Icons.history_rounded,
+                                          color:
+                                              FlutterFlowTheme.of(context).info,
+                                          size: 24.0,
+                                        ),
+                                        onPressed: () async {
+                                          context.pushNamed(
+                                            'SnippetHistory',
+                                            queryParameters: {
+                                              'author': serializeParam(
+                                                currentUserReference,
+                                                ParamType.DocumentReference,
+                                              ),
+                                            }.withoutNulls,
+                                          );
+                                        },
+                                      ),
+                                    ),
                                   if (_model.userRefState !=
                                       currentUserReference)
                                     Padding(
                                       padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 5.0, 0.0),
                                       child: FlutterFlowIconButton(
+                                        borderColor: Colors.transparent,
                                         borderRadius: 40.0,
                                         buttonSize: 45.0,
                                         fillColor: FlutterFlowTheme.of(context)
@@ -524,9 +555,9 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                           FlutterFlowTheme.of(context).primary,
                                       image: DecorationImage(
                                         fit: BoxFit.cover,
-                                        image: Image.network(
+                                        image: CachedNetworkImageProvider(
                                           columnUsersRecord.banner,
-                                        ).image,
+                                        ),
                                       ),
                                       borderRadius: const BorderRadius.only(
                                         bottomLeft: Radius.circular(0.0),
@@ -618,11 +649,16 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                     decoration: const BoxDecoration(
                                                       shape: BoxShape.circle,
                                                     ),
-                                                    child: Image.network(
-                                                      columnUsersRecord
-                                                          .photoUrl,
+                                                    child: CachedNetworkImage(
+                                                      fadeInDuration: const Duration(
+                                                          milliseconds: 500),
+                                                      fadeOutDuration: const Duration(
+                                                          milliseconds: 500),
+                                                      imageUrl:
+                                                          columnUsersRecord
+                                                              .photoUrl,
                                                       fit: BoxFit.cover,
-                                                      errorBuilder: (context,
+                                                      errorWidget: (context,
                                                               error,
                                                               stackTrace) =>
                                                           Image.asset(
@@ -1598,10 +1634,19 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                                     .circular(
                                                                         20.0),
                                                             child:
-                                                                Image.network(
-                                                              gridViewPostsRecord
-                                                                  .media
-                                                                  .firstOrNull!,
+                                                                CachedNetworkImage(
+                                                              fadeInDuration:
+                                                                  const Duration(
+                                                                      milliseconds:
+                                                                          500),
+                                                              fadeOutDuration:
+                                                                  const Duration(
+                                                                      milliseconds:
+                                                                          500),
+                                                              imageUrl:
+                                                                  gridViewPostsRecord
+                                                                      .media
+                                                                      .firstOrNull!,
                                                               width: 200.0,
                                                               height: 200.0,
                                                               fit: BoxFit.cover,
@@ -1688,25 +1733,27 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                 padding: const EdgeInsets.all(10.0),
                                                 child: StreamBuilder<
                                                     List<PostsRecord>>(
-                                                  stream: queryPostsRecord(
-                                                    queryBuilder:
-                                                        (postsRecord) =>
-                                                            postsRecord
-                                                                .where(
-                                                                  'Author',
-                                                                  isEqualTo:
-                                                                      columnUsersRecord
-                                                                          .reference,
-                                                                )
-                                                                .where(
-                                                                  'isShort',
-                                                                  isEqualTo:
-                                                                      true,
-                                                                )
-                                                                .orderBy(
-                                                                    'TimePosted',
-                                                                    descending:
-                                                                        true),
+                                                  stream: FFAppState()
+                                                      .shortsProfile(
+                                                    requestFn: () =>
+                                                        queryPostsRecord(
+                                                      queryBuilder: (postsRecord) =>
+                                                          postsRecord
+                                                              .where(
+                                                                'Author',
+                                                                isEqualTo:
+                                                                    columnUsersRecord
+                                                                        .reference,
+                                                              )
+                                                              .where(
+                                                                'isShort',
+                                                                isEqualTo: true,
+                                                              )
+                                                              .orderBy(
+                                                                  'TimePosted',
+                                                                  descending:
+                                                                      true),
+                                                    ),
                                                   ),
                                                   builder: (context, snapshot) {
                                                     // Customize what your widget looks like when it's loading.
@@ -1782,7 +1829,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                               width: 200.0,
                                                               height: 400.0,
                                                               autoPlay: false,
-                                                              looping: true,
+                                                              looping: false,
                                                               showControls:
                                                                   false,
                                                               allowFullScreen:

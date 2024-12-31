@@ -4,11 +4,11 @@ import '/components/snippet_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'snippets_model.dart';
-export 'snippets_model.dart';
+import 'snippet_history_model.dart';
+export 'snippet_history_model.dart';
 
-class SnippetsWidget extends StatefulWidget {
-  const SnippetsWidget({
+class SnippetHistoryWidget extends StatefulWidget {
+  const SnippetHistoryWidget({
     super.key,
     required this.author,
   });
@@ -16,18 +16,18 @@ class SnippetsWidget extends StatefulWidget {
   final DocumentReference? author;
 
   @override
-  State<SnippetsWidget> createState() => _SnippetsWidgetState();
+  State<SnippetHistoryWidget> createState() => _SnippetHistoryWidgetState();
 }
 
-class _SnippetsWidgetState extends State<SnippetsWidget> {
-  late SnippetsModel _model;
+class _SnippetHistoryWidgetState extends State<SnippetHistoryWidget> {
+  late SnippetHistoryModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => SnippetsModel());
+    _model = createModel(context, () => SnippetHistoryModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -59,10 +59,7 @@ class _SnippetsWidgetState extends State<SnippetsWidget> {
                       'author',
                       isEqualTo: widget.author,
                     )
-                    .where(
-                      'timeCloses',
-                      isGreaterThan: getCurrentTimestamp,
-                    ),
+                    .orderBy('timeCloses', descending: true),
               ),
             )..listen((snapshot) {
                 List<SnippetsRecord> pageViewSnippetsRecordList = snapshot;
@@ -103,7 +100,7 @@ class _SnippetsWidgetState extends State<SnippetsWidget> {
                           children: [
                             SnippetWidget(
                               key: Key(
-                                  'Keyk6b_${pageViewIndex}_of_${pageViewSnippetsRecordList.length}'),
+                                  'Keym8q_${pageViewIndex}_of_${pageViewSnippetsRecordList.length}'),
                               snippet: pageViewSnippetsRecord,
                             ),
                             Align(

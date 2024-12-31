@@ -8,7 +8,9 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/upload_data.dart';
+import 'dart:async';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -42,20 +44,24 @@ class _SingleChatWidgetState extends State<SingleChatWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await widget.chat!.reference.update({
-        ...mapToFirestore(
-          {
-            'userChatData': getUserMessageDataListFirestoreData(
-              functions.updateUserLatestTime(currentUserReference!,
-                  widget.chat!.userChatData.toList(), getCurrentTimestamp),
-            ),
-          },
-        ),
-      });
       await _model.listViewController?.animateTo(
         _model.listViewController!.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 0),
+        duration: const Duration(milliseconds: 100),
         curve: Curves.ease,
+      );
+      unawaited(
+        () async {
+          await widget.chat!.reference.update({
+            ...mapToFirestore(
+              {
+                'userChatData': getUserMessageDataListFirestoreData(
+                  functions.updateUserLatestTime(currentUserReference!,
+                      widget.chat!.userChatData.toList(), getCurrentTimestamp),
+                ),
+              },
+            ),
+          });
+        }(),
       );
     });
 
@@ -242,8 +248,12 @@ class _SingleChatWidgetState extends State<SingleChatWidget> {
                                       decoration: const BoxDecoration(
                                         shape: BoxShape.circle,
                                       ),
-                                      child: Image.network(
-                                        widget.chat!.users.length > 2
+                                      child: CachedNetworkImage(
+                                        fadeInDuration:
+                                            const Duration(milliseconds: 500),
+                                        fadeOutDuration:
+                                            const Duration(milliseconds: 500),
+                                        imageUrl: widget.chat!.users.length > 2
                                             ? widget.chat!.image
                                             : containerUsersRecord.photoUrl,
                                         fit: BoxFit.cover,
@@ -276,105 +286,119 @@ class _SingleChatWidgetState extends State<SingleChatWidget> {
                                     final chatMessages =
                                         singleChatChatsRecord.chats.toList();
 
-                                    return ListView.separated(
-                                      padding: EdgeInsets.zero,
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
-                                      itemCount: chatMessages.length,
-                                      separatorBuilder: (_, __) =>
-                                          const SizedBox(height: 10.0),
-                                      itemBuilder:
-                                          (context, chatMessagesIndex) {
-                                        final chatMessagesItem =
-                                            chatMessages[chatMessagesIndex];
-                                        return FutureBuilder<
-                                            ChatMessagesRecord>(
-                                          future: ChatMessagesRecord
-                                              .getDocumentOnce(
-                                                  chatMessagesItem),
-                                          builder: (context, snapshot) {
-                                            // Customize what your widget looks like when it's loading.
-                                            if (!snapshot.hasData) {
-                                              return Center(
-                                                child: SizedBox(
-                                                  width: 40.0,
-                                                  height: 40.0,
-                                                  child: SpinKitFadingFour(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primary,
-                                                    size: 40.0,
-                                                  ),
-                                                ),
-                                              );
-                                            }
-
-                                            final stackChatMessagesRecord =
-                                                snapshot.data!;
-
-                                            return Stack(
-                                              children: [
-                                                if (currentUserReference ==
-                                                    stackChatMessagesRecord
-                                                        .authorID)
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.end,
-                                                    children: [
-                                                      Flexible(
-                                                        child: Container(
-                                                          constraints:
-                                                              const BoxConstraints(
-                                                            maxWidth: 350.0,
-                                                          ),
-                                                          child: UserChatWidget(
-                                                            key: Key(
-                                                                'Keycca_${chatMessagesIndex}_of_${chatMessages.length}'),
-                                                            message:
-                                                                stackChatMessagesRecord,
-                                                            chat:
-                                                                singleChatChatsRecord,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                if (currentUserReference !=
-                                                    stackChatMessagesRecord
-                                                        .authorID)
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    children: [
-                                                      Flexible(
-                                                        child: Container(
-                                                          constraints:
-                                                              const BoxConstraints(
-                                                            maxWidth: 350.0,
-                                                          ),
-                                                          child:
-                                                              OtherChatWidget(
-                                                            key: Key(
-                                                                'Keykcb_${chatMessagesIndex}_of_${chatMessages.length}'),
-                                                            message:
-                                                                stackChatMessagesRecord,
-                                                            chat:
-                                                                singleChatChatsRecord,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                              ],
-                                            );
-                                          },
+                                    return RefreshIndicator(
+                                      onRefresh: () async {
+                                        await _model.listViewController
+                                            ?.animateTo(
+                                          _model.listViewController!.position
+                                              .maxScrollExtent,
+                                          duration: const Duration(milliseconds: 100),
+                                          curve: Curves.ease,
                                         );
                                       },
-                                      controller: _model.listViewController,
+                                      child: ListView.separated(
+                                        padding: EdgeInsets.zero,
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: chatMessages.length,
+                                        separatorBuilder: (_, __) =>
+                                            const SizedBox(height: 10.0),
+                                        itemBuilder:
+                                            (context, chatMessagesIndex) {
+                                          final chatMessagesItem =
+                                              chatMessages[chatMessagesIndex];
+                                          return FutureBuilder<
+                                              ChatMessagesRecord>(
+                                            future: ChatMessagesRecord
+                                                .getDocumentOnce(
+                                                    chatMessagesItem),
+                                            builder: (context, snapshot) {
+                                              // Customize what your widget looks like when it's loading.
+                                              if (!snapshot.hasData) {
+                                                return Center(
+                                                  child: SizedBox(
+                                                    width: 40.0,
+                                                    height: 40.0,
+                                                    child: SpinKitFadingFour(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                      size: 40.0,
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+
+                                              final stackChatMessagesRecord =
+                                                  snapshot.data!;
+
+                                              return Stack(
+                                                children: [
+                                                  if (currentUserReference ==
+                                                      stackChatMessagesRecord
+                                                          .authorID)
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment.end,
+                                                      children: [
+                                                        Flexible(
+                                                          child: Container(
+                                                            constraints:
+                                                                const BoxConstraints(
+                                                              maxWidth: 350.0,
+                                                            ),
+                                                            child:
+                                                                UserChatWidget(
+                                                              key: Key(
+                                                                  'Keycca_${chatMessagesIndex}_of_${chatMessages.length}'),
+                                                              message:
+                                                                  stackChatMessagesRecord,
+                                                              chat:
+                                                                  singleChatChatsRecord,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  if (currentUserReference !=
+                                                      stackChatMessagesRecord
+                                                          .authorID)
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Flexible(
+                                                          child: Container(
+                                                            constraints:
+                                                                const BoxConstraints(
+                                                              maxWidth: 350.0,
+                                                            ),
+                                                            child:
+                                                                OtherChatWidget(
+                                                              key: Key(
+                                                                  'Keykcb_${chatMessagesIndex}_of_${chatMessages.length}'),
+                                                              message:
+                                                                  stackChatMessagesRecord,
+                                                              chat:
+                                                                  singleChatChatsRecord,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                        controller: _model.listViewController,
+                                      ),
                                     );
                                   },
                                 ),
@@ -1397,6 +1421,8 @@ class _SingleChatWidgetState extends State<SingleChatWidget> {
                                                               : _model
                                                                   .textController
                                                                   .text,
+                                                      lastUser:
+                                                          currentUserReference,
                                                     ),
                                                     ...mapToFirestore(
                                                       {

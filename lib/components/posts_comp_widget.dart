@@ -5,11 +5,9 @@ import '/components/posts_comp_edit_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:share_plus/share_plus.dart';
 import 'posts_comp_model.dart';
 export 'posts_comp_model.dart';
 
@@ -17,9 +15,11 @@ class PostsCompWidget extends StatefulWidget {
   const PostsCompWidget({
     super.key,
     required this.post,
-  });
+    bool? isShort,
+  }) : isShort = isShort ?? false;
 
   final DocumentReference? post;
+  final bool isShort;
 
   @override
   State<PostsCompWidget> createState() => _PostsCompWidgetState();
@@ -336,15 +336,25 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                     ),
                   ),
                 ),
-              Builder(
-                builder: (context) => Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    if (widget.isShort) {
+                      context.pushNamed(
+                        'singleShort',
+                        queryParameters: {
+                          'shortsRef': serializeParam(
+                            widget.post,
+                            ParamType.DocumentReference,
+                          ),
+                        }.withoutNulls,
+                      );
+                    } else {
                       context.pushNamed(
                         'SinglePost',
                         queryParameters: {
@@ -352,87 +362,64 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                             columnPostsRecord,
                             ParamType.Document,
                           ),
+                          'isSharingLink': serializeParam(
+                            true,
+                            ParamType.bool,
+                          ),
                         }.withoutNulls,
                         extra: <String, dynamic>{
                           'post': columnPostsRecord,
                         },
                       );
-
-                      await currentUserReference!.update(createUsersRecordData(
-                        postInteractions: createPostInteractionsStruct(
-                          fieldValues: {
-                            'shared': FieldValue.arrayUnion(
-                                [columnPostsRecord.reference]),
-                          },
-                          clearUnsetFields: false,
-                        ),
-                      ));
-                      _model.currentPageLink = await generateCurrentPageLink(
-                        context,
-                        title: 'Post',
-                        imageUrl: columnPostsRecord.media.firstOrNull,
-                        description: columnPostsRecord.caption,
-                        forceRedirect: true,
-                      );
-
-                      unawaited(
-                        () async {
-                          await Share.share(
-                            _model.currentPageLink,
-                            sharePositionOrigin: getWidgetBoundingBox(context),
-                          );
-                        }(),
-                      );
-                      context.safePop();
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      height: 60.0,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        borderRadius: BorderRadius.circular(30.0),
-                        border: Border.all(
-                          color: FlutterFlowTheme.of(context).alternate,
-                          width: 4.0,
-                        ),
+                    }
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    height: 60.0,
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      borderRadius: BorderRadius.circular(30.0),
+                      border: Border.all(
+                        color: FlutterFlowTheme.of(context).alternate,
+                        width: 4.0,
                       ),
-                      child: Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            FaIcon(
-                              FontAwesomeIcons.exchangeAlt,
-                              color: FlutterFlowTheme.of(context).secondaryText,
-                              size: 20.0,
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      10.0, 0.0, 0.0, 0.0),
-                                  child: Text(
-                                    FFLocalizations.of(context).getText(
-                                      'os0ou9ky' /* Share */,
-                                    ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Montserrat',
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                          fontSize: 16.0,
-                                          letterSpacing: 0.0,
-                                        ),
+                    ),
+                    child: Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          FaIcon(
+                            FontAwesomeIcons.exchangeAlt,
+                            color: FlutterFlowTheme.of(context).secondaryText,
+                            size: 20.0,
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    10.0, 0.0, 0.0, 0.0),
+                                child: Text(
+                                  FFLocalizations.of(context).getText(
+                                    'os0ou9ky' /* Share */,
                                   ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Montserrat',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        fontSize: 16.0,
+                                        letterSpacing: 0.0,
+                                      ),
                                 ),
-                              ],
-                            ),
-                          ],
-                        ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -446,28 +433,34 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
-                    context.pushNamed(
-                      'SinglePost',
-                      queryParameters: {
-                        'post': serializeParam(
-                          columnPostsRecord,
-                          ParamType.Document,
-                        ),
-                      }.withoutNulls,
-                      extra: <String, dynamic>{
-                        'post': columnPostsRecord,
-                      },
-                    );
-
-                    _model.currentPageLink = await generateCurrentPageLink(
-                      context,
-                      title: 'Post',
-                      imageUrl: columnPostsRecord.media.firstOrNull,
-                      description: columnPostsRecord.caption,
-                      forceRedirect: true,
-                    );
-
-                    context.safePop();
+                    if (widget.isShort) {
+                      context.pushNamed(
+                        'singleShort',
+                        queryParameters: {
+                          'shortsRef': serializeParam(
+                            widget.post,
+                            ParamType.DocumentReference,
+                          ),
+                        }.withoutNulls,
+                      );
+                    } else {
+                      context.pushNamed(
+                        'SinglePost',
+                        queryParameters: {
+                          'post': serializeParam(
+                            columnPostsRecord,
+                            ParamType.Document,
+                          ),
+                          'isCopyingClipboard': serializeParam(
+                            true,
+                            ParamType.bool,
+                          ),
+                        }.withoutNulls,
+                        extra: <String, dynamic>{
+                          'post': columnPostsRecord,
+                        },
+                      );
+                    }
                   },
                   child: Container(
                     width: double.infinity,

@@ -230,7 +230,7 @@ class _OtherChatWidgetState extends State<OtherChatWidget> {
           ),
         if (widget.message?.text != null && widget.message?.text != '')
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 0.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 0.0, 5.0),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(30.0),
               child: Container(
@@ -425,7 +425,7 @@ class _OtherChatWidgetState extends State<OtherChatWidget> {
           ),
         if (widget.message?.file != null && widget.message?.file != '')
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 0.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 0.0, 0.0),
             child: InkWell(
               splashColor: Colors.transparent,
               focusColor: Colors.transparent,

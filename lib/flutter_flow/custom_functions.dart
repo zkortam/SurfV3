@@ -266,6 +266,51 @@ DateTime nextDay(DateTime currentTime) {
   return currentTime.add(Duration(days: 1));
 }
 
+List<DocumentReference> numberOfUnreadChatReferences(
+  List<ChatsRecord> chats,
+  DocumentReference userRef,
+) {
+  List<DocumentReference> unreadChats = [];
+
+  for (var singleChat in chats) {
+    try {
+      // Ensure singleChat and its properties are not null
+      if (singleChat == null || singleChat.lastUser == null) {
+        continue;
+      }
+
+      // Check if the last message sender is not the current user
+      if (singleChat.lastUser != userRef) {
+        // Retrieve the userChatData for this chat, ensure it's a valid list
+        List<dynamic> userChatData = singleChat.userChatData ?? [];
+        DateTime? lastUserTime;
+
+        // Find the lastTimeOnline for the current user safely
+        for (var userData in userChatData) {
+          if (userData is Map &&
+              userData['userReference'] == userRef &&
+              userData['lastTimeOnline'] is DateTime) {
+            lastUserTime = userData['lastTimeOnline'] as DateTime?;
+            break;
+          }
+        }
+
+        // Compare lastTimeOnline with the lastMessage time, if available
+        if (lastUserTime == null ||
+            (singleChat.lastTime != null &&
+                lastUserTime.isBefore(singleChat.lastTime!))) {
+          unreadChats.add(singleChat.reference);
+        }
+      }
+    } catch (e) {
+      // Log or handle exceptions for safety (optional)
+      debugPrint('Error processing chat: $e');
+    }
+  }
+
+  return unreadChats;
+}
+
 List<FollowerGroupStruct> updateGroupPeople(
   String groupName,
   List<FollowerGroupStruct> groups,
@@ -404,26 +449,31 @@ bool checkIfReadOther(
   List<UserMessageDataStruct> users,
   DocumentReference currentUser,
 ) {
-  UserMessageDataStruct? latestUserInstance = users
+  // Check for null messageTime
+
+  // Filter users by currentUser
+  List<UserMessageDataStruct> filteredUsers = users
       .where((userMessage) => userMessage.userReference == currentUser)
-      .reduce((latest, current) {
-    DateTime? latestTime = latest.lastTimeOnline;
-    DateTime? currentTime = current.lastTimeOnline;
+      .toList();
 
-    // Handle null cases safely
-    if (latestTime == null) return current;
-    if (currentTime == null) return latest;
-    return latestTime.isAfter(currentTime) ? latest : current;
-  });
-
-  // Check if a valid instance was found and its lastTimeOnline is after messageTime
-  if (latestUserInstance != null &&
-      latestUserInstance.lastTimeOnline != null &&
-      latestUserInstance.lastTimeOnline!.isAfter(messageTime)) {
-    return true;
+  // If no matching user data, message is unread
+  if (filteredUsers.isEmpty) {
+    return false;
   }
 
-  return false;
+  // Find the latest lastTimeOnline for the current user
+  UserMessageDataStruct latestUserInstance =
+      filteredUsers.reduce((latest, current) {
+    return latest.lastTimeOnline == null ||
+            (current.lastTimeOnline != null &&
+                current.lastTimeOnline!.isAfter(latest.lastTimeOnline!))
+        ? current
+        : latest;
+  });
+
+  // Check if the latest lastTimeOnline is after messageTime
+  return latestUserInstance.lastTimeOnline != null &&
+      latestUserInstance.lastTimeOnline!.isAfter(messageTime);
 }
 
 List<PostsforalgoStruct> makePosts(
@@ -496,4 +546,85 @@ ChatsRecord? getMatchingChat(
 
   // If no matching chat is found, return null
   return null;
+}
+
+int numberOfUnreadChats(
+  List<ChatsRecord> chats,
+  DocumentReference userRef,
+) {
+  int unreadCount = 0;
+
+  for (var singleChat in chats) {
+    try {
+      // Ensure singleChat and its fields are not null
+
+      // Get the list of chat messages and userChatData
+      List<dynamic> chatMessages = singleChat.chats ?? [];
+      List<dynamic> userChatData = singleChat.userChatData ?? [];
+
+      // Retrieve the current user's lastTimeOnline
+      DateTime? currentUserLastTimeOnline;
+      for (var userData in userChatData) {
+        if (userData is Map &&
+            userData['userReference'] == userRef &&
+            userData['lastTimeOnline'] is DateTime) {
+          currentUserLastTimeOnline = userData['lastTimeOnline'] as DateTime?;
+          break;
+        }
+      }
+
+      if (currentUserLastTimeOnline == null) {
+        // If the user has no recorded lastTimeOnline, treat all messages as unread
+        unreadCount += 1;
+        continue;
+      }
+
+      // Check each chat message's timestamp
+      bool hasUnreadMessage = false;
+      for (var message in chatMessages) {
+        if (message is Map &&
+            message['timeStamp'] is DateTime &&
+            (message['timeStamp'] as DateTime)
+                .isAfter(currentUserLastTimeOnline)) {
+          hasUnreadMessage = true;
+          break;
+        }
+      }
+
+      if (hasUnreadMessage) {
+        unreadCount += 1;
+      }
+    } catch (e) {
+      // Log or handle exceptions for safety (optional)
+      debugPrint('Error processing chat: $e');
+    }
+  }
+
+  return unreadCount;
+}
+
+List<int> smartAlgorithm(String input) {
+  // Retain only digits, commas, and brackets using a regular expression
+  String sanitizedInput = input.replaceAll(RegExp(r'[^\d,\[\]\-]'), '');
+
+  // Remove brackets and split by commas
+  return sanitizedInput
+      .replaceAll('[', '')
+      .replaceAll(']', '')
+      .split(',')
+      .map((e) => int.parse(e.trim()))
+      .toList();
+}
+
+int findIndexOfPost(
+  DocumentReference postRef,
+  List<PostsRecord> posts,
+) {
+  for (int i = 0; i < posts.length; i++) {
+    if (posts[i].reference == postRef) {
+      return i; // Return the index of the matching post
+    }
+  }
+
+  return -1; // Return -1 if no matching post is found
 }

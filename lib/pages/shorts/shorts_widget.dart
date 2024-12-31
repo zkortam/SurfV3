@@ -62,13 +62,15 @@ class _ShortsWidgetState extends State<ShortsWidget> {
                         color: FlutterFlowTheme.of(context).secondaryBackground,
                       ),
                       child: StreamBuilder<List<PostsRecord>>(
-                        stream: queryPostsRecord(
-                          queryBuilder: (postsRecord) => postsRecord
-                              .where(
-                                'isShort',
-                                isEqualTo: true,
-                              )
-                              .orderBy('TimePosted', descending: true),
+                        stream: FFAppState().shorts(
+                          requestFn: () => queryPostsRecord(
+                            queryBuilder: (postsRecord) => postsRecord
+                                .where(
+                                  'isShort',
+                                  isEqualTo: true,
+                                )
+                                .orderBy('TimePosted', descending: true),
+                          ),
                         ),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.

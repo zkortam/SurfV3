@@ -9,6 +9,7 @@ import '/flutter_flow/flutter_flow_media_display.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_video_player.dart';
+import 'dart:async';
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
@@ -57,6 +58,17 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
       _model.voteValue = functions.voterInList(
           widget.post!.voters.toList(), currentUserReference!);
       safeSetState(() {});
+      unawaited(
+        () async {
+          await widget.post!.reference.update({
+            ...mapToFirestore(
+              {
+                'views': FieldValue.increment(1),
+              },
+            ),
+          });
+        }(),
+      );
     });
 
     animationsMap.addAll({
@@ -203,11 +215,11 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
           if (!snapshot.hasData) {
             return Center(
               child: SizedBox(
-                width: 40.0,
-                height: 40.0,
-                child: SpinKitFadingFour(
-                  color: FlutterFlowTheme.of(context).primary,
-                  size: 40.0,
+                width: 30.0,
+                height: 30.0,
+                child: SpinKitPulse(
+                  color: FlutterFlowTheme.of(context).primaryBackground,
+                  size: 30.0,
                 ),
               ),
             );
@@ -339,8 +351,12 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           10.0),
-                                                  child: Image.network(
-                                                    path,
+                                                  child: CachedNetworkImage(
+                                                    fadeInDuration: const Duration(
+                                                        milliseconds: 500),
+                                                    fadeOutDuration: const Duration(
+                                                        milliseconds: 500),
+                                                    imageUrl: path,
                                                     width: double.infinity,
                                                     height: double.infinity,
                                                     fit: BoxFit.cover,

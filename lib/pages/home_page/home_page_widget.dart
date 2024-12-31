@@ -380,9 +380,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                           24.0,
                                                                     ),
                                                                     onPressed:
-                                                                        () {
-                                                                      print(
-                                                                          'NotifFull pressed ...');
+                                                                        () async {
+                                                                      context.pushNamed(
+                                                                          'NotificationsPage');
                                                                     },
                                                                   ),
                                                                   Padding(
@@ -459,9 +459,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                       .primaryText,
                                                                   size: 24.0,
                                                                 ),
-                                                                onPressed: () {
-                                                                  print(
-                                                                      'EmptyNotif pressed ...');
+                                                                onPressed:
+                                                                    () async {
+                                                                  context.pushNamed(
+                                                                      'NotificationsPage');
                                                                 },
                                                               ),
                                                             ),
@@ -469,22 +470,132 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       ),
                                                     ),
                                                   ),
-                                                  FlutterFlowIconButton(
-                                                    borderRadius: 20.0,
-                                                    borderWidth: 1.0,
-                                                    buttonSize: 45.0,
-                                                    icon: Icon(
-                                                      Icons.play_arrow,
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
-                                                      size: 26.0,
+                                                  SizedBox(
+                                                    width: 45.0,
+                                                    height: 40.0,
+                                                    child: Stack(
+                                                      children: [
+                                                        FlutterFlowIconButton(
+                                                          borderColor: Colors
+                                                              .transparent,
+                                                          borderRadius: 20.0,
+                                                          borderWidth: 1.0,
+                                                          buttonSize: 40.0,
+                                                          icon: Icon(
+                                                            Icons
+                                                                .play_arrow_outlined,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryText,
+                                                            size: 26.0,
+                                                          ),
+                                                          onPressed: () async {
+                                                            context.pushNamed(
+                                                                'chatMain');
+                                                          },
+                                                        ),
+                                                        Align(
+                                                          alignment:
+                                                              const AlignmentDirectional(
+                                                                  1.0, -1.0),
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        5.0,
+                                                                        5.0,
+                                                                        0.0),
+                                                            child: Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .end,
+                                                              children: [
+                                                                FutureBuilder<
+                                                                    List<
+                                                                        ChatsRecord>>(
+                                                                  future:
+                                                                      queryChatsRecordOnce(
+                                                                    queryBuilder:
+                                                                        (chatsRecord) =>
+                                                                            chatsRecord.where(
+                                                                      'users',
+                                                                      arrayContains:
+                                                                          currentUserReference,
+                                                                    ),
+                                                                  ),
+                                                                  builder: (context,
+                                                                      snapshot) {
+                                                                    // Customize what your widget looks like when it's loading.
+                                                                    if (!snapshot
+                                                                        .hasData) {
+                                                                      return Center(
+                                                                        child:
+                                                                            SizedBox(
+                                                                          width:
+                                                                              40.0,
+                                                                          height:
+                                                                              40.0,
+                                                                          child:
+                                                                              SpinKitRipple(
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).tertiary,
+                                                                            size:
+                                                                                40.0,
+                                                                          ),
+                                                                        ),
+                                                                      );
+                                                                    }
+                                                                    List<ChatsRecord>
+                                                                        containerChatsRecordList =
+                                                                        snapshot
+                                                                            .data!;
+
+                                                                    return Container(
+                                                                      width:
+                                                                          17.0,
+                                                                      height:
+                                                                          17.0,
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .error,
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(20.0),
+                                                                      ),
+                                                                      child:
+                                                                          Align(
+                                                                        alignment: const AlignmentDirectional(
+                                                                            0.0,
+                                                                            0.0),
+                                                                        child:
+                                                                            Text(
+                                                                          valueOrDefault<
+                                                                              String>(
+                                                                            functions.numberOfUnreadChats(containerChatsRecordList.toList(), currentUserReference!).toString(),
+                                                                            '0',
+                                                                          ),
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: 'Montserrat',
+                                                                                fontSize: 10.0,
+                                                                                letterSpacing: 0.0,
+                                                                              ),
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  },
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
-                                                    onPressed: () async {
-                                                      context.pushNamed(
-                                                          'chatMain');
-                                                    },
                                                   ),
                                                 ],
                                               ),
@@ -503,18 +614,20 @@ class _HomePageWidgetState extends State<HomePageWidget>
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               5.0, 10.0, 5.0, 0.0),
                           child: FutureBuilder<List<UsersRecord>>(
-                            future: queryUsersRecordOnce(
-                              queryBuilder: (usersRecord) => usersRecord
-                                  .where(
-                                    'latestSnippetTime',
-                                    isGreaterThan: getCurrentTimestamp,
-                                  )
-                                  .where(
-                                    'followers',
-                                    arrayContains: currentUserReference,
-                                  )
-                                  .orderBy('latestSnippetTime',
-                                      descending: true),
+                            future: FFAppState().snippetsHome(
+                              requestFn: () => queryUsersRecordOnce(
+                                queryBuilder: (usersRecord) => usersRecord
+                                    .where(
+                                      'latestSnippetTime',
+                                      isGreaterThan: getCurrentTimestamp,
+                                    )
+                                    .where(
+                                      'followers',
+                                      arrayContains: currentUserReference,
+                                    )
+                                    .orderBy('latestSnippetTime',
+                                        descending: true),
+                              ),
                             ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
@@ -600,14 +713,17 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                   height: 550.0,
                                   decoration: const BoxDecoration(),
                                   child: FutureBuilder<List<PostsRecord>>(
-                                    future: queryPostsRecordOnce(
-                                      queryBuilder: (postsRecord) => postsRecord
-                                          .where(
-                                            'isShort',
-                                            isEqualTo: false,
-                                          )
-                                          .orderBy('TimePosted',
-                                              descending: true),
+                                    future: FFAppState().swipeAbleHome(
+                                      requestFn: () => queryPostsRecordOnce(
+                                        queryBuilder: (postsRecord) =>
+                                            postsRecord
+                                                .where(
+                                                  'isShort',
+                                                  isEqualTo: false,
+                                                )
+                                                .orderBy('TimePosted',
+                                                    descending: true),
+                                      ),
                                     ),
                                     builder: (context, snapshot) {
                                       // Customize what your widget looks like when it's loading.
@@ -1041,14 +1157,17 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 child: AuthUserStreamWidget(
                                   builder: (context) =>
                                       StreamBuilder<List<PostsRecord>>(
-                                    stream: queryPostsRecord(
-                                      queryBuilder: (postsRecord) => postsRecord
-                                          .where(
-                                            'isShort',
-                                            isEqualTo: false,
-                                          )
-                                          .orderBy('TimePosted',
-                                              descending: true),
+                                    stream: FFAppState().homePostNoAlgo(
+                                      requestFn: () => queryPostsRecord(
+                                        queryBuilder: (postsRecord) =>
+                                            postsRecord
+                                                .where(
+                                                  'isShort',
+                                                  isEqualTo: false,
+                                                )
+                                                .orderBy('TimePosted',
+                                                    descending: true),
+                                      ),
                                     ),
                                     builder: (context, snapshot) {
                                       // Customize what your widget looks like when it's loading.
@@ -1189,54 +1308,60 @@ class _HomePageWidgetState extends State<HomePageWidget>
                     ),
                   ),
                 ),
-                Align(
-                  alignment: const AlignmentDirectional(-1.0, 0.0),
-                  child: Container(
-                    width: 100.0,
-                    height: 700.0,
-                    decoration: BoxDecoration(
-                      color: const Color(0x49D01C27),
-                      boxShadow: const [
-                        BoxShadow(
-                          blurRadius: 7.0,
-                          color: Color(0x2DD01C27),
-                          offset: Offset(
-                            0.0,
-                            2.0,
-                          ),
-                          spreadRadius: 20.0,
-                        )
-                      ],
-                      borderRadius: BorderRadius.circular(70.0),
+                if (currentUserDocument?.userSettings.isSwipeFeed ?? true)
+                  Align(
+                    alignment: const AlignmentDirectional(-1.0, 0.0),
+                    child: AuthUserStreamWidget(
+                      builder: (context) => Container(
+                        width: 100.0,
+                        height: 700.0,
+                        decoration: BoxDecoration(
+                          color: const Color(0x49D01C27),
+                          boxShadow: const [
+                            BoxShadow(
+                              blurRadius: 7.0,
+                              color: Color(0x2DD01C27),
+                              offset: Offset(
+                                0.0,
+                                2.0,
+                              ),
+                              spreadRadius: 20.0,
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(70.0),
+                        ),
+                      ).animateOnActionTrigger(
+                        animationsMap['containerOnActionTriggerAnimation1']!,
+                      ),
                     ),
-                  ).animateOnActionTrigger(
-                    animationsMap['containerOnActionTriggerAnimation1']!,
                   ),
-                ),
-                Align(
-                  alignment: const AlignmentDirectional(1.0, 0.0),
-                  child: Container(
-                    width: 100.0,
-                    height: 700.0,
-                    decoration: BoxDecoration(
-                      color: const Color(0x4A1B9E62),
-                      boxShadow: const [
-                        BoxShadow(
-                          blurRadius: 7.0,
-                          color: Color(0x4A1B9E62),
-                          offset: Offset(
-                            0.0,
-                            2.0,
-                          ),
-                          spreadRadius: 20.0,
-                        )
-                      ],
-                      borderRadius: BorderRadius.circular(70.0),
+                if (currentUserDocument?.userSettings.isSwipeFeed ?? true)
+                  Align(
+                    alignment: const AlignmentDirectional(1.0, 0.0),
+                    child: AuthUserStreamWidget(
+                      builder: (context) => Container(
+                        width: 100.0,
+                        height: 700.0,
+                        decoration: BoxDecoration(
+                          color: const Color(0x4A1B9E62),
+                          boxShadow: const [
+                            BoxShadow(
+                              blurRadius: 7.0,
+                              color: Color(0x4A1B9E62),
+                              offset: Offset(
+                                0.0,
+                                2.0,
+                              ),
+                              spreadRadius: 20.0,
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(70.0),
+                        ),
+                      ).animateOnActionTrigger(
+                        animationsMap['containerOnActionTriggerAnimation2']!,
+                      ),
                     ),
-                  ).animateOnActionTrigger(
-                    animationsMap['containerOnActionTriggerAnimation2']!,
                   ),
-                ),
               ],
             ),
           ),
