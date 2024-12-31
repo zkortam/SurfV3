@@ -205,6 +205,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   isList: false,
                   collectionNamePath: ['posts'],
                 ),
+                isSharingLink: params.getParam(
+                  'isSharingLink',
+                  ParamType.bool,
+                ),
+                isCopyingClipboard: params.getParam(
+                  'isCopyingClipboard',
+                  ParamType.bool,
+                ),
               ),
             ),
             FFRoute(
@@ -378,26 +386,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => const NotificationsPageWidget(),
             ),
             FFRoute(
-              name: 'SingleShort',
-              path: 'singleShort',
-              requireAuth: true,
-              asyncParams: {
-                'short': getDoc(['posts'], PostsRecord.fromSnapshot),
-              },
-              builder: (context, params) => SingleShortWidget(
-                short: params.getParam(
-                  'short',
-                  ParamType.Document,
-                ),
-                shortReference: params.getParam(
-                  'shortReference',
-                  ParamType.DocumentReference,
-                  isList: false,
-                  collectionNamePath: ['posts'],
-                ),
-              ),
-            ),
-            FFRoute(
               name: 'Search',
               path: 'search',
               requireAuth: true,
@@ -405,6 +393,32 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 tabIndex: params.getParam(
                   'tabIndex',
                   ParamType.int,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: 'SnippetHistory',
+              path: 'SnippetsHistory',
+              requireAuth: true,
+              builder: (context, params) => SnippetHistoryWidget(
+                author: params.getParam(
+                  'author',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['users'],
+                ),
+              ),
+            ),
+            FFRoute(
+              name: 'singleShort',
+              path: 'singleShort',
+              requireAuth: true,
+              builder: (context, params) => SingleShortWidget(
+                shortsRef: params.getParam(
+                  'shortsRef',
+                  ParamType.DocumentReference,
+                  isList: false,
+                  collectionNamePath: ['posts'],
                 ),
               ),
             )

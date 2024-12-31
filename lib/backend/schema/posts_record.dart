@@ -132,6 +132,11 @@ class PostsRecord extends FirestoreRecord {
   double get shortDuration => _shortDuration ?? 0.0;
   bool hasShortDuration() => _shortDuration != null;
 
+  // "views" field.
+  int? _views;
+  int get views => _views ?? 0;
+  bool hasViews() => _views != null;
+
   void _initializeFields() {
     _timePosted = snapshotData['TimePosted'] as DateTime?;
     _caption = snapshotData['Caption'] as String?;
@@ -159,6 +164,7 @@ class PostsRecord extends FirestoreRecord {
     _toxicValue = castToType<double>(snapshotData['toxic_value']);
     _vulgarValue = castToType<double>(snapshotData['vulgar_value']);
     _shortDuration = castToType<double>(snapshotData['shortDuration']);
+    _views = castToType<int>(snapshotData['views']);
   }
 
   static CollectionReference get collection =>
@@ -267,6 +273,11 @@ class PostsRecord extends FirestoreRecord {
             ParamType.double,
             false,
           ),
+          'views': convertAlgoliaParam(
+            snapshot.data['views'],
+            ParamType.int,
+            false,
+          ),
         },
         PostsRecord.collection.doc(snapshot.objectID),
       );
@@ -319,6 +330,7 @@ Map<String, dynamic> createPostsRecordData({
   double? toxicValue,
   double? vulgarValue,
   double? shortDuration,
+  int? views,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -338,6 +350,7 @@ Map<String, dynamic> createPostsRecordData({
       'toxic_value': toxicValue,
       'vulgar_value': vulgarValue,
       'shortDuration': shortDuration,
+      'views': views,
     }.withoutNulls,
   );
 
@@ -372,7 +385,8 @@ class PostsRecordDocumentEquality implements Equality<PostsRecord> {
         e1?.politicalValue == e2?.politicalValue &&
         e1?.toxicValue == e2?.toxicValue &&
         e1?.vulgarValue == e2?.vulgarValue &&
-        e1?.shortDuration == e2?.shortDuration;
+        e1?.shortDuration == e2?.shortDuration &&
+        e1?.views == e2?.views;
   }
 
   @override
@@ -399,7 +413,8 @@ class PostsRecordDocumentEquality implements Equality<PostsRecord> {
         e?.politicalValue,
         e?.toxicValue,
         e?.vulgarValue,
-        e?.shortDuration
+        e?.shortDuration,
+        e?.views
       ]);
 
   @override

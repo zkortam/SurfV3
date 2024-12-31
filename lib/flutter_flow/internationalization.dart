@@ -2051,6 +2051,23 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'tr': 'Ev',
       'zh_Hans': '家',
     },
+    'pesitzja': {
+      'en': 'Copied',
+      'ar': '',
+      'de': '',
+      'es': '',
+      'fr': '',
+      'he': '',
+      'hi': '',
+      'id': '',
+      'it': '',
+      'ms': '',
+      'nl': '',
+      'pt': '',
+      'ru': '',
+      'tr': '',
+      'zh_Hans': '',
+    },
   },
   // SingleThread
   {
@@ -3315,26 +3332,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'zh_Hans': '',
     },
   },
-  // SingleShort
-  {
-    'b19qcq0k': {
-      'en': 'Home',
-      'ar': 'بيت',
-      'de': 'Heim',
-      'es': 'Hogar',
-      'fr': 'Maison',
-      'he': 'בַּיִת',
-      'hi': 'घर',
-      'id': 'Rumah',
-      'it': 'Casa',
-      'ms': 'Rumah',
-      'nl': 'Thuis',
-      'pt': 'Lar',
-      'ru': 'Дом',
-      'tr': 'Ev',
-      'zh_Hans': '家',
-    },
-  },
   // Search
   {
     'h6v831hp': {
@@ -3491,6 +3488,46 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'zh_Hans': '标题...',
     },
     'vfperl5p': {
+      'en': 'Home',
+      'ar': 'بيت',
+      'de': 'Heim',
+      'es': 'Hogar',
+      'fr': 'Maison',
+      'he': 'בַּיִת',
+      'hi': 'घर',
+      'id': 'Rumah',
+      'it': 'Casa',
+      'ms': 'Rumah',
+      'nl': 'Thuis',
+      'pt': 'Lar',
+      'ru': 'Дом',
+      'tr': 'Ev',
+      'zh_Hans': '家',
+    },
+  },
+  // SnippetHistory
+  {
+    '0zbp7vjd': {
+      'en': 'Home',
+      'ar': 'بيت',
+      'de': 'Heim',
+      'es': 'Hogar',
+      'fr': 'Maison',
+      'he': 'בַּיִת',
+      'hi': 'घर',
+      'id': 'Rumah',
+      'it': 'Casa',
+      'ms': 'Rumah',
+      'nl': 'Thuis',
+      'pt': 'Lar',
+      'ru': 'Дом',
+      'tr': 'Ev',
+      'zh_Hans': '家',
+    },
+  },
+  // singleShort
+  {
+    'jbzdvkt6': {
       'en': 'Home',
       'ar': 'بيت',
       'de': 'Heim',

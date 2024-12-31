@@ -102,6 +102,11 @@ class ThreadsRecord extends FirestoreRecord {
   String get image => _image ?? '';
   bool hasImage() => _image != null;
 
+  // "views" field.
+  int? _views;
+  int get views => _views ?? 0;
+  bool hasViews() => _views != null;
+
   void _initializeFields() {
     _timeStamp = snapshotData['TimeStamp'] as DateTime?;
     _author = snapshotData['Author'] as DocumentReference?;
@@ -125,6 +130,7 @@ class ThreadsRecord extends FirestoreRecord {
     _comments = getDataList(snapshotData['comments']);
     _isArticle = snapshotData['isArticle'] as bool?;
     _image = snapshotData['image'] as String?;
+    _views = castToType<int>(snapshotData['views']);
   }
 
   static CollectionReference get collection =>
@@ -189,6 +195,11 @@ class ThreadsRecord extends FirestoreRecord {
           ),
           'isArticle': snapshot.data['isArticle'],
           'image': snapshot.data['image'],
+          'views': convertAlgoliaParam(
+            snapshot.data['views'],
+            ParamType.int,
+            false,
+          ),
         },
         ThreadsRecord.collection.doc(snapshot.objectID),
       );
@@ -239,6 +250,7 @@ Map<String, dynamic> createThreadsRecordData({
   String? link,
   bool? isArticle,
   String? image,
+  int? views,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -256,6 +268,7 @@ Map<String, dynamic> createThreadsRecordData({
       'Link': link,
       'isArticle': isArticle,
       'image': image,
+      'views': views,
     }.withoutNulls,
   );
 
@@ -287,7 +300,8 @@ class ThreadsRecordDocumentEquality implements Equality<ThreadsRecord> {
         e1?.link == e2?.link &&
         listEquality.equals(e1?.comments, e2?.comments) &&
         e1?.isArticle == e2?.isArticle &&
-        e1?.image == e2?.image;
+        e1?.image == e2?.image &&
+        e1?.views == e2?.views;
   }
 
   @override
@@ -308,7 +322,8 @@ class ThreadsRecordDocumentEquality implements Equality<ThreadsRecord> {
         e?.link,
         e?.comments,
         e?.isArticle,
-        e?.image
+        e?.image,
+        e?.views
       ]);
 
   @override

@@ -39,8 +39,7 @@ class GetrecommendationsCall {
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'getrecommendations',
-      apiUrl:
-          'https://09f94cc5-2981-489c-9db1-2488f2d33596-00-3s26qv4iyg0xc.kirk.replit.dev',
+      apiUrl: 'https://microservice-template-588737506675.us-central1.run.app',
       callType: ApiCallType.GET,
       headers: {},
       params: {

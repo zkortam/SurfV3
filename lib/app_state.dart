@@ -112,21 +112,6 @@ class FFAppState extends ChangeNotifier {
   void clearCommentsCacheKey(String? uniqueKey) =>
       _commentsManager.clearRequest(uniqueKey);
 
-  final _chatsMainManager = StreamRequestManager<List<ChatsRecord>>();
-  Stream<List<ChatsRecord>> chatsMain({
-    String? uniqueQueryKey,
-    bool? overrideCache,
-    required Stream<List<ChatsRecord>> Function() requestFn,
-  }) =>
-      _chatsMainManager.performRequest(
-        uniqueQueryKey: uniqueQueryKey,
-        overrideCache: overrideCache,
-        requestFn: requestFn,
-      );
-  void clearChatsMainCache() => _chatsMainManager.clear();
-  void clearChatsMainCacheKey(String? uniqueKey) =>
-      _chatsMainManager.clearRequest(uniqueKey);
-
   final _shortsProfileManager = StreamRequestManager<List<PostsRecord>>();
   Stream<List<PostsRecord>> shortsProfile({
     String? uniqueQueryKey,

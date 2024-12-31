@@ -10,6 +10,11 @@ class CommentsModel extends FlutterFlowModel<CommentsWidget> {
   FocusNode? emailFocusNode;
   TextEditingController? emailTextController;
   String? Function(BuildContext, String?)? emailTextControllerValidator;
+  bool isDataUploading = false;
+  FFUploadedFile uploadedLocalFile =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl = '';
+
   // Stores action output result for [Backend Call - Create Document] action in IconButton widget.
   CommentsRecord? comment;
   // Stores action output result for [Backend Call - Create Document] action in IconButton widget.

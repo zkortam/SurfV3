@@ -157,6 +157,20 @@
           "order": "DESCENDING"
         }
       ]
+    },
+    {
+      "collectionGroup": "Snippets",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "author",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "timeCloses",
+          "order": "DESCENDING"
+        }
+      ]
     }
   ]
 }

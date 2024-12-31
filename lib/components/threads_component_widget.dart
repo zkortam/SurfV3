@@ -2,6 +2,7 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/comments_widget.dart';
 import '/components/hashtags_widget.dart';
+import '/components/info_widget.dart';
 import '/components/link_menu_widget.dart';
 import '/components/threads_comp_widget.dart';
 import '/flutter_flow/flutter_flow_audio_player.dart';
@@ -11,6 +12,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -42,6 +44,17 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ThreadsComponentModel());
+
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await widget.thread!.reference.update({
+        ...mapToFirestore(
+          {
+            'views': FieldValue.increment(1),
+          },
+        ),
+      });
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -119,7 +132,7 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                         height: 60.0,
                         decoration: BoxDecoration(
                           color: FlutterFlowTheme.of(context).primaryBackground,
-                          borderRadius: BorderRadius.circular(22.0),
+                          borderRadius: BorderRadius.circular(25.0),
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
@@ -1205,6 +1218,42 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                         Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 5.0, 0.0),
+                              child: FlutterFlowIconButton(
+                                borderColor:
+                                    FlutterFlowTheme.of(context).alternate,
+                                borderRadius: 20.0,
+                                borderWidth: 2.0,
+                                buttonSize: 40.0,
+                                icon: Icon(
+                                  Icons.data_usage_rounded,
+                                  color: FlutterFlowTheme.of(context).alternate,
+                                  size: 20.0,
+                                ),
+                                onPressed: () async {
+                                  await showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    backgroundColor: Colors.transparent,
+                                    enableDrag: false,
+                                    context: context,
+                                    builder: (context) {
+                                      return Padding(
+                                        padding:
+                                            MediaQuery.viewInsetsOf(context),
+                                        child: InfoWidget(
+                                          text: '${valueOrDefault<String>(
+                                            widget.thread?.views.toString(),
+                                            '0',
+                                          )} Views',
+                                        ),
+                                      );
+                                    },
+                                  ).then((value) => safeSetState(() {}));
+                                },
+                              ),
+                            ),
                             if ((widget.thread?.link != null &&
                                     widget.thread?.link != '') &&
                                 (functions
@@ -2171,6 +2220,22 @@ class _ThreadsComponentWidgetState extends State<ThreadsComponentWidget> {
                                   },
                                 ),
                               ),
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 10.0, 0.0),
+                              child: Text(
+                                valueOrDefault<String>(
+                                  widget.thread?.comments.length.toString(),
+                                  '0',
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Montserrat',
+                                      letterSpacing: 0.0,
+                                    ),
+                              ),
+                            ),
                           ],
                         ),
                       ],

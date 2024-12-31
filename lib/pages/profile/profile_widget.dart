@@ -380,12 +380,42 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                       ],
                                     ),
                                   ),
+                                  if (_model.userRefState ==
+                                      currentUserReference)
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 5.0, 0.0),
+                                      child: FlutterFlowIconButton(
+                                        borderRadius: 40.0,
+                                        buttonSize: 45.0,
+                                        fillColor: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                        icon: Icon(
+                                          Icons.history_rounded,
+                                          color:
+                                              FlutterFlowTheme.of(context).info,
+                                          size: 24.0,
+                                        ),
+                                        onPressed: () async {
+                                          context.pushNamed(
+                                            'SnippetHistory',
+                                            queryParameters: {
+                                              'author': serializeParam(
+                                                currentUserReference,
+                                                ParamType.DocumentReference,
+                                              ),
+                                            }.withoutNulls,
+                                          );
+                                        },
+                                      ),
+                                    ),
                                   if (_model.userRefState !=
                                       currentUserReference)
                                     Padding(
                                       padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 5.0, 0.0),
                                       child: FlutterFlowIconButton(
+                                        borderColor: Colors.transparent,
                                         borderRadius: 40.0,
                                         buttonSize: 45.0,
                                         fillColor: FlutterFlowTheme.of(context)

@@ -9,6 +9,7 @@ import '/flutter_flow/flutter_flow_media_display.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_video_player.dart';
+import 'dart:async';
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
@@ -57,6 +58,17 @@ class _PostWidgetState extends State<PostWidget> with TickerProviderStateMixin {
       _model.voteValue = functions.voterInList(
           widget.post!.voters.toList(), currentUserReference!);
       safeSetState(() {});
+      unawaited(
+        () async {
+          await widget.post!.reference.update({
+            ...mapToFirestore(
+              {
+                'views': FieldValue.increment(1),
+              },
+            ),
+          });
+        }(),
+      );
     });
 
     animationsMap.addAll({

@@ -252,9 +252,9 @@ class _NotificationCompWidgetState extends State<NotificationCompWidget> {
                                 if (widget.notification?.contentType ==
                                     'Short') {
                                   context.pushNamed(
-                                    'SingleShort',
+                                    'singleShort',
                                     queryParameters: {
-                                      'shortReference': serializeParam(
+                                      'shortsRef': serializeParam(
                                         widget.notification?.sourcePost,
                                         ParamType.DocumentReference,
                                       ),

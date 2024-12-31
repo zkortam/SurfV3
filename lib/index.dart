@@ -36,5 +36,7 @@ export '/chat_main/chat_main_widget.dart' show ChatMainWidget;
 export '/single_chat/single_chat_widget.dart' show SingleChatWidget;
 export '/pages/notifications_page/notifications_page_widget.dart'
     show NotificationsPageWidget;
-export '/entry/single_short/single_short_widget.dart' show SingleShortWidget;
 export '/pages/search/search_widget.dart' show SearchWidget;
+export '/pages/snippet_history/snippet_history_widget.dart'
+    show SnippetHistoryWidget;
+export '/pages/single_short/single_short_widget.dart' show SingleShortWidget;

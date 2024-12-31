@@ -7,10 +7,12 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_video_player.dart';
+import 'dart:async';
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'short_model.dart';
@@ -44,6 +46,21 @@ class _ShortWidgetState extends State<ShortWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => ShortModel());
+
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      unawaited(
+        () async {
+          await widget.post!.reference.update({
+            ...mapToFirestore(
+              {
+                'views': FieldValue.increment(1),
+              },
+            ),
+          });
+        }(),
+      );
+    });
 
     animationsMap.addAll({
       'containerOnActionTriggerAnimation1': AnimationInfo(
@@ -352,18 +369,17 @@ class _ShortWidgetState extends State<ShortWidget>
                   alignment: const AlignmentDirectional(0.0, 1.0),
                   child: Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 10.0),
+                        const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 20.0),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20.0),
                       child: Container(
                         width: double.infinity,
                         constraints: const BoxConstraints(
-                          minHeight: 70.0,
+                          minHeight: 60.0,
                           maxHeight: 100.0,
                         ),
                         decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
+                          color: const Color(0xD014181B),
                           borderRadius: BorderRadius.circular(20.0),
                         ),
                         child: Column(
@@ -381,7 +397,7 @@ class _ShortWidgetState extends State<ShortWidget>
                                     alignment: const AlignmentDirectional(0.0, 0.0),
                                     child: Padding(
                                       padding: const EdgeInsetsDirectional.fromSTEB(
-                                          5.0, 0.0, 0.0, 0.0),
+                                          3.0, 0.0, 0.0, 0.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         mainAxisAlignment:
@@ -811,7 +827,7 @@ class _ShortWidgetState extends State<ShortWidget>
                                   ),
                                   Padding(
                                     padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 10.0, 0.0),
+                                        0.0, 0.0, 5.0, 0.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
