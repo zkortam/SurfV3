@@ -54,7 +54,7 @@ class _SmartGenerationWidgetState extends State<SmartGenerationWidget> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 500.0,
+      height: 400.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
         borderRadius: const BorderRadius.only(

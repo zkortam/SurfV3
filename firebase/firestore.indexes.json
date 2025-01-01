@@ -83,6 +83,10 @@
           "order": "ASCENDING"
         },
         {
+          "fieldPath": "isReply",
+          "order": "ASCENDING"
+        },
+        {
           "fieldPath": "TimeStamp",
           "order": "DESCENDING"
         }
@@ -94,6 +98,10 @@
       "fields": [
         {
           "fieldPath": "ThreadReference",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isReply",
           "order": "ASCENDING"
         },
         {
@@ -111,7 +119,7 @@
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "post_id",
+          "fieldPath": "TimePosted",
           "order": "ASCENDING"
         }
       ]

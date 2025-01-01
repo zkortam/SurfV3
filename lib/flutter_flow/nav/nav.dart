@@ -227,11 +227,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   'thread',
                   ParamType.Document,
                 ),
-                threadRef: params.getParam(
-                  'threadRef',
-                  ParamType.DocumentReference,
-                  isList: false,
-                  collectionNamePath: ['Threads'],
+                isSharing: params.getParam(
+                  'isSharing',
+                  ParamType.bool,
+                ),
+                isCopyingClipboard: params.getParam(
+                  'isCopyingClipboard',
+                  ParamType.bool,
                 ),
               ),
             ),

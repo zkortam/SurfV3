@@ -1,33 +1,33 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components/make_snippet_caption_widget.dart';
-import '/components/post_share_comp_widget.dart';
-import '/components/posts_comp_edit_widget.dart';
+import '/components/comment_comp_edit_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'posts_comp_model.dart';
-export 'posts_comp_model.dart';
+import 'comments_comp_model.dart';
+export 'comments_comp_model.dart';
 
-class PostsCompWidget extends StatefulWidget {
-  const PostsCompWidget({
+class CommentsCompWidget extends StatefulWidget {
+  const CommentsCompWidget({
     super.key,
-    required this.post,
-    bool? isShort,
-  }) : isShort = isShort ?? false;
+    required this.comment,
+    this.post,
+    this.thread,
+  });
 
+  final DocumentReference? comment;
   final DocumentReference? post;
-  final bool isShort;
+  final DocumentReference? thread;
 
   @override
-  State<PostsCompWidget> createState() => _PostsCompWidgetState();
+  State<CommentsCompWidget> createState() => _CommentsCompWidgetState();
 }
 
-class _PostsCompWidgetState extends State<PostsCompWidget> {
-  late PostsCompModel _model;
+class _CommentsCompWidgetState extends State<CommentsCompWidget> {
+  late CommentsCompModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -38,7 +38,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => PostsCompModel());
+    _model = createModel(context, () => CommentsCompModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -64,8 +64,8 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
           topRight: Radius.circular(30.0),
         ),
       ),
-      child: StreamBuilder<PostsRecord>(
-        stream: PostsRecord.getDocument(widget.post!),
+      child: StreamBuilder<CommentsRecord>(
+        stream: CommentsRecord.getDocument(widget.comment!),
         builder: (context, snapshot) {
           // Customize what your widget looks like when it's loading.
           if (!snapshot.hasData) {
@@ -81,7 +81,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
             );
           }
 
-          final columnPostsRecord = snapshot.data!;
+          final columnCommentsRecord = snapshot.data!;
 
           return Column(
             mainAxisSize: MainAxisSize.min,
@@ -156,7 +156,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                                             child: Text(
                                               FFLocalizations.of(context)
                                                   .getText(
-                                                'm9pr9dr6' /* Post */,
+                                                'svvt0fw2' /* Comment */,
                                               ),
                                               textAlign: TextAlign.start,
                                               style: FlutterFlowTheme.of(
@@ -186,158 +186,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    await showModalBottomSheet(
-                      isScrollControlled: true,
-                      backgroundColor: Colors.transparent,
-                      enableDrag: false,
-                      context: context,
-                      builder: (context) {
-                        return Padding(
-                          padding: MediaQuery.viewInsetsOf(context),
-                          child: PostShareCompWidget(
-                            post: widget.post!,
-                            isShort: widget.isShort,
-                          ),
-                        );
-                      },
-                    ).then((value) => safeSetState(() {}));
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    height: 60.0,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      borderRadius: BorderRadius.circular(30.0),
-                      border: Border.all(
-                        color: FlutterFlowTheme.of(context).primary,
-                        width: 4.0,
-                      ),
-                    ),
-                    child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          FaIcon(
-                            FontAwesomeIcons.exchangeAlt,
-                            color: FlutterFlowTheme.of(context).secondaryText,
-                            size: 20.0,
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    10.0, 0.0, 0.0, 0.0),
-                                child: Text(
-                                  FFLocalizations.of(context).getText(
-                                    '3xyligie' /* Share */,
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Montserrat',
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                        fontSize: 16.0,
-                                        letterSpacing: 0.0,
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    await showModalBottomSheet(
-                      isScrollControlled: true,
-                      backgroundColor: Colors.transparent,
-                      enableDrag: false,
-                      context: context,
-                      builder: (context) {
-                        return Padding(
-                          padding: MediaQuery.viewInsetsOf(context),
-                          child: MakeSnippetCaptionWidget(
-                            post: widget.post,
-                          ),
-                        );
-                      },
-                    ).then((value) => safeSetState(() {}));
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    height: 60.0,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      borderRadius: BorderRadius.circular(30.0),
-                      border: Border.all(
-                        color: FlutterFlowTheme.of(context).alternate,
-                        width: 4.0,
-                      ),
-                    ),
-                    child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.swipe,
-                            color: FlutterFlowTheme.of(context).secondaryText,
-                            size: 25.0,
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    10.0, 0.0, 0.0, 0.0),
-                                child: Text(
-                                  FFLocalizations.of(context).getText(
-                                    'nki44q9s' /* Add to Snippets */,
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Montserrat',
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                        fontSize: 16.0,
-                                        letterSpacing: 0.0,
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              if (columnPostsRecord.author == currentUserReference)
+              if (columnCommentsRecord.author == currentUserReference)
                 Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: InkWell(
@@ -349,13 +198,12 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                       await showModalBottomSheet(
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
-                        enableDrag: false,
                         context: context,
                         builder: (context) {
                           return Padding(
                             padding: MediaQuery.viewInsetsOf(context),
-                            child: PostsCompEditWidget(
-                              post: widget.post!,
+                            child: CommentCompEditWidget(
+                              comment: widget.comment!,
                             ),
                           );
                         },
@@ -392,7 +240,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                                       10.0, 0.0, 0.0, 0.0),
                                   child: Text(
                                     FFLocalizations.of(context).getText(
-                                      'rd9oh0gv' /* Edit */,
+                                      'c1jv5f05' /* Edit */,
                                     ),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
@@ -413,7 +261,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                     ),
                   ),
                 ),
-              if (columnPostsRecord.author != currentUserReference)
+              if (columnCommentsRecord.author != currentUserReference)
                 Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Container(
@@ -447,7 +295,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                                     10.0, 0.0, 0.0, 0.0),
                                 child: Text(
                                   FFLocalizations.of(context).getText(
-                                    '5j777z2h' /* Report */,
+                                    'dgsxslpg' /* Report */,
                                   ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -467,7 +315,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                     ),
                   ),
                 ),
-              if (columnPostsRecord.author == currentUserReference)
+              if (columnCommentsRecord.author == currentUserReference)
                 Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: InkWell(
@@ -476,7 +324,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      await widget.post!.delete();
+                      await widget.comment!.delete();
                       Navigator.pop(context);
                     },
                     child: Container(
@@ -510,7 +358,7 @@ class _PostsCompWidgetState extends State<PostsCompWidget> {
                                       10.0, 0.0, 0.0, 0.0),
                                   child: Text(
                                     FFLocalizations.of(context).getText(
-                                      'vv4onmof' /* Delete */,
+                                      '622rhcu5' /* Delete */,
                                     ),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium

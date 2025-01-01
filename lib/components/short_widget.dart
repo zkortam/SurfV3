@@ -227,6 +227,7 @@ class _ShortWidgetState extends State<ShortWidget>
               padding: MediaQuery.viewInsetsOf(context),
               child: PostsCompWidget(
                 post: widget.post!.reference,
+                isShort: true,
               ),
             );
           },

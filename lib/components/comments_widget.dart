@@ -1,11 +1,11 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
+import '/components/comment_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/upload_data.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'comments_model.dart';
@@ -149,6 +149,10 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                               'PostReference',
                               isEqualTo: widget.post,
                             )
+                            .where(
+                              'isReply',
+                              isEqualTo: false,
+                            )
                             .orderBy('TimeStamp', descending: true),
                       ),
                     ),
@@ -183,319 +187,12 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                         itemBuilder: (context, listViewPostIndex) {
                           final listViewPostCommentsRecord =
                               listViewPostCommentsRecordList[listViewPostIndex];
-                          return Container(
-                            width: 100.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Flexible(
-                                  child: StreamBuilder<UsersRecord>(
-                                    stream: UsersRecord.getDocument(
-                                        listViewPostCommentsRecord.author!),
-                                    builder: (context, snapshot) {
-                                      // Customize what your widget looks like when it's loading.
-                                      if (!snapshot.hasData) {
-                                        return Center(
-                                          child: SizedBox(
-                                            width: 40.0,
-                                            height: 40.0,
-                                            child: SpinKitFadingFour(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              size: 40.0,
-                                            ),
-                                          ),
-                                        );
-                                      }
-
-                                      final rowUsersRecord = snapshot.data!;
-
-                                      return Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 5.0, 0.0),
-                                            child: Container(
-                                              width: 35.0,
-                                              height: 35.0,
-                                              clipBehavior: Clip.antiAlias,
-                                              decoration: const BoxDecoration(
-                                                shape: BoxShape.circle,
-                                              ),
-                                              child: Image.network(
-                                                rowUsersRecord.photoUrl,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          ),
-                                          Flexible(
-                                            child: ClipRRect(
-                                              child: Container(
-                                                width: 300.0,
-                                                decoration: const BoxDecoration(),
-                                                child: Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          3.0, 0.0, 0.0, 0.0),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Text(
-                                                            rowUsersRecord
-                                                                .displayName,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Montserrat',
-                                                                  fontSize:
-                                                                      14.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                ),
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        2.0,
-                                                                        0.0,
-                                                                        2.0,
-                                                                        0.0),
-                                                            child: Icon(
-                                                              Icons.circle,
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .secondaryText,
-                                                              size: 10.0,
-                                                            ),
-                                                          ),
-                                                          Text(
-                                                            dateTimeFormat(
-                                                              "relative",
-                                                              listViewPostCommentsRecord
-                                                                  .timeStamp!,
-                                                              locale: FFLocalizations.of(
-                                                                          context)
-                                                                      .languageShortCode ??
-                                                                  FFLocalizations.of(
-                                                                          context)
-                                                                      .languageCode,
-                                                            ),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Montserrat',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryText,
-                                                                  fontSize:
-                                                                      14.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .normal,
-                                                                ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    5.0),
-                                                        child: Text(
-                                                          listViewPostCommentsRecord
-                                                              .text,
-                                                          maxLines: 3,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Montserrat',
-                                                                fontSize: 14.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                              ),
-                                                        ),
-                                                      ),
-                                                      if (listViewPostCommentsRecord
-                                                                  .image !=
-                                                              '')
-                                                        Container(
-                                                          width: 200.0,
-                                                          height: 125.0,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primary,
-                                                            image:
-                                                                DecorationImage(
-                                                              fit: BoxFit.cover,
-                                                              image:
-                                                                  Image.network(
-                                                                listViewPostCommentsRecord
-                                                                    .image,
-                                                              ).image,
-                                                            ),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        20.0),
-                                                          ),
-                                                        ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  ),
-                                ),
-                                Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Stack(
-                                      children: [
-                                        if (functions
-                                                .voterInList(
-                                                    listViewPostCommentsRecord
-                                                        .votes
-                                                        .toList(),
-                                                    currentUserReference!)
-                                                .toString() ==
-                                            '1')
-                                          FlutterFlowIconButton(
-                                            borderColor: Colors.transparent,
-                                            borderRadius: 8.0,
-                                            buttonSize: 35.0,
-                                            icon: Icon(
-                                              Icons.favorite,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .error,
-                                              size: 24.0,
-                                            ),
-                                            onPressed: () async {
-                                              await listViewPostCommentsRecord
-                                                  .reference
-                                                  .update({
-                                                ...mapToFirestore(
-                                                  {
-                                                    'Votes':
-                                                        FieldValue.arrayRemove([
-                                                      getVotersFirestoreData(
-                                                        createVotersStruct(
-                                                          userReference:
-                                                              currentUserReference,
-                                                          voteValue: 1,
-                                                          clearUnsetFields:
-                                                              false,
-                                                        ),
-                                                        true,
-                                                      )
-                                                    ]),
-                                                  },
-                                                ),
-                                              });
-                                            },
-                                          ),
-                                        if (functions
-                                                .voterInList(
-                                                    listViewPostCommentsRecord
-                                                        .votes
-                                                        .toList(),
-                                                    currentUserReference!)
-                                                .toString() !=
-                                            '1')
-                                          FlutterFlowIconButton(
-                                            borderColor: Colors.transparent,
-                                            borderRadius: 8.0,
-                                            buttonSize: 35.0,
-                                            icon: Icon(
-                                              Icons.favorite_border_rounded,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .info,
-                                              size: 24.0,
-                                            ),
-                                            onPressed: () async {
-                                              await listViewPostCommentsRecord
-                                                  .reference
-                                                  .update({
-                                                ...mapToFirestore(
-                                                  {
-                                                    'Votes':
-                                                        FieldValue.arrayUnion([
-                                                      getVotersFirestoreData(
-                                                        createVotersStruct(
-                                                          userReference:
-                                                              currentUserReference,
-                                                          voteValue: 1,
-                                                          clearUnsetFields:
-                                                              false,
-                                                        ),
-                                                        true,
-                                                      )
-                                                    ]),
-                                                  },
-                                                ),
-                                              });
-                                            },
-                                          ),
-                                      ],
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          2.0, 0.0, 0.0, 0.0),
-                                      child: Text(
-                                        listViewPostCommentsRecord.votes.length
-                                            .toString(),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Montserrat',
-                                              fontSize: 12.0,
-                                              letterSpacing: 0.0,
-                                            ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                          return CommentWidget(
+                            key: Key(
+                                'Keyvpn_${listViewPostIndex}_of_${listViewPostCommentsRecordList.length}'),
+                            comment: listViewPostCommentsRecord,
+                            post: widget.post!,
+                            thread: widget.thread!,
                           );
                         },
                       );
@@ -512,6 +209,10 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                           .where(
                             'ThreadReference',
                             isEqualTo: widget.thread,
+                          )
+                          .where(
+                            'isReply',
+                            isEqualTo: false,
                           )
                           .orderBy('TimeStamp', descending: true),
                     ),
@@ -547,319 +248,12 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                           final listViewThreadCommentsRecord =
                               listViewThreadCommentsRecordList[
                                   listViewThreadIndex];
-                          return Container(
-                            width: 100.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Flexible(
-                                  child: StreamBuilder<UsersRecord>(
-                                    stream: UsersRecord.getDocument(
-                                        listViewThreadCommentsRecord.author!),
-                                    builder: (context, snapshot) {
-                                      // Customize what your widget looks like when it's loading.
-                                      if (!snapshot.hasData) {
-                                        return Center(
-                                          child: SizedBox(
-                                            width: 40.0,
-                                            height: 40.0,
-                                            child: SpinKitFadingFour(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              size: 40.0,
-                                            ),
-                                          ),
-                                        );
-                                      }
-
-                                      final rowUsersRecord = snapshot.data!;
-
-                                      return Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 5.0, 0.0),
-                                            child: Container(
-                                              width: 35.0,
-                                              height: 35.0,
-                                              clipBehavior: Clip.antiAlias,
-                                              decoration: const BoxDecoration(
-                                                shape: BoxShape.circle,
-                                              ),
-                                              child: Image.network(
-                                                rowUsersRecord.photoUrl,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          ),
-                                          Flexible(
-                                            child: ClipRRect(
-                                              child: Container(
-                                                width: 300.0,
-                                                decoration: const BoxDecoration(),
-                                                child: Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          3.0, 0.0, 0.0, 0.0),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Text(
-                                                            rowUsersRecord
-                                                                .displayName,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Montserrat',
-                                                                  fontSize:
-                                                                      14.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                ),
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        2.0,
-                                                                        0.0,
-                                                                        2.0,
-                                                                        0.0),
-                                                            child: Icon(
-                                                              Icons.circle,
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .secondaryText,
-                                                              size: 10.0,
-                                                            ),
-                                                          ),
-                                                          Text(
-                                                            dateTimeFormat(
-                                                              "relative",
-                                                              listViewThreadCommentsRecord
-                                                                  .timeStamp!,
-                                                              locale: FFLocalizations.of(
-                                                                          context)
-                                                                      .languageShortCode ??
-                                                                  FFLocalizations.of(
-                                                                          context)
-                                                                      .languageCode,
-                                                            ),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Montserrat',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryText,
-                                                                  fontSize:
-                                                                      14.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .normal,
-                                                                ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    5.0),
-                                                        child: Text(
-                                                          listViewThreadCommentsRecord
-                                                              .text,
-                                                          maxLines: 3,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Montserrat',
-                                                                fontSize: 14.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                              ),
-                                                        ),
-                                                      ),
-                                                      if (listViewThreadCommentsRecord
-                                                                  .image !=
-                                                              '')
-                                                        Container(
-                                                          width: 200.0,
-                                                          height: 125.0,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primary,
-                                                            image:
-                                                                DecorationImage(
-                                                              fit: BoxFit.cover,
-                                                              image:
-                                                                  Image.network(
-                                                                listViewThreadCommentsRecord
-                                                                    .image,
-                                                              ).image,
-                                                            ),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        20.0),
-                                                          ),
-                                                        ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  ),
-                                ),
-                                Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Stack(
-                                      children: [
-                                        if (functions
-                                                .voterInList(
-                                                    listViewThreadCommentsRecord
-                                                        .votes
-                                                        .toList(),
-                                                    currentUserReference!)
-                                                .toString() ==
-                                            '1')
-                                          FlutterFlowIconButton(
-                                            borderRadius: 8.0,
-                                            buttonSize: 35.0,
-                                            icon: Icon(
-                                              Icons.favorite,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .error,
-                                              size: 24.0,
-                                            ),
-                                            onPressed: () async {
-                                              await listViewThreadCommentsRecord
-                                                  .reference
-                                                  .update({
-                                                ...mapToFirestore(
-                                                  {
-                                                    'Votes':
-                                                        FieldValue.arrayRemove([
-                                                      getVotersFirestoreData(
-                                                        createVotersStruct(
-                                                          userReference:
-                                                              currentUserReference,
-                                                          voteValue: 1,
-                                                          clearUnsetFields:
-                                                              false,
-                                                        ),
-                                                        true,
-                                                      )
-                                                    ]),
-                                                  },
-                                                ),
-                                              });
-                                            },
-                                          ),
-                                        if (functions
-                                                .voterInList(
-                                                    listViewThreadCommentsRecord
-                                                        .votes
-                                                        .toList(),
-                                                    currentUserReference!)
-                                                .toString() !=
-                                            '1')
-                                          FlutterFlowIconButton(
-                                            borderColor: Colors.transparent,
-                                            borderRadius: 8.0,
-                                            buttonSize: 35.0,
-                                            icon: Icon(
-                                              Icons.favorite_border_rounded,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .info,
-                                              size: 24.0,
-                                            ),
-                                            onPressed: () async {
-                                              await listViewThreadCommentsRecord
-                                                  .reference
-                                                  .update({
-                                                ...mapToFirestore(
-                                                  {
-                                                    'Votes':
-                                                        FieldValue.arrayUnion([
-                                                      getVotersFirestoreData(
-                                                        createVotersStruct(
-                                                          userReference:
-                                                              currentUserReference,
-                                                          voteValue: 1,
-                                                          clearUnsetFields:
-                                                              false,
-                                                        ),
-                                                        true,
-                                                      )
-                                                    ]),
-                                                  },
-                                                ),
-                                              });
-                                            },
-                                          ),
-                                      ],
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          2.0, 0.0, 0.0, 0.0),
-                                      child: Text(
-                                        listViewThreadCommentsRecord
-                                            .votes.length
-                                            .toString(),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Montserrat',
-                                              fontSize: 12.0,
-                                              letterSpacing: 0.0,
-                                            ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                          return CommentWidget(
+                            key: Key(
+                                'Key49i_${listViewThreadIndex}_of_${listViewThreadCommentsRecordList.length}'),
+                            comment: listViewThreadCommentsRecord,
+                            post: widget.post!,
+                            thread: widget.thread!,
                           );
                         },
                       );
@@ -903,25 +297,8 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                   child: TextFormField(
                                     controller: _model.emailTextController,
                                     focusNode: _model.emailFocusNode,
-                                    onFieldSubmitted: (_) async {
-                                      await CommentsRecord.collection
-                                          .doc()
-                                          .set(createCommentsRecordData(
-                                            timeStamp: getCurrentTimestamp,
-                                            postReference: widget.post,
-                                            threadReference: widget.thread,
-                                            author: currentUserReference,
-                                            text:
-                                                _model.emailTextController.text,
-                                            isStealth: valueOrDefault<bool>(
-                                                currentUserDocument?.isStealth,
-                                                false),
-                                          ));
-                                      safeSetState(() {
-                                        _model.emailTextController?.clear();
-                                      });
-                                    },
                                     autofocus: false,
+                                    textInputAction: TextInputAction.done,
                                     obscureText: false,
                                     decoration: InputDecoration(
                                       labelStyle: FlutterFlowTheme.of(context)
@@ -1075,143 +452,170 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                   ),
                                 ),
                               ),
-                              FlutterFlowIconButton(
-                                borderColor: Colors.transparent,
-                                borderRadius: 30.0,
-                                buttonSize: 45.0,
-                                fillColor: FlutterFlowTheme.of(context).primary,
-                                icon: Icon(
-                                  Icons.send_rounded,
-                                  color: FlutterFlowTheme.of(context).info,
-                                  size: 20.0,
-                                ),
-                                onPressed: () async {
-                                  var shouldSetState = false;
-                                  final firestoreBatch =
-                                      FirebaseFirestore.instance.batch();
-                                  try {
-                                    var commentsRecordReference =
-                                        CommentsRecord.collection.doc();
-                                    firestoreBatch.set(
-                                        commentsRecordReference,
-                                        createCommentsRecordData(
-                                          timeStamp: getCurrentTimestamp,
-                                          postReference: widget.post,
-                                          threadReference: widget.thread,
-                                          author: currentUserReference,
-                                          text: _model.emailTextController.text,
-                                          isStealth: valueOrDefault<bool>(
-                                              currentUserDocument?.isStealth,
-                                              false),
-                                        ));
-                                    _model.comment =
-                                        CommentsRecord.getDocumentFromData(
-                                            createCommentsRecordData(
-                                              timeStamp: getCurrentTimestamp,
-                                              postReference: widget.post,
-                                              threadReference: widget.thread,
-                                              author: currentUserReference,
-                                              text: _model
-                                                  .emailTextController.text,
-                                              isStealth: valueOrDefault<bool>(
-                                                  currentUserDocument
-                                                      ?.isStealth,
-                                                  false),
-                                            ),
-                                            commentsRecordReference);
-                                    shouldSetState = true;
-                                    safeSetState(() {
-                                      _model.emailTextController?.clear();
-                                    });
-                                    if (widget.authorID !=
-                                        currentUserReference) {
-                                      var notificationsRecordReference =
-                                          NotificationsRecord.collection.doc();
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 3.0, 0.0),
+                                child: FlutterFlowIconButton(
+                                  borderColor: Colors.transparent,
+                                  borderRadius: 30.0,
+                                  buttonSize: 45.0,
+                                  fillColor:
+                                      FlutterFlowTheme.of(context).primary,
+                                  icon: Icon(
+                                    Icons.send_rounded,
+                                    color: FlutterFlowTheme.of(context).info,
+                                    size: 20.0,
+                                  ),
+                                  onPressed: () async {
+                                    var shouldSetState = false;
+                                    final firestoreBatch =
+                                        FirebaseFirestore.instance.batch();
+                                    try {
+                                      var commentsRecordReference =
+                                          CommentsRecord.collection.doc();
                                       firestoreBatch.set(
-                                          notificationsRecordReference,
-                                          createNotificationsRecordData(
-                                            sourcePost: widget.post,
-                                            sourceThread: widget.thread,
-                                            sourceComment:
-                                                _model.comment?.reference,
-                                            sourceUser: currentUserReference,
-                                            targetUser: widget.authorID,
-                                            time: getCurrentTimestamp,
-                                            type: 'Comment',
-                                            contentType: widget.post != null
-                                                ? 'Post'
-                                                : 'Thread',
+                                          commentsRecordReference,
+                                          createCommentsRecordData(
+                                            timeStamp: getCurrentTimestamp,
+                                            postReference: widget.post,
+                                            threadReference: widget.thread,
+                                            author: currentUserReference,
+                                            text:
+                                                _model.emailTextController.text,
+                                            isStealth: valueOrDefault<bool>(
+                                                currentUserDocument?.isStealth,
+                                                false),
+                                            image: _model.uploadedFileUrl,
+                                            isReply: false,
                                           ));
-                                      _model.notification = NotificationsRecord
-                                          .getDocumentFromData(
-                                              createNotificationsRecordData(
-                                                sourcePost: widget.post,
-                                                sourceThread: widget.thread,
-                                                sourceComment:
-                                                    _model.comment?.reference,
-                                                sourceUser:
-                                                    currentUserReference,
-                                                targetUser: widget.authorID,
-                                                time: getCurrentTimestamp,
-                                                type: 'Comment',
-                                                contentType:
-                                                    widget.post != null
-                                                        ? 'Post'
-                                                        : 'Thread',
+                                      _model.comment =
+                                          CommentsRecord.getDocumentFromData(
+                                              createCommentsRecordData(
+                                                timeStamp: getCurrentTimestamp,
+                                                postReference: widget.post,
+                                                threadReference: widget.thread,
+                                                author: currentUserReference,
+                                                text: _model
+                                                    .emailTextController.text,
+                                                isStealth: valueOrDefault<bool>(
+                                                    currentUserDocument
+                                                        ?.isStealth,
+                                                    false),
+                                                image: _model.uploadedFileUrl,
+                                                isReply: false,
                                               ),
-                                              notificationsRecordReference);
+                                              commentsRecordReference);
                                       shouldSetState = true;
-
-                                      firestoreBatch.update(widget.authorID!, {
-                                        ...mapToFirestore(
-                                          {
-                                            'notifications':
-                                                FieldValue.arrayUnion([
-                                              getNotificationFirestoreData(
-                                                createNotificationStruct(
-                                                  type: 'Comment',
-                                                  time: getCurrentTimestamp,
-                                                  clearUnsetFields: false,
-                                                ),
-                                                true,
-                                              )
-                                            ]),
-                                            'notificationsReferences':
-                                                FieldValue.arrayUnion([
-                                              _model.notification?.reference
-                                            ]),
-                                          },
-                                        ),
+                                      safeSetState(() {
+                                        _model.emailTextController?.clear();
                                       });
-                                      if (widget.post != null) {
-                                        firestoreBatch.update(widget.post!, {
-                                          ...mapToFirestore(
-                                            {
-                                              'comments': FieldValue.arrayUnion(
-                                                  [_model.comment?.reference]),
-                                            },
-                                          ),
-                                        });
-                                      } else {
-                                        firestoreBatch.update(widget.thread!, {
-                                          ...mapToFirestore(
-                                            {
-                                              'comments': FieldValue.arrayUnion(
-                                                  [_model.comment?.reference]),
-                                            },
-                                          ),
-                                        });
-                                      }
-                                    } else {
-                                      if (shouldSetState) safeSetState(() {});
-                                      return;
-                                    }
-                                  } finally {
-                                    await firestoreBatch.commit();
-                                  }
+                                      safeSetState(() {
+                                        _model.isDataUploading = false;
+                                        _model.uploadedLocalFile =
+                                            FFUploadedFile(
+                                                bytes: Uint8List.fromList([]));
+                                        _model.uploadedFileUrl = '';
+                                      });
 
-                                  if (shouldSetState) safeSetState(() {});
-                                },
+                                      if (widget.authorID !=
+                                          currentUserReference) {
+                                        var notificationsRecordReference =
+                                            NotificationsRecord.collection
+                                                .doc();
+                                        firestoreBatch.set(
+                                            notificationsRecordReference,
+                                            createNotificationsRecordData(
+                                              sourcePost: widget.post,
+                                              sourceThread: widget.thread,
+                                              sourceComment:
+                                                  _model.comment?.reference,
+                                              sourceUser: currentUserReference,
+                                              targetUser: widget.authorID,
+                                              time: getCurrentTimestamp,
+                                              type: 'Comment',
+                                              contentType: widget.post != null
+                                                  ? 'Post'
+                                                  : 'Thread',
+                                            ));
+                                        _model.notification = NotificationsRecord
+                                            .getDocumentFromData(
+                                                createNotificationsRecordData(
+                                                  sourcePost: widget.post,
+                                                  sourceThread: widget.thread,
+                                                  sourceComment:
+                                                      _model.comment?.reference,
+                                                  sourceUser:
+                                                      currentUserReference,
+                                                  targetUser: widget.authorID,
+                                                  time: getCurrentTimestamp,
+                                                  type: 'Comment',
+                                                  contentType:
+                                                      widget.post != null
+                                                          ? 'Post'
+                                                          : 'Thread',
+                                                ),
+                                                notificationsRecordReference);
+                                        shouldSetState = true;
+
+                                        firestoreBatch
+                                            .update(widget.authorID!, {
+                                          ...mapToFirestore(
+                                            {
+                                              'notifications':
+                                                  FieldValue.arrayUnion([
+                                                getNotificationFirestoreData(
+                                                  createNotificationStruct(
+                                                    type: 'Comment',
+                                                    time: getCurrentTimestamp,
+                                                    clearUnsetFields: false,
+                                                  ),
+                                                  true,
+                                                )
+                                              ]),
+                                              'notificationsReferences':
+                                                  FieldValue.arrayUnion([
+                                                _model.notification?.reference
+                                              ]),
+                                            },
+                                          ),
+                                        });
+                                        if (widget.post != null) {
+                                          firestoreBatch.update(widget.post!, {
+                                            ...mapToFirestore(
+                                              {
+                                                'comments':
+                                                    FieldValue.arrayUnion([
+                                                  _model.comment?.reference
+                                                ]),
+                                              },
+                                            ),
+                                          });
+                                        } else {
+                                          firestoreBatch
+                                              .update(widget.thread!, {
+                                            ...mapToFirestore(
+                                              {
+                                                'comments':
+                                                    FieldValue.arrayUnion([
+                                                  _model.comment?.reference
+                                                ]),
+                                              },
+                                            ),
+                                          });
+                                        }
+                                      } else {
+                                        if (shouldSetState) {
+                                          safeSetState(() {});
+                                        }
+                                        return;
+                                      }
+                                    } finally {
+                                      await firestoreBatch.commit();
+                                    }
+
+                                    if (shouldSetState) safeSetState(() {});
+                                  },
+                                ),
                               ),
                             ],
                           ),

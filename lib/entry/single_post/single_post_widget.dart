@@ -249,8 +249,8 @@ class _SinglePostWidgetState extends State<SinglePostWidget> {
                       stream: queryPostsRecord(
                         queryBuilder: (postsRecord) => postsRecord
                             .where(
-                              'post_id',
-                              isNotEqualTo: widget.post?.postId,
+                              'TimePosted',
+                              isNotEqualTo: widget.post?.timePosted,
                             )
                             .where(
                               'isShort',

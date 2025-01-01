@@ -3233,7 +3233,7 @@ class _CreatePostWidgetState extends State<CreatePostWidget>
                                     focusNode: _model.titleThreadsFocusNode,
                                     onChanged: (_) => EasyDebounce.debounce(
                                       '_model.titleThreadsTextController',
-                                      const Duration(milliseconds: 2000),
+                                      const Duration(milliseconds: 100),
                                       () => safeSetState(() {}),
                                     ),
                                     autofocus: false,
