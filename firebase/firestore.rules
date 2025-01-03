@@ -72,7 +72,7 @@ service cloud.firestore {
     match /Notifications/{document} {
       allow create: if true;
       allow read: if true;
-      allow write: if false;
+      allow write: if request.auth != null;
       allow delete: if false;
     }
   }

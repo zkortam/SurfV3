@@ -83,8 +83,8 @@ class _ReplyWidgetState extends State<ReplyWidget> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Flexible(
-              child: StreamBuilder<UsersRecord>(
-                stream: UsersRecord.getDocument(widget.comment!.author!),
+              child: FutureBuilder<UsersRecord>(
+                future: UsersRecord.getDocumentOnce(widget.comment!.author!),
                 builder: (context, snapshot) {
                   // Customize what your widget looks like when it's loading.
                   if (!snapshot.hasData) {
@@ -138,7 +138,10 @@ class _ReplyWidgetState extends State<ReplyWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Text(
-                                        rowUsersRecord.displayName,
+                                        valueOrDefault<String>(
+                                          rowUsersRecord.displayName,
+                                          'name',
+                                        ),
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -168,7 +171,7 @@ class _ReplyWidgetState extends State<ReplyWidget> {
                                                 FFLocalizations.of(context)
                                                     .languageCode,
                                           ),
-                                          '0',
+                                          'time',
                                         ),
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium

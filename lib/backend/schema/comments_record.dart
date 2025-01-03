@@ -57,11 +57,6 @@ class CommentsRecord extends FirestoreRecord {
   bool get isStealth => _isStealth ?? false;
   bool hasIsStealth() => _isStealth != null;
 
-  // "replyCommentReference" field.
-  DocumentReference? _replyCommentReference;
-  DocumentReference? get replyCommentReference => _replyCommentReference;
-  bool hasReplyCommentReference() => _replyCommentReference != null;
-
   // "isReply" field.
   bool? _isReply;
   bool get isReply => _isReply ?? false;
@@ -71,6 +66,11 @@ class CommentsRecord extends FirestoreRecord {
   List<DocumentReference>? _replies;
   List<DocumentReference> get replies => _replies ?? const [];
   bool hasReplies() => _replies != null;
+
+  // "replyCommentReference" field.
+  DocumentReference? _replyCommentReference;
+  DocumentReference? get replyCommentReference => _replyCommentReference;
+  bool hasReplyCommentReference() => _replyCommentReference != null;
 
   void _initializeFields() {
     _timeStamp = snapshotData['TimeStamp'] as DateTime?;
@@ -84,10 +84,10 @@ class CommentsRecord extends FirestoreRecord {
       VotersStruct.fromMap,
     );
     _isStealth = snapshotData['isStealth'] as bool?;
-    _replyCommentReference =
-        snapshotData['replyCommentReference'] as DocumentReference?;
     _isReply = snapshotData['isReply'] as bool?;
     _replies = getDataList(snapshotData['replies']);
+    _replyCommentReference =
+        snapshotData['replyCommentReference'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
@@ -142,11 +142,6 @@ class CommentsRecord extends FirestoreRecord {
                 .toList(),
           ),
           'isStealth': snapshot.data['isStealth'],
-          'replyCommentReference': convertAlgoliaParam(
-            snapshot.data['replyCommentReference'],
-            ParamType.DocumentReference,
-            false,
-          ),
           'isReply': snapshot.data['isReply'],
           'replies': safeGet(
             () => convertAlgoliaParam<DocumentReference>(
@@ -154,6 +149,11 @@ class CommentsRecord extends FirestoreRecord {
               ParamType.DocumentReference,
               true,
             ).toList(),
+          ),
+          'replyCommentReference': convertAlgoliaParam(
+            snapshot.data['replyCommentReference'],
+            ParamType.DocumentReference,
+            false,
           ),
         },
         CommentsRecord.collection.doc(snapshot.objectID),
@@ -198,8 +198,8 @@ Map<String, dynamic> createCommentsRecordData({
   String? text,
   String? image,
   bool? isStealth,
-  DocumentReference? replyCommentReference,
   bool? isReply,
+  DocumentReference? replyCommentReference,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -210,8 +210,8 @@ Map<String, dynamic> createCommentsRecordData({
       'text': text,
       'image': image,
       'isStealth': isStealth,
-      'replyCommentReference': replyCommentReference,
       'isReply': isReply,
+      'replyCommentReference': replyCommentReference,
     }.withoutNulls,
   );
 
@@ -232,9 +232,9 @@ class CommentsRecordDocumentEquality implements Equality<CommentsRecord> {
         e1?.image == e2?.image &&
         listEquality.equals(e1?.votes, e2?.votes) &&
         e1?.isStealth == e2?.isStealth &&
-        e1?.replyCommentReference == e2?.replyCommentReference &&
         e1?.isReply == e2?.isReply &&
-        listEquality.equals(e1?.replies, e2?.replies);
+        listEquality.equals(e1?.replies, e2?.replies) &&
+        e1?.replyCommentReference == e2?.replyCommentReference;
   }
 
   @override
@@ -247,9 +247,9 @@ class CommentsRecordDocumentEquality implements Equality<CommentsRecord> {
         e?.image,
         e?.votes,
         e?.isStealth,
-        e?.replyCommentReference,
         e?.isReply,
-        e?.replies
+        e?.replies,
+        e?.replyCommentReference
       ]);
 
   @override

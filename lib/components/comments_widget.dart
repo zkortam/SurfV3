@@ -148,10 +148,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                             .where(
                               'PostReference',
                               isEqualTo: widget.post,
-                            )
-                            .where(
-                              'isReply',
-                              isEqualTo: false,
+                              isNull: (widget.post) == null,
                             )
                             .orderBy('TimeStamp', descending: true),
                       ),
@@ -180,6 +177,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                           0,
                           0,
                         ),
+                        primary: false,
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         itemCount: listViewPostCommentsRecordList.length,
@@ -187,12 +185,15 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                         itemBuilder: (context, listViewPostIndex) {
                           final listViewPostCommentsRecord =
                               listViewPostCommentsRecordList[listViewPostIndex];
-                          return CommentWidget(
-                            key: Key(
-                                'Keyvpn_${listViewPostIndex}_of_${listViewPostCommentsRecordList.length}'),
-                            comment: listViewPostCommentsRecord,
-                            post: widget.post!,
-                            thread: widget.thread!,
+                          return Visibility(
+                            visible: !listViewPostCommentsRecord.isReply,
+                            child: CommentWidget(
+                              key: Key(
+                                  'Keyvpn_${listViewPostIndex}_of_${listViewPostCommentsRecordList.length}'),
+                              comment: listViewPostCommentsRecord,
+                              post: widget.post!,
+                              thread: widget.thread!,
+                            ),
                           );
                         },
                       );
@@ -209,10 +210,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                           .where(
                             'ThreadReference',
                             isEqualTo: widget.thread,
-                          )
-                          .where(
-                            'isReply',
-                            isEqualTo: false,
+                            isNull: (widget.thread) == null,
                           )
                           .orderBy('TimeStamp', descending: true),
                     ),
@@ -248,12 +246,15 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                           final listViewThreadCommentsRecord =
                               listViewThreadCommentsRecordList[
                                   listViewThreadIndex];
-                          return CommentWidget(
-                            key: Key(
-                                'Key49i_${listViewThreadIndex}_of_${listViewThreadCommentsRecordList.length}'),
-                            comment: listViewThreadCommentsRecord,
-                            post: widget.post!,
-                            thread: widget.thread!,
+                          return Visibility(
+                            visible: listViewThreadCommentsRecord.isReply,
+                            child: CommentWidget(
+                              key: Key(
+                                  'Key49i_${listViewThreadIndex}_of_${listViewThreadCommentsRecordList.length}'),
+                              comment: listViewThreadCommentsRecord,
+                              post: widget.post!,
+                              thread: widget.thread!,
+                            ),
                           );
                         },
                       );

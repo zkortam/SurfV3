@@ -96,8 +96,9 @@ class _CommentWidgetState extends State<CommentWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Flexible(
-                  child: StreamBuilder<UsersRecord>(
-                    stream: UsersRecord.getDocument(widget.comment!.author!),
+                  child: FutureBuilder<UsersRecord>(
+                    future:
+                        UsersRecord.getDocumentOnce(widget.comment!.author!),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
                       if (!snapshot.hasData) {
@@ -130,7 +131,10 @@ class _CommentWidgetState extends State<CommentWidget> {
                                 shape: BoxShape.circle,
                               ),
                               child: Image.network(
-                                rowUsersRecord.photoUrl,
+                                valueOrDefault<String>(
+                                  rowUsersRecord.photoUrl,
+                                  '000',
+                                ),
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -152,7 +156,10 @@ class _CommentWidgetState extends State<CommentWidget> {
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Text(
-                                            rowUsersRecord.displayName,
+                                            valueOrDefault<String>(
+                                              rowUsersRecord.displayName,
+                                              'name',
+                                            ),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -346,7 +353,7 @@ class _CommentWidgetState extends State<CommentWidget> {
                                           decoration: const BoxDecoration(),
                                           child: Builder(
                                             builder: (context) {
-                                              final replies = widget
+                                              final repliescomment = widget
                                                       .comment?.replies
                                                       .toList() ??
                                                   [];
@@ -355,16 +362,18 @@ class _CommentWidgetState extends State<CommentWidget> {
                                                 padding: EdgeInsets.zero,
                                                 shrinkWrap: true,
                                                 scrollDirection: Axis.vertical,
-                                                itemCount: replies.length,
-                                                itemBuilder:
-                                                    (context, repliesIndex) {
-                                                  final repliesItem =
-                                                      replies[repliesIndex];
+                                                itemCount:
+                                                    repliescomment.length,
+                                                itemBuilder: (context,
+                                                    repliescommentIndex) {
+                                                  final repliescommentItem =
+                                                      repliescomment[
+                                                          repliescommentIndex];
                                                   return StreamBuilder<
                                                       CommentsRecord>(
                                                     stream: CommentsRecord
                                                         .getDocument(
-                                                            repliesItem),
+                                                            repliescommentItem),
                                                     builder:
                                                         (context, snapshot) {
                                                       // Customize what your widget looks like when it's loading.
@@ -389,7 +398,7 @@ class _CommentWidgetState extends State<CommentWidget> {
 
                                                       return ReplyWidget(
                                                         key: Key(
-                                                            'Keylja_${repliesIndex}_of_${replies.length}'),
+                                                            'Keylja_${repliescommentIndex}_of_${repliescomment.length}'),
                                                         comment:
                                                             replyCommentsRecord,
                                                       );
